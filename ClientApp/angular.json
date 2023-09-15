@@ -132,5 +132,8 @@
       }
     }
   },
-  "defaultProject": "Labiofam"
+  "defaultProject": "Labiofam",
+  "cli": {
+    "analytics": false
+  }
 }
