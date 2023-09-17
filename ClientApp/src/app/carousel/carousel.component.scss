@@ -8,7 +8,7 @@
   text-align: center;
   width: 80vw; /* Ancho del contenedor como porcentaje del ancho de la ventana del navegador */
   height: 30vh; /* Altura del contenedor como porcentaje de la altura de la ventana del navegador */
-  border-radius: 15px; /* Radio de la esquina del borde del contenedor */
+  border-radius: 5px; /* Radio de la esquina del borde del contenedor */
   box-shadow: 0 8px 16px #dce1e1; /* Sombra alrededor del contenedor */
   overflow: hidden; /*  */
 }
@@ -16,7 +16,7 @@
 /* Estilos para todas las imágenes en el carrusel */
 .carousel-container img {
   display: none;
-  border-radius: 15px; /* Radio de la esquina del borde de las imágenes */
+  border-radius: auto; /* Radio de la esquina del borde de las imágenes */
   width: 100%; /* Las imágenes ocuparán el ancho completo de su contenedor padre */
   height: 100%; /* Las imágenes ocuparán la altura completa de su contenedor padre */
   object-fit: cover; /* Las imágenes se redimensionarán para cubrir todo el contenedor manteniendo su aspecto */
@@ -93,7 +93,7 @@
 /* Definición de los keyframes para la animación 'fade' */
 @keyframes fade {
   from {
-    opacity: 0.2;
+    opacity: 0.3;
   } /* Opacidad inicial de las imágenes */
   to {
     opacity: 1;

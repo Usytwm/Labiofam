@@ -11,7 +11,7 @@
       [ngClass]="{ 'image-active': selectedIndex === i }"
       class="fade"
     />
-    <div class="image-text">
+    <div *ngIf="selectedIndex === i" class="image-text">
       <h2>{{ image.imageName }}</h2>
       <p>{{ image.imageDesc }}</p>
     </div>
