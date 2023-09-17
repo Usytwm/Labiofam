@@ -1,0 +1,141 @@
+/* Importa Font Awesome*/
+@import "~@fortawesome/fontawesome-free/css/all.css";
+
+/* Estilos para el contenedor principal del carrusel */
+.carousel-container {
+  position: relative;
+  margin: auto;
+  text-align: center;
+  width: 80vw; /* Ancho del contenedor como porcentaje del ancho de la ventana del navegador */
+  height: 30vh; /* Altura del contenedor como porcentaje de la altura de la ventana del navegador */
+  border-radius: 15px; /* Radio de la esquina del borde del contenedor */
+  box-shadow: 0 8px 16px #dce1e1; /* Sombra alrededor del contenedor */
+  overflow: hidden; /*  */
+}
+
+/* Estilos para todas las imágenes en el carrusel */
+.carousel-container img {
+  display: none;
+  border-radius: 15px; /* Radio de la esquina del borde de las imágenes */
+  width: 100%; /* Las imágenes ocuparán el ancho completo de su contenedor padre */
+  height: 100%; /* Las imágenes ocuparán la altura completa de su contenedor padre */
+  object-fit: cover; /* Las imágenes se redimensionarán para cubrir todo el contenedor manteniendo su aspecto */
+}
+
+/* Estilos para la imagen activa en el carrusel */
+.carousel-container img.image-active {
+  display: block; /* La imagen activa se muestra */
+  width: 100%; /* La imagen activa ocupará el ancho completo de su contenedor padre */
+  height: 30vh; /* Altura de la imagen activa como porcentaje de la altura de la ventana del navegador */
+  transition: transform 2s; /* Añade una transición suave al efecto de zoom */
+}
+
+.image-container {
+  position: relative;
+}
+
+.image-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.image-container:hover .image-text {
+  opacity: 1;
+}
+
+.carousel-container img.image-active:hover {
+  transform: scale(
+    1.1
+  ); /* Aumenta el tamaño de la imagen en un 10% cuando el mouse pasa por encima */
+}
+
+/* Estilos para los indicadores del carrusel */
+.carousel-dot-container {
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+.dot {
+  cursor: pointer;
+  height: 13px;
+  width: 13px;
+  margin: 0 5px;
+  background-color: #fff;
+  border-radius: 50%;
+  display: inline-block;
+  transition: opacity 0.6s ease;
+  opacity: 0.5;
+}
+
+.active,
+.dot:hover {
+  opacity: 1;
+}
+/* Estilos para la animación de desvanecimiento de las imágenes */
+.fade {
+  animation-name: fade;
+  animation-duration: 3s; /* Duración de la animación */
+  animation-fill-mode: forwards; /* La animación mantendrá el estilo del último keyframe después de terminar */
+}
+
+/* Definición de los keyframes para la animación 'fade' */
+@keyframes fade {
+  from {
+    opacity: 0.2;
+  } /* Opacidad inicial de las imágenes */
+  to {
+    opacity: 1;
+  } /* Opacidad final de las imágenes */
+}
+
+/* Estilos para los botones del carrusel */
+.btn-carousel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15%;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+  background: 0 0;
+  border: 0;
+  cursor: pointer;
+}
+
+.btn-prev {
+  left: 0;
+}
+
+.btn-next {
+  right: 0;
+}
+
+.icon-carousel:hover {
+  color: #fff;
+  opacity: 0.5;
+  transition: all 0.15s ease;
+}
+
+.icon-carousel:active {
+  opacity: 0.5;
+}
+
+.icon-next,
+.icon-prev {
+  font-size: 35px;
+}

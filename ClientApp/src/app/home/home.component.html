@@ -1,3 +1,5 @@
+<app-carousel ></app-carousel>
+<br>
 <h1>Hello, world!</h1>
 <p>Welcome to your new single-page application, built with:</p>
 <ul>
@@ -40,14 +42,3 @@
   <code>ng</code> command (e.g., <code>ng test</code>), or use
   <code>npm</code> to install extra packages into it.
 </p>
-<ngb-carousel>
-  <ng-template ngbSlide *ngFor="let product of productos">
-    <div class="picsum-img-wrapper">
-      <img src="{{product.img}}" alt="Random first slide" />
-    </div>
-    <div class="carousel-caption">
-      <h3>{{product.name}}</h3>
-      <p>{{product.desc}}</p>
-    </div>
-  </ng-template>
-</ngb-carousel>
