@@ -13,6 +13,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { MapInfoDisplayComponent } from './map-info-display-component/map-info-display.component';
+import { MapComponent } from './map/map.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { MapInfoDisplayComponent } from './map-info-display-component/map-info-d
     FetchDataComponent,
     CarouselComponent,
     MapInfoDisplayComponent,
+    MapComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
