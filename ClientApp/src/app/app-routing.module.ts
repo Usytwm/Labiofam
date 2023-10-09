@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ListOfPeopleComponent } from './Components/list-of-people/list-of-people.component';
 import { EditPeopleComponent } from './Components/edit-people/edit-people.component';
 import { InfoComponent } from './Components/info/info.component';
+import { MapInfoDisplayComponent } from './Components/map-info-display/map-info-display.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: 'edit/:id',
     component: EditPeopleComponent,
+  },
+  {
+    path: 'map',
+    component: MapInfoDisplayComponent,
   },
   {
     path: '**',
