@@ -1,43 +1,43 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+//modulos
+import { SharedModule } from './Shared/shared.module';
+
+//Componentes
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
-import { CarouselComponent } from './carousel/carousel.component';
-import { MatRadioModule } from '@angular/material/radio';
-import { MapInfoDisplayComponent } from './map-info-display-component/map-info-display.component';
-import { MapComponent } from './map/map.component';
+import { NavMenuComponent } from './Components/nav-menu/nav-menu.component';
+import { MapInfoDisplayComponent } from './Components/map-info-display/map-info-display.component';
+import { HomeComponent } from './Components/home/home.component';
+import { FeedbackComponent } from './Components/feedback/feedback.component';
+import { LoginComponent } from './Components/login/login.component';
+import { CarouselComponent } from './Components/carousel/carousel.component';
+import { ListOfPeopleComponent } from './Components/list-of-people/list-of-people.component';
+import { InfoComponent } from './Components/info/info.component';
+import { EditPeopleComponent } from './Components/edit-people/edit-people.component';
+import { SpinnerComponent } from './Components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
-    HomeComponent,
-    CounterComponent,
-    FetchDataComponent,
-    CarouselComponent,
     MapInfoDisplayComponent,
-    MapComponent,
+    HomeComponent,
+    FeedbackComponent,
+    LoginComponent,
+    CarouselComponent,
+    ListOfPeopleComponent,
+    InfoComponent,
+    EditPeopleComponent,
+    SpinnerComponent,
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-    HttpClientModule,
-    FormsModule,
-    MatRadioModule,
-    CommonModule,
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'map', component: MapInfoDisplayComponent },
-    ]),
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

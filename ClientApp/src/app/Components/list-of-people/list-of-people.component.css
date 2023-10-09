@@ -1,0 +1,54 @@
+table {
+  width: 100%;
+}
+.container {
+  margin: 0 10%;
+}
+
+td,
+th {
+  width: 15%;
+}
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+.delete {
+  cursor: pointer;
+  color: chocolate;
+}
+.edit {
+  cursor: pointer;
+  color: cornflowerblue;
+}
+.search {
+  cursor: pointer;
+}
+
+.example-label {
+  display: table-cell;
+  font-size: 14px;
+  margin-left: 8px;
+  min-width: 120px;
+}
+
+.example-button-row {
+  display: table-cell;
+  max-width: 600px;
+}
+
+.example-button-row .mat-mdc-button-base {
+  margin: 8px 8px 8px 0;
+}
+
+.example-flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.example-button-container {
+  display: flex;
+  justify-content: center;
+  width: 120px;
+}
