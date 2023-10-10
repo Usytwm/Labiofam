@@ -7,6 +7,7 @@ import { EditPeopleComponent } from './Components/edit-people/edit-people.compon
 import { InfoComponent } from './Components/info/info.component';
 import { MapInfoDisplayComponent } from './Components/map-info-display/map-info-display.component';
 import { HomeComponent } from './Components/home/home.component';
+import { FeedbackComponent } from './Components/feedback/feedback.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,10 @@ const routes: Routes = [
   {
     path: 'edit/:id',
     component: EditPeopleComponent,
+  },
+  {
+    path: 'feedback',
+    component: FeedbackComponent,
   },
   {
     path: 'map',
