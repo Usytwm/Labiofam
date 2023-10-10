@@ -6,6 +6,7 @@ import { ListOfPeopleComponent } from './Components/list-of-people/list-of-peopl
 import { EditPeopleComponent } from './Components/edit-people/edit-people.component';
 import { InfoComponent } from './Components/info/info.component';
 import { MapInfoDisplayComponent } from './Components/map-info-display/map-info-display.component';
+import { HomeComponent } from './Components/home/home.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'listpersons',
     component: ListOfPeopleComponent,
+  },
+  {
+    path: 'home',
+    component: HomeComponent,
   },
   {
     path: 'addpeople',
