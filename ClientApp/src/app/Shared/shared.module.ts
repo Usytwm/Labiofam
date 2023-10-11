@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 //Angular Material
 import { MatTableModule } from '@angular/material/table';
@@ -34,6 +35,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatProgressBarModule,
     MatGridListModule,
     ReactiveFormsModule,
+    HttpClientModule,
   ],
   exports: [
     MatTableModule,
@@ -49,6 +51,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatGridListModule,
     MatProgressBarModule,
     ReactiveFormsModule,
+    HttpClientModule,
   ],
 })
 export class SharedModule {}

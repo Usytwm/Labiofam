@@ -4,16 +4,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Usuario } from 'src/app/Interfaces/Usuario';
+import { PersonaService } from 'src/app/Services/persona.service';
 
-const users: Usuario[] = [
-  { IDUsuario: 1, Username: 'Hydrogen', HashPassword: 'H' },
-  { IDUsuario: 2, Username: 'Hytehhttjrjry', HashPassword: 'j' },
-  { IDUsuario: 3, Username: 'Hythrthrhtn', HashPassword: 'k' },
-  { IDUsuario: 4, Username: 'Hrgergrr', HashPassword: 'l' },
-  { IDUsuario: 5, Username: 'sffsgegsf', HashPassword: 'm' },
-  { IDUsuario: 6, Username: 'Hydrogdvgsfxven', HashPassword: 'n' },
-  { IDUsuario: 7, Username: 'Hdscsdrogen', HashPassword: 'oo' },
-];
 @Component({
   selector: 'app-list-of-people',
   templateUrl: './list-of-people.component.html',
@@ -26,14 +18,25 @@ export class ListOfPeopleComponent implements AfterViewInit, OnInit {
     'HashPassword',
     'Actions',
   ];
-  dataSource = new MatTableDataSource<Usuario>(users);
+  dataSource = new MatTableDataSource<Usuario>();
   loading: Boolean = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private _snackBar: MatSnackBar) {}
-  ngOnInit(): void {}
+  constructor(
+    private _snackBar: MatSnackBar,
+    private _personasservice: PersonaService
+  ) {}
+  ngOnInit(): void {
+    this.obtenerPersonas();
+  }
+
+  obtenerPersonas() {
+    this._personasservice.getPerson().subscribe((data) => {
+      this.dataSource.data = data;
+    });
+  }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
@@ -50,10 +53,13 @@ export class ListOfPeopleComponent implements AfterViewInit, OnInit {
     }
   }
 
-  Delete() {
-    this._snackBar.open('delete sucess', '', {
-      duration: 3000,
-      horizontalPosition: 'right',
+  Delete(id: Number) {
+    this._personasservice.deletePerson(id).subscribe(() => {
+      this._snackBar.open('delete sucess', '', {
+        duration: 3000,
+        horizontalPosition: 'right',
+      });
+      this.obtenerPersonas();
     });
   }
 }

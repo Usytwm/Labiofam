@@ -19,7 +19,6 @@ import { ListOfPeopleComponent } from './Components/list-of-people/list-of-peopl
 import { InfoComponent } from './Components/info/info.component';
 import { EditPeopleComponent } from './Components/edit-people/edit-people.component';
 import { SpinnerComponent } from './Components/spinner/spinner.component';
-import { FormsModule } from '@angular/forms';
 import { CardBioproductComponent } from './Components/card-bioproduct/card-bioproduct.component';
 import { BioproductComponent } from './Components/bioproduct/bioproduct.component';
 

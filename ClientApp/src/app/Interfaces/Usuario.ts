@@ -1,5 +1,5 @@
 export interface Usuario {
-  IDUsuario?: number;
-  Username: String;
-  HashPassword: String;
+  idUsuario?: number;
+  username: String;
+  hashPassword: String;
 }
