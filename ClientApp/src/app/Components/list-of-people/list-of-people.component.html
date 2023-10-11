@@ -1,15 +1,19 @@
 <p>list-of-people works!</p>
 <app-spinner *ngIf="loading"></app-spinner>
 <div class="container">
-  <mat-form-field>
-    <mat-label>Filter</mat-label>
-    <input
-      matInput
-      (keyup)="applyFilter($event)"
-      placeholder="Ex. Mia"
-      #input
-    />
-  </mat-form-field>
+  <div class="filter">
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input
+        matInput
+        (keyup)="applyFilter($event)"
+        placeholder="Ex. Mia"
+        #input
+        autocomplete="off"
+      />
+    </mat-form-field>
+  </div>
+
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->

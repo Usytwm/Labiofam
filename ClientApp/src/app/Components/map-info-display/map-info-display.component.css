@@ -6,6 +6,13 @@
   height: auto; /* Establece una altura predeterminada */
 }
 
+.busqueda{
+  margin-left: auto;
+  margin-right: 0px;
+  margin-bottom: 10px;
+  width: 30%;
+
+}
 .map-wrap {
   position: relative;
   width: 100%;

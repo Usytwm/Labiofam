@@ -12,7 +12,7 @@ import { FeedbackComponent } from './Components/feedback/feedback.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'listpersons',
+    redirectTo: 'home',
     pathMatch: 'full',
   },
   {

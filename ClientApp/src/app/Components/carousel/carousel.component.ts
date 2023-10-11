@@ -9,37 +9,37 @@ export class CarouselComponent implements OnInit {
   // Arreglo de imágenes para el carrusel
   images = [
     {
-      imageSrc: 'assets/img1.jpg',
+      imageSrc: 'assets/1.jpg',
       imageAlt: 'nature1',
       imageName: 'img1',
       imageDesc: 'Description1',
     },
     {
-      imageSrc: 'assets/img2.jpg',
+      imageSrc: 'assets/2.jpg',
       imageAlt: 'nature2',
       imageName: 'img2',
       imageDesc: 'Description2',
     },
     {
-      imageSrc: 'assets/img3.jpg',
+      imageSrc: 'assets/3.jpg',
       imageAlt: 'nature3',
       imageName: 'img3',
       imageDesc: 'Description3',
     },
     {
-      imageSrc: 'assets/img4.jpg',
+      imageSrc: 'assets/4.jpg',
       imageAlt: 'nature4',
       imageName: 'img4',
       imageDesc: 'Description4',
     },
     {
-      imageSrc: 'assets/img5.jpg',
+      imageSrc: 'assets/5.jpg',
       imageAlt: 'nature5',
       imageName: 'img5',
       imageDesc: 'Description5',
     },
     {
-      imageSrc: 'assets/img6.jpg',
+      imageSrc: 'assets/6.jpg',
       imageAlt: 'nature6',
       imageName: 'img6',
       imageDesc: 'Description6',

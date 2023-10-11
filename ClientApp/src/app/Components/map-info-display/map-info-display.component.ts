@@ -35,6 +35,7 @@ export class MapInfoDisplayComponent implements AfterViewInit, OnDestroy {
       municipio: 'Municipio 1',
       provincia: 'Provincia 1',
       direccionGeoespacial: { lng: -82.36764, lat: 23.087586 },
+      img: '/',
     },
     {
       id: 2,
@@ -44,6 +45,7 @@ export class MapInfoDisplayComponent implements AfterViewInit, OnDestroy {
       municipio: 'Municipio 2',
       provincia: 'Provincia 2',
       direccionGeoespacial: { lng: -81.103321, lat: 22.911131 },
+      img: '/',
     },
     {
       id: 3,
@@ -53,6 +55,7 @@ export class MapInfoDisplayComponent implements AfterViewInit, OnDestroy {
       municipio: 'Municipio 3',
       provincia: 'Provincia 3',
       direccionGeoespacial: { lng: -79.925037, lat: 22.325472 },
+      img: '/',
     },
     {
       id: 4,
@@ -62,6 +65,7 @@ export class MapInfoDisplayComponent implements AfterViewInit, OnDestroy {
       municipio: 'Municipio 4',
       provincia: 'Provincia 4',
       direccionGeoespacial: { lng: -80.345264, lat: 22.083897 },
+      img: '/',
     },
     {
       id: 5,
@@ -71,6 +75,7 @@ export class MapInfoDisplayComponent implements AfterViewInit, OnDestroy {
       municipio: 'Municipio 5',
       provincia: 'Provincia 5',
       direccionGeoespacial: { lng: -79.540516, lat: 22.002431 },
+      img: '/',
     },
     {
       id: 6,
@@ -80,6 +85,7 @@ export class MapInfoDisplayComponent implements AfterViewInit, OnDestroy {
       municipio: 'Municipio6',
       provincia: 'Provincia6',
       direccionGeoespacial: { lng: -78.535267, lat: 21.885242 },
+      img: '/',
     },
     {
       id: 7,
@@ -89,6 +95,7 @@ export class MapInfoDisplayComponent implements AfterViewInit, OnDestroy {
       municipio: 'Municipio7',
       provincia: 'Provincia7',
       direccionGeoespacial: { lng: -77.909046, lat: 21.366935 },
+      img: '/',
     },
   ];
 
@@ -97,7 +104,15 @@ export class MapInfoDisplayComponent implements AfterViewInit, OnDestroy {
     features: this.puntosDeVenta.map((punto) => ({
       type: 'Feature',
       properties: {
-        description: `<strong>${punto.nombre}</strong><p>${punto.direccion}, ${punto.municipio}, ${punto.provincia}</p>`,
+        description: ` <div style="text-align: center;">
+        <img src="${punto.img}" alt="${punto.nombre}" style="width: 100px; height: auto;">
+        <strong>${punto.nombre}</strong>
+        <p>${punto.direccion}, ${punto.municipio}, ${punto.provincia}</p>
+        <strong>Productos disponibles:</strong>
+        <p>coquisgv sbdcjh bcshjac sdbhc sbdhj</p>
+        <a href="/productos/${punto.id}">Ver más</a>
+      </div>
+        `,
       },
       geometry: {
         type: 'Point',
@@ -114,7 +129,7 @@ export class MapInfoDisplayComponent implements AfterViewInit, OnDestroy {
   ngOnInit(): void {}
 
   ngAfterViewInit() {
-    const initialState = { lng: -79.481167, lat: 21.521757, zoom: 6.2 };
+    const initialState = { lng: -79.481167, lat: 21.521757, zoom: 5.8 };
     const apiKey = 'tbjXu9R4kQGNcVpje2Yg';
 
     this.map = new Map({

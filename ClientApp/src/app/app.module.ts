@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //modulos
 import { SharedModule } from './Shared/shared.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 //Componentes
 import { AppRoutingModule } from './app-routing.module';
@@ -18,6 +19,9 @@ import { ListOfPeopleComponent } from './Components/list-of-people/list-of-peopl
 import { InfoComponent } from './Components/info/info.component';
 import { EditPeopleComponent } from './Components/edit-people/edit-people.component';
 import { SpinnerComponent } from './Components/spinner/spinner.component';
+import { FormsModule } from '@angular/forms';
+import { CardBioproductComponent } from './Components/card-bioproduct/card-bioproduct.component';
+import { BioproductComponent } from './Components/bioproduct/bioproduct.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +36,8 @@ import { SpinnerComponent } from './Components/spinner/spinner.component';
     InfoComponent,
     EditPeopleComponent,
     SpinnerComponent,
+    CardBioproductComponent,
+    BioproductComponent,
   ],
   imports: [
     BrowserModule,
