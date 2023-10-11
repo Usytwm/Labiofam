@@ -1,0 +1,76 @@
+<p>list-of-people works!</p>
+<app-spinner *ngIf="loading"></app-spinner>
+<div class="container">
+  <div class="filter">
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input
+        matInput
+        (keyup)="applyFilter($event)"
+        placeholder="Ex. Mia"
+        #input
+        autocomplete="off"
+      />
+    </mat-form-field>
+  </div>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- IDUsuario Column -->
+    <ng-container matColumnDef="IDUsuario">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+      <td mat-cell *matCellDef="let element">{{ element.IDUsuario }}</td>
+    </ng-container>
+
+    <!-- Username Column -->
+    <ng-container matColumnDef="Username">
+      <th mat-header-cell *matHeaderCellDef>Nombre de Usuario</th>
+      <td mat-cell *matCellDef="let element">{{ element.Username }}</td>
+    </ng-container>
+
+    <!-- HashPassword Column -->
+    <ng-container matColumnDef="HashPassword">
+      <th mat-header-cell *matHeaderCellDef>Password</th>
+      <td mat-cell *matCellDef="let element">{{ element.HashPassword }}</td>
+    </ng-container>
+
+    <!-- HashPassword Column -->
+    <ng-container matColumnDef="Actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon
+          routerLink="/info/1"
+          matTooltip="Info"
+          class="search"
+          fontIcon="search"
+        ></mat-icon>
+        <mat-icon
+          routerLink="/edit/1"
+          matTooltip="Edit"
+          class="edit"
+          fontIcon="edit"
+        ></mat-icon>
+        <mat-icon
+          (click)="Delete()"
+          matTooltip="Delete"
+          class="delete"
+          fontIcon="delete"
+        ></mat-icon>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 20]"
+    aria-label="Select page of periodic elements"
+  >
+  </mat-paginator>
+
+  <button routerLink="/addpeople" mat-fab color="primary" matTooltip="Add">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

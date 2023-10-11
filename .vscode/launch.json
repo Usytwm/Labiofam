@@ -1,0 +1,11 @@
+{
+  "configurations": [
+    {
+      "name": "C#: Labiofam [http]",
+      "type": "dotnet",
+      "request": "launch",
+      "projectPath": "${workspaceFolder}\\Labiofam.csproj",
+      "launchConfigurationId": "TargetFramework=;http"
+    }
+  ]
+}

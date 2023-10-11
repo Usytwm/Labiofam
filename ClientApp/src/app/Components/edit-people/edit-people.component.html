@@ -1,0 +1,46 @@
+<p>edit-people works!</p>
+<app-spinner *ngIf="loading"></app-spinner>
+<div class="container">
+  <mat-card class="card">
+    <mat-card-subtitle style="text-align: center">
+      <strong>Datos del Usuario</strong>
+    </mat-card-subtitle>
+    <form [formGroup]="form" style="margin-top: 10px" (ngSubmit)="Agregar()">
+      <mat-grid-list cols="2" rowHeight="80px">
+        <mat-grid-tile colspan="2">
+          <mat-form-field class="mat-form-field" appearance="outline">
+            <mat-label>Id</mat-label>
+            <input formControlName="Id" matInput autocomplete="off" />
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field class="mat-form-field" appearance="outline">
+            <mat-label>Username</mat-label>
+            <input formControlName="Username" matInput autocomplete="off" />
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile>
+          <mat-form-field class="mat-form-field" appearance="outline">
+            <mat-label>Pasword</mat-label>
+            <input formControlName="Pasword" matInput autocomplete="off" />
+          </mat-form-field>
+        </mat-grid-tile>
+
+        <mat-grid-tile colspan="2">
+          <button
+            [disabled]="form.invalid"
+            type="submit"
+            class="btnacept"
+            mat-raised-button
+            color="primary"
+          >
+            Aceptar
+          </button>
+          <button mat-raised-button routerLink="/listpersons">Volver</button>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </form>
+  </mat-card>
+</div>
