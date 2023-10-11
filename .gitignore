@@ -232,3 +232,4 @@ _Pvt_Extensions
 .fake/
 
 ClientApp/.angular/cache
+ClientApp/src/assets
