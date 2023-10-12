@@ -96,3 +96,4 @@ C:\Users\Brian\Desktop\Labiofam Development\Labiofam\obj\Debug\net7.0\refint\Lab
 C:\Users\Brian\Desktop\Labiofam Development\Labiofam\obj\Debug\net7.0\Labiofam.pdb
 C:\Users\Brian\Desktop\Labiofam Development\Labiofam\obj\Debug\net7.0\Labiofam.genruntimeconfig.cache
 C:\Users\Brian\Desktop\Labiofam Development\Labiofam\obj\Debug\net7.0\ref\Labiofam.dll
+C:\Users\Brian\Desktop\Labiofam Development\Labiofam\bin\Debug\net7.0\package-lock.json

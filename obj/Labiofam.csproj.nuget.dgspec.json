@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Brian\\Desktop\\Labiofam Development\\Labiofam\\Labiofam.csproj": {}
+    "c:\\Users\\Brian\\Desktop\\Labiofam Development\\Labiofam\\Labiofam.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Brian\\Desktop\\Labiofam Development\\Labiofam\\Labiofam.csproj": {
+    "c:\\Users\\Brian\\Desktop\\Labiofam Development\\Labiofam\\Labiofam.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Brian\\Desktop\\Labiofam Development\\Labiofam\\Labiofam.csproj",
+        "projectUniqueName": "c:\\Users\\Brian\\Desktop\\Labiofam Development\\Labiofam\\Labiofam.csproj",
         "projectName": "Labiofam",
-        "projectPath": "C:\\Users\\Brian\\Desktop\\Labiofam Development\\Labiofam\\Labiofam.csproj",
+        "projectPath": "c:\\Users\\Brian\\Desktop\\Labiofam Development\\Labiofam\\Labiofam.csproj",
         "packagesPath": "C:\\Users\\Brian\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Brian\\Desktop\\Labiofam Development\\Labiofam\\obj\\",
+        "outputPath": "c:\\Users\\Brian\\Desktop\\Labiofam Development\\Labiofam\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Brian\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -44,13 +44,17 @@
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[7.0.11, )"
+              "version": "[7.0.12, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[7.0.11, )"
+              "version": "[7.0.12, )"
+            },
+            "MySqlConnector": {
+              "target": "Package",
+              "version": "[2.2.7, )"
             },
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",

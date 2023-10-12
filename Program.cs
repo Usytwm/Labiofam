@@ -1,4 +1,5 @@
 using Labiofam.Models;
+using Labiofam.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +28,10 @@ builder.Services.AddCors(options => options.AddPolicy("AllowWebApp", builder => 
     .AllowAnyHeader()
     .AllowAnyMethod()
     ));
+
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 var app = builder.Build();
 

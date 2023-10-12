@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Labiofam.Migrations
 {
     [DbContext(typeof(WebDbContext))]
-    [Migration("20231012005740_InitialCreate")]
+    [Migration("20231012065539_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -19,7 +19,7 @@ namespace Labiofam.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.11")
+                .HasAnnotation("ProductVersion", "7.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("Labiofam.Models.Client", b =>
