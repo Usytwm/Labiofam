@@ -1,0 +1,26 @@
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  margin: auto; /* Centra el contenedor horizontalmente */
+}
+
+.card {
+  max-width: 50%; /* Ajusta este valor a lo que necesites */
+  max-height: 50%; /* Ajusta este valor a lo que necesites */
+  margin: auto;
+  overflow: auto; /* Asegura que el contenido pueda desplazarse si excede la altura máxima */
+}
+
+.form-control {
+  width: 350px; /* Ajusta este valor a lo que necesites */
+}
+.account {
+  color: blue;
+  margin: 10px; /* Añade un poco de margen alrededor del icono */
+}
+.form-container-icon {
+  text-align: center;
+}
+

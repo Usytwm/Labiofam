@@ -33,11 +33,11 @@ export class EditPeopleComponent implements OnInit {
   ngOnInit(): void {
     if (this.id != 'null') {
       this.operacion = 'Editar';
-      this.obtenermascota(this.id);
+      this.obtenerpersona(this.id);
     }
   }
 
-  obtenermascota(id: string) {
+  obtenerpersona(id: string) {
     this.loading = true;
     this._personservice.getPersona(id).subscribe((data) => {
       this.form.patchValue({

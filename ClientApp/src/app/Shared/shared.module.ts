@@ -17,6 +17,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [],
@@ -35,6 +36,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatProgressBarModule,
     MatGridListModule,
     ReactiveFormsModule,
+    MatCheckboxModule,
     HttpClientModule,
   ],
   exports: [
@@ -43,6 +45,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatSortModule,
     MatFormFieldModule,
     MatInputModule,
+    MatCheckboxModule,
     MatIconModule,
     MatTooltipModule,
     MatButtonModule,

@@ -18,7 +18,7 @@ namespace Labiofam.Controllers
             _context = context;
         }
 
-        [HttpGet]
+        [HttpGet]//obtener todas las personas
         public async Task<IActionResult> Get()
         {
             var users = await _context.Users!.ToListAsync();
@@ -26,7 +26,7 @@ namespace Labiofam.Controllers
         }
 
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}")]//obtener persona
         public async Task<IActionResult> Get(Guid id)
         {
             try
@@ -41,7 +41,7 @@ namespace Labiofam.Controllers
         }
 
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}")]//eliminar persona
         public async Task<IActionResult> Delete(Guid id)
         {
             try
@@ -63,7 +63,7 @@ namespace Labiofam.Controllers
         }
 
 
-        [HttpPost]
+        [HttpPost]//agregar persona
         public async Task<IActionResult> Post(User person)
         {
             try
@@ -78,7 +78,7 @@ namespace Labiofam.Controllers
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id}")]//editar persona
         public async Task<IActionResult> Put(Guid id, User user)
         {
             try
