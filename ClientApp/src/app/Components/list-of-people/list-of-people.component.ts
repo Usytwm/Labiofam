@@ -3,7 +3,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { Usuario } from 'src/app/Interfaces/Usuario';
+import { User as Usuario } from 'src/app/Interfaces/User';
 import { PersonaService } from 'src/app/Services/persona.service';
 
 @Component({

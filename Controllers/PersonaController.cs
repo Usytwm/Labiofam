@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Labiofam.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -11,59 +12,64 @@ namespace Labiofam.Controllers
     [ApiController]
     public class PersonaController : Controller
     {
-        private List<Persona> personas = new List<Persona>
-            {
-                new Persona { idUsuario = 1, username = "Usuario1", hashPassword = "Contraseña1" },
-                new Persona { idUsuario = 2, username = "Usuario2", hashPassword = "Contraseña2" },
-                new Persona { idUsuario = 3, username = "Usuario3", hashPassword = "Contraseña3" },
-                new Persona { idUsuario = 4, username = "Usuario4", hashPassword = "Contraseña4" },
-                new Persona { idUsuario = 5, username = "Usuario5", hashPassword = "Contraseña5" }
-            };
-
-        [HttpGet]
-        public IActionResult Get()
+        private readonly WebDbContext _context;
+        public PersonaController(WebDbContext context)
         {
-            return Ok(this.personas);
+            _context = context;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var users = await _context.Users!.ToListAsync();
+            return Ok(users);
+        }
+
+
         [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        public async Task<IActionResult> Get(Guid id)
         {
             try
             {
-                Persona user = personas.First(x => x.idUsuario == id);
+                User user = await _context.Users!.FirstAsync(x => x.User_ID == id);
                 return Ok(user);
             }
             catch (Exception ex)
             {
-
                 return BadRequest(ex);
             }
-
         }
 
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             try
             {
-                this.personas.RemoveAll(x => x.idUsuario == id);
+                var person = await _context.Users!.FirstOrDefaultAsync(x => x.User_ID == id);
+                if (person == null)
+                {
+                    return NotFound();
+                }
+
+                _context.Users!.Remove(person);
+                await _context.SaveChangesAsync();
                 return NoContent();
             }
             catch (Exception ex)
             {
                 return BadRequest(ex);
             }
-
         }
 
+
         [HttpPost]
-        public IActionResult Post(Persona person)
+        public async Task<IActionResult> Post(User person)
         {
             try
             {
-                this.personas.Add(person);
+                _context.Users!.Add(person);
+                await _context.SaveChangesAsync();
                 return Ok();
             }
             catch (Exception ex)

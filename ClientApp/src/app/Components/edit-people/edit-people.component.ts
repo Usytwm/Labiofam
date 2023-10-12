@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Usuario } from 'src/app/Interfaces/Usuario';
+import { User as Usuario } from 'src/app/Interfaces/User';
 import { PersonaService } from 'src/app/Services/persona.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -38,7 +38,7 @@ export class EditPeopleComponent {
         duration: 3000,
         horizontalPosition: 'right',
       });
-      this.router.navigate(['/listpersons'])
+      this.router.navigate(['/listpersons']);
       console.log(User);
     });
   }
