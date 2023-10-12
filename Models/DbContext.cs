@@ -72,9 +72,11 @@ public class WebDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
+        var default_connection = _configuration.GetConnectionString("DefaultConnection");
+        
         if (!optionsBuilder.IsConfigured)
             //optionsBuilder.UseMySql((ServerVersion)_configuration.GetSection("ConnectionStrings:DefaultConnection"));
-            optionsBuilder.UseMySql(_configuration.GetConnectionString("DefaultConnection"), ServerVersion.AutoDetect(_configuration.GetConnectionString("DefaultConnection")));
+            optionsBuilder.UseMySql(default_connection, ServerVersion.AutoDetect(default_connection));
 
     }
 }

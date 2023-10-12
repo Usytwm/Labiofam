@@ -15,7 +15,6 @@ public class Point_of_Sales
     public string? Municipality { get; set; }
     [StringLength(32)]
     public string? Province { get; set; }
-
     public double Latitude { get; set; }
     public double Longitude { get; set; }
     //public (double, double) Coordinates { get; set; }

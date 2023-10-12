@@ -21,13 +21,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<WebDbContext>(options =>
     options.UseMySql(config.GetConnectionString("DefaultConnection"), ServerVersion.AutoDetect(config.GetConnectionString("DefaultConnection"))));
 
-
-
 //Cors
 builder.Services.AddCors(options => options.AddPolicy("AllowWebApp", builder => builder
-.AllowAnyOrigin()
-.AllowAnyHeader()
-.AllowAnyMethod()));
+    .AllowAnyOrigin()
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+    ));
 
 var app = builder.Build();
 
@@ -41,7 +40,7 @@ if (app.Environment.IsDevelopment())
 //Usecors
 app.UseCors("AllowWebApp");
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
