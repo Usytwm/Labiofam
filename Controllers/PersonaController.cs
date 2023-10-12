@@ -78,5 +78,26 @@ namespace Labiofam.Controllers
             }
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(Guid id, User user)
+        {
+            try
+            {
+                if (id != user.User_ID)
+                {
+                    return BadRequest();
+                }
+                _context.Update(user);
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+
+
     }
 }

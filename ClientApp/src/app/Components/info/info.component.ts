@@ -9,14 +9,15 @@ import { PersonaService } from 'src/app/Services/persona.service';
   styleUrls: ['./info.component.css'],
 })
 export class InfoComponent implements OnInit {
-  id: Number;
+  id: string;
   persona!: Usuario;
 
   constructor(
     private personaService: PersonaService,
     private aRoute: ActivatedRoute
   ) {
-    this.id = Number(this.aRoute.snapshot.paramMap.get('id'));
+    this.id = String(this.aRoute.snapshot.paramMap.get('id'));
+    console.log(this.id);
   }
 
   ngOnInit(): void {

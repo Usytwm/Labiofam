@@ -35,6 +35,7 @@ export class ListOfPeopleComponent implements AfterViewInit, OnInit {
   obtenerPersonas() {
     this._personasservice.getPerson().subscribe((data) => {
       this.dataSource.data = data;
+      console.log(this.dataSource.data);
     });
   }
 
@@ -53,7 +54,7 @@ export class ListOfPeopleComponent implements AfterViewInit, OnInit {
     }
   }
 
-  Delete(id: Number) {
+  Delete(id: string) {
     this._personasservice.deletePerson(id).subscribe(() => {
       this._snackBar.open('delete sucess', '', {
         duration: 3000,

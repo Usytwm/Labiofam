@@ -21,19 +21,19 @@
     <!-- IDUsuario Column -->
     <ng-container matColumnDef="IDUsuario">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
-      <td mat-cell *matCellDef="let element">{{ element.idUsuario }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.user_ID }}</td>
     </ng-container>
 
     <!-- Username Column -->
     <ng-container matColumnDef="Username">
       <th mat-header-cell *matHeaderCellDef>Nombre de Usuario</th>
-      <td mat-cell *matCellDef="let element">{{ element.username }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
     </ng-container>
 
     <!-- HashPassword Column -->
     <ng-container matColumnDef="HashPassword">
       <th mat-header-cell *matHeaderCellDef>Password</th>
-      <td mat-cell *matCellDef="let element">{{ element.hashPassword }}</td>
+      <td mat-cell *matCellDef="let element">{{ element.password }}</td>
     </ng-container>
 
     <!-- Actions Column -->
@@ -41,19 +41,19 @@
       <th mat-header-cell *matHeaderCellDef>Actions</th>
       <td mat-cell *matCellDef="let element">
         <mat-icon
-          routerLink="/info/{{ element.idUsuario }}"
+          routerLink="/info/{{ element.user_ID }}"
           matTooltip="Info"
           class="search"
           fontIcon="search"
         ></mat-icon>
         <mat-icon
-          routerLink="/edit/{{ element.idUsuario }}"
+          routerLink="/edit/{{ element.user_ID }}"
           matTooltip="Edit"
           class="edit"
           fontIcon="edit"
         ></mat-icon>
         <mat-icon
-          (click)="Delete(element.idUsuario)"
+          (click)="Delete(element.user_ID)"
           matTooltip="Delete"
           class="delete"
           fontIcon="delete"
