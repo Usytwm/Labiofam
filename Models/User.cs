@@ -5,7 +5,7 @@ namespace Labiofam.Models;
 public class User
 {
     [Key]
-    public readonly Guid User_ID = Guid.NewGuid();
+    public Guid User_ID { get; set; }
     [StringLength(64)]
     public string? Name { get; set; }
     [StringLength(32)]
