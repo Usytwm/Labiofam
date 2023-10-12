@@ -233,3 +233,6 @@ _Pvt_Extensions
 
 ClientApp/.angular/cache
 ClientApp/src/assets
+**/bin/
+**/obj/
+
