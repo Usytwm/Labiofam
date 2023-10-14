@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { User as Usuario } from 'src/app/Interfaces/User';
-import { PersonaService } from 'src/app/Services/persona.service';
+import { UserService } from 'src/app/Services/user.service';
 
 @Component({
   selector: 'app-info',
@@ -13,7 +13,7 @@ export class InfoComponent implements OnInit {
   persona!: Usuario;
 
   constructor(
-    private personaService: PersonaService,
+    private personaService: UserService,
     private aRoute: ActivatedRoute
   ) {
     this.id = String(this.aRoute.snapshot.paramMap.get('id'));
@@ -21,11 +21,11 @@ export class InfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getPersona();
+    this.getUsuario();
   }
 
-  getPersona() {
-    this.personaService.getPersona(this.id).subscribe((data) => {
+  getUsuario() {
+    this.personaService.get(this.id).subscribe((data) => {
       this.persona = data;
     });
   }

@@ -1,6 +1,8 @@
 <body>
-  <app-nav-menu></app-nav-menu>
-  <main >
+  <ng-container *ngIf="showNavMenu$ | async">
+    <app-nav-menu></app-nav-menu>
+  </ng-container>
+  <main>
     <router-outlet></router-outlet>
   </main>
 </body>

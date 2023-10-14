@@ -1,9 +1,9 @@
-<p>list-of-people works!</p>
+<div class="mat-primary titulo">Usuarios</div>
 <app-spinner *ngIf="loading"></app-spinner>
 <div class="container">
   <div class="filter">
     <mat-form-field>
-      <mat-label>Filter</mat-label>
+      <mat-label>Filtrar</mat-label>
       <input
         matInput
         (keyup)="applyFilter($event)"
@@ -19,10 +19,10 @@
           The actual rendered columns are set as a property on the row definition" -->
 
     <!-- IDUsuario Column -->
-    <ng-container matColumnDef="IDUsuario">
+    <!---<ng-container matColumnDef="IDUsuario">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
       <td mat-cell *matCellDef="let element">{{ element.user_ID }}</td>
-    </ng-container>
+    </ng-container>-->
 
     <!-- Username Column -->
     <ng-container matColumnDef="Username">
@@ -31,23 +31,32 @@
     </ng-container>
 
     <!-- HashPassword Column -->
-    <ng-container matColumnDef="HashPassword">
+    <!---<ng-container matColumnDef="HashPassword">
       <th mat-header-cell *matHeaderCellDef>Password</th>
       <td mat-cell *matCellDef="let element">{{ element.password }}</td>
+    </ng-container>-->
+
+    <ng-container matColumnDef="Role">
+      <th mat-header-cell *matHeaderCellDef>Rol</th>
+      <td mat-cell *matCellDef="let element">
+        <div class="texto" matTooltip="{{ 'kk' }}">
+          {{ 'kol' }}
+        </div>
+      </td>
     </ng-container>
 
     <!-- Actions Column -->
     <ng-container matColumnDef="Actions">
-      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
         <mat-icon
-          routerLink="/info/{{ element.user_ID }}"
+          routerLink="info/{{ element.user_ID }}"
           matTooltip="Info"
           class="search"
           fontIcon="search"
         ></mat-icon>
         <mat-icon
-          routerLink="/edit/{{ element.user_ID }}"
+          routerLink="edit/{{ element.user_ID }}"
           matTooltip="Edit"
           class="edit"
           fontIcon="edit"
@@ -70,7 +79,7 @@
   >
   </mat-paginator>
 
-  <button routerLink="/addpeople" mat-fab color="primary" matTooltip="Add">
+  <button routerLink="addUser" mat-fab color="primary" matTooltip="Add">
     <mat-icon>add</mat-icon>
   </button>
 </div>

@@ -4,7 +4,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //modulos
 import { SharedModule } from './Shared/shared.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 //Componentes
 import { AppRoutingModule } from './app-routing.module';
@@ -15,12 +14,14 @@ import { HomeComponent } from './Components/home/home.component';
 import { FeedbackComponent } from './Components/feedback/feedback.component';
 import { LoginComponent } from './Components/login/login.component';
 import { CarouselComponent } from './Components/carousel/carousel.component';
-import { ListOfPeopleComponent } from './Components/list-of-people/list-of-people.component';
 import { InfoComponent } from './Components/info/info.component';
-import { EditPeopleComponent } from './Components/edit-people/edit-people.component';
 import { SpinnerComponent } from './Components/spinner/spinner.component';
 import { CardBioproductComponent } from './Components/card-bioproduct/card-bioproduct.component';
 import { BioproductComponent } from './Components/bioproduct/bioproduct.component';
+import { FooterComponent } from './Components/footer/footer.component';
+import { UserManagementComponent } from './Components/user-management/user-management.component';
+import { UserEditComponent } from './Components/user-edit/user-edit.component';
+import { ProductManagementComponent } from './Components/product-management/product-management.component';
 
 @NgModule({
   declarations: [
@@ -31,12 +32,14 @@ import { BioproductComponent } from './Components/bioproduct/bioproduct.componen
     FeedbackComponent,
     LoginComponent,
     CarouselComponent,
-    ListOfPeopleComponent,
     InfoComponent,
-    EditPeopleComponent,
     SpinnerComponent,
     CardBioproductComponent,
     BioproductComponent,
+    FooterComponent,
+    UserManagementComponent,
+    UserEditComponent,
+    ProductManagementComponent,
   ],
   imports: [
     BrowserModule,

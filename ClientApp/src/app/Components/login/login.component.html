@@ -1,5 +1,3 @@
-<p>login works!</p>
-<br />
 <br />
 <mat-card class="card">
   <mat-card-subtitle style="text-align: center">
@@ -8,16 +6,25 @@
 
   <div class="form-container">
     <form>
-      <div class="form-container-icon">
-        <mat-icon
-          matTooltip="Hola"
-          class="account"
-          fontIcon="account_circle"
-        ></mat-icon>
-        <!-- Icono de usuario -->
+      <div class="containersvg">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="64"
+          height="64"
+          fill="currentColor"
+          class="bi bi-person-circle account"
+          viewBox="0 0 16 16"
+        >
+          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+          <path
+            fill-rule="evenodd"
+            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+          />
+        </svg>
       </div>
-
-      <h3 class="h3 mb-3 fw-normal">Datos de Usuario</h3>
+      <div class="containersvg">
+        <h3 class="h3 mb-3 fw-normal">Datos de Usuario</h3>
+      </div>
 
       <div class="form-floating">
         <input
@@ -28,7 +35,9 @@
         />
         <label for="floatingInput">Usuario</label>
       </div>
+
       <br />
+
       <div class="form-floating">
         <input
           type="password"
@@ -50,8 +59,11 @@
           Recuérdame
         </label>
       </div>
-      <button class="btn btn-primary py-2" type="submit">Sign in</button>
-      <p class="mt-5 mb-3 text-body-secondary">© 2010-2023</p>
+      <div style="display: flex; justify-content: space-between">
+        <button mat-raised-button color="primary" type="submit">Iniciar</button>
+        <button mat-raised-button routerLink="/home">Volver</button>
+      </div>
+      <p class="mt-5 mb-3 text-body-secondary">© 1960-2023</p>
     </form>
   </div>
 </mat-card>

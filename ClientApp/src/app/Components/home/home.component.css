@@ -20,3 +20,6 @@
     1.1
   ); /* Aumenta el tamaño de la imagen en un 10% cuando el mouse pasa por encima */
 }
+.espacio {
+  margin-bottom: 100px; /* Ajusta este valor a tu necesidad */
+}

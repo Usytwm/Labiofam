@@ -2,8 +2,8 @@ table {
   width: 100%;
 }
 .filter {
-  margin-left: auto;
-  margin-right: 0px;
+  margin-left: 0px;
+  margin-right: auto;
   width: 30%;
 }
 
@@ -25,4 +25,16 @@ th {
 }
 .search {
   cursor: pointer;
+}
+.texto {
+  display: inline-block;
+  cursor: pointer;
+}
+.titulo {
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+  padding: 10px;
 }

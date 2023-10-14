@@ -7,9 +7,12 @@
 }
 
 .card {
-  max-width: 50%; /* Ajusta este valor a lo que necesites */
+  max-width: 35%; /* Ajusta este valor a lo que necesites */
   max-height: 50%; /* Ajusta este valor a lo que necesites */
-  margin: auto;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 5%;
+  justify-content: center;
   overflow: auto; /* Asegura que el contenido pueda desplazarse si excede la altura máxima */
 }
 
@@ -17,10 +20,11 @@
   width: 350px; /* Ajusta este valor a lo que necesites */
 }
 .account {
-  color: blue;
+  color: #3f3db8;
   margin: 10px; /* Añade un poco de margen alrededor del icono */
 }
-.form-container-icon {
-  text-align: center;
+.containersvg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-

@@ -4,20 +4,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { User as Usuario } from 'src/app/Interfaces/User';
-import { PersonaService } from 'src/app/Services/persona.service';
+import { UserService } from 'src/app/Services/user.service';
 
 @Component({
-  selector: 'app-list-of-people',
-  templateUrl: './list-of-people.component.html',
-  styleUrls: ['./list-of-people.component.css'],
+  selector: 'app-user-management',
+  templateUrl: './user-management.component.html',
+  styleUrls: ['./user-management.component.css'],
 })
-export class ListOfPeopleComponent implements AfterViewInit, OnInit {
-  displayedColumns: string[] = [
-    'IDUsuario',
-    'Username',
-    'HashPassword',
-    'Actions',
-  ];
+export class UserManagementComponent implements AfterViewInit, OnInit {
+  displayedColumns: string[] = ['Username', 'Role', 'Actions'];
   dataSource = new MatTableDataSource<Usuario>();
   loading: Boolean = false;
 
@@ -26,16 +21,18 @@ export class ListOfPeopleComponent implements AfterViewInit, OnInit {
 
   constructor(
     private _snackBar: MatSnackBar,
-    private _personasservice: PersonaService
+    private _personasservice: UserService
   ) {}
   ngOnInit(): void {
     this.obtenerPersonas();
   }
 
   obtenerPersonas() {
-    this._personasservice.getPerson().subscribe((data) => {
+    this._personasservice.getAll().subscribe((data) => {
+      console.log(data);
+      this.loading = true;
       this.dataSource.data = data;
-      console.log(this.dataSource.data);
+      this.loading = false;
     });
   }
 
@@ -55,11 +52,13 @@ export class ListOfPeopleComponent implements AfterViewInit, OnInit {
   }
 
   Delete(id: string) {
-    this._personasservice.deletePerson(id).subscribe(() => {
+    this._personasservice.delete(id).subscribe(() => {
+      this.loading = true;
       this._snackBar.open('delete sucess', '', {
         duration: 3000,
         horizontalPosition: 'right',
       });
+      this.loading = false;
       this.obtenerPersonas();
     });
   }
