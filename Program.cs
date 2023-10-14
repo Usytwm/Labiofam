@@ -16,11 +16,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-/*builder.Services.AddDbContext<WebDbContext>(options =>
-    options.UseMySql((ServerVersion)config.GetSection("ConnectionStrings:DefaultConnection")));*/
-
-builder.Services.AddDbContext<WebDbContext>(options =>
-    options.UseMySql(config.GetConnectionString("DefaultConnection"), ServerVersion.AutoDetect(config.GetConnectionString("DefaultConnection"))));
+builder.Services.AddDbContext<WebDbContext>(
+    options => options.UseMySql(
+        config.GetConnectionString("DefaultConnection"),
+        ServerVersion.AutoDetect(config.GetConnectionString("DefaultConnection"))
+    ));
 
 //Cors
 builder.Services.AddCors(options => options.AddPolicy("AllowWebApp", builder => builder
@@ -29,9 +29,19 @@ builder.Services.AddCors(options => options.AddPolicy("AllowWebApp", builder => 
     .AllowAnyMethod()
     ));
 
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IClientService, ClientService>();
-builder.Services.AddScoped<IProductService, ProductService>();
+//Entities Services
+builder.Services.AddScoped<IEntityService<User>, UserService>();
+builder.Services.AddScoped<IEntityService<Client>, ClientService>();
+builder.Services.AddScoped<IEntityService<Product>, ProductService>();
+builder.Services.AddScoped<IEntityService<Contact>, ContactService>();
+builder.Services.AddScoped<IEntityService<Point_of_Sales>, POSService>();
+builder.Services.AddScoped<IEntityService<Role>, RoleService>();
+builder.Services.AddScoped<IEntityService<Service>, ServiceService>();
+
+//Relationship Services
+builder.Services.AddScoped<IRelationService<User_Role>, UserRoleService>();
+builder.Services.AddScoped<IRelationService<Product_POS>, ProductPOSService>();
+builder.Services.AddScoped<IRelationService<User_Product>, UserProductService>();
 
 var app = builder.Build();
 

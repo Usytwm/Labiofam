@@ -2,15 +2,14 @@ namespace Labiofam.Services;
 using Labiofam.Models;
 using Microsoft.EntityFrameworkCore;
 
-public class ClientService : IClientService
+public class ClientService : IEntityService<Client>
 {
     private readonly WebDbContext _webDbContext;
     public ClientService(WebDbContext webDbContext) { _webDbContext = webDbContext; }
 
-    public async Task<Client> GetClientAsync(Guid client_id)
+    public async Task<Client> GetAsync(Guid client_id)
     {
-        var clients = _webDbContext.Clients ??
-            throw new InvalidOperationException("No clients available");
+        var clients = _webDbContext.Clients!;
         var current_client = await clients.FirstOrDefaultAsync(
             client => client.Client_ID.Equals(client_id)
             );
@@ -20,10 +19,9 @@ public class ClientService : IClientService
         }
         throw new InvalidOperationException("Client not found");
     }
-    public async Task AddClientAsync(Client new_client)
+    public async Task AddAsync(Client new_client)
     {
-        var clients = _webDbContext.Clients ??
-            throw new InvalidOperationException("No clients available");
+        var clients = _webDbContext.Clients!;
         
         if (clients.Any(client => client.Name!.Equals(new_client.Name)))
             throw new InvalidOperationException("The client already exists");
@@ -34,10 +32,9 @@ public class ClientService : IClientService
         await _webDbContext.SaveChangesAsync();
     }
 
-    public async Task RemoveClientAsync(Guid client_id)
+    public async Task RemoveAsync(Guid client_id)
     {
-        var clients = _webDbContext.Clients ??
-            throw new InvalidOperationException("No clients available");
+        var clients = _webDbContext.Clients!;
         var current_client = await clients.FirstOrDefaultAsync(
             client => client.Client_ID!.Equals(client_id)
             ) ?? throw new InvalidOperationException("Client not found");
@@ -46,10 +43,9 @@ public class ClientService : IClientService
         await _webDbContext.SaveChangesAsync();
     }
 
-    public async Task EditClientAsync(Guid client_id, Client edited_client)
+    public async Task EditAsync(Guid client_id, Client edited_client)
     {
-        var clients = _webDbContext.Clients ??
-            throw new InvalidOperationException("No clients available");
+        var clients = _webDbContext.Clients!;
         var current_client = await clients.FirstOrDefaultAsync(
             client => client.Client_ID!.Equals(client_id)
             ) ?? throw new InvalidOperationException("Client not found");
@@ -61,13 +57,13 @@ public class ClientService : IClientService
         await _webDbContext.SaveChangesAsync();
     }
 
-    public async Task<List<Client>> GetAllClientsAsync()
+    public async Task<List<Client>> GetAllAsync()
     {
         var clients = await _webDbContext.Clients!.ToListAsync();
         return clients;
     }
 
-    public async Task RemoveAllClientsAsync()
+    public async Task RemoveAllAsync()
     {
         _webDbContext.RemoveRange(_webDbContext.Clients!);
         await _webDbContext.SaveChangesAsync();

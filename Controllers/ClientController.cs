@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 [ApiController]
 public class ClientController : Controller
 {
-    private readonly IClientService _clientService;
+    private readonly IEntityService<Client> _clientService;
 
-    public ClientController(IClientService clientService)
+    public ClientController(IEntityService<Client> clientService)
     {
         _clientService = clientService;
     }
@@ -18,7 +18,7 @@ public class ClientController : Controller
     public async Task<IActionResult> GetClient(Guid client_id)
     {
         try {
-            var client = await _clientService.GetClientAsync(client_id);
+            var client = await _clientService.GetAsync(client_id);
             return Ok(client);
         } catch (Exception ex) {
             return BadRequest(ex);
@@ -28,7 +28,7 @@ public class ClientController : Controller
     public async Task<IActionResult> AddClient(Client new_client)
     {
         try {
-            await _clientService.AddClientAsync(new_client);
+            await _clientService.AddAsync(new_client);
             return Ok();
         } catch (Exception ex) {
             return BadRequest(ex);
@@ -38,7 +38,7 @@ public class ClientController : Controller
     public async Task<IActionResult> RemoveClient(Guid client_id)
     {
         try {
-            await _clientService.RemoveClientAsync(client_id);
+            await _clientService.RemoveAsync(client_id);
             return Ok();
         } catch (Exception ex) {
             return BadRequest(ex);
@@ -48,7 +48,7 @@ public class ClientController : Controller
     public async Task<IActionResult> EditClient(Guid client_id, Client edited_client)
     {
         try {
-            await _clientService.EditClientAsync(client_id, edited_client);
+            await _clientService.EditAsync(client_id, edited_client);
             return Ok();
         } catch (Exception ex) {
             return BadRequest(ex);
@@ -58,7 +58,7 @@ public class ClientController : Controller
     public async Task<IActionResult> GetAllClients()
     {
         try {
-            var clients = await _clientService.GetAllClientsAsync();
+            var clients = await _clientService.GetAllAsync();
             return Ok(clients);
         } catch (Exception ex) {
             return BadRequest(ex);
@@ -68,7 +68,7 @@ public class ClientController : Controller
     public async Task<IActionResult> RemoveAllClients()
     {
         try {
-            await _clientService.RemoveAllClientsAsync();
+            await _clientService.RemoveAllAsync();
             return Ok();
         } catch (Exception ex) {
             return BadRequest(ex);
