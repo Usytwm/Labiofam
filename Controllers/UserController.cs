@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 [ApiController]
 public class UserController : Controller
 {
-    private readonly IUserService _userService;
+    private readonly IEntityService<User> _userService;
 
-    public UserController(IUserService userService)
+    public UserController(IEntityService<User> userService)
     {
         _userService = userService;
     }
@@ -18,7 +18,7 @@ public class UserController : Controller
     public async Task<IActionResult> GetUser(Guid user_id)
     {
         try {
-            var user = await _userService.GetUserAsync(user_id);
+            var user = await _userService.GetAsync(user_id);
             return Ok(user);
         } catch (Exception ex) {
             return BadRequest(ex);
@@ -28,7 +28,7 @@ public class UserController : Controller
     public async Task<IActionResult> AddUser(User new_User)
     {
         try {
-            await _userService.AddUserAsync(new_User);
+            await _userService.AddAsync(new_User);
             return Ok();
         } catch (Exception ex) {
             return BadRequest(ex);
@@ -38,7 +38,7 @@ public class UserController : Controller
     public async Task<IActionResult> RemoveUser(Guid user_id)
     {
         try {
-            await _userService.RemoveUserAsync(user_id);
+            await _userService.RemoveAsync(user_id);
             return Ok();
         } catch (Exception ex) {
             return BadRequest(ex);
@@ -48,7 +48,7 @@ public class UserController : Controller
     public async Task<IActionResult> EditUser(Guid user_id, User edited_user)
     {
         try {
-            await _userService.EditUserAsync(user_id, edited_user);
+            await _userService.EditAsync(user_id, edited_user);
             return Ok();
         } catch (Exception ex) {
             return BadRequest(ex);
@@ -58,7 +58,7 @@ public class UserController : Controller
     public async Task<IActionResult> GetAllUsers()
     {
         try {
-            var users = await _userService.GetAllUsersAsync();
+            var users = await _userService.GetAllAsync();
             return Ok(users);
         } catch (Exception ex) {
             return BadRequest(ex);
@@ -68,7 +68,7 @@ public class UserController : Controller
     public async Task<IActionResult> RemoveAllUsers()
     {
         try {
-            await _userService.RemoveAllUsersAsync();
+            await _userService.RemoveAllAsync();
             return Ok();
         } catch (Exception ex) {
             return BadRequest(ex);

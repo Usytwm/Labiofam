@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\Brian\\Desktop\\webapi\\Labiofam\\Labiofam.csproj": {}
+    "c:\\Users\\Brian\\Desktop\\Labiofam\\Labiofam\\Labiofam.csproj": {}
   },
   "projects": {
-    "c:\\Users\\Brian\\Desktop\\webapi\\Labiofam\\Labiofam.csproj": {
+    "c:\\Users\\Brian\\Desktop\\Labiofam\\Labiofam\\Labiofam.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\Brian\\Desktop\\webapi\\Labiofam\\Labiofam.csproj",
+        "projectUniqueName": "c:\\Users\\Brian\\Desktop\\Labiofam\\Labiofam\\Labiofam.csproj",
         "projectName": "Labiofam",
-        "projectPath": "c:\\Users\\Brian\\Desktop\\webapi\\Labiofam\\Labiofam.csproj",
+        "projectPath": "c:\\Users\\Brian\\Desktop\\Labiofam\\Labiofam\\Labiofam.csproj",
         "packagesPath": "C:\\Users\\Brian\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\Brian\\Desktop\\webapi\\Labiofam\\obj\\",
+        "outputPath": "c:\\Users\\Brian\\Desktop\\Labiofam\\Labiofam\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Brian\\AppData\\Roaming\\NuGet\\NuGet.Config"

@@ -2,56 +2,52 @@ namespace Labiofam.Services;
 using Labiofam.Models;
 using Microsoft.EntityFrameworkCore;
 
-public class RoleService : IRoleService
+public class RoleService : IEntityService<Role>
 {
     private readonly WebDbContext _webDbContext;
     public RoleService(WebDbContext webDbContext) { _webDbContext = webDbContext; }
 
-    public async Task<Role> GetRoleAsync(Guid user_id)
+    public async Task<Role> GetAsync(Guid role_id)
     {
-        var users = _webDbContext.Roles ??
-            throw new InvalidOperationException("No role available");
-        var current_user = await users.FirstOrDefaultAsync(
-            user => user.Role_ID.Equals(user_id)
+        var roles = _webDbContext.Roles!;
+        var current_role = await roles.FirstOrDefaultAsync(
+            role => role.Role_ID.Equals(role_id)
             );
-        if (current_user is not null)
+        if (current_role is not null)
         {
-            return current_user;
+            return current_role;
         }
-        throw new InvalidOperationException("role not found");
+        throw new InvalidOperationException("Role not found");
     }
-    public async Task AddRoleAsync(Role new_user)
+    public async Task AddAsync(Role new_role)
     {
-        var role = _webDbContext.Roles ??
-            throw new InvalidOperationException("No role available");
-
-        if (role.Any(user => user.Name!.Equals(new_user.Name)))
+        var roles = _webDbContext.Roles!;
+        
+        if (roles.Any(role => role.Name!.Equals(new_role.Name)))
             throw new InvalidOperationException("The role already exists");
 
-        new_user.Role_ID = Guid.NewGuid();
+        new_role.Role_ID = Guid.NewGuid();
 
-        role.Add(new_user);
+        roles.Add(new_role);
         await _webDbContext.SaveChangesAsync();
     }
 
-    public async Task RemoveRoleAsync(Guid user_id)
+    public async Task RemoveAsync(Guid role_id)
     {
-        var roles = _webDbContext.Users ??
-            throw new InvalidOperationException("No role available");
-        var current_user = await roles.FirstOrDefaultAsync(
-            user => user.User_ID!.Equals(user_id)
+        var roles = _webDbContext.Roles!;
+        var current_role = await roles.FirstOrDefaultAsync(
+            role => role.Role_ID!.Equals(role_id)
             ) ?? throw new InvalidOperationException("Role not found");
 
-        roles.Remove(current_user);
+        roles.Remove(current_role);
         await _webDbContext.SaveChangesAsync();
     }
 
-    public async Task EditRoleAsync(Guid user_id, Role edited_role)
+    public async Task EditAsync(Guid role_id, Role edited_role)
     {
-        var role = _webDbContext.Roles ??
-            throw new InvalidOperationException("No roles available");
-        var current_role = await role.FirstOrDefaultAsync(
-            user => user.Role_ID!.Equals(user_id)
+        var roles = _webDbContext.Roles!;
+        var current_role = await roles.FirstOrDefaultAsync(
+            role => role.Role_ID!.Equals(role_id)
             ) ?? throw new InvalidOperationException("Role not found");
 
         current_role.Name = edited_role.Name;
@@ -61,13 +57,13 @@ public class RoleService : IRoleService
         await _webDbContext.SaveChangesAsync();
     }
 
-    public async Task<List<Role>> GetAllRolesAsync()
+    public async Task<List<Role>> GetAllAsync()
     {
-        var users = await _webDbContext.Roles!.ToListAsync();
-        return users;
+        var roles = await _webDbContext.Roles!.ToListAsync();
+        return roles;
     }
 
-    public async Task RemoveAllRolesAsync()
+    public async Task RemoveAllAsync()
     {
         _webDbContext.RemoveRange(_webDbContext.Roles!);
         await _webDbContext.SaveChangesAsync();

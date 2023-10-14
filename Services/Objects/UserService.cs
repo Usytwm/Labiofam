@@ -2,29 +2,23 @@ namespace Labiofam.Services;
 using Labiofam.Models;
 using Microsoft.EntityFrameworkCore;
 
-public class UserService : IUserService
+public class UserService : IEntityService<User>
 {
     private readonly WebDbContext _webDbContext;
     public UserService(WebDbContext webDbContext) { _webDbContext = webDbContext; }
 
-    public async Task<User> GetUserAsync(Guid user_id)
+    public async Task<User> GetAsync(Guid user_id)
     {
-        var users = _webDbContext.Users ??
-            throw new InvalidOperationException("No users available");
+        var users = _webDbContext.Users!;
         var current_user = await users.FirstOrDefaultAsync(
             user => user.User_ID.Equals(user_id)
-            );
-        if (current_user is not null)
-        {
-            return current_user;
-        }
-        throw new InvalidOperationException("User not found");
+            ) ?? throw new InvalidOperationException("User not found");
+        
+        return current_user;
     }
-    public async Task AddUserAsync(User new_user)
+    public async Task AddAsync(User new_user)
     {
-        var users = _webDbContext.Users ??
-            throw new InvalidOperationException("No users available");
-
+        var users = _webDbContext.Users!;        
         if (users.Any(user => user.Name!.Equals(new_user.Name)))
             throw new InvalidOperationException("The user already exists");
 
@@ -34,10 +28,9 @@ public class UserService : IUserService
         await _webDbContext.SaveChangesAsync();
     }
 
-    public async Task RemoveUserAsync(Guid user_id)
+    public async Task RemoveAsync(Guid user_id)
     {
-        var users = _webDbContext.Users ??
-            throw new InvalidOperationException("No users available");
+        var users = _webDbContext.Users!;
         var current_user = await users.FirstOrDefaultAsync(
             user => user.User_ID!.Equals(user_id)
             ) ?? throw new InvalidOperationException("User not found");
@@ -46,30 +39,27 @@ public class UserService : IUserService
         await _webDbContext.SaveChangesAsync();
     }
 
-    public async Task EditUserAsync(Guid user_id, User edited_user)
+    public async Task EditAsync(Guid user_id, User edited_user)
     {
-        var users = _webDbContext.Users ??
-            throw new InvalidOperationException("No users available");
+        var users = _webDbContext.Users!;
         var current_user = await users.FirstOrDefaultAsync(
             user => user.User_ID!.Equals(user_id)
             ) ?? throw new InvalidOperationException("User not found");
 
         current_user.Name = edited_user.Name;
         current_user.Password = edited_user.Password;
-        current_user.Roles = edited_user.Roles;
-
 
         _webDbContext.Entry(current_user).State = EntityState.Modified;
         await _webDbContext.SaveChangesAsync();
     }
 
-    public async Task<List<User>> GetAllUsersAsync()
+    public async Task<List<User>> GetAllAsync()
     {
         var users = await _webDbContext.Users!.ToListAsync();
         return users;
     }
 
-    public async Task RemoveAllUsersAsync()
+    public async Task RemoveAllAsync()
     {
         _webDbContext.RemoveRange(_webDbContext.Users!);
         await _webDbContext.SaveChangesAsync();

@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 [ApiController]
 public class ProductController : Controller
 {
-    private readonly IProductService _productService;
+    private readonly IEntityService<Product> _productService;
 
-    public ProductController(IProductService productService)
+    public ProductController(IEntityService<Product> productService)
     {
         _productService = productService;
     }
@@ -18,7 +18,7 @@ public class ProductController : Controller
     public async Task<IActionResult> GetProduct(Guid product_id)
     {
         try {
-            var product = await _productService.GetProductAsync(product_id);
+            var product = await _productService.GetAsync(product_id);
             return Ok(product);
         } catch (Exception ex) {
             return BadRequest(ex);
@@ -28,7 +28,7 @@ public class ProductController : Controller
     public async Task<IActionResult> AddProduct(Product new_product)
     {
         try {
-            await _productService.AddProductAsync(new_product);
+            await _productService.AddAsync(new_product);
             return Ok();
         } catch (Exception ex) {
             return BadRequest(ex);
@@ -38,7 +38,7 @@ public class ProductController : Controller
     public async Task<IActionResult> RemoveProduct(Guid product_id)
     {
         try {
-            await _productService.RemoveProductAsync(product_id);
+            await _productService.RemoveAsync(product_id);
             return Ok();
         } catch (Exception ex) {
             return BadRequest(ex);
@@ -48,7 +48,7 @@ public class ProductController : Controller
     public async Task<IActionResult> EditProduct(Guid product_id, Product edited_product)
     {
         try {
-            await _productService.EditProductAsync(product_id, edited_product);
+            await _productService.EditAsync(product_id, edited_product);
             return Ok();
         } catch (Exception ex) {
             return BadRequest(ex);
@@ -58,7 +58,7 @@ public class ProductController : Controller
     public async Task<IActionResult> GetAllProducts()
     {
         try {
-            var products = await _productService.GetAllProductsAsync();
+            var products = await _productService.GetAllAsync();
             return Ok(products);
         } catch (Exception ex) {
             return BadRequest(ex);
@@ -68,7 +68,7 @@ public class ProductController : Controller
     public async Task<IActionResult> RemoveAllProducts()
     {
         try {
-            await _productService.RemoveAllProductsAsync();
+            await _productService.RemoveAllAsync();
             return Ok();
         } catch (Exception ex) {
             return BadRequest(ex);
