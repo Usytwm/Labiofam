@@ -1,14 +1,70 @@
-<p>feedback works!</p>
-<div class="container">
-  <form class="form">
-    <mat-form-field class="full-width">
-      <mat-label>Nombre</mat-label>
-      <input matInput placeholder="Ex. Brian" autocomplete="off" />
-    </mat-form-field>
-
-    <mat-form-field class="full-width">
-      <mat-label>Comentarios</mat-label>
-      <textarea matInput placeholder="Ex. Gracias por la infor..." ></textarea>
-    </mat-form-field>
-  </form>
-</div>
+<main>
+  <br class="espacio" />
+  <div class="container marketing">
+    <!-- Three columns of text below the carousel -->
+    <div class="row">
+      <h1 class="centrado">Nos importa tu opinión!</h1>
+      <hr class="featurette-divider" />
+      <div class="row featurette" style="margin-top: 35px">
+        <div class="col-md-7">
+          <h1 class="featurette-heading fw-normal lh-1">Hazte oír!</h1>
+          <p class="lead">
+            Nos encantaría conocer tu opinión. Tu feedback es muy importante
+            para nosotros, ya que nos ayuda a mejorar y a ofrecerte un mejor
+            servicio. Por favor, introduce tu correo electrónico y comparte tus
+            comentarios, sugerencias o cualquier aspecto que creas que podríamos
+            mejorar. Agradecemos tu tiempo y tu contribución.
+          </p>
+          <br />
+          <div class="container">
+            <form class="was-validated" (ngSubmit)="onSubmit(f)" #f="ngForm">
+              <div
+                class="form-floating"
+                style="margin-right: 30%; margin-left: 0px"
+              >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="floatingInputGrid"
+                  placeholder="name@example.com"
+                  required
+                />
+                <label for="floatingInputGrid">Correo electronico</label>
+              </div>
+              <br />
+              <div class="mb-3">
+                <div class="form-floating">
+                  <textarea
+                    class="form-control"
+                    id="validationTextarea"
+                    placeholder="Required example textarea"
+                    required
+                    style="height: 190px"
+                  ></textarea>
+                  <label for="floatingTextarea">Comentarios</label>
+                </div>
+                <div class="invalid-feedback">
+                  Por favor escriba un mensaje.
+                </div>
+              </div>
+              <div class="mb-3">
+                <button class="btn btn-primary" type="submit">Enviar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="card" style="height: 90%">
+            <img
+              src="../../../assets/13.jpg"
+              class="card-img-top mi-imagen"
+              alt="..."
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr class="featurette-divider" />
+    <!-- /.container -->
+  </div>
+</main>

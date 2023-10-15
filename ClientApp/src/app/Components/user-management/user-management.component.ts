@@ -28,9 +28,9 @@ export class UserManagementComponent implements AfterViewInit, OnInit {
   }
 
   obtenerPersonas() {
+    this.loading = true;
     this._personasservice.getAll().subscribe((data) => {
       console.log(data);
-      this.loading = true;
       this.dataSource.data = data;
       this.loading = false;
     });
@@ -52,8 +52,8 @@ export class UserManagementComponent implements AfterViewInit, OnInit {
   }
 
   Delete(id: string) {
+    this.loading = true;
     this._personasservice.delete(id).subscribe(() => {
-      this.loading = true;
       this._snackBar.open('delete sucess', '', {
         duration: 3000,
         horizontalPosition: 'right',

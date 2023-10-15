@@ -5,4 +5,7 @@
   <main>
     <router-outlet></router-outlet>
   </main>
+  <ng-container *ngIf="showNavMenu$ | async">
+    <app-footer></app-footer>
+  </ng-container>
 </body>

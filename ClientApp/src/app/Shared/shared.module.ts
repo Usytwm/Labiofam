@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 //Angular Material
@@ -40,6 +40,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatCheckboxModule,
     HttpClientModule,
     MatSelectModule,
+    FormsModule,
   ],
   exports: [
     MatTableModule,
@@ -58,6 +59,7 @@ import { MatSelectModule } from '@angular/material/select';
     ReactiveFormsModule,
     HttpClientModule,
     MatSelectModule,
+    FormsModule,
   ],
 })
 export class SharedModule {}

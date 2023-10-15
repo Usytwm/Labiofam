@@ -7,6 +7,7 @@
   width: 100%;
 }
 
+
 .full-width {
   width: 100%;
 }
@@ -14,4 +15,16 @@
   margin-left: auto;
   margin-right: auto;
   width: 100%;
+}
+.centrado {
+  text-align: center;
+  color: #1162f7;
+  font-size: 2.5em;
+  font-weight: bold;
+  margin-top: 30px;
+}
+.mi-imagen {
+  width: 100%; /* Ajusta el ancho al 100% del contenedor padre */
+  height: 100%; /* Ajusta la altura de manera automática para mantener las proporciones de la imagen */
+  object-fit: cover; /* Esto hará que la imagen cubra todo el espacio disponible, cortando las partes que no caben si es necesario */
 }

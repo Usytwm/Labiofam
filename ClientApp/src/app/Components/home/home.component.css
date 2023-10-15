@@ -1,25 +1,46 @@
-/* Estilos para el contenedor principal del carrusel */
 .cont {
   position: relative;
   margin: auto;
   text-align: center;
-  /*border-radius: 5px; /* Radio de la esquina del borde del contenedor */
-  box-shadow: 0 8px 16px #dce1e1; /* Sombra alrededor del contenedor */
-  overflow: hidden; /*  */
+  box-shadow: 0 8px 16px #dce1e1;
+  overflow: hidden;
+  width: 100%;
+  height: 15rem;
+}
+.cont img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.card {
+  transition: 0.7s;
+}
+
+.card:hover {
+  box-shadow: 0 16px 32px 0 rgba(0, 0, 0, 0.5);
 }
 
 .img {
-  display: block; /* La imagen activa se muestra */
+  display: flexbox; /* La imagen activa se muestra */
   width: 100%; /* La imagen activa ocupará el ancho completo de su contenedor padre */
   height: auto; /* Altura de la imagen activa como porcentaje de la altura de la ventana del navegador */
   transition: transform 1s; /* Añade una transición suave al efecto de zoom */
   cursor: pointer;
 }
-.img:hover {
+/*.img:hover {
   transform: scale(
     1.1
-  ); /* Aumenta el tamaño de la imagen en un 10% cuando el mouse pasa por encima */
-}
+  ); /* Aumenta el tamaño de la imagen en un 10% cuando el mouse pasa por encima /
+}*/
 .espacio {
   margin-bottom: 100px; /* Ajusta este valor a tu necesidad */
 }
+.header {
+  background: url(../../../assets/10.jpg) no-repeat center;
+  background-size: cover;
+  min-height: 100vh;
+}
+.header .navbar {
+  background-color: transparent !important;
+}
+
