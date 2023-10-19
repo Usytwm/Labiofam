@@ -20,8 +20,11 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 
+//componentes
+import { SpinnerComponent } from '../Components/spinner/spinner.component';
+
 @NgModule({
-  declarations: [],
+  declarations: [SpinnerComponent],
   imports: [
     CommonModule,
     MatTableModule,

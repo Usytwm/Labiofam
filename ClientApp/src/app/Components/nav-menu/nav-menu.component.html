@@ -1,4 +1,4 @@
-<div class="nav-scroller navbar-expand-lg var">
+<!--<div class="nav-scroller navbar-expand-lg var">
   <nav
     class="nav d-flex justify-content-between"
     aria-label="Navegación secundaria"
@@ -89,14 +89,18 @@
       </ul>
     </div>
   </nav>
-</div>
+</div>-->
 
-<!--<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-pastel-blue">
   <div class="container-fluid">
     <a class="navbar-brand" [routerLink]="['/']">
-      <span class="text-primary">Labio</span>Fam</a
+      <img
+        src="../../../assets/labiofam.png"
+        alt="Descripción de la imagen"
+        style="height: 20px"
+      />
+      <strong><span class="text-warning"> Labio</span>Fam</strong></a
     >
-
     <button
       class="navbar-toggler"
       type="button"
@@ -115,7 +119,7 @@
           <a class="nav-link active" aria-current="page"
             ><button
               type="button"
-              class="btn btn-outline-secondary no-border"
+              class="btn btn-outline-secondary no-border btn-nav"
               [routerLink]="['/']"
             >
               Inicio
@@ -126,7 +130,7 @@
           <a class="nav-link"
             ><button
               type="button"
-              class="btn btn-outline-secondary no-border"
+              class="btn btn-outline-secondary no-border btn-nav"
               [routerLink]="['/map']"
             >
               Establecimientos
@@ -137,7 +141,7 @@
           <a class="nav-link"
             ><button
               type="button"
-              class="btn btn-outline-secondary no-border"
+              class="btn btn-outline-secondary no-border btn-nav"
               [routerLink]="['/users-management']"
             >
               Bioproductos
@@ -148,7 +152,7 @@
           <div class="dropdown">
             <a class="nav-link">
               <button
-                class="btn btn-outline-secondary no-border dropdown-toggle"
+                class="btn btn-outline-secondary no-border dropdown-toggle btn-nav"
                 type="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
@@ -169,7 +173,7 @@
           <a class="nav-link"
             ><button
               type="button"
-              class="btn btn-outline-secondary no-border"
+              class="btn btn-outline-secondary no-border btn-nav"
               [routerLink]="['feedback']"
             >
               Contactos
@@ -180,7 +184,7 @@
           <a class="nav-link"
             ><button
               type="button"
-              class="btn btn-outline-secondary no-border"
+              class="btn btn-outline-secondary no-border btn-nav"
               [routerLink]="['/login']"
             >
               Testimonios
@@ -191,8 +195,8 @@
           <a class="nav-link"
             ><button
               type="button"
-              class="btn btn-outline-secondary no-border"
-              [routerLink]="['/listpersons']"
+              class="btn btn-outline-secondary no-border btn-nav"
+              [routerLink]="['/users']"
             >
               Quejas y sugerencias
             </button></a
@@ -201,4 +205,4 @@
       </ul>
     </div>
   </div>
-</nav>-->
+</nav>

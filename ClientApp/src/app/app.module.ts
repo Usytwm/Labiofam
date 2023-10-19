@@ -4,6 +4,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //modulos
 import { SharedModule } from './Shared/shared.module';
+import { PointsOfSalesCrudModule } from './points-of-sales-crud/points-of-sales-crud.module';
+import { UsersCrudModule } from './users-crud/users-crud.module';
 
 //Componentes
 import { AppRoutingModule } from './app-routing.module';
@@ -15,7 +17,7 @@ import { FeedbackComponent } from './Components/feedback/feedback.component';
 import { LoginComponent } from './Components/login/login.component';
 import { CarouselComponent } from './Components/carousel/carousel.component';
 import { InfoComponent } from './Components/info/info.component';
-import { SpinnerComponent } from './Components/spinner/spinner.component';
+
 import { CardBioproductComponent } from './Components/card-bioproduct/card-bioproduct.component';
 import { BioproductComponent } from './Components/bioproduct/bioproduct.component';
 import { FooterComponent } from './Components/footer/footer.component';
@@ -33,7 +35,6 @@ import { ProductManagementComponent } from './Components/product-management/prod
     LoginComponent,
     CarouselComponent,
     InfoComponent,
-    SpinnerComponent,
     CardBioproductComponent,
     BioproductComponent,
     FooterComponent,
@@ -46,6 +47,8 @@ import { ProductManagementComponent } from './Components/product-management/prod
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule,
+    PointsOfSalesCrudModule,
+    UsersCrudModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

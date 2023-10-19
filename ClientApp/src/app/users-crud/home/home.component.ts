@@ -1,4 +1,5 @@
 import { Component, AfterViewInit, ViewChild, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
@@ -7,12 +8,14 @@ import { User as Usuario } from 'src/app/Interfaces/User';
 import { UserService } from 'src/app/Services/user.service';
 
 @Component({
-  selector: 'app-user-management',
-  templateUrl: './user-management.component.html',
-  styleUrls: ['./user-management.component.css'],
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css'],
 })
-export class UserManagementComponent implements AfterViewInit, OnInit {
- 
+export class HomeComponent implements AfterViewInit, OnInit {
+  //pruba
+  public userForm = new FormControl(); //fromulario reactivo
+  //termina prueba
   displayedColumns: string[] = ['Username', 'Role', 'Actions'];
   dataSource = new MatTableDataSource<Usuario>();
   loading: Boolean = false;
