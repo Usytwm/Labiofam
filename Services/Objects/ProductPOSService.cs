@@ -38,11 +38,7 @@ public class ProductPOSService : IRelationService<Product_POS>
                 Point_Of_Sales = current_pos,
                 Cantidad = 1
             };
-
-            current_product.Points_Of_Sales ??= new List<Product_POS>();
-            current_product.Points_Of_Sales.Add(new_relation);
-            current_pos.Available_Products ??= new List<Product_POS>();
-            current_pos.Available_Products.Add(new_relation);
+            
             product_POS.Add(new_relation);
         }
         await _webDbContext.SaveChangesAsync();

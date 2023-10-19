@@ -96,3 +96,10 @@ C:\Users\Brian\Desktop\Labiofam\Labiofam\obj\Debug\net7.0\refint\Labiofam.dll
 C:\Users\Brian\Desktop\Labiofam\Labiofam\obj\Debug\net7.0\Labiofam.pdb
 c:\Users\Brian\Desktop\Labiofam\Labiofam\obj\Debug\net7.0\Labiofam.genruntimeconfig.cache
 c:\Users\Brian\Desktop\Labiofam\Labiofam\obj\Debug\net7.0\ref\Labiofam.dll
+C:\Users\Brian\Desktop\Labiofam\Labiofam\bin\Debug\net7.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\Brian\Desktop\Labiofam\Labiofam\bin\Debug\net7.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\Brian\Desktop\Labiofam\Labiofam\bin\Debug\net7.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\Brian\Desktop\Labiofam\Labiofam\bin\Debug\net7.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\Brian\Desktop\Labiofam\Labiofam\bin\Debug\net7.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\Brian\Desktop\Labiofam\Labiofam\bin\Debug\net7.0\Microsoft.Extensions.Options.dll
+C:\Users\Brian\Desktop\Labiofam\Labiofam\bin\Debug\net7.0\System.Security.Permissions.dll

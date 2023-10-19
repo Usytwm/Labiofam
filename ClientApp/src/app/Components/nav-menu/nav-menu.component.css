@@ -1,8 +1,34 @@
-.no-border {
+.nav-scroller {
+  position: relative;
+  z-index: 2;
+  height: 2.75rem;
+  overflow-y: hidden;
+}
+.btn-nav {
   border: none;
 }
-
-.no-border:hover {
-  border-color: transparent;
+.nav-item {
+  margin: auto;
+}
+.var {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  background-color: transparent;
+  height: 50px;
+}
+.btn-nav {
+  color: black;
+  background-color: transparent;
+  border-radius: 11px;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }
 
+.btn-nav:hover {
+  background-color: rgb(71, 99, 240);
+  color: rgb(255, 255, 255);
+}
+.btn-nav {
+  font-family: "Arial", sans-serif;
+  font-weight: bold;
+}

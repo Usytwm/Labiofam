@@ -37,10 +37,6 @@ public class UserRoleService : IRelationService<User_Role>
             Role = current_role
         };
         
-        current_user.Roles ??= new List<User_Role>();
-        current_user.Roles.Add(new_relation);
-        current_role.Users ??= new List<User_Role>();
-        current_role.Users.Add(new_relation);
         user_role.Add(new_relation);
         await _webDbContext.SaveChangesAsync();
     }

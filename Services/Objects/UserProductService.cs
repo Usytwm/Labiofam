@@ -37,10 +37,6 @@ public class UserProductService : IRelationService<User_Product>
             Product = current_product
         };
         
-        current_user.Products ??= new List<User_Product>();
-        current_user.Products.Add(new_relation);
-        current_product.Users ??= new List<User_Product>();
-        current_product.Users.Add(new_relation);
         user_product.Add(new_relation);
         await _webDbContext.SaveChangesAsync();
     }

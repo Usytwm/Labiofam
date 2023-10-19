@@ -13,6 +13,8 @@ import {
   GeolocateControl,
   FullscreenControl,
 } from 'maplibre-gl';
+import { Point_of_Sales } from 'src/app/Interfaces/Point_of_sales';
+import { PointsOfSalesService } from 'src/app/Services/points-of-sales.service';
 //import { Map, MapStyle, config } from '@maptiler/sdk';
 
 @Component({
@@ -21,128 +23,34 @@ import {
   styleUrls: ['./map-info-display.component.css'],
 })
 export class MapInfoDisplayComponent implements AfterViewInit, OnDestroy {
-  map: Map | undefined;
+  private initialState = { lng: -79.481167, lat: 21.521757, zoom: 5.8 };
+  private apiKey = 'tbjXu9R4kQGNcVpje2Yg';
+  private mapStyle = `https://api.maptiler.com/maps/streets-v2/style.json?key=${this.apiKey}`;
+  private map?: Map;
+  private markers: Marker[] = [];
+  private puntosDeVenta?: Point_of_Sales[];
 
   @ViewChild('map')
-  private mapContainer!: ElementRef<HTMLElement>;
+  private mapContainerElement!: ElementRef<HTMLElement>;
 
-  puntosDeVenta = [
-    {
-      id: 1,
-      nombre: 'Punto de venta 1',
-      imagen: 'url-de-la-imagen-1',
-      direccion: 'Dirección 1',
-      municipio: 'Municipio 1',
-      provincia: 'Provincia 1',
-      direccionGeoespacial: { lng: -82.36764, lat: 23.087586 },
-      img: '/',
-    },
-    {
-      id: 2,
-      nombre: 'Punto de venta 2',
-      imagen: 'url-de-la-imagen-2',
-      direccion: 'Dirección 2',
-      municipio: 'Municipio 2',
-      provincia: 'Provincia 2',
-      direccionGeoespacial: { lng: -81.103321, lat: 22.911131 },
-      img: '/',
-    },
-    {
-      id: 3,
-      nombre: 'Punto de venta 3',
-      imagen: 'url-de-la-imagen-3',
-      direccion: 'Dirección 3',
-      municipio: 'Municipio 3',
-      provincia: 'Provincia 3',
-      direccionGeoespacial: { lng: -79.925037, lat: 22.325472 },
-      img: '/',
-    },
-    {
-      id: 4,
-      nombre: 'Punto de venta 4',
-      imagen: 'url-de-la-imagen-4',
-      direccion: 'Dirección 4',
-      municipio: 'Municipio 4',
-      provincia: 'Provincia 4',
-      direccionGeoespacial: { lng: -80.345264, lat: 22.083897 },
-      img: '/',
-    },
-    {
-      id: 5,
-      nombre: 'Punto de venta 5',
-      imagen: 'url-de-la-imagen-5',
-      direccion: 'Dirección 5',
-      municipio: 'Municipio 5',
-      provincia: 'Provincia 5',
-      direccionGeoespacial: { lng: -79.540516, lat: 22.002431 },
-      img: '/',
-    },
-    {
-      id: 6,
-      nombre: 'Punto de venta6',
-      imagen: 'url-de-la-imagen-6',
-      direccion: 'Direccion6',
-      municipio: 'Municipio6',
-      provincia: 'Provincia6',
-      direccionGeoespacial: { lng: -78.535267, lat: 21.885242 },
-      img: '/',
-    },
-    {
-      id: 7,
-      nombre: 'Punto de venta7',
-      imagen: 'url-de-la-imagen-7',
-      direccion: 'Direccion7',
-      municipio: 'Municipio7',
-      provincia: 'Provincia7',
-      direccionGeoespacial: { lng: -77.909046, lat: 21.366935 },
-      img: '/',
-    },
-  ];
+  constructor(private _puntos_de_ventaService: PointsOfSalesService) {}
 
-  geojson = {
-    type: 'FeatureCollection',
-    features: this.puntosDeVenta.map((punto) => ({
-      type: 'Feature',
-      properties: {
-        description: ` <div style="text-align: center;">
-        <img src="${punto.img}" alt="${punto.nombre}" style="width: 100px; height: auto;">
-        <strong>${punto.nombre}</strong>
-        <p>${punto.direccion}, ${punto.municipio}, ${punto.provincia}</p>
-        <strong>Productos disponibles:</strong>
-        <p>coquisgv sbdcjh bcshjac sdbhc sbdhj</p>
-        <a href="/productos/${punto.id}">Ver más</a>
-      </div>
-        `,
-      },
-      geometry: {
-        type: 'Point',
-        coordinates: [
-          punto.direccionGeoespacial.lng,
-          punto.direccionGeoespacial.lat,
-        ],
-      },
-    })),
-  };
-
-  constructor() {}
-
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this._puntos_de_ventaService.getAll().subscribe((data) => {
+      this.puntosDeVenta = data;
+    });
+  }
 
   ngAfterViewInit() {
-    const initialState = { lng: -79.481167, lat: 21.521757, zoom: 5.8 };
-    const apiKey = 'tbjXu9R4kQGNcVpje2Yg';
-
     this.map = new Map({
-      container: this.mapContainer.nativeElement,
-      style: `https://api.maptiler.com/maps/streets-v2/style.json?key=${apiKey}`,
-      center: [initialState.lng, initialState.lat],
-      zoom: initialState.zoom,
+      container: this.mapContainerElement.nativeElement,
+      style: this.mapStyle,
+      center: [this.initialState.lng, this.initialState.lat],
+      zoom: this.initialState.zoom,
     });
 
     this.map.addControl(new NavigationControl(), 'top-right');
-
     this.map.addControl(new FullscreenControl(), 'bottom-right');
-
     this.map.addControl(
       new GeolocateControl({
         positionOptions: {
@@ -154,9 +62,10 @@ export class MapInfoDisplayComponent implements AfterViewInit, OnDestroy {
 
     this.map.on('load', () => {
       if (this.map) {
+        const geojson = this.createGeojson(this.puntosDeVenta);
         this.map.addSource('places', {
           type: 'geojson',
-          data: this.geojson,
+          data: geojson,
         });
         // Añade una capa con los marcadores al mapa
         this.map.addLayer({
@@ -168,28 +77,131 @@ export class MapInfoDisplayComponent implements AfterViewInit, OnDestroy {
             'icon-allow-overlap': true,
           },
         });
+        this.viewGeojson(geojson);
 
-        this.geojson.features.forEach((marker) => {
-          const popup = new Popup({ className: 'my-class' });
-          // Crea un elemento DOM para el marcador
-          let el = document.createElement('div');
-          el.className = 'marker';
-          el.style.cursor = 'pointer';
-          if (this.map) {
-            // Crea el marcador y añádelo al mapa
-            new Marker(el)
-              .setLngLat([
-                marker.geometry.coordinates[0],
-                marker.geometry.coordinates[1],
-              ])
-              .setPopup(
-                popup
-                  .setHTML(marker.properties.description)
-                  .setMaxWidth('500px')
-              )
-              .addTo(this.map);
-          }
+        let filterInputElement = document.getElementById(
+          'filter-input'
+        ) as HTMLInputElement;
+
+        filterInputElement.addEventListener('input', (e) => {
+          const value = (e.target as HTMLInputElement).value
+            .trim()
+            .toLowerCase();
+
+          /// Actualiza el filtro de la capa de marcadores en el mapa
+          this.map?.setFilter('places', ['==', ['get', 'nombre'], value]);
+          this.map?.setFilter('places', ['==', ['get', 'productos'], value]);
+          // Actualiza los datos de la capa
+          geojson.features = this.puntosDeVenta!.filter((punto) =>
+            punto.name!.toLowerCase().includes(value)
+          ).map((punto) => ({
+            type: 'Feature',
+            properties: {
+              description: `<div style="
+              background-color: #ADD8E6; 
+              border-radius: 10px; 
+              box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); 
+              transition: 0.3s; 
+              width: 90%; 
+              padding: 20px; 
+              margin: auto;
+          ">
+              <img src="${punto.image}" alt="${punto.name}" style="width: 100px; height: auto;">
+              <br/>
+              <strong>${punto.name}</strong>
+              <div  style="text-align: left;">
+              <ul>
+                  <li><strong>Dirección:</strong> ${punto.address}</li>
+                  <li><strong>Municipio:</strong> ${punto.municipality}</li>
+                  <li><strong>Provincia:</strong> ${punto.province}</li>
+                  <li><strong>Productos disponibles:</strong> coquisgv sbdcjh bcshjac sdbhc sbdhj</li>
+              </ul>
+              </div>
+              <a href="/productos/${punto.point_ID}" style="text-decoration: none; color: black;">Ver más</a>
+          </div>
+          `, //tengo que cambiar el link
+              nombre: punto.name,
+              icon: 'theatre',
+            },
+            geometry: {
+              type: 'Point',
+              coordinates: [punto.longitude, punto.latitude],
+            },
+          }));
+          console.log(geojson);
+          this.viewGeojson(geojson);
         });
+        this.map.on('mouseenter', 'places', () => {
+          this.map!.getCanvas().style.cursor = 'pointer';
+        });
+
+        // Change it back to a pointer when it leaves.
+        this.map.on('mouseleave', 'places', () => {
+          this.map!.getCanvas().style.cursor = '';
+        });
+      }
+    });
+  }
+
+  createGeojson(puntosDeVenta?: Point_of_Sales[]) {
+    return {
+      type: 'FeatureCollection',
+      features: puntosDeVenta?.map((punto) => ({
+        type: 'Feature',
+        properties: {
+          description: `<div style="
+          background-color: #ADD8E6; 
+          border-radius: 10px; 
+          box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); 
+          transition: 0.3s; 
+          width: 90%; 
+          padding: 20px; 
+          margin: auto;
+      ">
+          <img src="${punto.image}" alt="${punto.name}" style="width: 100px; height: auto;">
+          <br/>
+          <strong>${punto.name}</strong>
+          <div style="text-align: left;>
+          <ul style="justify-content:left">
+              <li><strong>Dirección:</strong> ${punto.address}</li>
+              <li><strong>Municipio:</strong> ${punto.municipality}</li>
+              <li><strong>Provincia:</strong> ${punto.province}</li>
+              <li><strong>Productos disponibles:</strong> coquisgv sbdcjh bcshjac sdbhc sbdhj</li>
+          </ul>
+          </div>
+          <a href="/productos/${punto.point_ID}" style="text-decoration: none; color: black;">Ver más</a>
+      </div>
+      
+          `,
+        },
+        geometry: {
+          type: 'Point',
+          coordinates: [punto.longitude, punto.latitude],
+        },
+      })),
+    };
+  }
+
+  viewGeojson(geojson: any): void {
+    // Elimina los marcadores existentes
+    this.markers.forEach((marker) => marker.remove());
+    // Vacía el array de marcadores
+    this.markers = [];
+    geojson.features.forEach((marker: any) => {
+      const popup = new Popup();
+      const el = document.createElement('div');
+      el.id = 'marker';
+      if (this.map) {
+        const mapMarker = new Marker(el)
+          .setLngLat([
+            marker.geometry.coordinates[0],
+            marker.geometry.coordinates[1],
+          ])
+          .setPopup(
+            popup.setHTML(marker.properties.description).setMaxWidth('500px')
+          )
+          .addTo(this.map);
+        this.markers.push(mapMarker);
       }
     });
   }
