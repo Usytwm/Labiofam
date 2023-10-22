@@ -28,11 +28,16 @@
           style="width: 100%; height: 100%; object-fit: cover"
           [alt]="image.alt"
         />
-        <div class="carousel-caption d-none d-md-block">
-          <h5>{{ image.label }}</h5>
+        <div
+          class="carousel-caption d-none d-md-block"
+          style="text-align: left"
+        >
+          <h1>{{ image.label }}</h1>
           <p>{{ image.content }}</p>
           <p>
-            <a class="btn btn-lg btn-primary" href="#">{{ image.button }}</a>
+            <a class="btn btn-lg btn-primary" href="{{ image.buttonsrc }}">{{
+              image.button
+            }}</a>
           </p>
         </div>
       </div>

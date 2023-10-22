@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PointsOfSalesService extends AbstractService<Point_of_Sales> {
   constructor(_http: HttpClient) {
-    super(_http, 'api/PointOfSales/');
+    super(_http);
+    this.apiUrl = 'api/PointOfSales/';
   }
 }

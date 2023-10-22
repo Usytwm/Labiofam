@@ -3,14 +3,24 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { DetailsComponent } from './details/details.component';
 import { CreateComponent } from './create/create.component';
-import { UpdateComponent } from './update/update.component';
 
 const routes: Routes = [
-  { path: 'crud', redirectTo: 'crud/home', pathMatch: 'full' },
-  { path: 'crud/home', component: HomeComponent },
-  { path: 'crud/details/:productId', component: DetailsComponent },
-  { path: 'crud/create', component: CreateComponent },
-  { path: 'crud/update/:productId', component: UpdateComponent },
+  {
+    path: 'point-of-sales',
+    component: HomeComponent,
+  },
+  {
+    path: 'point-of-sales/edit/:id',
+    component: CreateComponent,
+  },
+  {
+    path: 'point-of-sales/details/:id',
+    component: DetailsComponent,
+  },
+  {
+    path: 'point-of-sales/createuser',
+    component: CreateComponent,
+  },
 ];
 
 @NgModule({

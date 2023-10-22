@@ -9,6 +9,7 @@ import { Role } from '../Interfaces/Role';
 })
 export class RolesService extends AbstractService<Role> {
   constructor(_http: HttpClient) {
-    super(_http, 'api/Role/');
+    super(_http);
+    this.apiUrl = 'api/Role/';
   }
 }

@@ -1,0 +1,35 @@
+footer {
+  background-color: #dae0fb;
+  padding: 40px 0;
+}
+
+footer img {
+  width: 100px;
+}
+
+footer h5 {
+  margin-bottom: 20px;
+}
+
+footer a {
+  color: #6c757d;
+}
+
+footer a:hover {
+  color: #000;
+}
+
+footer .fab {
+  margin-right: 10px;
+}
+.icono {
+  margin-right: 2px;
+}
+
+.columna1 {
+  margin-left: 20px;
+}
+.ajust {
+  display: flex;
+  align-items: center;
+}

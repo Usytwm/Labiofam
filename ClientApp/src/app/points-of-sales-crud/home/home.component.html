@@ -1,41 +1,6 @@
-<div>
-  <h1>My Products</h1>
-  <button type="button" [routerLink]="['/crud/create/']">
-    Create new product
-  </button>
-  <table>
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Product Name</th>
-        <th>Description</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let product of products">
-        <td>{{ product.point_ID }}</td>
-        <td>{{ product.name }}</td>
-        <td>{{ product.image }}</td>
-        <td>{{ product.address }}</td>
-        <td>{{ product.municipality }}</td>
-        <td>{{ product.province }}</td>
-        <td>{{ product.latitude }}</td>
-        <td>{{ product.longitude }}</td>
-        <td>
-          <button
-            type="button"
-            [routerLink]="['/crud/update/', product.point_ID]"
-          >
-            Update
-          </button>
-          <button type="button" (click)="delete(product.point_ID)">
-            Remove
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<div class="mat-primary titulo">Puntos</div>
+
+<app-generic-table-crud
+  [data]="_data"
+  [columns]="_dataColumns"
+></app-generic-table-crud>

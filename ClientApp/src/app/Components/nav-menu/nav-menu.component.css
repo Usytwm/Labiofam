@@ -17,7 +17,10 @@
   height: 50px;
 }*/
 .bg-pastel-blue {
-  background-color: #072c5a;
+  background-color: #5947fc;
+}
+.navbar {
+  box-shadow: 0 3px 5px -1px #0003, 0 6px 10px #00000024, 0 1px 28px #0000001f;
 }
 
 .btn-nav {
@@ -31,7 +34,7 @@
 }
 
 .btn-nav:hover {
-  background-color: rgb(255, 255, 255);
-  color: #072c5a;
+  background-color: #7584f4;
+  color: #ffffff;
   box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.2);
 }

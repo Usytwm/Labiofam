@@ -11,45 +11,39 @@ export class CarouselComponent {
   images1 = [
     {
       src: 'assets/1.jpg',
-      alt: '...',
-      label: 'First slide label',
-      content: 'Some representative placeholder content for the first slide.',
-      button: 'Sign up today',
+      alt: 'Bioproductos',
+      label: 'Descubre Nuestros Bioproductos',
+      content:
+        'Explora nuestra amplia gama de bioproductos de alta calidad, diseñados para mejorar tu vida de manera sostenible',
+      button: 'Ver productos',
+      buttonsrc: 'map',
     },
     {
       src: 'assets/2.jpg',
       alt: '...',
-      label: 'First slide label',
-      content: 'Some representative placeholder content for the first slide.',
-      button: 'Sign up today',
+      label: 'Visita Nuestros Establecimientos',
+      content:
+        'Encuentra el establecimiento más cercano y descubre nuestros bioproductos en persona',
+      button: 'Ver',
+      buttonsrc: 'map',
     },
     {
       src: 'assets/3.jpg',
-      alt: '...',
-      label: 'First slide label',
-      content: 'Some representative placeholder content for the first slide.',
-      button: 'Sign up today',
+      alt: 'Servicios',
+      label: 'Servicios Personalizados para Ti',
+      content:
+        '“Ofrecemos una variedad de servicios adaptados a tus necesidades, ayudándote a aprovechar al máximo nuestros bioproductos',
+      button: 'Ver servicios',
+      buttonsrc: 'map',
     },
     {
       src: 'assets/4.jpg',
       alt: '...',
-      label: 'First slide label',
-      content: 'Some representative placeholder content for the first slide.',
-      button: 'Sign up today',
-    },
-    {
-      src: 'assets/5.jpg',
-      alt: '...',
-      label: 'First slide label',
-      content: 'Some representative placeholder content for the first slide.',
-      button: 'Sign up today',
-    },
-    {
-      src: 'assets/6.jpg',
-      alt: '...',
-      label: 'First slide label',
-      content: 'Some representative placeholder content for the first slide.',
-      button: 'Sign up today',
+      label: 'Estamos Aquí para Ayudarte',
+      content:
+        '¿Tienes alguna pregunta o necesitas ayuda? No dudes en ponerte en contacto con nosotros',
+      button: 'Contactar',
+      buttonsrc: 'feedback',
     },
   ];
 

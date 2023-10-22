@@ -19,6 +19,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 //componentes
 import { SpinnerComponent } from '../Components/spinner/spinner.component';
@@ -44,6 +47,9 @@ import { SpinnerComponent } from '../Components/spinner/spinner.component';
     HttpClientModule,
     MatSelectModule,
     FormsModule,
+    MatDialogModule,
+    MatChipsModule,
+    MatAutocompleteModule,
   ],
   exports: [
     MatTableModule,
@@ -63,6 +69,9 @@ import { SpinnerComponent } from '../Components/spinner/spinner.component';
     HttpClientModule,
     MatSelectModule,
     FormsModule,
+    MatDialogModule,
+    MatChipsModule,
+    MatAutocompleteModule,
   ],
 })
 export class SharedModule {}

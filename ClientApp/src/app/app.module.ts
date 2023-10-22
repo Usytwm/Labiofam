@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //modulos
 import { SharedModule } from './Shared/shared.module';
+import { GenericCrudsModule } from './generic-cruds/generic-cruds.module';
 import { PointsOfSalesCrudModule } from './points-of-sales-crud/points-of-sales-crud.module';
 import { UsersCrudModule } from './users-crud/users-crud.module';
 
@@ -49,6 +50,7 @@ import { ProductManagementComponent } from './Components/product-management/prod
     SharedModule,
     PointsOfSalesCrudModule,
     UsersCrudModule,
+    GenericCrudsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

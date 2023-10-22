@@ -12,6 +12,7 @@
   height: 100%;
   object-fit: cover;
 }
+
 .card {
   transition: 0.7s;
 }
@@ -27,11 +28,7 @@
   transition: transform 1s; /* Añade una transición suave al efecto de zoom */
   cursor: pointer;
 }
-/*.img:hover {
-  transform: scale(
-    1.1
-  ); /* Aumenta el tamaño de la imagen en un 10% cuando el mouse pasa por encima /
-}*/
+
 .espacio {
   margin-bottom: 100px; /* Ajusta este valor a tu necesidad */
 }
@@ -48,28 +45,4 @@
   font-size: 2.8rem;
 }
 
-/*.my-button {
-  padding: 1rem 2rem;
-  border: 0;
-  font-size: 1rem;
-  font-weight: bold;
-  background: white;
-  border-radius: 6px;
-  transition: all 0.2s;
-  cursor: pointer;
-  box-shadow: 0 1.75rem 2rem -0.4rem rgba(50, 0, 100, 0.15);
-  background-color: rgb(255, 225, 0);
-  color: rgb(255, 255, 255);
-}
-
-.my-button:hover {
-  color: var(--color-4);
-  box-shadow: 0 1.75rem 3rem 0rem rgba(50, 0, 100, 0.1);
-  transform: scale(1.05);
-  color: blue;
-}
-
-.my-button:active {
-  box-shadow: 0 1.75rem 2.5rem -0.2rem rgba(50, 0, 100, 0.125);
-  transform: scale(1.025);
-}*/
+/*mooroor*/

@@ -1,0 +1,61 @@
+<p>generic-table-crud works!</p>
+<div class="container">
+  <div class="filter">
+    <mat-form-field>
+      <mat-label>Filtrar</mat-label>
+      <input
+        matInput
+        (keyup)="applyFilter($event)"
+        placeholder="Ex. Mia"
+        #input
+        autocomplete="off"
+      />
+    </mat-form-field>
+  </div>
+
+  <table mat-table [dataSource]="dataSource" matSort>
+    <ng-container *ngFor="let column of columns" [matColumnDef]="column">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ column }}</th>
+      <td mat-cell *matCellDef="let element">{{ element[column] }}</td>
+    </ng-container>
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon
+          routerLink="details/{{ element.user_ID }}"
+          matTooltip="Info"
+          class="search"
+          fontIcon="search"
+        ></mat-icon>
+        <mat-icon
+          routerLink="edit/{{ element.user_ID }}"
+          matTooltip="Edit"
+          class="edit"
+          fontIcon="edit"
+        ></mat-icon>
+        <mat-icon
+          (click)="Delete(element.user_ID)"
+          matTooltip="Delete"
+          class="delete"
+          fontIcon="delete"
+        ></mat-icon>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columns.concat('actions')"></tr>
+    <!-- Agrega 'actions' aquí -->
+    <tr mat-row *matRowDef="let row; columns: columns.concat('actions')"></tr>
+    <!-- Y aquí -->
+  </table>
+
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 20]"
+    aria-label="Select page of periodic elements"
+  >
+  </mat-paginator>
+
+  <button routerLink="createuser" mat-fab color="primary" matTooltip="Add">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

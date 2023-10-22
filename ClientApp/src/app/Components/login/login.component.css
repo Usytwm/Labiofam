@@ -11,9 +11,11 @@
   max-height: 50%; /* Ajusta este valor a lo que necesites */
   margin-right: auto;
   margin-left: auto;
-  margin-top: 5%;
+  margin-top: 10%;
   justify-content: center;
   overflow: auto; /* Asegura que el contenido pueda desplazarse si excede la altura máxima */
+  box-shadow: 0 8px 16px 0 rgba(48, 46, 46, 0.5);;
+  border-radius: 10px;
 }
 
 .form-control {
