@@ -1,11 +1,5 @@
 <body>
-  <ng-container *ngIf="showNavMenu$ | async">
-    <app-nav-menu></app-nav-menu>
-  </ng-container>
   <main>
     <router-outlet></router-outlet>
   </main>
-  <ng-container *ngIf="showNavMenu$ | async">
-    <app-footer></app-footer>
-  </ng-container>
 </body>
