@@ -1,7 +1,8 @@
-namespace Labiofam.Controllers;
 using Labiofam.Services;
 using Labiofam.Models;
 using Microsoft.AspNetCore.Mvc;
+
+namespace Labiofam.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -17,60 +18,93 @@ public class ClientController : Controller
     [HttpGet("{client_id}")]
     public async Task<IActionResult> GetClient(Guid client_id)
     {
-        try {
+        try
+        {
             var client = await _clientService.GetAsync(client_id);
             return Ok(client);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             return BadRequest(ex);
         }
     }
+    [HttpGet("name/{client_name}")]
+    public async Task<IActionResult> GetClient(string client_name)
+    {
+        try
+        {
+            var client = await _clientService.GetAsync(client_name);
+            return Ok(client);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }
+    }
+    [HttpGet("take/{size}")]
+    public IEnumerable<Client> Take(int size) => _clientService.Take(size);
     [HttpPost]
     public async Task<IActionResult> AddClient(Client new_client)
     {
-        try {
+        try
+        {
             await _clientService.AddAsync(new_client);
             return Ok();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             return BadRequest(ex);
         }
     }
     [HttpDelete("{client_id}")]
     public async Task<IActionResult> RemoveClient(Guid client_id)
     {
-        try {
+        try
+        {
             await _clientService.RemoveAsync(client_id);
             return Ok();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             return BadRequest(ex);
         }
     }
     [HttpPut("{client_id}")]
     public async Task<IActionResult> EditClient(Guid client_id, Client edited_client)
     {
-        try {
+        try
+        {
             await _clientService.EditAsync(client_id, edited_client);
             return Ok();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             return BadRequest(ex);
         }
     }
     [HttpGet]
     public async Task<IActionResult> GetAllClients()
     {
-        try {
+        try
+        {
             var clients = await _clientService.GetAllAsync();
             return Ok(clients);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             return BadRequest(ex);
         }
     }
     [HttpDelete]
     public async Task<IActionResult> RemoveAllClients()
     {
-        try {
+        try
+        {
             await _clientService.RemoveAllAsync();
             return Ok();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             return BadRequest(ex);
         }
     }

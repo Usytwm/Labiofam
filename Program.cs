@@ -1,5 +1,7 @@
 using Labiofam.Models;
 using Labiofam.Services;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +24,12 @@ builder.Services.AddDbContext<WebDbContext>(
         ServerVersion.AutoDetect(config.GetConnectionString("DefaultConnection"))
     ));
 
+builder.Services.AddIdentity<User, Role>()
+    .AddEntityFrameworkStores<WebDbContext>()
+    .AddDefaultTokenProviders()
+    .AddUserStore<UserStore<User, Role, WebDbContext, Guid>>()
+    .AddRoleStore<RoleStore<Role, WebDbContext, Guid>>();
+
 //Cors
 builder.Services.AddCors(options => options.AddPolicy("AllowWebApp", builder => builder
     .AllowAnyOrigin()
@@ -30,12 +38,12 @@ builder.Services.AddCors(options => options.AddPolicy("AllowWebApp", builder => 
     ));
 
 //Entities Services
-builder.Services.AddScoped<IEntityService<User>, UserService>();
+builder.Services.AddScoped<IRegistrationService<User, RegistrationModel>, UserService>();
 builder.Services.AddScoped<IEntityService<Client>, ClientService>();
 builder.Services.AddScoped<IEntityService<Product>, ProductService>();
 builder.Services.AddScoped<IEntityService<Contact>, ContactService>();
 builder.Services.AddScoped<IEntityService<Point_of_Sales>, POSService>();
-builder.Services.AddScoped<IEntityService<Role>, RoleService>();
+builder.Services.AddScoped<IRegistrationService<Role, RoleModel>, RoleService>();
 builder.Services.AddScoped<IEntityService<Service>, ServiceService>();
 
 //Relationship Services

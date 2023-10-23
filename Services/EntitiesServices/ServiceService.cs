@@ -1,6 +1,7 @@
-namespace Labiofam.Services;
 using Labiofam.Models;
 using Microsoft.EntityFrameworkCore;
+
+namespace Labiofam.Services;
 
 public class ServiceService : IEntityService<Service>
 {
@@ -9,46 +10,44 @@ public class ServiceService : IEntityService<Service>
 
     public async Task<Service> GetAsync(Guid service_id)
     {
-        var services = _webDbContext.Services!;
-        var current_service = await services.FirstOrDefaultAsync(
-            service => service.Service_ID.Equals(service_id)
-            );
-        if (current_service is not null)
-        {
-            return current_service;
-        }
-        throw new InvalidOperationException("Service not found");
+        var current_service = await _webDbContext.FindAsync<Service>(service_id)
+            ?? throw new InvalidOperationException("Service not found");
+
+        return current_service;
     }
+
+    public async Task<Service> GetAsync(string service_name)
+    {
+        var current_service = await _webDbContext.Services!.FirstOrDefaultAsync(
+            x => x.Name!.Equals(service_name)
+            ) ?? throw new InvalidOperationException("Service not found");
+
+        return current_service;
+    }
+
+    public IEnumerable<Service> Take(int size) =>
+        _webDbContext.Services!.OrderBy(x => x.Name).Take(size);
+
     public async Task AddAsync(Service new_service)
     {
-        var services = _webDbContext.Services!;
-        
-        if (services.Any(service => service.Name!.Equals(new_service.Name)))
+        if (await _webDbContext.Services!.AnyAsync(service => service.Name!.Equals(new_service.Name)))
             throw new InvalidOperationException("The service already exists");
 
-        new_service.Service_ID = Guid.NewGuid();
-
-        services.Add(new_service);
+        await _webDbContext.AddAsync(new_service);
         await _webDbContext.SaveChangesAsync();
     }
 
     public async Task RemoveAsync(Guid service_id)
     {
-        var services = _webDbContext.Services!;
-        var current_service = await services.FirstOrDefaultAsync(
-            service => service.Service_ID!.Equals(service_id)
-            ) ?? throw new InvalidOperationException("Service not found");
+        var current_service = await GetAsync(service_id);
 
-        services.Remove(current_service);
+        _webDbContext.Remove(current_service);
         await _webDbContext.SaveChangesAsync();
     }
 
     public async Task EditAsync(Guid service_id, Service edited_service)
     {
-        var services = _webDbContext.Services!;
-        var current_service = await services.FirstOrDefaultAsync(
-            service => service.Service_ID!.Equals(service_id)
-            ) ?? throw new InvalidOperationException("Service not found");
+        var current_service = await GetAsync(service_id);
 
         current_service.Name = edited_service.Name;
         current_service.Info = edited_service.Info;

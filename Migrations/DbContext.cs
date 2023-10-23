@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Labiofam.Models;
 
-public class WebDbContext : DbContext
+public class WebDbContext : IdentityDbContext<User, Role, Guid>
 {
     private readonly IConfiguration _configuration;
 
@@ -13,9 +15,7 @@ public class WebDbContext : DbContext
     public DbSet<Contact>? Contacts { get; set; }
     public DbSet<Point_of_Sales>? Points_Of_Sales { get; set; }
     public DbSet<Product>? Products { get; set; }
-    public DbSet<Role>? Roles { get; set; }
     public DbSet<Service>? Services { get; set; }
-    public DbSet<User>? Users { get; set; }
     public DbSet<Product_POS>? Product_POS { get; set; }
     public DbSet<User_Product>? User_Product { get; set; }
     public DbSet<User_Role>? User_Role { get; set; }
@@ -46,17 +46,21 @@ public class WebDbContext : DbContext
             .WithMany(u => u.Products)
             .HasForeignKey(up => up.User_ID);
 
-        modelBuilder.Entity<User_Role>()
-            .HasKey(ur => new { ur.User_ID, ur.Role_ID });
-
+        ////////////////////////////////////////////////
+        modelBuilder.Entity<IdentityUserLogin<Guid>>()
+            .HasKey(key => key.ProviderKey);
+        modelBuilder.Entity<IdentityUserRole<Guid>>()
+            .HasKey(key => new { key.UserId, key.RoleId});
         modelBuilder.Entity<User_Role>()
             .HasOne(ur => ur.User)
             .WithMany(r => r.Roles)
-            .HasForeignKey(ur => ur.User_ID);
+            .HasForeignKey(ur => ur.UserId);
         modelBuilder.Entity<User_Role>()
             .HasOne(ur => ur.Role)
             .WithMany(u => u.Users)
-            .HasForeignKey(ur => ur.Role_ID);
+            .HasForeignKey(ur => ur.RoleId);
+        modelBuilder.Entity<IdentityUserToken<Guid>>()
+            .HasKey(key => key.UserId);
 
         modelBuilder.Entity<Client>().ToTable("Clientes");
         modelBuilder.Entity<Contact>().ToTable("Contactos");
@@ -75,7 +79,6 @@ public class WebDbContext : DbContext
         var default_connection = _configuration.GetConnectionString("DefaultConnection");
         
         if (!optionsBuilder.IsConfigured)
-            //optionsBuilder.UseMySql((ServerVersion)_configuration.GetSection("ConnectionStrings:DefaultConnection"));
             optionsBuilder.UseMySql(default_connection, ServerVersion.AutoDetect(default_connection));
 
     }

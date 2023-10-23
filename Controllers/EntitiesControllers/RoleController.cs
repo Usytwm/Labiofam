@@ -1,15 +1,16 @@
-namespace Labiofam.Controllers;
 using Labiofam.Services;
 using Labiofam.Models;
 using Microsoft.AspNetCore.Mvc;
+
+namespace Labiofam.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
 public class RoleController : Controller
 {
-    private readonly IEntityService<Role> _roleService;
+    private readonly IRegistrationService<Role, RoleModel> _roleService;
 
-    public RoleController(IEntityService<Role> roleService)
+    public RoleController(IRegistrationService<Role, RoleModel> roleService)
     {
         _roleService = roleService;
     }
@@ -24,8 +25,20 @@ public class RoleController : Controller
             return BadRequest(ex);
         }
     }
+    [HttpGet("name/{role_name}")]
+    public async Task<IActionResult> GetRole(string role_name)
+    {
+        try {
+            var role = await _roleService.GetAsync(role_name);
+            return Ok(role);
+        } catch (Exception ex) {
+            return BadRequest(ex);
+        }
+    }
+    [HttpGet("take/{size}")]
+    public IEnumerable<Role> Take(int size) => _roleService.Take(size);
     [HttpPost]
-    public async Task<IActionResult> AddRole(Role new_role)
+    public async Task<IActionResult> AddRole(RoleModel new_role)
     {
         try {
             await _roleService.AddAsync(new_role);
@@ -45,7 +58,7 @@ public class RoleController : Controller
         }
     }
     [HttpPut("{role_id}")]
-    public async Task<IActionResult> EditRole(Guid role_id, Role edited_role)
+    public async Task<IActionResult> EditRole(Guid role_id, RoleModel edited_role)
     {
         try {
             await _roleService.EditAsync(role_id, edited_role);

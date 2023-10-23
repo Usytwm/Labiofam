@@ -1,54 +1,53 @@
-namespace Labiofam.Services;
 using Labiofam.Models;
 using Microsoft.EntityFrameworkCore;
+
+namespace Labiofam.Services;
 
 public class POSService : IEntityService<Point_of_Sales>
 {
     private readonly WebDbContext _webDbContext;
     public POSService(WebDbContext webDbContext) { _webDbContext = webDbContext; }
 
-    public async Task<Point_of_Sales> GetAsync(Guid Point_ID)
+    public async Task<Point_of_Sales> GetAsync(Guid point_id)
     {
-        var poss = _webDbContext.Points_Of_Sales!;
-        var current_pos = await poss.FirstOrDefaultAsync(
-            pos => pos.Point_ID.Equals(Point_ID)
-            );
-        if (current_pos is not null)
-        {
-            return current_pos;
-        }
-        throw new InvalidOperationException("Points of sales not found");
+        var current_pos = await _webDbContext.FindAsync<Point_of_Sales>(point_id)
+            ?? throw new InvalidOperationException("Points of sales not found");
+
+        return current_pos;
     }
+
+    public async Task<Point_of_Sales> GetAsync(string point_name)
+    {
+        var current_point = await _webDbContext.Points_Of_Sales!.FirstOrDefaultAsync(
+            x => x.Name!.Equals(point_name)
+            ) ?? throw new InvalidOperationException("Point of sales not found");
+
+        return current_point;
+    }
+
+    public IEnumerable<Point_of_Sales> Take(int size) =>
+        _webDbContext.Points_Of_Sales!.OrderBy(x => x.Name).Take(size);
+
     public async Task AddAsync(Point_of_Sales new_pos)
     {
-        var poss = _webDbContext.Points_Of_Sales!;
-        
-        if (poss.Any(pos => pos.Name!.Equals(new_pos.Name)))
+        if (await _webDbContext.Points_Of_Sales!.AnyAsync(pos => pos.Name!.Equals(new_pos.Name)))
             throw new InvalidOperationException("The point of sales already exists");
 
-        new_pos.Point_ID = Guid.NewGuid();
-
-        poss.Add(new_pos);
+        await _webDbContext.AddAsync(new_pos);
         await _webDbContext.SaveChangesAsync();
     }
 
-    public async Task RemoveAsync(Guid Point_ID)
+    public async Task RemoveAsync(Guid point_id)
     {
-        var poss = _webDbContext.Points_Of_Sales!;
-        var current_pos = await poss.FirstOrDefaultAsync(
-            pos => pos.Point_ID!.Equals(Point_ID)
-            ) ?? throw new InvalidOperationException("Point of sales not found");
+        var current_pos = await GetAsync(point_id);
 
-        poss.Remove(current_pos);
+        _webDbContext.Remove(current_pos);
         await _webDbContext.SaveChangesAsync();
     }
 
-    public async Task EditAsync(Guid Point_ID, Point_of_Sales edited_pos)
+    public async Task EditAsync(Guid point_id, Point_of_Sales edited_pos)
     {
-        var poss = _webDbContext.Points_Of_Sales!;
-        var current_pos = await poss.FirstOrDefaultAsync(
-            pos => pos.Point_ID!.Equals(Point_ID)
-            ) ?? throw new InvalidOperationException("Point of sales not found");
+        var current_pos = await GetAsync(point_id);
 
         current_pos.Name = edited_pos.Name;
         current_pos.Address = edited_pos.Address;

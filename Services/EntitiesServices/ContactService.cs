@@ -1,6 +1,7 @@
-namespace Labiofam.Services;
 using Labiofam.Models;
 using Microsoft.EntityFrameworkCore;
+
+namespace Labiofam.Services;
 
 public class ContactService : IEntityService<Contact>
 {
@@ -9,46 +10,44 @@ public class ContactService : IEntityService<Contact>
 
     public async Task<Contact> GetAsync(Guid contact_id)
     {
-        var contacts = _webDbContext.Contacts!;
-        var current_contact = await contacts.FirstOrDefaultAsync(
-            contact => contact.Contact_ID.Equals(contact_id)
-            );
-        if (current_contact is not null)
-        {
-            return current_contact;
-        }
-        throw new InvalidOperationException("Contact not found");
+        var current_contact = await _webDbContext.FindAsync<Contact>(contact_id)
+            ?? throw new InvalidOperationException("Contact not found");
+
+        return current_contact;
     }
+
+    public async Task<Contact> GetAsync(string contact_name)
+    {
+        var current_contact = await _webDbContext.Contacts!.FirstOrDefaultAsync(
+            x => x.Name!.Equals(contact_name)
+            ) ?? throw new InvalidOperationException("Contact not found");
+
+        return current_contact;
+    }
+
+    public IEnumerable<Contact> Take(int size) =>
+        _webDbContext.Contacts!.OrderBy(x => x.Name).Take(size);
+
     public async Task AddAsync(Contact new_contact)
     {
-        var contacts = _webDbContext.Contacts!;
-        
-        if (contacts.Any(contact => contact.Name!.Equals(new_contact.Name)))
+        if (await _webDbContext.Contacts!.AnyAsync(contact => contact.Name!.Equals(new_contact.Name)))
             throw new InvalidOperationException("The contact already exists");
 
-        new_contact.Contact_ID = Guid.NewGuid();
-
-        contacts.Add(new_contact);
+        await _webDbContext.AddAsync(new_contact);
         await _webDbContext.SaveChangesAsync();
     }
 
     public async Task RemoveAsync(Guid contact_id)
     {
-        var contacts = _webDbContext.Contacts!;
-        var current_contact = await contacts.FirstOrDefaultAsync(
-            contact => contact.Contact_ID!.Equals(contact_id)
-            ) ?? throw new InvalidOperationException("Contact not found");
+        var current_contact = await GetAsync(contact_id);
 
-        contacts.Remove(current_contact);
+        _webDbContext.Remove(current_contact);
         await _webDbContext.SaveChangesAsync();
     }
 
     public async Task EditAsync(Guid contact_id, Contact edited_contact)
     {
-        var contacts = _webDbContext.Contacts!;
-        var current_contact = await contacts.FirstOrDefaultAsync(
-            contact => contact.Contact_ID!.Equals(contact_id)
-            ) ?? throw new InvalidOperationException("Contact not found");
+        var current_contact = await GetAsync(contact_id);
 
         current_contact.Name = edited_contact.Name;
         current_contact.Image = edited_contact.Image;

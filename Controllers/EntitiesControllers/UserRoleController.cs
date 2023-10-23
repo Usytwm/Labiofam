@@ -1,7 +1,8 @@
-namespace Labiofam.Controllers;
 using Labiofam.Services;
 using Labiofam.Models;
 using Microsoft.AspNetCore.Mvc;
+
+namespace Labiofam.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -17,50 +18,67 @@ public class UserRoleController : Controller
     [HttpGet("{user_id}/{role_id}")]
     public async Task<IActionResult> GetUserRole(Guid user_id, Guid role_id)
     {
-        try {
+        try
+        {
             var user_role = await _userRoleService.GetAsync(user_id, role_id);
             return Ok(user_role);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             return BadRequest(ex);
         }
     }
+    [HttpGet("take/{size}")]
+    public IEnumerable<User_Role> Take(int size) => _userRoleService.Take(size);
     [HttpPost("{user_id}/{role_id}")]
     public async Task<IActionResult> AddUserRole(Guid user_id, Guid role_id)
     {
-        try {
+        try
+        {
             await _userRoleService.AddAsync(user_id, role_id);
             return Ok();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             return BadRequest(ex);
         }
     }
     [HttpDelete("{user_id}/{role_id}")]
     public async Task<IActionResult> RemoveUserRole(Guid user_id, Guid role_id)
     {
-        try {
+        try
+        {
             await _userRoleService.RemoveAsync(user_id, role_id);
             return Ok();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             return BadRequest(ex);
         }
     }
     [HttpGet]
     public async Task<IActionResult> GetAllUserRole()
     {
-        try {
+        try
+        {
             var user_role = await _userRoleService.GetAllAsync();
             return Ok(user_role);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             return BadRequest(ex);
         }
     }
     [HttpDelete]
     public async Task<IActionResult> RemoveAllUserRole()
     {
-        try {
+        try
+        {
             await _userRoleService.RemoveAllAsync();
             return Ok();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             return BadRequest(ex);
         }
     }

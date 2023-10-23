@@ -1,10 +1,11 @@
 namespace Labiofam.Services;
 
-public interface IRelationService<T>
+public interface IRelationService<Entity>
 {
-    Task<T> GetAsync(Guid model1_id, Guid model2_id);
+    Task<Entity> GetAsync(Guid model1_id, Guid model2_id);
+    IEnumerable<Entity> Take(int size);
     Task AddAsync(Guid new_model1, Guid new_model2);
     Task RemoveAsync(Guid model1_id, Guid model2_id);
-    Task<List<T>> GetAllAsync();
+    Task<List<Entity>> GetAllAsync();
     Task RemoveAllAsync();
 }

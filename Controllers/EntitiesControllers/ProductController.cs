@@ -1,7 +1,8 @@
-namespace Labiofam.Controllers;
 using Labiofam.Services;
 using Labiofam.Models;
 using Microsoft.AspNetCore.Mvc;
+
+namespace Labiofam.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -17,60 +18,93 @@ public class ProductController : Controller
     [HttpGet("{product_id}")]
     public async Task<IActionResult> GetProduct(Guid product_id)
     {
-        try {
+        try
+        {
             var product = await _productService.GetAsync(product_id);
             return Ok(product);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             return BadRequest(ex);
         }
     }
+    [HttpGet("name/{product_name}")]
+    public async Task<IActionResult> GetProduct(string product_name)
+    {
+        try
+        {
+            var product = await _productService.GetAsync(product_name);
+            return Ok(product);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }
+    }
+    [HttpGet("take/{size}")]
+    public IEnumerable<Product> Take(int size) => _productService.Take(size);
     [HttpPost]
     public async Task<IActionResult> AddProduct(Product new_product)
     {
-        try {
+        try
+        {
             await _productService.AddAsync(new_product);
             return Ok();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             return BadRequest(ex);
         }
     }
     [HttpDelete("{product_id}")]
     public async Task<IActionResult> RemoveProduct(Guid product_id)
     {
-        try {
+        try
+        {
             await _productService.RemoveAsync(product_id);
             return Ok();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             return BadRequest(ex);
         }
     }
     [HttpPut("{product_id}")]
     public async Task<IActionResult> EditProduct(Guid product_id, Product edited_product)
     {
-        try {
+        try
+        {
             await _productService.EditAsync(product_id, edited_product);
             return Ok();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             return BadRequest(ex);
         }
     }
     [HttpGet]
     public async Task<IActionResult> GetAllProducts()
     {
-        try {
+        try
+        {
             var products = await _productService.GetAllAsync();
             return Ok(products);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             return BadRequest(ex);
         }
     }
     [HttpDelete]
     public async Task<IActionResult> RemoveAllProducts()
     {
-        try {
+        try
+        {
             await _productService.RemoveAllAsync();
             return Ok();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             return BadRequest(ex);
         }
     }

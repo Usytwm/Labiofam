@@ -1,6 +1,7 @@
-namespace Labiofam.Services;
 using Labiofam.Models;
 using Microsoft.EntityFrameworkCore;
+
+namespace Labiofam.Services;
 
 public class ProductService : IEntityService<Product>
 {
@@ -9,46 +10,43 @@ public class ProductService : IEntityService<Product>
 
     public async Task<Product> GetAsync(Guid product_id)
     {
-        var products = _webDbContext.Products!;
-        var current_product = await products.FirstOrDefaultAsync(
-            product => product.Product_ID.Equals(product_id)
-            );
-        if (current_product is not null)
-        {
-            return current_product;
-        }
-        throw new InvalidOperationException("Product not found");
+        var current_product = await _webDbContext.FindAsync<Product>(product_id)
+            ?? throw new InvalidOperationException("Product not found");
+
+        return current_product;
     }
+    public async Task<Product> GetAsync(string product_name)
+    {
+        var current_product = await _webDbContext.Products!.FirstOrDefaultAsync(
+            x => x.Name!.Equals(product_name)
+            ) ?? throw new InvalidOperationException("Product not found");
+
+        return current_product;
+    }
+
+    public IEnumerable<Product> Take(int size) =>
+        _webDbContext.Products!.OrderBy(x => x.Name).Take(size);
+
     public async Task AddAsync(Product new_product)
     {
-        var products = _webDbContext.Products!;
-        
-        if (products.Any(product => product.Name!.Equals(new_product.Name)))
+        if (await _webDbContext.Products!.AnyAsync(product => product.Name!.Equals(new_product.Name)))
             throw new InvalidOperationException("The product already exists");
 
-        new_product.Product_ID = Guid.NewGuid();
-
-        products.Add(new_product);
+        await _webDbContext.AddAsync(new_product);
         await _webDbContext.SaveChangesAsync();
     }
 
     public async Task RemoveAsync(Guid product_id)
     {
-        var products = _webDbContext.Products!;
-        var current_product = await products.FirstOrDefaultAsync(
-            product => product.Product_ID!.Equals(product_id)
-            ) ?? throw new InvalidOperationException("Product not found");
+        var current_product = await GetAsync(product_id);
 
-        products.Remove(current_product);
+        _webDbContext.Remove(current_product);
         await _webDbContext.SaveChangesAsync();
     }
 
     public async Task EditAsync(Guid product_id, Product edited_Product)
     {
-        var products = _webDbContext.Products!;
-        var current_product = await products.FirstOrDefaultAsync(
-            product => product.Product_ID!.Equals(product_id)
-            ) ?? throw new InvalidOperationException("Product not found");
+        var current_product = await GetAsync(product_id);
 
         current_product.Name = edited_Product.Name;
         current_product.Type = edited_Product.Type;
