@@ -3,7 +3,6 @@
   position: relative;
   margin: auto;
   text-align: center;
-  /*border-radius: 5px; /* Radio de la esquina del borde del contenedor */
   box-shadow: 0 8px 16px #dce1e1; /* Sombra alrededor del contenedor */
   overflow: hidden; /*  */
 }
