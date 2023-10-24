@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Labiofam.Migrations
 {
     [DbContext(typeof(WebDbContext))]
-    [Migration("20231022221826_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20231024201432_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
