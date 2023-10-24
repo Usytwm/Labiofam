@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import { GenericTableComponent } from './generic-table/generic-table.component';
 
@@ -17,6 +18,7 @@ import { MatTableModule } from '@angular/material/table';
     MatIconModule,
     MatFormFieldModule,
     MatTableModule,
+    RouterModule,
   ],
   exports: [GenericTableComponent],
 })
