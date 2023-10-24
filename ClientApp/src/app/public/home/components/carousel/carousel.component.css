@@ -1,0 +1,24 @@
+/* Estilos para el contenedor principal del carrusel */
+.cont {
+  position: relative;
+  margin: auto;
+  text-align: center;
+  box-shadow: 0 8px 16px #dce1e1; /* Sombra alrededor del contenedor */
+  overflow: hidden; /*  */
+}
+
+.img {
+  display: block; /* La imagen activa se muestra */
+  width: 100%; /* La imagen activa ocupará el ancho completo de su contenedor padre */
+  height: auto; /* Altura de la imagen activa como porcentaje de la altura de la ventana del navegador */
+  transition: transform 1s; /* Añade una transición suave al efecto de zoom */
+  cursor: pointer;
+}
+.img:hover {
+  transform: scale(
+    1.1
+  ); /* Aumenta el tamaño de la imagen en un 10% cuando el mouse pasa por encima */
+}
+.espacio {
+  margin-bottom: 100px; /* Ajusta este valor a tu necesidad */
+}
