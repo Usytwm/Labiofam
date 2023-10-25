@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, throwError } from 'rxjs';
+import { LoginModel } from 'src/app/Interfaces/Loginmodel';
 import { LoginService } from 'src/app/Services/login.service';
 
 @Component({
@@ -12,19 +13,26 @@ import { LoginService } from 'src/app/Services/login.service';
 export class LoginComponent {
   username?: string;
   contrasena?: string;
+  rememberMe: boolean = false;
   constructor(
     private _loginservice: LoginService,
     private _snackBar: MatSnackBar
   ) {}
   onSubmit(form: NgForm) {
-    console.log(form.value);
+    const loginmodel: LoginModel = {
+      name: form.value.username,
+      password: form.value.password,
+    };
+    console.log(loginmodel);
+    this.rememberMe = Boolean(this.rememberMe);
+    console.log(this.rememberMe);
     this._loginservice
-      .sendData(form.value)
+      .sendData(loginmodel)
       .pipe(
         catchError((error) => {
           console.error('Hubo un error:', error);
           this._snackBar.open(
-            'Hubo un error. Por favor, vuelve a introducir tus datos.',
+            'Nombre de usuario o contraseña incorrectos. Por favor, vuelva a introducir sus datos.',
             'Cerrar',
             {
               duration: 5000,
@@ -34,9 +42,7 @@ export class LoginComponent {
           return throwError(error);
         })
       )
-      .subscribe((data) => {
-        console.log(data);
-      });
+      .subscribe();
     // aquí puedes enviar los datos al backend
   }
 }

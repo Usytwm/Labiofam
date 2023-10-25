@@ -58,57 +58,27 @@
             </button></a
           >
         </li>
-        <li class="nav-item">
-          <div class="dropdown">
-            <a class="nav-link">
-              <button
-                class="btn btn-outline-secondary no-border dropdown-toggle btn-nav"
-                type="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Servicios
-              </button>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </li>
-              </ul>
-            </a>
-          </div>
-        </li>
         <li class="nav-item" [routerLinkActive]="['link-active']">
-          <a class="nav-link"
-            ><button
-              type="button"
+          <a class="nav-link">
+            <button
               class="btn btn-outline-secondary no-border btn-nav"
-              [routerLink]="['feedback']"
-            >
-              Contactos
-            </button></a
-          >
-        </li>
-        <li class="nav-item" [routerLinkActive]="['link-active']">
-          <a class="nav-link"
-            ><button
               type="button"
-              class="btn btn-outline-secondary no-border btn-nav"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
               [routerLink]="['/login']"
             >
-              Testimonios
-            </button></a
-          >
+              Servicios
+            </button>
+          </a>
         </li>
         <li class="nav-item" [routerLinkActive]="['link-active']">
           <a class="nav-link"
             ><button
               type="button"
               class="btn btn-outline-secondary no-border btn-nav"
-              [routerLink]="['/users']"
+              [routerLink]="['/dashboard']"
             >
-              Quejas y sugerencias
+              Contactos
             </button></a
           >
         </li>

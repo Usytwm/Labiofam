@@ -1,23 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { LoginRoutingModule } from './login-routing.module';
+import { RouterModule } from '@angular/router';
 
-//material
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
+//modulos material
+import { SharedModule } from '../../Shared/shared.module';
 
 //componentes
 import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
-  declarations: [LoginComponent],
-  imports: [
-    CommonModule,
-    LoginRoutingModule,
-    MatCardModule,
-    FormsModule,
-    MatButtonModule,
-  ],
+  declarations: [LoginComponent, RegisterComponent],
+  imports: [CommonModule, FormsModule, SharedModule, RouterModule],
 })
 export class LoginModule {}

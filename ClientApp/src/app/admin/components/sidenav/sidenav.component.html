@@ -42,7 +42,9 @@
 
     <div class="logout">
       <hr />
-      <button mat-button (click)="logout()">Cerrar Sesión</button>
+      <button mat-button (click)="logout()" [routerLink]="['/home']">
+        Cerrar Sesión
+      </button>
     </div>
   </mat-drawer>
 
