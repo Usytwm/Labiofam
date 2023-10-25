@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //modulos
 import { AuthModule } from './auth/auth.module';
 import { PublicModule } from './public/public.module';
-import { SeccionAdminModule } from './admin/seccion-admin.module';
+import { SeccionAdminModule } from './admin/admin.module';
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './Shared/shared.module';
 

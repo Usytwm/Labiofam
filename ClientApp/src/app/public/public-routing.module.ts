@@ -32,11 +32,7 @@ const routes: Routes = [
       // otras rutas que deben mostrarse dentro de PublicComponent
     ],
   },
-  {
-    path: '**',
-    redirectTo: 'home',
-    pathMatch: 'full',
-  },
+ 
 ];
 
 @NgModule({
