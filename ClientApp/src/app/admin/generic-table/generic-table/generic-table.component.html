@@ -22,19 +22,19 @@
       <th mat-header-cell *matHeaderCellDef>Acciones</th>
       <td mat-cell *matCellDef="let element">
         <mat-icon
-          routerLink="details/{{ element.user_ID }}"
+          routerLink="details/{{ element.elementId }}"
           matTooltip="Info"
           class="search"
           fontIcon="search"
         ></mat-icon>
         <mat-icon
-          routerLink="edit/{{ element.user_ID }}"
+          routerLink="edit/{{ element.elementId }}"
           matTooltip="Edit"
           class="edit"
           fontIcon="edit"
         ></mat-icon>
         <mat-icon
-          (click)="Delete(element.user_ID)"
+          (click)="deleteRow(element.elementId)"
           matTooltip="Delete"
           class="delete"
           fontIcon="delete"

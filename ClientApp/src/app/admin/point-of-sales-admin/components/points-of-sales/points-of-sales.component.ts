@@ -26,6 +26,7 @@ export class PointsOfSalesComponent implements OnInit {
     this.loading = true;
     this._service.getAll().subscribe((data) => {
       this._dataColumns = [
+        'point_ID',
         'name',
         'address',
         'municipality',
@@ -33,7 +34,6 @@ export class PointsOfSalesComponent implements OnInit {
         'latitude',
         'longitude',
       ];
-
       this._data = data;
       this.loading = false;
     });
@@ -41,6 +41,7 @@ export class PointsOfSalesComponent implements OnInit {
 
   Delete(id: string) {
     this.loading = true;
+    console.log(id);
     this._service.delete(id).subscribe(() => {
       this._snackBar.open('delete sucess', '', {
         duration: 3000,

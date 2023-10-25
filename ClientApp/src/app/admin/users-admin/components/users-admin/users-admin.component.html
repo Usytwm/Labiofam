@@ -1,2 +1,6 @@
 <div class="mat-primary titulo">Usuarios</div>
-<app-generic-table [data]="_data" [columns]="_dataColumns"></app-generic-table>
+<app-generic-table
+  [data]="_data"
+  [columns]="_dataColumns"
+  (delete)="Delete($event)"
+></app-generic-table>

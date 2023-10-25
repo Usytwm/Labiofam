@@ -29,13 +29,11 @@ export class UsersAdminComponent implements OnInit {
   getAll(): void {
     this.loading = true;
     this._userservice.getAll().subscribe((data) => {
-      this._dataColumns = ['name', 'roles', 'password'];
+      this._dataColumns = ['id', 'userName', 'passwordHash', 'roles'];
       this._data = data;
       this.loading = false;
     });
   }
-
-  ///dsfsd
 
   Delete(id: string) {
     this.loading = true;

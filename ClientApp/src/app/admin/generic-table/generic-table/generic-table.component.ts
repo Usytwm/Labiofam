@@ -18,8 +18,29 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./generic-table.component.css'],
 })
 export class GenericTableComponent<T> implements OnInit, AfterViewInit {
+  /**
+   * @Input data: Los datos que se mostrarán en la tabla. Debe ser un array de objetos,
+   * donde cada objeto representa una fila de la tabla. Los nombres de las propiedades del objeto
+   * deben coincidir con los valores del array 'columns'.
+   */
   @Input() data!: T[];
+
+  /**
+   * @Input columns: Los nombres de las columnas que se mostrarán en la tabla. Debe ser un array de strings,
+   * donde cada string es el nombre de una columna. El primer elemento del array debe ser el nombre del ID del tipo
+   * que sea. Los valores del array 'columns' deben coincidir con los nombres de las propiedades del objeto en el
+   * array 'data'.
+   */
   @Input() columns!: string[];
+
+  /**
+   * @Output delete: Un evento que se emite cuando se necesita eliminar un elemento de la tabla. El valor emitido es
+   * el ID del elemento que se va a eliminar.
+   */
+  @Output() delete = new EventEmitter<string>();
+
+  //@Input() Delete(id: string): void {}
+
   dataSource = new MatTableDataSource<T>();
 
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
@@ -29,15 +50,16 @@ export class GenericTableComponent<T> implements OnInit, AfterViewInit {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['data']) {
-      this.dataSource.data = changes['data'].currentValue;
+      this.dataSource.data = changes['data'].currentValue.map((item: any) => {
+        return { ...item, elementId: item[this.columns.shift()!] };
+      });
+      this.columns = this.columns.filter((column) => column !== 'elementId');
       console.log(this.dataSource.data);
     }
   }
   ngOnInit() {
     this.dataSource.sort = this.sort;
   }
-
-  @Output() delete = new EventEmitter<string>();
 
   constructor(protected _snackBar: MatSnackBar) {}
 
@@ -54,6 +76,7 @@ export class GenericTableComponent<T> implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
     this.paginator._intl.itemsPerPageLabel = 'Items por pagina';
   }
-
-  Delete(id: string) {}
+  deleteRow(id: string) {
+    this.delete.emit(id);
+  }
 }
