@@ -10,7 +10,7 @@ import { PointsOfSalesService } from 'src/app/Services/points-of-sales.service';
 })
 export class PointsOfSalesComponent implements OnInit {
   _data: Point_of_Sales[] = [];
-  _dataColumns: string[] = [];
+  _dataColumns: Record<string, string> = {};
   loading: Boolean = false;
 
   constructor(
@@ -25,15 +25,16 @@ export class PointsOfSalesComponent implements OnInit {
   getAll(): void {
     this.loading = true;
     this._service.getAll().subscribe((data) => {
-      this._dataColumns = [
-        'point_ID',
-        'name',
-        'address',
-        'municipality',
-        'province',
-        'latitude',
-        'longitude',
-      ];
+      this._dataColumns = {
+        id: 'point_ID',
+        nombre: 'name',
+        direccion: 'address',
+        municipio: 'municipality',
+        provincia: 'province',
+        latitud: 'latitude',
+        longitud: 'longitude',
+      };
+
       this._data = data;
       this.loading = false;
     });

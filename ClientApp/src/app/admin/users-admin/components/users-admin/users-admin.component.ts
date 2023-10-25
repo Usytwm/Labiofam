@@ -11,7 +11,7 @@ import { UserService } from 'src/app/Services/user.service';
 })
 export class UsersAdminComponent implements OnInit {
   _data: User[] = [];
-  _dataColumns: string[] = [];
+  _dataColumns: Record<string, string> = {};
   loading: Boolean = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -29,7 +29,12 @@ export class UsersAdminComponent implements OnInit {
   getAll(): void {
     this.loading = true;
     this._userservice.getAll().subscribe((data) => {
-      this._dataColumns = ['id', 'userName', 'passwordHash', 'roles'];
+      this._dataColumns = {
+        id: 'id',
+        nombre: 'userName',
+        paswordhash: 'passwordHash',
+        roles: 'roles',
+      };
       this._data = data;
       this.loading = false;
     });

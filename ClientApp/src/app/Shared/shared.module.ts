@@ -72,6 +72,7 @@ import { SpinnerComponent } from '../Components/spinner/spinner.component';
     MatDialogModule,
     MatChipsModule,
     MatAutocompleteModule,
+    SpinnerComponent,
   ],
 })
 export class SharedModule {}
