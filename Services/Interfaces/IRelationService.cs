@@ -1,3 +1,5 @@
+using Labiofam.Models;
+
 namespace Labiofam.Services;
 
 public interface IRelationService<Entity>
@@ -8,4 +10,9 @@ public interface IRelationService<Entity>
     Task RemoveAsync(Guid model1_id, Guid model2_id);
     Task<List<Entity>> GetAllAsync();
     Task RemoveAllAsync();
+}
+
+public interface IProductPOSService : IRelationService<Product_POS>
+{
+    Task AddAsync(Guid product_id, Guid pos_id, int size);
 }

@@ -36,12 +36,14 @@ builder.Services.AddIdentity<User, Role>(options =>
     .AddDefaultTokenProviders()
     .AddUserStore<UserStore<User, Role, WebDbContext, Guid>>()
     .AddRoleStore<RoleStore<Role, WebDbContext, Guid>>();
+
 // Cors
 builder.Services.AddCors(options => options.AddPolicy("AllowWebApp", builder => builder
     .AllowAnyOrigin()
     .AllowAnyHeader()
     .AllowAnyMethod()
     ));
+
 // Servicios de entidades
 builder.Services.AddScoped<IRegistrationService<User, RegistrationModel>, UserService>();
 builder.Services.AddScoped<IEntityService<Client>, ClientService>();
@@ -50,11 +52,13 @@ builder.Services.AddScoped<IEntityService<Contact>, ContactService>();
 builder.Services.AddScoped<IEntityService<Point_of_Sales>, POSService>();
 builder.Services.AddScoped<IRegistrationService<Role, RoleModel>, RoleService>();
 builder.Services.AddScoped<IEntityService<Service>, ServiceService>();
+
 // Servicios de relaciones
 builder.Services.AddScoped<IRelationService<User_Role>, UserRoleService>();
-builder.Services.AddScoped<IRelationService<Product_POS>, ProductPOSService>();
+builder.Services.AddScoped<IProductPOSService, ProductPOSService>();
 builder.Services.AddScoped<IRelationService<User_Product>, UserProductService>();
 var app = builder.Build();
+
 // Configurar el pipeline de solicitudes HTTP.
 if (app.Environment.IsDevelopment())
 {

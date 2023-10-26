@@ -1,6 +1,7 @@
 using Labiofam.Services;
 using Labiofam.Models;
 using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Crypto.Engines;
 
 namespace Labiofam.Controllers
 {
@@ -8,9 +9,9 @@ namespace Labiofam.Controllers
     [ApiController]
     public class ProductPOSController : Controller
     {
-        private readonly IRelationService<Product_POS> _productPOSService;
+        private readonly IProductPOSService _productPOSService;
 
-        public ProductPOSController(IRelationService<Product_POS> productPOSService)
+        public ProductPOSController(IProductPOSService productPOSService)
         {
             _productPOSService = productPOSService;
         }
@@ -48,13 +49,17 @@ namespace Labiofam.Controllers
         /// </summary>
         /// <param name="product_id">ID del producto.</param>
         /// <param name="pos_id">ID del punto de venta.</param>
+        /// <param name="size">Cantidad de produtos a agregar.</param>
         /// <returns>Estado de la operación.</returns>
-        [HttpPost("{product_id}/{pos_id}")]
-        public async Task<IActionResult> AddProductPOS(Guid product_id, Guid pos_id)
+        [HttpPost("{product_id}/{pos_id}/[[size]]")]
+        public async Task<IActionResult> AddProductPOS(Guid product_id, Guid pos_id, int size = 1)
         {
             try
             {
-                await _productPOSService.AddAsync(product_id, pos_id);
+                if (size == 1)
+                    await _productPOSService.AddAsync(product_id, pos_id);
+                else
+                    await _productPOSService.AddAsync(product_id, pos_id, size);
                 return Ok();
             }
             catch (Exception ex)
