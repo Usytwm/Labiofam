@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { UsersAdminComponent } from './users-admin/components/users-admin/users-admin.component';
 import { PointsOfSalesComponent } from './point-of-sales-admin/components/points-of-sales/points-of-sales.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { AddEditUserComponent } from './users-admin/components/add-edit-user/add-edit-user.component';
 
 const routes: Routes = [
   {
@@ -10,6 +11,8 @@ const routes: Routes = [
     component: SidenavComponent,
     children: [
       { path: 'users', component: UsersAdminComponent },
+      { path: 'users/edit/:id', component: AddEditUserComponent },
+      { path: 'users/add', component: AddEditUserComponent },
       {
         path: 'points-of-sales',
         component: PointsOfSalesComponent,
