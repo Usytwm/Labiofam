@@ -68,6 +68,7 @@ namespace Labiofam.Services
 
             if (!result.Succeeded)
                 throw new ArgumentException("Password error");
+            //aki hay vedces que da error de username, no devulevas solamente errores de paswword
 
             return user;
         }
