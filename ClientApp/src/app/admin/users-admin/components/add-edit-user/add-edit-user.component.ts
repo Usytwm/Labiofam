@@ -23,8 +23,14 @@ export class AddEditUserComponent implements OnInit {
   user?: User;
 
   form = this.fb.group({
-    Username: ['', Validators.required],
-    Password: ['', Validators.required],
+    Username: ['', [Validators.required, Validators.pattern('^[^\\s]*$')]],
+    Password: [
+      '',
+      [
+        Validators.required,
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z]).{8,}$'),
+      ],
+    ],
   });
 
   roleControl = new FormControl<User_Role | null>(null, Validators.required);
@@ -54,7 +60,11 @@ export class AddEditUserComponent implements OnInit {
       this.form.controls['Password'].updateValueAndValidity();
     } else {
       // Si estás agregando, la contraseña es requerida
-      this.form.controls['Password'].setValidators([Validators.required]);
+      // Si estás agregando, la contraseña es requerida
+      this.form.controls['Password'].setValidators([
+        Validators.required,
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$'),
+      ]);
       this.form.controls['Password'].updateValueAndValidity();
     }
   }

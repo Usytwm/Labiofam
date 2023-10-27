@@ -5,7 +5,6 @@ import { MatSort } from '@angular/material/sort';
 import { User } from 'src/app/Interfaces/User';
 import { RegistrationModel } from 'src/app/Interfaces/registration-model';
 import { RegistrationService } from 'src/app/Services/registration.service';
-import { UserService } from 'src/app/Services/user.service';
 @Component({
   selector: 'app-users-admin',
   templateUrl: './users-admin.component.html',

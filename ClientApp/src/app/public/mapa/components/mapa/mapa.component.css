@@ -50,7 +50,7 @@
   color: #666;
   margin: 0.5em 0;
 }
-/*otro*/
+
 .filter-ctrl {
   position: absolute;
   top: 10px;
@@ -69,4 +69,14 @@
   box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
   border-radius: 3px;
   width: 180px;
+}
+
+.titulo {
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  color: #04d7fc;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 10px;
 }

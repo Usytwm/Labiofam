@@ -95,7 +95,31 @@ export class MapaComponent implements AfterViewInit, OnDestroy {
           ).map((punto) => ({
             type: 'Feature',
             properties: {
-              description: `<div style="
+              description: `
+              <div class="container">
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                  <div class="col">
+                    <div data-aos="fade-right" data-aos-duration="500">
+                      <div class="card" style="height: 25rem; transition: 0.7s;">
+                        <div class="cont" style="position: relative; margin: auto; text-align: center; box-shadow: 0 8px 16px #dce1e1; overflow: hidden; width: 100%; height: 15rem;">
+                          <img src="${punto.image}" class="card-img-top img" alt="..." style="width: 100%; height: 100%; object-fit: cover; display: flexbox; transition: transform 1s; cursor: pointer;" />
+                        </div>
+                        <div class="card-body">
+                          <h5 class="card-title">Card title</h5>
+                          <p class="card-text">
+                            This is a longer card with supporting text below as a
+                            natural lead-in to additional content. This content is a
+                            little bit longer.
+                          </p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              
+              <div style="
               background-color: #ADD8E6; 
               border-radius: 10px; 
               box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); 

@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 
 //modulos
 
-import { GenericTableModule } from '../generic-table/generic-table.module';
+import { CrudsModule } from '../cruds/cruds.module';
 import { SharedModule } from '../../Shared/shared.module';
 
 //componentes
@@ -13,6 +13,6 @@ import { AddEditPosComponent } from './components/add-edit-pos/add-edit-pos.comp
 
 @NgModule({
   declarations: [PointsOfSalesComponent, AddEditPosComponent],
-  imports: [CommonModule, GenericTableModule, SharedModule, RouterModule],
+  imports: [CommonModule, CrudsModule, SharedModule, RouterModule],
 })
 export class PointOfSalesAdminModule {}
