@@ -83,7 +83,7 @@ namespace Labiofam.Services
             current_pos.Latitude = edited_pos.Latitude;
             current_pos.Longitude = edited_pos.Longitude;
             current_pos.Municipality = edited_pos.Municipality;
-            current_pos.Province = current_pos.Province;
+            current_pos.Province = edited_pos.Province;
             _webDbContext.Entry(current_pos).State = EntityState.Modified;
             await _webDbContext.SaveChangesAsync();
         }

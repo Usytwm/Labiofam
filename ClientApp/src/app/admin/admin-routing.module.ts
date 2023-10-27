@@ -4,6 +4,7 @@ import { UsersAdminComponent } from './users-admin/components/users-admin/users-
 import { PointsOfSalesComponent } from './point-of-sales-admin/components/points-of-sales/points-of-sales.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { AddEditUserComponent } from './users-admin/components/add-edit-user/add-edit-user.component';
+import { AddEditPosComponent } from './point-of-sales-admin/components/add-edit-pos/add-edit-pos.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,8 @@ const routes: Routes = [
         path: 'points-of-sales',
         component: PointsOfSalesComponent,
       },
+      { path: 'points-of-sales/edit/:id', component: AddEditPosComponent },
+      { path: 'points-of-sales/add', component: AddEditPosComponent },
       // otras rutas que deben mostrarse dentro de PublicComponent
     ],
   },

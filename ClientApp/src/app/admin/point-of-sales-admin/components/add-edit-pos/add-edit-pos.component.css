@@ -1,0 +1,32 @@
+.card {
+  margin-top: 10px;
+}
+
+.container1 {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+.mat-form-field {
+  width: 100%;
+  margin: 10px;
+}
+.btnacept {
+  margin-right: 5px;
+}
+
+.card {
+  max-width: 65%;
+  margin-right: auto;
+  margin-left: auto;
+  justify-content: center;
+  height: 100%;
+  overflow: auto; /* Asegura que el contenido pueda desplazarse si excede la altura máxima */
+}
+.titulo {
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+  padding: 10px;
+}

@@ -34,7 +34,6 @@ export class PointsOfSalesComponent implements OnInit {
         latitud: 'latitude',
         longitud: 'longitude',
       };
-
       this._data = data;
       this.loading = false;
     });
