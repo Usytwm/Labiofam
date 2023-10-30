@@ -1,0 +1,76 @@
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  margin: auto; /* Centra el contenedor horizontalmente */
+}
+.invalid {
+  border-color: red;
+}
+
+.card {
+  position: relative;
+  max-width: 30%; /* Ajusta este valor a lo que necesites */
+  max-height: auto; /* Ajusta este valor a lo que necesites */
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  justify-content: center;
+  overflow: auto; /* Asegura que el contenido pueda desplazarse si excede la altura máxima */
+  box-shadow: 0 8px 16px 0 rgba(48, 46, 46, 0.5);
+  border-radius: 10px;
+}
+
+.form-control {
+  width: 350px; /* Ajusta este valor a lo que necesites */
+}
+.account {
+  color: #3f3db8;
+  margin: 10px; /* Añade un poco de margen alrededor del icono */
+}
+.containersvg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* Estilos para pantallas grandes */
+@media (min-width: 1200px) {
+  .form-control {
+    width: 350px;
+  }
+  .card {
+    max-width: 35%;
+  }
+}
+
+/* Estilos para pantallas medianas */
+@media (max-width: 1199px) {
+  .form-control {
+    width: 100%;
+  }
+  .card {
+    max-width: 40%;
+  }
+}
+
+/* Estilos para pantallas pequeñas */
+@media (max-width: 768px) {
+  .form-control {
+    width: 100%;
+  }
+  .card {
+    max-width: 50%;
+  }
+}
+
+.body {
+  position: absolute;
+  background-image: url("../../../../../assets/login2.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  height: auto;
+  width: 100%;
+}

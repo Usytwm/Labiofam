@@ -1,11 +1,13 @@
 namespace Labiofam.Services;
 
-public interface IEntityService<T>
+public interface IEntityService<Entity>
 {
-    Task<T> GetAsync(Guid model_id);
-    Task AddAsync(T new_model);
+    Task<Entity> GetAsync(Guid model_id);
+    Task<Entity> GetAsync(string name);
+    IEnumerable<Entity> Take(int size);
+    Task AddAsync(Entity new_model);
     Task RemoveAsync(Guid model_id);
-    Task EditAsync(Guid model_id, T edited_model);
-    Task<List<T>> GetAllAsync();
+    Task EditAsync(Guid model_id, Entity edited_model);
+    Task<List<Entity>> GetAllAsync();
     Task RemoveAllAsync();
 }

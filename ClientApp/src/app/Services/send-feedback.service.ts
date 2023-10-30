@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class SendFeedbackService {
   private appUrl: string = environment.endpoint;
-  private webApi = 'api/feedback'; // Asegúrate de usar HTTPS
+  private webApi = 'api/feedback'; 
 
   constructor(private http: HttpClient) {}
 

@@ -8,6 +8,7 @@ import { AbstractService } from './generic-crud.service';
 })
 export class ProductService extends AbstractService<Product> {
   constructor(_http: HttpClient) {
-    super(_http, 'api/Product/');
+    super(_http);
+    this.apiUrl = 'api/Product/';
   }
 }

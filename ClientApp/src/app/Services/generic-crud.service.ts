@@ -7,8 +7,8 @@ import { environment } from 'src/environments/environment';
 })
 export abstract class AbstractService<T> {
   private appUrl: string = environment.endpoint;
-
-  constructor(protected _http: HttpClient, private apiUrl: string) {}
+  protected apiUrl?: string;
+  constructor(protected _http: HttpClient) {}
 
   getAll(): Observable<T[]> {
     return this._http.get<T[]>(`${this.appUrl}${this.apiUrl}`);

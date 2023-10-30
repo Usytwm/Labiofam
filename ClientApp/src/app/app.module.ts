@@ -3,49 +3,27 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //modulos
+import { AuthModule } from './auth/auth.module';
+import { PublicModule } from './public/public.module';
+import { SeccionAdminModule } from './admin/admin.module';
+import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './Shared/shared.module';
 
 //Componentes
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './Components/nav-menu/nav-menu.component';
-import { MapInfoDisplayComponent } from './Components/map-info-display/map-info-display.component';
-import { HomeComponent } from './Components/home/home.component';
 import { FeedbackComponent } from './Components/feedback/feedback.component';
-import { LoginComponent } from './Components/login/login.component';
-import { CarouselComponent } from './Components/carousel/carousel.component';
 import { InfoComponent } from './Components/info/info.component';
-import { SpinnerComponent } from './Components/spinner/spinner.component';
-import { CardBioproductComponent } from './Components/card-bioproduct/card-bioproduct.component';
-import { BioproductComponent } from './Components/bioproduct/bioproduct.component';
-import { FooterComponent } from './Components/footer/footer.component';
-import { UserManagementComponent } from './Components/user-management/user-management.component';
-import { UserEditComponent } from './Components/user-edit/user-edit.component';
-import { ProductManagementComponent } from './Components/product-management/product-management.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavMenuComponent,
-    MapInfoDisplayComponent,
-    HomeComponent,
-    FeedbackComponent,
-    LoginComponent,
-    CarouselComponent,
-    InfoComponent,
-    SpinnerComponent,
-    CardBioproductComponent,
-    BioproductComponent,
-    FooterComponent,
-    UserManagementComponent,
-    UserEditComponent,
-    ProductManagementComponent,
-  ],
+  declarations: [AppComponent, FeedbackComponent, InfoComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule,
+    AuthModule,
+    PublicModule,
+    SeccionAdminModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

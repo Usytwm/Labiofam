@@ -1,0 +1,134 @@
+<div data-aos="fade-left">
+  <div class="mat-primary titulo">{{ operacion }} usuario</div>
+
+  <div
+    class="container1"
+    fxLayout="row"
+    fxLayout.lt-sm="column"
+    fxLayoutAlign="center center"
+    fxLayoutGap="10px"
+  >
+    <mat-card class="card" fxFlex="80%" fxFlex.lt-md="100%">
+      <mat-card-subtitle style="text-align: center">
+        <h2>Datos</h2>
+      </mat-card-subtitle>
+      <form
+        [formGroup]="form"
+        style="margin-top: 10px"
+        (ngSubmit)="operacion === 'Agregar' ? addPoint() : editPoint()"
+      >
+        <mat-grid-list cols="2" rowHeight="80px">
+          <mat-grid-tile>
+            <mat-form-field class="mat-form-field" appearance="outline">
+              <mat-label>Nombre</mat-label>
+              <input formControlName="name" matInput autocomplete="off" />
+              <mat-error
+                *ngIf="form.controls.name.invalid && form.controls.name.touched"
+              >
+                nombre inválido
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-form-field class="mat-form-field" appearance="outline">
+              <mat-label>Municipio</mat-label>
+              <input
+                formControlName="municipality"
+                matInput
+                autocomplete="off"
+              />
+              <mat-error
+                *ngIf="
+                  form.controls.municipality.invalid &&
+                  form.controls.municipality.touched
+                "
+              >
+                Introduzca un municipio
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-form-field class="mat-form-field" appearance="outline">
+              <mat-label>Provincia</mat-label>
+              <input formControlName="province" matInput autocomplete="off" />
+              <mat-error
+                *ngIf="
+                  form.controls.province.invalid &&
+                  form.controls.province.touched
+                "
+              >
+                Introduzca una provincia
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-form-field class="mat-form-field" appearance="outline">
+              <mat-label>Direccion</mat-label>
+              <input formControlName="address" matInput autocomplete="off" />
+              <mat-error
+                *ngIf="
+                  form.controls.address.invalid && form.controls.address.touched
+                "
+              >
+                Introduzca una direccion
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-form-field class="mat-form-field" appearance="outline">
+              <mat-label>longitud</mat-label>
+              <input formControlName="longitude" matInput autocomplete="off" />
+              <mat-error
+                *ngIf="
+                  form.controls.longitude.invalid &&
+                  form.controls.longitude.touched
+                "
+              >
+                longitud inválida.
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-form-field class="mat-form-field" appearance="outline">
+              <mat-label>Latitud</mat-label>
+              <input formControlName="latitude" matInput autocomplete="off" />
+              <mat-error
+                *ngIf="
+                  form.controls.latitude.invalid &&
+                  form.controls.latitude.touched
+                "
+              >
+                latitud inválida.
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile colspan="2">
+            <button
+              [disabled]="form.invalid"
+              y
+              type="submit"
+              class="btnacept"
+              mat-raised-button
+              color="primary"
+            >
+              Aceptar
+            </button>
+            <button
+              type="button"
+              mat-raised-button
+              routerLink="/dashboard/points-of-sales"
+            >
+              Volver
+            </button>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </form>
+    </mat-card>
+  </div>
+</div>
