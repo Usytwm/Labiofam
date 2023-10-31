@@ -1,13 +1,12 @@
 import { Service } from './../../../../Interfaces/Service';
 import { Component, AfterViewInit, ViewChild, OnInit } from '@angular/core';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
 import { ServicesService } from './../../../../Services/services.service';
 
 @Component({
-  selector: 'app-services-management',
+  selector: 'app-services',
   templateUrl: './servicios.component.html',
   styleUrls: ['./servicios.component.css'],
 })
@@ -20,7 +19,6 @@ export class ServicesComponent implements AfterViewInit, OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(
-    private _snackBar: MatSnackBar,
     private _servicesservices: ServicesService
   ) {}
   ngOnInit(): void {
@@ -51,7 +49,7 @@ export class ServicesComponent implements AfterViewInit, OnInit {
     }
   }
 
-  Delete(id: string) {
+/*  Delete(id: string) {
     this.loading = true;
     this._servicesservices.delete(id).subscribe(() => {
       this._snackBar.open('delete sucess', '', {
@@ -61,5 +59,5 @@ export class ServicesComponent implements AfterViewInit, OnInit {
       this.loading = false;
       this.obtenerServicios();
     });
-  }
+  }*/
 }

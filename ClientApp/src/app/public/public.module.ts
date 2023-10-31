@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { PublicRoutingModule } from './public-routing.module';
 import { HomeModule } from './home/home.module';
 import { MapaModule } from './mapa/mapa.module';
-import { ServiciosModule } from './servicios/servicios.module';
+import { ServicesModule } from './servicios/servicios.module';
 import { ContactosModule } from './contactos/contactos.module';
 
 //componentes
@@ -19,7 +19,7 @@ import { PublicComponent } from './public.component';
     PublicRoutingModule,
     HomeModule,
     MapaModule,
-    ServiciosModule,
+    ServicesModule,
     ContactosModule,
   ],
 })

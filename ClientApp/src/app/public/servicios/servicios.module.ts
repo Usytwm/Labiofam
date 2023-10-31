@@ -7,4 +7,4 @@ import { ServicesComponent } from './components/servicios/servicios.component';
   declarations: [ServicesComponent],
   imports: [CommonModule],
 })
-export class ServiciosModule {}
+export class ServicesModule {}
