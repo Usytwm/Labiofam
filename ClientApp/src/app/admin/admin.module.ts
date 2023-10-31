@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { SeccionAdminRoutingModule } from './admin-routing.module';
 import { PointOfSalesAdminModule } from './point-of-sales-admin/point-of-sales-admin.module';
 import { UsersadminModule } from './users-admin/users-admin.module';
+import { ServicesAdminModule } from './services-admin/service-admin.module';
 
 //material
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -21,6 +22,7 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
     UsersadminModule,
     MatSidenavModule,
     SharedModule,
+    ServicesAdminModule,
   ],
 })
 export class SeccionAdminModule {}
