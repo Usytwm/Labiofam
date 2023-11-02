@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export abstract class AbstractService<T> {
-  private appUrl: string = environment.endpoint;
+  private appUrl: string = environment.baseUrl;
   protected apiUrl?: string;
   constructor(protected _http: HttpClient) {}
 

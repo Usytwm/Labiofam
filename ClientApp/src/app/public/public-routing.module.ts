@@ -6,6 +6,7 @@ import { MapaComponent } from './mapa/components/mapa/mapa.component';
 import { ServiciosComponent } from './servicios/components/servicios/servicios.component';
 import { ContactosComponent } from './contactos/components/contactos/contactos.component';
 
+
 const routes: Routes = [
   {
     path: '',
@@ -22,8 +23,13 @@ const routes: Routes = [
         component: MapaComponent,
       },
       {
-        path: 'Services',
-        component: ServiciosComponent,
+        path: 'contact',
+        loadChildren: () => import('./contactos/contactos.module').then( m => m.ContactosModule ),
+
+      },
+      {
+        path: 'bioproduct',
+        loadChildren: () => import('./bioproductos/bioproductos.module').then( m => m.BioproductosModule ),
       },
       {
         path: 'Contact',
@@ -32,7 +38,7 @@ const routes: Routes = [
       // otras rutas que deben mostrarse dentro de PublicComponent
     ],
   },
- 
+
 ];
 
 @NgModule({

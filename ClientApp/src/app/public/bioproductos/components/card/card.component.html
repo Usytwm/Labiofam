@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col">
+      <div data-aos="fade-right" data-aos-duration="500">
+        <div class="card" style="width: 25rem">
+          <div class="cont">
+            <img [src]="product | productImage" [alt]="product.image" class="card-img-top" alt="..." style="width: 100%; object-fit: cover; height: 200px;" />
+          </div>
+          <div class="card-body">
+            <h5 class="card-title text-center" style="font-size: 20px;">{{product.name}}</h5>
+            <p class="card-text">
+              {{product.type}}
+            </p>
+            <div class="text-center">
+              <a [routerLink]="['/bioproduct/id']" class="btn btn-primary mx-auto">Más</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
