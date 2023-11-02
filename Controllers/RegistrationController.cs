@@ -86,6 +86,6 @@ public class RegistrationController : Controller
             lockoutOnFailure: false);
         if (!result.Succeeded)
             return BadRequest("Wrong name or password");
-        return Ok();
+        return Ok();//necesario devolver el token de acceso aki
     }
 }
