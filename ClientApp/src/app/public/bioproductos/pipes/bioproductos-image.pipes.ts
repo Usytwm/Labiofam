@@ -7,10 +7,10 @@ import { Product } from 'src/app/Interfaces/Product';
 
 export class BioProductImagePipe implements PipeTransform{
   transform( product: Product): string {
-    if( !product.product_ID){
+    if( !product.product_ID || !product.image){
       return 'assets/no-image.png';
     }
-    return 'assets/no-image.png'
+    return `assets/bioproducts/${product.image}.jpg`;
   }
 
 }

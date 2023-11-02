@@ -10,8 +10,8 @@ const routes: Routes = [
     path: '',
     component: LayoutPageComponent,
     children:[
-      {path: 'id', component: BioproductPageComponent },
       {path: 'list', component: ListPageComponent },
+      {path: ':product_ID', component: BioproductPageComponent },
       {path: '**', redirectTo: 'list' },
     ]
 

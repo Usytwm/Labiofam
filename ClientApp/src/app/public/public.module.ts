@@ -11,9 +11,17 @@ import { ContactosModule } from './contactos/contactos.module';
 import { NavComponent } from './components/nav/nav.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PublicComponent } from './public.component';
+import { ContactosRoutingModule } from './contactos/contactos-routing.module';
+import { ContactImagePipe } from './contactos/pipes/contactos-image.pipes';
+import { SharedModule } from '../Shared/shared.module';
+
 
 @NgModule({
-  declarations: [NavComponent, FooterComponent, PublicComponent],
+  declarations: [
+    NavComponent,
+    FooterComponent,
+    PublicComponent],
+
   imports: [
     CommonModule,
     PublicRoutingModule,
@@ -21,6 +29,10 @@ import { PublicComponent } from './public.component';
     MapaModule,
     ServiciosModule,
     ContactosModule,
+    ContactosRoutingModule,
+    SharedModule,
+    //Pipes
+
   ],
 })
 export class PublicModule {}

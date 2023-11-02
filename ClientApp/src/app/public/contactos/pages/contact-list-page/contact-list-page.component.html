@@ -1,56 +1,8 @@
-<div class="container">
-  <div class="row row-cols-1 row-cols-md-3 g-4">
-    <div class="col">
-      <div data-aos="fade-right" data-aos-duration="500">
-        <div class="card" style="height: 25rem">
-          <div class="cont">
-            <img src="assets/10.jpg" class="card-img-top" alt="..." />
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">
-              This is a longer card with supporting text below as a
-              natural lead-in to additional content. This content is a
-              little bit longer.
-            </p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div data-aos="fade-right" data-aos-duration="1000">
-        <div class="card" style="height: 25rem">
-          <div class="cont">
-            <img src="assets/11.jpg" class="card-img-top" alt="..." />
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">
-              Some quick example text to build on the card title and make
-              up the bulk of the card's content.
-            </p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div data-aos="fade-right" data-aos-duration="1500">
-        <div class="card" style="height: 25rem">
-          <div class="cont">
-            <img src="assets/12.jpg" class="card-img-top" alt="..." />
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">
-              This is a longer card with supporting text below as a
-              natural lead-in to additional content.
-            </p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-      </div>
+<h1>Nuestros Directivos </h1>
+<div class="grid bm-8">
+  <div class="row row-cols-1 row-cols-md-4 g-4">
+    <div *ngFor="let contact of contacts" class="col">
+      <app-contact-card [contact]="contact"></app-contact-card>
     </div>
   </div>
 </div>

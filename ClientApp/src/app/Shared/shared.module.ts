@@ -22,7 +22,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-
+//Nuevos
+import { MatListModule } from '@angular/material/list';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
 //componentes
 import { SpinnerComponent } from '../Components/spinner/spinner.component';
 
@@ -73,6 +77,15 @@ import { SpinnerComponent } from '../Components/spinner/spinner.component';
     MatChipsModule,
     MatAutocompleteModule,
     SpinnerComponent,
+    MatListModule,
+    MatProgressSpinnerModule,
+
+    MatSidenavModule,
+
+    MatToolbarModule,
+
+
+
   ],
 })
 export class SharedModule {}

@@ -10,7 +10,7 @@ import { ProductService } from 'src/app/Services/product.service';
   styles: [
   ]
 })
-export class BioproductPageComponent {
+export class BioproductPageComponent implements OnInit {
 
   public product?: Product;
   constructor(
@@ -20,16 +20,16 @@ export class BioproductPageComponent {
   ngOnInit(): void {
     this.activatedRoute.params
       .pipe(
-        switchMap( ({id}) => this.productService.get(id)),
+        switchMap( ({product_ID}) => this.productService.getID(product_ID)),
       )
       .subscribe( product => {
-        if( !product) return this.router.navigate([ '/product/list']);
+        if( !product) return this.router.navigate([ '/bioproduct/list']);
         this.product = product;
         return;
       })
   }
   goBack():void {
-    this.router.navigateByUrl('/product/list')
+    this.router.navigateByUrl('/bioproduct/list')
   }
 }
 

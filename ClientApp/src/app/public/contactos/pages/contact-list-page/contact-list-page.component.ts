@@ -9,11 +9,11 @@ import { ContactService } from 'src/app/Services/contact.service';
   ]
 })
 export class ContactListPageComponent  {
- /* public contacts: Contact[] = [];
+ public contacts: Contact[] = [];
 
   constructor( private contactService: ContactService) {}
   ngOnInit(): void {
     this.contactService.getAll()
       .subscribe( contacts => this.contacts = contacts)
-  } */
+  }
 }

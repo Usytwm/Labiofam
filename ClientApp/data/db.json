@@ -76,9 +76,9 @@
 "products": [
   {
     "product_ID": "1",
-    "name": "Producto 1",
-    "image": "imagen1.jpg",
-    "type": "Tipo 1",
+    "name": "MELab",
+    "image": "MELab",
+    "type": "Tipo ...",
     "summary": "Resumen del producto 1",
     "specifications": "Especificaciones del producto 1",
     "points_Of_Sales": [],
@@ -86,9 +86,9 @@
   },
   {
     "product_ID": "2",
-    "name": "Producto 2",
-    "image": "imagen2.jpg",
-    "type": "Tipo 2",
+    "name": "Thurisave-13",
+    "image": "Thurisave-13",
+    "type": "Tipo ...",
     "summary": "Resumen del producto 2",
     "specifications": "Especificaciones del producto 2",
     "points_Of_Sales": [],
@@ -96,8 +96,8 @@
   },
   {
     "product_ID": "3",
-    "name": "Producto 3",
-    "image": "imagen3.jpg",
+    "name": "Thurisave-26",
+    "image": "Thurisave-26",
     "type": "Tipo 3",
     "summary": "Resumen del producto 3",
     "specifications": "Especificaciones del producto 3",
@@ -106,8 +106,8 @@
   },
   {
     "product_ID": "4",
-    "name": "Producto 4",
-    "image": "imagen4.jpg",
+    "name": "Nicosave",
+    "image": "Nicosave",
     "type": "Tipo 4",
     "summary": "Resumen del producto 4",
     "specifications": "Especificaciones del producto 4",
@@ -116,8 +116,8 @@
   },
   {
     "product_ID": "5",
-    "name": "Producto 5",
-    "image": "imagen5.jpg",
+    "name": "Bactivec",
+    "image": "Bactivec",
     "type": "Tipo 5",
     "summary": "Resumen del producto 5",
     "specifications": "Especificaciones del producto 5",
@@ -127,7 +127,7 @@
   {
     "product_ID": "6",
     "name": "Producto 6",
-    "image": "imagen6.jpg",
+
     "type": "Tipo 6",
     "summary": "Resumen del producto 6",
     "specifications": "Especificaciones del producto 6",
@@ -137,7 +137,7 @@
   {
     "product_ID": "7",
     "name": "Producto 7",
-    "image": "imagen7.jpg",
+
     "type": "Tipo 7",
     "summary": "Resumen del producto 7",
     "specifications": "Especificaciones del producto 7",

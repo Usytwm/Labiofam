@@ -4,7 +4,7 @@
       <div data-aos="fade-right" data-aos-duration="500">
         <div class="card" style="width: 25rem">
           <div class="cont">
-            <img [src]="product | productImage" [alt]="product.image" class="card-img-top" alt="..." style="width: 100%; object-fit: cover; height: 200px;" />
+            <img [src]="product | productImage" [alt]="product.image" />
           </div>
           <div class="card-body">
             <h5 class="card-title text-center" style="font-size: 20px;">{{product.name}}</h5>
@@ -12,7 +12,7 @@
               {{product.type}}
             </p>
             <div class="text-center">
-              <a [routerLink]="['/bioproduct/id']" class="btn btn-primary mx-auto">Más</a>
+              <a [routerLink]="['/bioproduct/' + product.product_ID]" class="btn btn-primary mx-auto">Detalles</a>
             </div>
           </div>
         </div>
@@ -20,4 +20,3 @@
     </div>
   </div>
 </div>
-
