@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PublicComponent } from './public.component';
 import { HomeComponent } from './home/components/home/home.component';
 import { MapaComponent } from './mapa/components/mapa/mapa.component';
-import { ServiciosComponent } from './servicios/components/servicios/servicios.component';
+import { ServicesComponent } from './servicios/components/servicios/servicios.component';
 import { ContactosComponent } from './contactos/components/contactos/contactos.component';
 
 const routes: Routes = [
@@ -23,7 +23,7 @@ const routes: Routes = [
       },
       {
         path: 'Services',
-        component: ServiciosComponent,
+        component: ServicesComponent,
       },
       {
         path: 'Contact',
@@ -32,7 +32,7 @@ const routes: Routes = [
       // otras rutas que deben mostrarse dentro de PublicComponent
     ],
   },
- 
+
 ];
 
 @NgModule({
