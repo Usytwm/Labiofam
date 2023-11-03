@@ -20,6 +20,6 @@ export class AppComponent implements OnInit {
 
   constructor(private router: Router) {}
   ngOnInit(): void {
-  AOS.init();
+    AOS.init();
   }
 }

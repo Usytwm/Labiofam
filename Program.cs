@@ -1,10 +1,25 @@
 using Labiofam.Models;
 using Labiofam.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+///nuevo para agregar jwt
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.Authority = "{AUTH0_DOMAIN}";
+    options.Audience = "{AUTH0_AUDIENCE}";
+});
+///end
+
+
 var config = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
@@ -52,11 +67,12 @@ builder.Services.AddScoped<IEntityService<Contact>, ContactService>();
 builder.Services.AddScoped<IEntityService<Point_of_Sales>, POSService>();
 builder.Services.AddScoped<IRegistrationService<Role, RoleModel>, RoleService>();
 builder.Services.AddScoped<IEntityService<Service>, ServiceService>();
+builder.Services.AddScoped<RoleService>();//inyeccion de dependencia
 
 // Servicios de relaciones
 builder.Services.AddScoped<IRelationService<User_Role>, UserRoleService>();
 builder.Services.AddScoped<IProductPOSService, ProductPOSService>();
-builder.Services.AddScoped<IRelationService<User_Product>, UserProductService>();
+builder.Services.AddScoped<IUserRoleService, UserRoleService>();
 var app = builder.Build();
 
 // Configurar el pipeline de solicitudes HTTP.

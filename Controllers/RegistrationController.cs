@@ -1,7 +1,11 @@
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using Labiofam.Models;
 using Labiofam.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Labiofam.Controllers;
 
@@ -11,13 +15,13 @@ public class RegistrationController : Controller
 {
     private readonly IRegistrationService<User, RegistrationModel> _registrationService;
     private readonly IRegistrationService<Role, RoleModel> _modelService;
-    private readonly IRelationService<User_Role> _relationService;
+    private readonly IUserRoleService _relationService;
     private readonly SignInManager<User> _signInManager;
 
     public RegistrationController(
         IRegistrationService<User, RegistrationModel> registrationService,
         IRegistrationService<Role, RoleModel> modelService,
-        IRelationService<User_Role> relationService,
+        IUserRoleService relationService,
         SignInManager<User> signInManager)
     {
         _registrationService = registrationService;
@@ -86,6 +90,39 @@ public class RegistrationController : Controller
             lockoutOnFailure: false);
         if (!result.Succeeded)
             return BadRequest("Wrong name or password");
-        return Ok();
+
+
+        var id = _signInManager.UserManager.Users.FirstOrDefault(x => x.UserName!.Equals(login.Name))!.Id;
+        var roles = await _relationService.GetRolesAsync(id);
+        // Crea una lista de claims.
+        var Claims = new List<Claim>
+        {
+            new Claim(JwtRegisteredClaimNames.Sub, login.Name!),
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+        };
+
+        // Agrega un claim por cada rol del usuario.
+        foreach (var role in roles)
+        {
+            Claims.Add(new Claim(ClaimTypes.Role, role.Name!));
+        }
+
+        //nuevo a partir de aki
+        // Crear un nuevo token.
+        var token = new JwtSecurityToken(
+            issuer: "{AUTH0_DOMAIN}",
+            audience: "{AUTH0_AUDIENCE}",
+            claims: Claims,
+            expires: DateTime.UtcNow.AddSeconds(10),  // Configura la fecha de expiración según tus necesidades.
+            signingCredentials: new SigningCredentials(
+                new SymmetricSecurityKey(Encoding.UTF8.GetBytes("{YOUR_SECRET_KEY}")),
+                SecurityAlgorithms.HmacSha256));
+
+        // Convertir el token en una cadena y devolverlo en la respuesta.
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var tokenString = tokenHandler.WriteToken(token);
+
+        return Ok(new { access_token = tokenString });//necesario devolver el token de acceso aki
     }
+
 }

@@ -97,7 +97,6 @@ export class AddEditPosComponent implements OnInit {
   }
 
   addPoint() {
-    
     this._point_of_sales_service.add(this.newPoint()).subscribe((data) => {
       this.snackBar.open('Add sucess', '', {
         duration: 3000,
