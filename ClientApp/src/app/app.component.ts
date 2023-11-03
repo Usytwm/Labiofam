@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter, map } from 'rxjs';
-// import AOS from 'aos';
+import AOS from 'aos';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +20,6 @@ export class AppComponent implements OnInit {
 
   constructor(private router: Router) {}
   ngOnInit(): void {
-    // AOS.init();
+  AOS.init();
   }
 }

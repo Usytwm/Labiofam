@@ -15,3 +15,4 @@ import { AddEditServiceComponent } from './components/add-edit-service/Service-e
   imports: [CommonModule, CrudsModule, SharedModule, RouterModule],
 })
 export class ServicesAdminModule {}
+
