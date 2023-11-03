@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, throwError } from 'rxjs';
 import { LoginModel } from 'src/app/Interfaces/Loginmodel';
 import { AuthService } from 'src/app/Services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ export class LoginComponent {
   rememberMe: boolean = false;
   constructor(
     private _authnservice: AuthService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private _route: Router
   ) {}
   onSubmit(form: NgForm) {
     const loginmodel: LoginModel = {
@@ -42,7 +44,10 @@ export class LoginComponent {
           return throwError(error);
         })
       )
-      .subscribe();
+      .subscribe((res) => {
+        console.log(res.access_token);
+        this._route.navigate(['/home']);
+      });
     // aquí puedes enviar los datos al backend
   }
 }

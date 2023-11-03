@@ -15,6 +15,15 @@ export class LoginInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
+    let token = localStorage.getItem('access_token');
+
+    if (token) {
+      request = request.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    }
     return next.handle(request);
   }
 }

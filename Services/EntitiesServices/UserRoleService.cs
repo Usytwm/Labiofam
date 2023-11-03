@@ -3,13 +3,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Labiofam.Services
 {
-    public class UserRoleService : IRelationService<User_Role>
+    public class UserRoleService : IUserRoleService
     {
         private readonly WebDbContext _webDbContext;
+        private readonly RoleService _roleservice;//inyeccion de dependencia
 
-        public UserRoleService(WebDbContext webDbContext)
+        public UserRoleService(WebDbContext webDbContext, RoleService roleservice)
         {
             _webDbContext = webDbContext;
+            _roleservice = roleservice;
         }
 
         /// <summary>
@@ -87,5 +89,20 @@ namespace Labiofam.Services
             _webDbContext.RemoveRange(_webDbContext.User_Role!);
             await _webDbContext.SaveChangesAsync();
         }
+
+        public async Task<List<Role>> GetRolesAsync(Guid user_id)
+        {
+            var userRoles = _webDbContext.User_Role!.Where(x => x.UserId.Equals(user_id)).ToList<User_Role>();
+
+            var roles = new List<Role>();
+            foreach (var userRole in userRoles)
+            {
+                var role = await _roleservice.GetAsync(userRole.RoleId);
+                roles.Add(role);
+            }
+
+            return roles;
+        }
+
     }
 }
