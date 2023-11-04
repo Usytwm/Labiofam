@@ -67,12 +67,15 @@ builder.Services.AddScoped<IEntityService<Contact>, ContactService>();
 builder.Services.AddScoped<IEntityService<Point_of_Sales>, POSService>();
 builder.Services.AddScoped<IRegistrationService<Role, RoleModel>, RoleService>();
 builder.Services.AddScoped<IEntityService<Service>, ServiceService>();
-builder.Services.AddScoped<RoleService>();//inyeccion de dependencia
 
 // Servicios de relaciones
 builder.Services.AddScoped<IRelationService<User_Role>, UserRoleService>();
 builder.Services.AddScoped<IProductPOSService, ProductPOSService>();
-builder.Services.AddScoped<IUserRoleService, UserRoleService>();
+builder.Services.AddScoped<IRelationService<User_Product>, UserProductService>();
+
+// Servicios de filtrado
+builder.Services.AddScoped<IRelationFilter, RelationFilterService>();
+
 var app = builder.Build();
 
 // Configurar el pipeline de solicitudes HTTP.

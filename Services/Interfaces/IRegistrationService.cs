@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Identity;
-
 namespace Labiofam.Services;
 
 public interface IRegistrationService<Entity, Model>
