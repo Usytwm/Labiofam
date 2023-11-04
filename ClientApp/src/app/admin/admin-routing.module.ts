@@ -18,6 +18,7 @@ const routes: Routes = [
         path: 'points-of-sales',
         component: PointsOfSalesComponent,
       },
+
       { path: 'points-of-sales/edit/:id', component: AddEditPosComponent },
       { path: 'points-of-sales/add', component: AddEditPosComponent },
       // otras rutas que deben mostrarse dentro de PublicComponent
