@@ -4,6 +4,7 @@
   --color-blue: #203468;
   --color-yellow: #ffdd21;
   --color-tory-blue: #2f4e9b;
+  --color-blue-white: #e9ecef;
   --color-white: #ffffff;
 }
 
@@ -18,4 +19,25 @@ body {
 
 .public-section {
   margin-top: 3.7rem;
+}
+
+button.btn-primary,
+a.btn-primary {
+  background-color: var(
+    --color-tory-blue
+  ); /* Este será el color de fondo del botón */
+  color: var(--color-white); /* Este será el color del texto del botón */
+  transition: background-color 0.4s ease; /* Esto hará que el cambio de color sea gradual */
+  border: none;
+}
+button.btn-primary:hover,
+a.btn-primary:hover {
+  background-color: var(
+    --color-yellow
+  ); /* Este será el color de fondo del botón cuando pases el dedo por encima */
+  color: var(
+    --color-tory-blue
+  ); /* Este será el color del texto del botón cuando pases el dedo por encima */
+  font-family: "Roboto", Courier, monospace; /* Esta será la fuente del texto del botón cuando pases el dedo por encima */
+  font-weight: 600;
 }

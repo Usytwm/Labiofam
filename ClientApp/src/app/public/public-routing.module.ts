@@ -5,6 +5,7 @@ import { HomeComponent } from './home/components/home/home.component';
 import { MapaComponent } from './mapa/components/mapa/mapa.component';
 import { ServicesComponent } from './servicios/components/servicios/servicios.component';
 import { ContactosComponent } from './contactos/components/contactos/contactos.component';
+import { InfoPOSComponent } from '../Components/info-POS/info.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
         component: MapaComponent,
       },
       {
+        path: 'map/details/:id',
+        component: InfoPOSComponent,
+      },
+      {
         path: 'Services',
         component: ServicesComponent,
       },
@@ -32,7 +37,6 @@ const routes: Routes = [
       // otras rutas que deben mostrarse dentro de PublicComponent
     ],
   },
-
 ];
 
 @NgModule({

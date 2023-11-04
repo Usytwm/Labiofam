@@ -97,50 +97,23 @@ export class MapaComponent implements AfterViewInit, OnDestroy {
             properties: {
               description: `
               <div class="container">
-                <div class="row row-cols-1 row-cols-md-3 g-4">
-                  <div class="col">
                     <div data-aos="fade-right" data-aos-duration="500">
-                      <div class="card" style="height: 25rem; transition: 0.7s;">
-                        <div class="cont" style="position: relative; margin: auto; text-align: center; box-shadow: 0 8px 16px #dce1e1; overflow: hidden; width: 100%; height: 15rem;">
-                          <img src="${punto.image}" class="card-img-top img" alt="..." style="width: 100%; height: 100%; object-fit: cover; display: flexbox; transition: transform 1s; cursor: pointer;" />
+                      <div class="card" style="height: 5rem  width: 3rem; transition: 0.7s; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);">
+                        <div class="cont" style="position: relative; margin: auto; text-align: center; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); overflow: hidden; width: 100%; height: 15rem;">
+                          <img src="assets/11.jpg" class="card-img-top img" alt="${punto.name}" style="width: 100%; height: 100%; object-fit: cover; display: flexbox; transition: transform 1s; cursor: pointer;" />
                         </div>
                         <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">
-                            This is a longer card with supporting text below as a
-                            natural lead-in to additional content. This content is a
-                            little bit longer.
-                          </p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                          <h3 class="card-title">${punto.name}</h3>
+                          <ul>
+                            <li><strong>Dirección:</strong> ${punto.address}</li>
+                            <li><strong>Municipio:</strong> ${punto.municipality}</li>
+                            <li><strong>Provincia:</strong> ${punto.province}</li>
+                            <li><strong>Productos disponibles:</strong> coquisgv sbdcjh bcshjac sdbhc sbdhj</li>
+                          </ul>
+                        <a href="/productos/${punto.point_ID}" class="btn btn-primary">Ver mas</a>
                       </div>
                     </div>
-                  </div>
-                </div>
               </div>
-
-              
-              <div style="
-              background-color: #ADD8E6; 
-              border-radius: 10px; 
-              box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); 
-              transition: 0.3s; 
-              width: 90%; 
-              padding: 20px; 
-              margin: auto;
-          ">
-              <img src="${punto.image}" alt="${punto.name}" style="width: 100px; height: auto;">
-              <br/>
-              <strong>${punto.name}</strong>
-              <div  style="text-align: left;">
-              <ul>
-                  <li><strong>Dirección:</strong> ${punto.address}</li>
-                  <li><strong>Municipio:</strong> ${punto.municipality}</li>
-                  <li><strong>Provincia:</strong> ${punto.province}</li>
-                  <li><strong>Productos disponibles:</strong> coquisgv sbdcjh bcshjac sdbhc sbdhj</li>
-              </ul>
-              </div>
-              <a href="/productos/${punto.point_ID}" style="text-decoration: none; color: black;">Ver más</a>
-          </div>
           `, //tengo que cambiar el link
               nombre: punto.name,
               icon: 'theatre',
@@ -153,6 +126,7 @@ export class MapaComponent implements AfterViewInit, OnDestroy {
           console.log(geojson);
           this.viewGeojson(geojson);
         });
+
         this.map.on('mouseenter', 'places', () => {
           this.map!.getCanvas().style.cursor = 'pointer';
         });
@@ -171,30 +145,26 @@ export class MapaComponent implements AfterViewInit, OnDestroy {
       features: puntosDeVenta?.map((punto) => ({
         type: 'Feature',
         properties: {
-          description: `<div style="
-          background-color: #ADD8E6; 
-          border-radius: 10px; 
-          box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); 
-          transition: 0.3s; 
-          width: 90%; 
-          padding: 20px; 
-          margin: auto;
-      ">
-          <img src="${punto.image}" alt="${punto.name}" style="width: 100px; height: auto;">
-          <br/>
-          <strong>${punto.name}</strong>
-          <div style="text-align: left;>
-          <ul style="justify-content:left">
-              <li><strong>Dirección:</strong> ${punto.address}</li>
-              <li><strong>Municipio:</strong> ${punto.municipality}</li>
-              <li><strong>Provincia:</strong> ${punto.province}</li>
-              <li><strong>Productos disponibles:</strong> coquisgv sbdcjh bcshjac sdbhc sbdhj</li>
-          </ul>
-          </div>
-          <a href="/productos/${punto.point_ID}" style="text-decoration: none; color: black;">Ver más</a>
-      </div>
-      
-          `,
+          description: `
+          
+                <div data-aos="fade-right" data-aos-duration="500">
+                  <div class="card" style="height: 25rem !important;  width: 17rem !important; transition: 0.7s; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);">
+                    <div class="cont" style="position: relative; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); overflow: hidden; width: 100%; height: 10rem !important;">
+                      <img src="assets/11.jpg" class="card-img-top img" alt="${punto.name}" style="width: 100%; height: 100%; object-fit: cover; display: flexbox; transition: transform 1s; cursor: pointer;" />
+                    </div>
+                    <div class="card-body" >
+                      <h3 class="card-title">${punto.name}</h3>
+                      <ul style=" text-align: left">
+                        <li><strong>Dirección:</strong> ${punto.address}</li>
+                        <li><strong>Municipio:</strong> ${punto.municipality}</li>
+                        <li><strong>Provincia:</strong> ${punto.province}</li>
+                        <li><strong>Productos disponibles:</strong> coquisgv sbdcjh bcshjac sdbhc sbdhj</li>
+                      </ul>
+                    <a href="map/details/${punto.point_ID}" class="btn btn-primary">Ver mas</a>
+                  </div>
+                </div>
+          
+      `, //tengo que cambiar el link
         },
         geometry: {
           type: 'Point',
@@ -211,10 +181,8 @@ export class MapaComponent implements AfterViewInit, OnDestroy {
     this.markers = [];
     geojson.features.forEach((marker: any) => {
       const popup = new Popup();
-      const el = document.createElement('div');
-      el.id = 'marker';
       if (this.map) {
-        const mapMarker = new Marker(el)
+        const mapMarker = new Marker()
           .setLngLat([
             marker.geometry.coordinates[0],
             marker.geometry.coordinates[1],
@@ -230,5 +198,9 @@ export class MapaComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.map?.remove();
+  }
+  applyFilter(filterValue: string) {
+    // Aquí puedes filtrar tus datos del mapa basándote en filterValue
+    // y luego actualizar tu mapa
   }
 }

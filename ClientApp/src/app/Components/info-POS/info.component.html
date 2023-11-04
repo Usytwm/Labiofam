@@ -1,0 +1,110 @@
+<div class="container">
+  <div data-aos="fade-down">
+    <div
+      class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary conti"
+    >
+      <div class="titulo">
+        <h1 class="display-4 fst-italic">
+          {{ point.name }}
+        </h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-5 mor">
+    <div data-aos="fade-right" class="col-md-8">
+      <div class="imag">
+        <img src="assets/10.jpg" alt="foto del  {{ point.name }} " />
+      </div>
+      <br />
+      <mat-card class="card-param">
+        <mat-card-header>
+          <mat-card-title>Dirección</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-divider></mat-divider>
+          <mat-card-subtitle>{{ point.address }}</mat-card-subtitle>
+        </mat-card-content>
+      </mat-card>
+      <br />
+
+      <mat-card class="card-param">
+        <mat-card-header>
+          <mat-card-title>Provincia</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-divider></mat-divider>
+          <mat-card-subtitle>{{ point.province }}</mat-card-subtitle>
+        </mat-card-content>
+      </mat-card>
+      <br />
+      <mat-card class="card-param">
+        <mat-card-header>
+          <mat-card-title>Municipio</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-divider></mat-divider>
+          <mat-card-subtitle>{{ point.municipality }}</mat-card-subtitle>
+        </mat-card-content>
+      </mat-card>
+      <br />
+    </div>
+    <div data-aos="fade-left" class="col-md-4">
+      <div class="position-sticky" style="top: 2rem">
+        <h4 class="fst-italic">Otros establecimientos</h4>
+        <ul class="list-unstyled">
+          <li *ngFor="let establecimiento of establecimientos">
+            <a
+              class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top"
+              href="#"
+            >
+              <div class="conti">
+                <img
+                  src="{{ establecimiento.imagen }}"
+                  class="bd-placeholder-img"
+                  width="100%"
+                  height="96"
+                  style="border-radius: 5px; object-fit: cover"
+                  alt="Imagen del Establecimiento"
+                />
+              </div>
+              <div class="col-lg-8">
+                <h6 class="mb-0">{{ establecimiento.nombre }}</h6>
+                <small class="text-body-secondary">{{
+                  establecimiento.descripcion
+                }}</small>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <h1>Productos dsiponibles</h1>
+  <hr class="container featurette-divider" />
+  <section style="background-color: var(--color-blue-white)">
+    <br />
+    <div class="row content">
+      <div class="col-md-4 mb-4" *ngFor="let producto of productos">
+        <div class="card" style="height: 20rem">
+          <div class="cont imagen1">
+            <img
+              src="{{ producto.image }}"
+              class="card-img-top"
+              alt="Imagen de {{ producto.name }}"
+            />
+          </div>
+          <div class="card-body">
+            <h2 class="card-title">{{ producto.name }}</h2>
+            <p class="card-text">{{ producto.summary }}</p>
+            <a href="#" class="btn btn-primary card-btn">Ver más</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div style="margin: 10px">
+    <a class="btn btn-primary" (click)="goBack()">Volver</a>
+  </div>
+</div>
