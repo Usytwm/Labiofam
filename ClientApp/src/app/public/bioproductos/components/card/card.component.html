@@ -7,12 +7,12 @@
             <img [src]="product | productImage" [alt]="product.image" />
           </div>
           <div class="card-body">
-            <h5 class="card-title text-center" style="font-size: 20px;">{{product.name}}</h5>
-            <p class="card-text">
+            <h5 class="card-title" style="font-family: 'Roboto', sans-serif; font-size: 25px;">{{product.name}}</h5>
+            <p class="card-text"  style="font-family: 'Roboto', sans-serif; font-size: 20px;">
               {{product.type}}
             </p>
-            <div class="text-center">
-              <a [routerLink]="['/bioproduct/' + product.product_ID]" class="btn btn-primary mx-auto">Detalles</a>
+            <div class="btn btn-primary">
+              <a [routerLink]="['/bioproduct/' + product.product_ID]" class="btn btn-primary">Detalles</a>
             </div>
           </div>
         </div>

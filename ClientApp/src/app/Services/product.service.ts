@@ -9,15 +9,15 @@ import { Observable, catchError, of } from 'rxjs';
   providedIn: 'root',
 })
 export class ProductService  extends AbstractService<Product> {
-  private appUr2: string = environment.baseUrl;
+  private appUr2: string = environment.endpoint;
   protected apiUr2?: string;
   constructor(_http: HttpClient) {
     super(_http);
-    this.apiUrl = '/products';
+    this.apiUrl = 'api/products/';
   }
   getID(id: string): Observable<Product|undefined> {
     return this._http.get<Product>(`${this.appUr2}${this.apiUrl}${id}`)
-      .pipe(
+    .pipe(
       catchError( error => of(undefined))
      );
   }

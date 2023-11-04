@@ -25,7 +25,7 @@ export class CardComponent implements OnInit {
       <div data-aos="fade-right" data-aos-duration="500">
         <div class="card" style="width: 25rem">
           <div class="cont">
-            <img [src]="product | productImage" [alt]="product.image" class="card-img-top" alt="..." />
+            <img [src]="product | productImage" [alt]="product.image" />
           </div>
           <div class="card-body">
             <h5 class="card-title text-center" style="font-size: 20px;">{{product.name}}</h5>
@@ -33,12 +33,16 @@ export class CardComponent implements OnInit {
               {{product.type}}
             </p>
             <div class="text-center">
-              <a [routerLink]="['/product/', product.product_ID]" class="btn btn-primary mx-auto">Más</a>
+              <a [routerLink]="['/bioproduct/' + product.product_ID]" class="btn btn-primary mx-auto">Detalles</a>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</
+<div pt-lg-3 style="margin-top: 1cm; margin-left: 6cm;">
+  <h1 style="font-size: 4rem; color:#3f51b5; font-family: 'Roboto', Times, serif;">Bioproductos</h1>
+</div >
+
 */

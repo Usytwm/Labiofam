@@ -7,6 +7,7 @@ import { ContactListPageComponent } from './pages/contact-list-page/contact-list
 import { ContactCardComponent } from './components/contact-card/contact-card.component';
 import { ContactosRoutingModule } from './contactos-routing.module';
 import { ContactImagePipe } from './pipes/contactos-image.pipes';
+import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { ContactImagePipe } from './pipes/contactos-image.pipes';
     //Pipes
 
      ContactImagePipe,
+    LayoutPageComponent,
   ],
   imports: [
     CommonModule,

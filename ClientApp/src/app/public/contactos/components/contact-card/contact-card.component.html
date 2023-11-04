@@ -1,23 +1,9 @@
-<div class="col-md-6 col-lg-4 col-sm-6">
-  <!-- featured-imagebox-team -->
-  <div class="featured-imagebox featured-imagebox-team style1 mb-30">
-      <div class="featured-thumbnail"><!-- featured-thumbnail -->
-        <img [src]="contact | contactImage" [alt]="contact.image" alt="..." >
-          <div class="ttm-social-links-wrapper">
-            <ul class="social-icons list-inline"><!-- social-icons -->
-              <li class="social-facebook"><a href="mailto:odalys.ruiz@cigb.edu.cu"><i class="fa fa-envelope" aria-hidden="true"></i></a>
-              </li>
-
-              <li class="social-linkedin"><a href="https://www.researchgate.net/profile/Odalys-Ruiz"><i class="fab fa-researchgate" aria-hidden="true"></i></a>
-              </li>
-            </ul>
-          </div>
-      </div>
-      <div class="featured-content box-shadow">
-          <div class="featured-title"><!-- featured-title -->
-              <h5><a href="/director/dra-odalys-ruiz-hernandez/">Dra. Odalys Ruiz Hernández</a></h5>
-          </div>
-          <p class="category">Directora de Desarrollo Tecnológico</p>
-      </div>
-  </div><!-- featured-imagebox-team end-->
+<div class="cont">
+  <div class="card" style="width: 20rem;">
+    <img [src]="contact | contactImage" [alt]="contact.image" alt="..." class="card-img-top" />
+    <div class="card-body">
+      <h5 class="card-title" style="font-family: 'Roboto', sans-serif; font-size: 25px;">{{contact.name}}</h5>
+      <p class="card-text" class="text-center"  style="font-family: 'Roboto', sans-serif; font-size: 20px;">{{contact.occupation}}</p>
+    </div>
+  </div>
 </div>

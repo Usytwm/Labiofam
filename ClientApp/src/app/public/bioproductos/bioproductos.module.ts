@@ -24,6 +24,7 @@ import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
     CommonModule,
     BioproductosRoutingModule,
     SharedModule,
+
   ]
 })
 export class BioproductosModule { }

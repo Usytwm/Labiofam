@@ -237,3 +237,7 @@ ClientApp/src/assets
 **/obj/
 
 
+#Inclan
+bin/
+obj/
+/dist/

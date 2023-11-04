@@ -11,12 +11,14 @@ import { ProductService } from 'src/app/Services/product.service';
   ]
 })
 export class BioproductPageComponent implements OnInit {
-
+  id: string;
   public product?: Product;
   constructor(
     private productService: ProductService,
     private activatedRoute: ActivatedRoute,
-    private router: Router) {}
+    private router: Router) {
+      this.id = String(this.activatedRoute.snapshot.paramMap.get('id'));
+    }
   ngOnInit(): void {
     this.activatedRoute.params
       .pipe(
