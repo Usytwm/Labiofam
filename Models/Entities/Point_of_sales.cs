@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Labiofam.Models;
 
@@ -17,5 +18,7 @@ public class Point_of_Sales
     public string? Province { get; set; }
     public double Latitude { get; set; }
     public double Longitude { get; set; }
+
+    [JsonIgnore]
     public ICollection<Product_POS>? Available_Products { get; set; }
 }
