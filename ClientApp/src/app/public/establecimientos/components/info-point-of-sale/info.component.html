@@ -5,7 +5,7 @@
     >
       <div class="titulo">
         <h1 class="display-4 fst-italic">
-          {{ point.name! }}
+          {{ point?.name }}
         </h1>
       </div>
     </div>
@@ -14,7 +14,7 @@
   <div class="row g-5 mor">
     <div data-aos="fade-right" class="col-md-8">
       <div class="imag">
-        <img src="assets/10.jpg" alt="foto del  {{ point.name }} " />
+        <img src="assets/10.jpg" alt="foto del  {{ point?.name }} " />
       </div>
       <br />
       <mat-card class="card-param">
@@ -23,7 +23,7 @@
         </mat-card-header>
         <mat-card-content>
           <mat-divider></mat-divider>
-          <mat-card-subtitle>{{ point.address }}</mat-card-subtitle>
+          <mat-card-subtitle>{{ point?.address }}</mat-card-subtitle>
         </mat-card-content>
       </mat-card>
       <br />
@@ -34,7 +34,7 @@
         </mat-card-header>
         <mat-card-content>
           <mat-divider></mat-divider>
-          <mat-card-subtitle>{{ point.province }}</mat-card-subtitle>
+          <mat-card-subtitle>{{ point?.province }}</mat-card-subtitle>
         </mat-card-content>
       </mat-card>
       <br />
@@ -44,7 +44,7 @@
         </mat-card-header>
         <mat-card-content>
           <mat-divider></mat-divider>
-          <mat-card-subtitle>{{ point.municipality }}</mat-card-subtitle>
+          <mat-card-subtitle>{{ point?.municipality }}</mat-card-subtitle>
         </mat-card-content>
       </mat-card>
       <br />

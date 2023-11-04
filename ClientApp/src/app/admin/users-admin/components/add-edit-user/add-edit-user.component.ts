@@ -1,5 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+  inject,
+} from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { User } from 'src/app/Interfaces/User';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,6 +16,11 @@ import { RolesService } from 'src/app/Services/roles.service';
 import { User_Role } from 'src/app/Interfaces/User_Role';
 import { RegistrationModel } from 'src/app/Interfaces/registration-model';
 import { RegistrationService } from 'src/app/Services/registration.service';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { Observable, map, startWith } from 'rxjs';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatChipInputEvent } from '@angular/material/chips';
 
 @Component({
   selector: 'app-add-edit-user',
@@ -17,6 +28,15 @@ import { RegistrationService } from 'src/app/Services/registration.service';
   styleUrls: ['./add-edit-user.component.css'],
 })
 export class AddEditUserComponent implements OnInit {
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+  fruitCtrl = new FormControl('');
+  filteredFruits: Observable<string[]>;
+  fruits: string[] = ['Lemon'];
+  allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
+  @ViewChild('fruitInput') fruitInput?: ElementRef<HTMLInputElement>;
+
+  announcer = inject(LiveAnnouncer);
+
   loading = false;
   id: string;
   operacion = 'Agregar';
@@ -24,13 +44,14 @@ export class AddEditUserComponent implements OnInit {
 
   form = this.fb.group({
     Username: ['', [Validators.required, Validators.pattern('^[^\\s]*$')]],
-    Password: [
+    Newpassword: [
       '',
       [
         Validators.required,
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z]).{8,}$'),
       ],
     ],
+    Oldpassword: ['', [Validators.pattern('^[^\\s]*$')]],
   });
 
   roleControl = new FormControl<User_Role | null>(null, Validators.required);
@@ -50,22 +71,71 @@ export class AddEditUserComponent implements OnInit {
     this.roles.getAll().subscribe((data) => {
       this._roles = data;
     });
+    this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
+      startWith(null),
+      map((fruit: string | null) =>
+        fruit ? this._filter(fruit) : this.allFruits.slice()
+      )
+    );
+  }
+  add(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+
+    // Add our fruit
+    if (value) {
+      this.fruits.push(value);
+    }
+
+    // Clear the input value
+    event.chipInput!.clear();
+
+    this.fruitCtrl.setValue(null);
+  }
+
+  remove(fruit: string): void {
+    const index = this.fruits.indexOf(fruit);
+
+    if (index >= 0) {
+      this.fruits.splice(index, 1);
+
+      this.announcer.announce(`Removed ${fruit}`);
+    }
+  }
+
+  selected(event: MatAutocompleteSelectedEvent): void {
+    this.fruits.push(event.option.viewValue);
+    this.fruitInput!.nativeElement.value = '';
+    this.fruitCtrl.setValue(null);
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.allFruits.filter((fruit) =>
+      fruit.toLowerCase().includes(filterValue)
+    );
   }
   ngOnInit(): void {
     if (this.id !== 'null') {
       this.operacion = 'Editar';
       this.getUser(this.id);
       // Si estás editando, la contraseña no es requerida
-      this.form.controls['Password'].clearValidators();
-      this.form.controls['Password'].updateValueAndValidity();
+      this.form.controls['Newpassword'].clearValidators();
+      this.form.controls['Newpassword'].setValidators([
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$'),
+      ]);
+      this.form.controls['Oldpassword'].setValidators([
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$'),
+      ]);
+      this.form.controls['Newpassword'].updateValueAndValidity();
+      this.form.controls['Oldpassword'].updateValueAndValidity();
     } else {
       // Si estás agregando, la contraseña es requerida
-      // Si estás agregando, la contraseña es requerida
-      this.form.controls['Password'].setValidators([
+      this.form.controls['Newpassword'].setValidators([
         Validators.required,
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$'),
       ]);
-      this.form.controls['Password'].updateValueAndValidity();
+      this.form.controls['Newpassword'].updateValueAndValidity();
     }
   }
 
@@ -81,15 +151,18 @@ export class AddEditUserComponent implements OnInit {
 
   editUser() {
     this.loading = true;
-    this.registrationService.update(this.id, this.newUser()).subscribe(() => {
-      this.snackBar.open('Edit sucess', '', {
-        duration: 3000,
-        horizontalPosition: 'right',
+    this.registrationService
+      .update(this.id, this.newUser())
+      .pipe()
+      .subscribe(() => {
+        this.snackBar.open('Edit sucess', '', {
+          duration: 3000,
+          horizontalPosition: 'right',
+        });
+        this.loading = false;
+        //console.log(this.newUser());
+        this.router.navigate(['/dashboard/users-admin']);
       });
-      this.loading = false;
-      //console.log(this.newUser());
-      this.router.navigate(['/dashboard/users']);
-    });
   }
 
   addUser() {
@@ -100,15 +173,21 @@ export class AddEditUserComponent implements OnInit {
         horizontalPosition: 'right',
       });
       //console.log(this.newUser());
-      this.router.navigate(['/dashboard/users']);
+      this.router.navigate(['/dashboard/users-admin']);
     });
   }
 
   newUser(): RegistrationModel {
     return {
       name: this.form.value.Username!,
-      password: this.form.value.Password!,
-      old_Password: '',
+      password:
+        this.operacion === 'Agregar'
+          ? this.form.value.Newpassword!
+          : this.form.value.Oldpassword!,
+      old_Password:
+        this.operacion === 'Agregar'
+          ? this.form.value.Oldpassword!
+          : this.form.value.Newpassword!,
       email: '',
       email_Token: '',
     };

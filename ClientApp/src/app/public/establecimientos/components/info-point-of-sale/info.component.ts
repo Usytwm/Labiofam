@@ -11,7 +11,7 @@ import { Location } from '@angular/common';
 })
 export class InfoPOSComponent implements OnInit {
   id: string;
-  point!: Point_of_Sales;
+  point?: Point_of_Sales;
   productos = [
     {
       product_ID: 'P001',
