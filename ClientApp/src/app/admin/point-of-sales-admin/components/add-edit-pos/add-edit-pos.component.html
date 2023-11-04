@@ -108,6 +108,14 @@
             </mat-form-field>
           </mat-grid-tile>
 
+          <mat-grid-tile colspan="2" rowspan="3" class="my-grid-tile">
+            <div class="container">
+              <div class="map-wrap">
+                <div class="map" #map></div>
+              </div>
+            </div>
+          </mat-grid-tile>
+
           <mat-grid-tile colspan="2">
             <button
               [disabled]="form.invalid"
@@ -122,7 +130,7 @@
             <button
               type="button"
               mat-raised-button
-              routerLink="/dashboard/points-of-sales"
+              routerLink="/dashboard/points-of-sales-admin"
             >
               Volver
             </button>
