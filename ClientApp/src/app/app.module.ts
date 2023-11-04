@@ -12,7 +12,7 @@ import { SharedModule } from './Shared/shared.module';
 //Componentes
 import { AppComponent } from './app.component';
 import { FeedbackComponent } from './Components/feedback/feedback.component';
-import { InfoPOSComponent } from './Components/info-POS/info.component';
+import { InfoPOSComponent } from './Components/info-point-of-sale/info.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 //interceptos
