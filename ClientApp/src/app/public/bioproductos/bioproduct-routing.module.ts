@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { ListPageComponent } from './pages/list-page/list-page.component';
 import { BioproductPageComponent } from './pages/bioproduct-page/bioproduct-page.component';
-import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
+import { BioproductosComponent } from './components/bioproductos/bioproductos.component';
 
 //localhost:xxxx/bioproduct
 const routes: Routes = [
   {
-    path: '',
-    component: LayoutPageComponent,
+    path: 'bioproduct',
+    component: BioproductosComponent,
     children:[
       {path: 'list', component: ListPageComponent },
       {path: ':product_ID', component: BioproductPageComponent },

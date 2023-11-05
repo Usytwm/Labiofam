@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 
 @Component({
-  selector: 'app-search-bioproductos',
+  selector: 'app-bioproductos',
   templateUrl: './bioproductos.component.html',
   styles: [
   ]

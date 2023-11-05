@@ -1,14 +1,10 @@
 
-<div pt-lg-3 style="margin-top: 1cm;">
-
-</div>
-
-<div class="container">
-<div class="grid bm-8">
-  <div class="row row-cols-1 row-cols-md-3 g-3">
-    <div *ngFor="let product of products.slice(0, 5)" class="col">
-      <app-card [product]="product"></app-card>
+<div class="container" pt-lg-3 style="margin-top: 1cm;">
+  <div class="grid bm-8">
+    <div class="row row-cols-1 row-cols-md-3 g-3">
+      <div *ngFor="let product of products.slice(0, 5)" class="col">
+        <app-card [product]="product"></app-card>
+      </div>
     </div>
   </div>
-</div>
 </div>

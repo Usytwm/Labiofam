@@ -6,15 +6,15 @@ import { HomeModule } from './home/home.module';
 import { MapaModule } from './mapa/mapa.module';
 import { ServiciosModule } from './servicios/servicios.module';
 import { ContactosModule } from './contactos/contactos.module';
+import { BioproductosModule } from './bioproductos/bioproductos.module';
+import { SharedModule } from '../Shared/shared.module';
+
+
 
 //componentes
 import { NavComponent } from './components/nav/nav.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PublicComponent } from './public.component';
-import { ContactosRoutingModule } from './contactos/contactos-routing.module';
-import { ContactImagePipe } from './contactos/pipes/contactos-image.pipes';
-import { SharedModule } from '../Shared/shared.module';
-
 
 @NgModule({
   declarations: [
@@ -29,7 +29,7 @@ import { SharedModule } from '../Shared/shared.module';
     MapaModule,
     ServiciosModule,
     ContactosModule,
-    ContactosRoutingModule,
+    BioproductosModule,
     SharedModule,
     //Pipes
 

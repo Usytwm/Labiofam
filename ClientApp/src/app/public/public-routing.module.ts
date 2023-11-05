@@ -3,8 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { PublicComponent } from './public.component';
 import { HomeComponent } from './home/components/home/home.component';
 import { MapaComponent } from './mapa/components/mapa/mapa.component';
-import { ServiciosComponent } from './servicios/components/servicios/servicios.component';
 import { ContactosComponent } from './contactos/components/contactos/contactos.component';
+import { BioproductosComponent } from './bioproductos/components/bioproductos/bioproductos.component';
+import { SidenavComponent } from '../admin/components/sidenav/sidenav.component';
 
 
 const routes: Routes = [
@@ -24,16 +25,15 @@ const routes: Routes = [
       },
       {
         path: 'contact',
-        loadChildren: () => import('./contactos/contactos.module').then( m => m.ContactosModule ),
-
+        component: ContactosComponent
       },
       {
         path: 'bioproduct',
-        loadChildren: () => import('./bioproductos/bioproductos.module').then( m => m.BioproductosModule ),
+        component: BioproductosComponent
       },
       {
-        path: 'Contact',
-        component: ContactosComponent,
+        path: 'dashboard',
+        component: SidenavComponent,
       },
       // otras rutas que deben mostrarse dentro de PublicComponent
     ],

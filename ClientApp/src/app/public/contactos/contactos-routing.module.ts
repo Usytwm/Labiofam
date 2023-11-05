@@ -1,16 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
+//Component
+import { ContactosComponent } from './components/contactos/contactos.component';
 import { ContactPageComponent } from './pages/contact-page/contact-page.component';
 import { ContactListPageComponent } from './pages/contact-list-page/contact-list-page.component';
-import { LayoutPageComponent } from './pages/layout-page/layout-page.component';
 
 const routes: Routes = [
   {
-    path: '',
-    component: LayoutPageComponent,
+    path: 'contact',
+    component: ContactosComponent,
     children:[
-      {path: 'contacto', component: ContactPageComponent },
-      {path: 'list', component: ContactListPageComponent },
+      {path: 'list', component: ContactPageComponent },
+      {path: ':contact_ID', component: ContactListPageComponent },
       {path: '**', redirectTo: 'list' },
     ]
   },

@@ -11,10 +11,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { SharedModule } from '../Shared/shared.module';
 //componentes
 import { SidenavComponent } from './components/sidenav/sidenav.component';
-import { BioproductsAdminComponent } from './bioproducts-admin/bioproducts-admin.component';
 
 @NgModule({
-  declarations: [SidenavComponent, BioproductsAdminComponent],
+  declarations: [SidenavComponent],
   imports: [
     CommonModule,
     SeccionAdminRoutingModule,
