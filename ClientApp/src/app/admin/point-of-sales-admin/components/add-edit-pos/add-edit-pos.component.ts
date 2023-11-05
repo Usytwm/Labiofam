@@ -6,17 +6,16 @@ import {
   AfterViewInit,
 } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { User } from 'src/app/Interfaces/User';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormControl, Validators } from '@angular/forms';
+import { Validators } from '@angular/forms';
 import {
   Map,
   NavigationControl,
   Marker,
-  Popup,
   GeolocateControl,
   FullscreenControl,
+  LngLat,
 } from 'maplibre-gl';
 import { PointsOfSalesService } from 'src/app/Services/points-of-sales.service';
 import { Point_of_Sales } from 'src/app/Interfaces/Point_of_sales';
@@ -27,6 +26,8 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./add-edit-pos.component.css'],
 })
 export class AddEditPosComponent implements OnInit, AfterViewInit {
+  markerLngLat?: LngLat;
+  marker?: Marker;
   private initialState = environment.initialState;
   private apiKey = environment.apiKey;
   private mapStyle = `${environment.mapStyle}${this.apiKey}`;
@@ -72,6 +73,7 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
   ) {
     this.id = String(this.route.snapshot.paramMap.get('id'));
   }
+
   ngOnInit(): void {
     if (this.id !== 'null') {
       this.operacion = 'Editar';
@@ -96,7 +98,26 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
         trackUserLocation: true,
       })
     );
+    if (this.operacion === 'Agregar') {
+      this.form.patchValue({
+        latitude: 23.113592,
+        longitude: -82.366592,
+      });
+      this.marker = new Marker({
+        draggable: true,
+      })
+        .setLngLat([-82.366592, 23.113592])
+        .addTo(this.map!);
+      this.marker.on('dragend', () => {
+        this.form.patchValue({
+          latitude: this.marker!.getLngLat().lat,
+          longitude: this.marker!.getLngLat().lng,
+        });
+        this.markerLngLat = this.marker!.getLngLat();
+      });
+    }
   }
+
   getPoint(id: string) {
     this.loading = true;
     this._point_of_sales_service.get(id).subscribe((data) => {
@@ -110,6 +131,19 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
         latitude: data.latitude,
         longitude: data.longitude,
       });
+      this.marker = new Marker({
+        draggable: true,
+      })
+        .setLngLat([data.longitude, data.latitude])
+        .addTo(this.map!);
+      this.marker.on('dragend', () => {
+        this.form.patchValue({
+          latitude: this.marker!.getLngLat().lat,
+          longitude: this.marker!.getLngLat().lng,
+        });
+        this.markerLngLat = this.marker!.getLngLat();
+      });
+
       this.loading = false;
     });
   }
@@ -120,23 +154,23 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
     this._point_of_sales_service
       .update(this.id, this.newPoint())
       .subscribe(() => {
-        this.snackBar.open('Edit sucess', '', {
+        this.snackBar.open('Editado con éxito', 'cerrar', {
           duration: 3000,
           horizontalPosition: 'right',
         });
         this.loading = false;
-        this.router.navigate(['/dashboard/points-of-sales']);
+        this.router.navigate(['/dashboard/points-of-sales-admin']);
       });
   }
 
   addPoint() {
     this._point_of_sales_service.add(this.newPoint()).subscribe((data) => {
-      this.snackBar.open('Add sucess', '', {
+      this.snackBar.open('Agregado con éxito', 'cerrar', {
         duration: 3000,
         horizontalPosition: 'right',
       });
       //console.log(this.newUser());
-      this.router.navigate(['/dashboard/points-of-sales']);
+      this.router.navigate(['/dashboard/points-of-sales-admin']);
     });
   }
 

@@ -21,6 +21,7 @@ import { Observable, map, startWith } from 'rxjs';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
+import { FilterService } from 'src/app/Services/filter.service';
 
 @Component({
   selector: 'app-add-edit-user',
@@ -29,11 +30,13 @@ import { MatChipInputEvent } from '@angular/material/chips';
 })
 export class AddEditUserComponent implements OnInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  fruitCtrl = new FormControl('');
-  filteredFruits: Observable<string[]>;
-  fruits: string[] = ['Lemon'];
-  allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
-  @ViewChild('fruitInput') fruitInput?: ElementRef<HTMLInputElement>;
+
+  roleCtrl = new FormControl('', Validators.required);
+  filtered_roles_name!: Observable<string[]>;
+  _roles_name: string[] = [];
+  all_roles_name!: string[];
+  _roles?: Role[];
+  @ViewChild('roleInput') roleInput?: ElementRef<HTMLInputElement>;
 
   announcer = inject(LiveAnnouncer);
 
@@ -54,9 +57,7 @@ export class AddEditUserComponent implements OnInit {
     Oldpassword: ['', [Validators.pattern('^[^\\s]*$')]],
   });
 
-  roleControl = new FormControl<User_Role | null>(null, Validators.required);
   selectFormControl = new FormControl('', Validators.required);
-  _roles?: Role[];
 
   constructor(
     private fb: FormBuilder,
@@ -65,60 +66,78 @@ export class AddEditUserComponent implements OnInit {
     private roles: RolesService,
     private snackBar: MatSnackBar,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private filter: FilterService
   ) {
     this.id = String(this.route.snapshot.paramMap.get('id'));
+    // Inicializa roleCtrl antes de la suscripción
+    this.roleCtrl = new FormControl('', Validators.required);
+
+    //obtengo la lista de todos los roles
     this.roles.getAll().subscribe((data) => {
       this._roles = data;
+      this.all_roles_name = this._roles!.map((role) => role.name!);
+      this.filtered_roles_name = this.roleCtrl.valueChanges.pipe(
+        startWith(null),
+        map((role: string | null) =>
+          role ? this._filter(role) : this.all_roles_name.slice()
+        )
+      );
     });
-    this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
-      startWith(null),
-      map((fruit: string | null) =>
-        fruit ? this._filter(fruit) : this.allFruits.slice()
-      )
-    );
   }
+
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
-
     // Add our fruit
     if (value) {
-      this.fruits.push(value);
+      this._roles_name.push(value);
     }
-
     // Clear the input value
     event.chipInput!.clear();
-
-    this.fruitCtrl.setValue(null);
+    this.roleCtrl.setValue(null);
   }
 
-  remove(fruit: string): void {
-    const index = this.fruits.indexOf(fruit);
+  remove(role: string): void {
+    const index = this._roles_name.indexOf(role);
 
     if (index >= 0) {
-      this.fruits.splice(index, 1);
+      // Eliminar role de _roles_name
+      this._roles_name.splice(index, 1);
 
-      this.announcer.announce(`Removed ${fruit}`);
+      // Agregar role a all_roles_name
+      this.all_roles_name.push(role);
+
+      this.announcer.announce(`Removed ${role}`);
     }
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.fruits.push(event.option.viewValue);
-    this.fruitInput!.nativeElement.value = '';
-    this.fruitCtrl.setValue(null);
+    this._roles_name.push(event.option.viewValue);
+    this.roleInput!.nativeElement.value = '';
+    this.roleCtrl.setValue(null);
   }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.allFruits.filter((fruit) =>
-      fruit.toLowerCase().includes(filterValue)
+    // Filtrar all_roles_name
+    const filteredRoles = this.all_roles_name.filter((role) =>
+      role.toLowerCase().includes(filterValue)
     );
+
+    // Eliminar value de all_roles_name
+    this.all_roles_name = this.all_roles_name.filter(
+      (role) => role.toLowerCase() !== filterValue
+    );
+
+    return filteredRoles;
   }
+
   ngOnInit(): void {
     if (this.id !== 'null') {
       this.operacion = 'Editar';
       this.getUser(this.id);
+
       // Si estás editando, la contraseña no es requerida
       this.form.controls['Newpassword'].clearValidators();
       this.form.controls['Newpassword'].setValidators([
@@ -143,9 +162,12 @@ export class AddEditUserComponent implements OnInit {
     this.loading = true;
     this.userservice.get(id).subscribe((data) => {
       this.user = data;
-      console.log(data);
       this.form.patchValue({ Username: data.userName });
       this.loading = false;
+    });
+    this.filter.getrolesbyuser(id).subscribe((data) => {
+      this._roles_name = data.map((x) => x.name!);
+      this._roles_name.push('vida');
     });
   }
 
@@ -155,24 +177,22 @@ export class AddEditUserComponent implements OnInit {
       .update(this.id, this.newUser())
       .pipe()
       .subscribe(() => {
-        this.snackBar.open('Edit sucess', '', {
+        this.snackBar.open('Editado con éxito', 'cerrar', {
           duration: 3000,
           horizontalPosition: 'right',
         });
         this.loading = false;
-        //console.log(this.newUser());
         this.router.navigate(['/dashboard/users-admin']);
       });
   }
 
   addUser() {
-    // console.log(this.newUser());
     this.registrationService.add(this.newUser()).subscribe((data) => {
-      this.snackBar.open('Add sucess', '', {
+      this.snackBar.open('Agregado con éxito', 'cerrar', {
         duration: 3000,
         horizontalPosition: 'right',
       });
-      //console.log(this.newUser());
+
       this.router.navigate(['/dashboard/users-admin']);
     });
   }

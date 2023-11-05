@@ -74,22 +74,22 @@
           <mat-grid-tile colspan="2">
             <form style="position: absolute; width: 96%">
               <mat-form-field class="example-chip-list">
-                <mat-label>Favorite Fruits</mat-label>
-                <mat-chip-grid #chipGrid aria-label="Fruit selection">
+                <mat-label>Agregar roles</mat-label>
+                <mat-chip-grid #chipGrid aria-label="Seleccion de roles">
                   <mat-chip-row
-                    *ngFor="let fruit of fruits"
-                    (removed)="remove(fruit)"
+                    *ngFor="let role of _roles_name"
+                    (removed)="remove(role)"
                   >
-                    {{ fruit }}
-                    <button matChipRemove [attr.aria-label]="'remove ' + fruit">
+                    {{ role }}
+                    <button matChipRemove [attr.aria-label]="'remove ' + role">
                       <mat-icon>cancel</mat-icon>
                     </button>
                   </mat-chip-row>
                 </mat-chip-grid>
                 <input
-                  placeholder="New Fruit..."
-                  #fruitInput
-                  [formControl]="fruitCtrl"
+                  placeholder="Nuevo rol..."
+                  #roleInput
+                  [formControl]="roleCtrl"
                   [matChipInputFor]="chipGrid"
                   [matAutocomplete]="auto"
                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
@@ -100,7 +100,7 @@
                   (optionSelected)="selected($event)"
                 >
                   <mat-option
-                    *ngFor="let fruit of filteredFruits | async"
+                    *ngFor="let fruit of filtered_roles_name | async"
                     [value]="fruit"
                   >
                     {{ fruit }}
@@ -111,9 +111,10 @@
           </mat-grid-tile>
 
           <br />
+
           <mat-grid-tile colspan="2">
             <button
-              [disabled]="form.invalid || roleControl.invalid"
+              [disabled]="form.invalid"
               y
               type="submit"
               class="btnacept"
