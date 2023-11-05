@@ -26,6 +26,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./add-edit-pos.component.css'],
 })
 export class AddEditPosComponent implements OnInit, AfterViewInit {
+  imagePreview?: string;
   markerLngLat?: LngLat;
   marker?: Marker;
   private initialState = environment.initialState;
@@ -183,5 +184,16 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
       latitude: this.form.value.latitude!,
       longitude: this.form.value.longitude!,
     };
+  }
+  onFileChange(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length) {
+      const file = target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.imagePreview = reader.result as string;
+      };
+    }
   }
 }

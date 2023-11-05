@@ -56,11 +56,14 @@
           <li *ngFor="let establecimiento of establecimientos">
             <a
               class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top"
-              href="#"
+              [routerLink]="[
+                '/point-of-sales/details/',
+                establecimiento.point_ID
+              ]"
             >
               <div class="conti">
                 <img
-                  src="{{ establecimiento.imagen }}"
+                  src="{{ establecimiento.image }}"
                   class="bd-placeholder-img"
                   width="100%"
                   height="96"
@@ -69,9 +72,12 @@
                 />
               </div>
               <div class="col-lg-8">
-                <h6 class="mb-0">{{ establecimiento.nombre }}</h6>
+                <h6 class="mb-0">{{ establecimiento.name }}</h6>
                 <small class="text-body-secondary">{{
-                  establecimiento.descripcion
+                  establecimiento.address
+                }}</small>
+                <small class="text-body-secondary">{{
+                  establecimiento.municipality
                 }}</small>
               </div>
             </a>
@@ -85,7 +91,7 @@
   <section style="background-color: var(--color-blue-white)">
     <br />
     <div class="row content">
-      <div class="col-md-4 mb-4" *ngFor="let producto of productos">
+      <div class="col-md-4 mb-4" *ngFor="let producto of products">
         <div class="card" style="height: 20rem">
           <div class="cont imagen1">
             <img

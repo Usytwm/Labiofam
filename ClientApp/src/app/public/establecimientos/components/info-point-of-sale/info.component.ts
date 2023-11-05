@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Point_of_Sales } from 'src/app/Interfaces/Point_of_sales';
 import { PointsOfSalesService } from 'src/app/Services/points-of-sales.service';
 import { Location } from '@angular/common';
+import { Product } from 'src/app/Interfaces/Product';
+import { FilterService } from 'src/app/Services/filter.service';
 
 @Component({
   selector: 'app-info',
@@ -12,76 +14,41 @@ import { Location } from '@angular/common';
 export class InfoPOSComponent implements OnInit {
   id: string;
   point?: Point_of_Sales;
-  productos = [
-    {
-      product_ID: 'P001',
-      name: 'Producto 1',
-      image: 'assets/10.jpg',
-      type: 'Tipo 1',
-      summary: 'Este es un resumen del Producto 1.',
-      specifications: 'Especificaciones del Producto 1.',
-    },
-    {
-      product_ID: 'P002',
-      name: 'Producto 2',
-      image: 'assets/11.jpg',
-      type: 'Tipo 2',
-      summary: 'Este es un resumen del Producto 2.',
-      specifications: 'Especificaciones del Producto 2.',
-    },
-    {
-      product_ID: 'P003',
-      name: 'Producto 3',
-      image: 'assets/12.jpg',
-      type: 'Tipo 3',
-      summary: 'Este es un resumen del Producto 3.',
-      specifications: 'Especificaciones del Producto 3.',
-    },
-    {
-      product_ID: 'P004',
-      name: 'Producto 4',
-      image: 'assets/12.jpg',
-      type: 'Tipo 4',
-      summary: 'Este es un resumen del Producto 4.',
-      specifications: 'Especificaciones del Producto 4.',
-    },
-    // Agrega más productos según sea necesario
-  ];
 
-  establecimientos: any[] = [
-    {
-      imagen: 'assets/10.jpg',
-      nombre: 'Nombre del Establecimiento',
-      descripcion: 'Descripción del Establecimiento',
-    },
-    {
-      imagen: 'assets/11.jpg',
-      nombre: 'Nombre del Establecimiento',
-      descripcion: 'Descripción del Establecimiento',
-    },
-    {
-      imagen: 'assets/12.jpg',
-      nombre: 'Nombre del Establecimiento',
-      descripcion: 'Descripción del Establecimiento',
-    },
-  ];
+  products: Product[] = [];
+
+  establecimientos: Point_of_Sales[] = [];
 
   constructor(
     private personaService: PointsOfSalesService,
+    private router: Router,
     private aRoute: ActivatedRoute,
+    private _filter: FilterService,
     private _location: Location
   ) {
+    this.router.onSameUrlNavigation = 'reload';
     this.id = String(this.aRoute.snapshot.paramMap.get('id'));
     console.log(this.id);
   }
 
   ngOnInit(): void {
-    this.getPoint();
+    this.aRoute.params.subscribe((params) => {
+      let id = params['id'];
+      // Carga los datos del punto de venta con el id
+      // Asegúrate de que este método cargue los nuevos datos y actualice las propiedades del componente
+      this.getPoint();
+    });
   }
 
   getPoint() {
     this.personaService.get(this.id).subscribe((data) => {
       this.point = data;
+    });
+    this._filter.getproductsbypos(this.id).subscribe((data) => {
+      this.products = data;
+    });
+    this.personaService.take(3).subscribe((data) => {
+      this.establecimientos = data;
     });
   }
   goBack() {
