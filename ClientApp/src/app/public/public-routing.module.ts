@@ -22,7 +22,7 @@ const routes: Routes = [
         component: MapaComponent,
       },
       {
-        path: 'Services',
+        path: 'services',
         component: ServicesComponent,
       },
       {
