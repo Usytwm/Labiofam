@@ -26,20 +26,16 @@ export class InfoPOSComponent implements OnInit {
     private _filter: FilterService,
     private _location: Location
   ) {
-    this.router.onSameUrlNavigation = 'reload';
     this.id = String(this.aRoute.snapshot.paramMap.get('id'));
     console.log(this.id);
   }
 
   ngOnInit(): void {
     this.aRoute.params.subscribe((params) => {
-      let id = params['id'];
-      // Carga los datos del punto de venta con el id
-      // Asegúrate de que este método cargue los nuevos datos y actualice las propiedades del componente
+      this.id = params['id'];
       this.getPoint();
     });
   }
-
   getPoint() {
     this.personaService.get(this.id).subscribe((data) => {
       this.point = data;
