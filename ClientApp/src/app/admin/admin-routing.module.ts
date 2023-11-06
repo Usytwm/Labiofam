@@ -7,7 +7,7 @@ import { AddEditUserComponent } from './users-admin/components/add-edit-user/add
 import { AddEditPosComponent } from './point-of-sales-admin/components/add-edit-pos/add-edit-pos.component';
 import { ServicesAdminComponent } from './services-admin/components/services-admin/services-admin.component';
 import { AddEditServiceComponent } from './services-admin/components/add-edit-service/Service-edit.component';
-import { InfoPOSComponent } from '../Components/info-point-of-sale/info.component';
+import { InfoPosComponent } from './point-of-sales-admin/components/info-pos/info-pos.component';
 
 const routes: Routes = [
   {
@@ -31,7 +31,7 @@ const routes: Routes = [
       { path: 'points-of-sales-admin/add', component: AddEditPosComponent },
       {
         path: 'points-of-sales-admin/details/:id',
-        component: InfoPOSComponent,
+        component: InfoPosComponent,
       },
       // otras rutas que deben mostrarse dentro de PublicComponent
     ],

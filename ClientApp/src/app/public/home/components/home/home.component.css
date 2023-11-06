@@ -25,7 +25,7 @@
 }
 .card-title {
   font-family: "Roboto", sans-serif; /* Reemplaza 'Tu Fuente Bonita' con el nombre de la fuente que quieras usar */
-font-size: 100;
+  font-size: 100;
 }
 .card:hover {
   box-shadow: 0 16px 32px 0 rgba(0, 0, 0, 0.5);
@@ -55,4 +55,10 @@ font-size: 100;
   font-size: 2.8rem;
 }
 
+.titulo {
+  text-align: center;
+  font-weight: bold;
+  color: var(--color-tory-blue) !important;
+  font-style: italic !important;
+}
 /*mooroor*/

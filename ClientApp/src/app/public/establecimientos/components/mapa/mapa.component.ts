@@ -96,25 +96,20 @@ export class MapaComponent implements AfterViewInit, OnDestroy {
             type: 'Feature',
             properties: {
               description: `
-              <div class="container">
-                    <div data-aos="fade-right" data-aos-duration="500">
-                      <div class="card" style="height: 5rem  width: 3rem; transition: 0.7s; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);">
-                        <div class="cont" style="position: relative; margin: auto; text-align: center; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); overflow: hidden; width: 100%; height: 15rem;">
-                          <img src="assets/11.jpg" class="card-img-top img" alt="${punto.name}" style="width: 100%; height: 100%; object-fit: cover; display: flexbox; transition: transform 1s; cursor: pointer;" />
-                        </div>
-                        <div class="card-body">
-                          <h3 class="card-title">${punto.name}</h3>
-                          <ul>
-                            <li><strong>Dirección:</strong> ${punto.address}</li>
-                            <li><strong>Municipio:</strong> ${punto.municipality}</li>
-                            <li><strong>Provincia:</strong> ${punto.province}</li>
-                            <li><strong>Productos disponibles:</strong> coquisgv sbdcjh bcshjac sdbhc sbdhj</li>
-                          </ul>
-                        <a href="/productos/${punto.point_ID}" class="btn btn-primary">Ver mas</a>
-                      </div>
-                    </div>
+              <div data-aos="fade-right" data-aos-duration="500">
+                <div class="card" style="height: 15rem !important ;  width: 17rem !important; transition: 0.7s; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); border:none;">
+                  <div class="card-body" >
+                    <h3 class="card-title">${punto.name}</h3>
+                    <ul style=" text-align: left">
+                      <li><strong>Dirección:</strong> ${punto.address}</li>
+                      <li><strong>Municipio:</strong> ${punto.municipality}</li>
+                      <li><strong>Provincia:</strong> ${punto.province}</li>
+                      <li><strong>Productos disponibles:</strong> coquisgv sbdcjh bcshjac sdbhc sbdhj</li>
+                    </ul>
+                  <a href="point-of-sales/details/${punto.point_ID}" class="btn btn-primary">Ver mas</a>
+                </div>
               </div>
-          `, //tengo que cambiar el link
+    `,
               nombre: punto.name,
               icon: 'theatre',
             },
@@ -146,12 +141,8 @@ export class MapaComponent implements AfterViewInit, OnDestroy {
         type: 'Feature',
         properties: {
           description: `
-          
                 <div data-aos="fade-right" data-aos-duration="500">
-                  <div class="card" style="height: 25rem !important;  width: 17rem !important; transition: 0.7s; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);">
-                    <div class="cont" style="position: relative; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); overflow: hidden; width: 100%; height: 10rem !important;">
-                      <img src="assets/11.jpg" class="card-img-top img" alt="${punto.name}" style="width: 100%; height: 100%; object-fit: cover; display: flexbox; transition: transform 1s; cursor: pointer;" />
-                    </div>
+                  <div class="card" style="height: 15rem ;  width: 17rem !important; transition: 0.7s; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); border:none;">
                     <div class="card-body" >
                       <h3 class="card-title">${punto.name}</h3>
                       <ul style=" text-align: left">
@@ -160,11 +151,10 @@ export class MapaComponent implements AfterViewInit, OnDestroy {
                         <li><strong>Provincia:</strong> ${punto.province}</li>
                         <li><strong>Productos disponibles:</strong> coquisgv sbdcjh bcshjac sdbhc sbdhj</li>
                       </ul>
-                    <a href="map/details/${punto.point_ID}" class="btn btn-primary">Ver mas</a>
+                    <a href="point-of-sales/details/${punto.point_ID}" class="btn btn-primary">Ver mas</a>
                   </div>
                 </div>
-          
-      `, //tengo que cambiar el link
+      `,
         },
         geometry: {
           type: 'Point',

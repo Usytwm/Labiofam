@@ -8,7 +8,7 @@
     fxLayoutAlign="center center"
     fxLayoutGap="10px"
   >
-    <mat-card class="card" fxFlex="80%" fxFlex.lt-md="100%">
+    <mat-card class="card">
       <mat-card-subtitle style="text-align: center">
         <h2>Datos</h2>
       </mat-card-subtitle>
@@ -17,15 +17,15 @@
         style="margin-top: 10px"
         (ngSubmit)="operacion === 'Agregar' ? addUser() : editUser()"
       >
-        <mat-grid-list cols="2" rowHeight="80px">
+        <mat-grid-list style="position: relative" cols="2" rowHeight="80px">
           <mat-grid-tile>
             <mat-form-field class="mat-form-field" appearance="outline">
               <mat-label>Nombre</mat-label>
               <input formControlName="Username" matInput autocomplete="off" />
               <mat-error
                 *ngIf="
-                  form.controls.Username.invalid &&
-                  form.controls.Username.touched
+                  form.controls['Username'].invalid &&
+                  form.controls['Username'].touched
                 "
               >
                 nombre inválido
@@ -33,39 +33,88 @@
             </mat-form-field>
           </mat-grid-tile>
 
-          <mat-grid-tile *ngIf="operacion === 'Agregar'">
+          <mat-grid-tile style="position: relative">
             <mat-form-field class="mat-form-field" appearance="outline">
               <mat-label>Contraseña</mat-label>
-              <input formControlName="Password" matInput autocomplete="off" />
+              <input
+                formControlName="Newpassword"
+                matInput
+                autocomplete="off"
+              />
               <mat-error
                 *ngIf="
-                  form.controls.Password.invalid &&
-                  form.controls.Password.touched
+                  form.controls['Newpassword'].invalid &&
+                  form.controls['Newpassword'].touched
                 "
               >
-                pasword inválido
+                contraseña inválida
               </mat-error>
             </mat-form-field>
           </mat-grid-tile>
 
-          <mat-grid-tile>
-            <mat-form-field>
-              <mat-label>Rol del usuario</mat-label>
-              <mat-select [formControl]="roleControl" required>
-                <mat-option *ngFor="let role of _roles" [value]="role">
-                  {{ role.name }}
-                </mat-option>
-              </mat-select>
-              <mat-error *ngIf="roleControl.hasError('required')"
-                >Por favor introduzca un rol</mat-error
+          <mat-grid-tile
+            *ngIf="operacion !== 'Agregar'"
+            style="position: absolute"
+          >
+            <mat-form-field class="mat-form-field" appearance="outline">
+              <mat-label>Nueva Contraseña</mat-label>
+              <input
+                formControlName="Oldpassword"
+                matInput
+                autocomplete="off"
+              />
+              <mat-error
+                *ngIf="form.controls['Oldpassword'].hasError('pattern')"
               >
-              <mat-hint>{{ roleControl.value }}</mat-hint>
+                contraseña inválida
+              </mat-error>
             </mat-form-field>
           </mat-grid-tile>
 
           <mat-grid-tile colspan="2">
+            <form style="position: absolute; width: 96%">
+              <mat-form-field class="example-chip-list">
+                <mat-label>Agregar roles</mat-label>
+                <mat-chip-grid #chipGrid aria-label="Seleccion de roles">
+                  <mat-chip-row
+                    *ngFor="let role of _roles_name"
+                    (removed)="remove(role)"
+                  >
+                    {{ role }}
+                    <button matChipRemove [attr.aria-label]="'remove ' + role">
+                      <mat-icon>cancel</mat-icon>
+                    </button>
+                  </mat-chip-row>
+                </mat-chip-grid>
+                <input
+                  placeholder="Nuevo rol..."
+                  #roleInput
+                  [formControl]="roleCtrl"
+                  [matChipInputFor]="chipGrid"
+                  [matAutocomplete]="auto"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  (matChipInputTokenEnd)="add($event)"
+                />
+                <mat-autocomplete
+                  #auto="matAutocomplete"
+                  (optionSelected)="selected($event)"
+                >
+                  <mat-option
+                    *ngFor="let fruit of filtered_roles_name | async"
+                    [value]="fruit"
+                  >
+                    {{ fruit }}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </form>
+          </mat-grid-tile>
+
+          <br />
+
+          <mat-grid-tile colspan="2">
             <button
-              [disabled]="form.invalid || roleControl.invalid"
+              [disabled]="form.invalid"
               y
               type="submit"
               class="btnacept"

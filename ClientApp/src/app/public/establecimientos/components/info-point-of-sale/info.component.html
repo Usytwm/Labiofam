@@ -5,7 +5,7 @@
     >
       <div class="titulo">
         <h1 class="display-4 fst-italic">
-          {{ point.name! }}
+          {{ point?.name }}
         </h1>
       </div>
     </div>
@@ -14,7 +14,7 @@
   <div class="row g-5 mor">
     <div data-aos="fade-right" class="col-md-8">
       <div class="imag">
-        <img src="assets/10.jpg" alt="foto del  {{ point.name }} " />
+        <img src="assets/10.jpg" alt="foto del  {{ point?.name }} " />
       </div>
       <br />
       <mat-card class="card-param">
@@ -23,7 +23,7 @@
         </mat-card-header>
         <mat-card-content>
           <mat-divider></mat-divider>
-          <mat-card-subtitle>{{ point.address }}</mat-card-subtitle>
+          <mat-card-subtitle>{{ point?.address }}</mat-card-subtitle>
         </mat-card-content>
       </mat-card>
       <br />
@@ -34,7 +34,7 @@
         </mat-card-header>
         <mat-card-content>
           <mat-divider></mat-divider>
-          <mat-card-subtitle>{{ point.province }}</mat-card-subtitle>
+          <mat-card-subtitle>{{ point?.province }}</mat-card-subtitle>
         </mat-card-content>
       </mat-card>
       <br />
@@ -44,7 +44,7 @@
         </mat-card-header>
         <mat-card-content>
           <mat-divider></mat-divider>
-          <mat-card-subtitle>{{ point.municipality }}</mat-card-subtitle>
+          <mat-card-subtitle>{{ point?.municipality }}</mat-card-subtitle>
         </mat-card-content>
       </mat-card>
       <br />
@@ -56,11 +56,14 @@
           <li *ngFor="let establecimiento of establecimientos">
             <a
               class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top"
-              href="#"
+              [routerLink]="[
+                '/point-of-sales/details/',
+                establecimiento.point_ID
+              ]"
             >
               <div class="conti">
                 <img
-                  src="{{ establecimiento.imagen }}"
+                  src="{{ establecimiento.image }}"
                   class="bd-placeholder-img"
                   width="100%"
                   height="96"
@@ -69,9 +72,12 @@
                 />
               </div>
               <div class="col-lg-8">
-                <h6 class="mb-0">{{ establecimiento.nombre }}</h6>
+                <h6 class="mb-0">{{ establecimiento.name }}</h6>
                 <small class="text-body-secondary">{{
-                  establecimiento.descripcion
+                  establecimiento.address
+                }}</small>
+                <small class="text-body-secondary">{{
+                  establecimiento.municipality
                 }}</small>
               </div>
             </a>
@@ -85,7 +91,7 @@
   <section style="background-color: var(--color-blue-white)">
     <br />
     <div class="row content">
-      <div class="col-md-4 mb-4" *ngFor="let producto of productos">
+      <div class="col-md-4 mb-4" *ngFor="let producto of products">
         <div class="card" style="height: 20rem">
           <div class="cont imagen1">
             <img
