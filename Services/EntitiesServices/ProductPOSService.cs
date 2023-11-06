@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Labiofam.Services
 {
-    public class ProductPOSService : IProductPOSService
+    public class ProductPOSService : IRelationService<Product_POS>, IProductPOSService
     {
         private readonly WebDbContext _webDbContext;
 

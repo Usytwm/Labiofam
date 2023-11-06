@@ -1,7 +1,11 @@
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using Labiofam.Models;
 using Labiofam.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Labiofam.Controllers
 {
@@ -12,17 +16,23 @@ namespace Labiofam.Controllers
         private readonly IRegistrationService<User, RegistrationModel> _registrationService;
         private readonly IRegistrationService<Role, RoleModel> _modelService;
         private readonly IRelationService<User_Role> _relationService;
+        private readonly IRelationFilter _relationFilter;
+        private readonly IConfiguration _configuration;
         private readonly SignInManager<User> _signInManager;
 
         public RegistrationController(
             IRegistrationService<User, RegistrationModel> registrationService,
             IRegistrationService<Role, RoleModel> modelService,
             IRelationService<User_Role> relationService,
+            IRelationFilter relationFilter,
+            IConfiguration configuration,
             SignInManager<User> signInManager)
         {
             _registrationService = registrationService;
             _modelService = modelService;
             _relationService = relationService;
+            _relationFilter = relationFilter;
+            _configuration = configuration;
             _signInManager = signInManager;
         }
 
@@ -86,39 +96,41 @@ namespace Labiofam.Controllers
                 lockoutOnFailure: false);
             if (!result.Succeeded)
                 return BadRequest("Wrong name or password");
-            return Ok();
 
-            /*var id = _signInManager.UserManager.Users.FirstOrDefault(x => x.UserName!.Equals(login.Name))!.Id;
-            var roles = await _relationService.GetRolesAsync(id);
+            var user = await _registrationService.GetAsync(login.Name!);
+            var roles = await _relationFilter.GetRolesByUser(user.Id);
+            
             // Crea una lista de claims.
-            var Claims = new List<Claim>
+            var claims = new List<Claim>
             {
-                new Claim(JwtRegisteredClaimNames.Sub, login.Name!),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new(ClaimTypes.Sid, user.Id.ToString()),
+                new(ClaimTypes.Name, user.UserName!)
             };
 
             // Agrega un claim por cada rol del usuario.
             foreach (var role in roles)
             {
-                Claims.Add(new Claim(ClaimTypes.Role, role.Name!));
+                claims.Add(new Claim(ClaimTypes.Role, role.Name!));
             }
 
-            //nuevo a partir de aki
             // Crear un nuevo token.
-            var token = new JwtSecurityToken(
-                issuer: "{AUTH0_DOMAIN}",
-                audience: "{AUTH0_AUDIENCE}",
-                claims: Claims,
-                expires: DateTime.UtcNow.AddSeconds(10),  // Configura la fecha de expiración según tus necesidades.
-                signingCredentials: new SigningCredentials(
-                    new SymmetricSecurityKey(Encoding.UTF8.GetBytes("{YOUR_SECRET_KEY}")),
-                    SecurityAlgorithms.HmacSha256));
-
-            // Convertir el token en una cadena y devolverlo en la respuesta.
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var tokenString = tokenHandler.WriteToken(token);
-
-            return Ok(new { access_token = tokenString });//necesario devolver el token de acceso aki*/
+            var securityKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!)
+                );
+            var credentials = new SigningCredentials(
+                securityKey, 
+                SecurityAlgorithms.HmacSha256Signature
+                );
+            var tokenDescriptor = new JwtSecurityToken(
+                issuer: _configuration["Jwt:Issuer"],
+                audience: _configuration["Jwt:Audience"],
+                claims: claims,
+                expires: DateTime.Now.AddMinutes(720),
+                signingCredentials: credentials
+                );
+            var jwt = new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
+            
+            return Ok(new { AccessToken = jwt });
         }
     }
 }

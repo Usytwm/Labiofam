@@ -1,4 +1,5 @@
 using Labiofam.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Labiofam.Services;
 
@@ -18,9 +19,9 @@ public class RelationFilterService : IRelationFilter
     /// <returns>Lista de roles asociados al usuario.</returns>
     public async Task<List<Role>> GetRolesByUser(Guid user_id)
     {
-        var roles_id = _webDbContext.User_Role!
+        var roles_id = await _webDbContext.User_Role!
             .Where(ur => ur.UserId == user_id)
-            .ToList();
+            .ToListAsync();
         var result = new List<Role>();
         foreach (var role in roles_id)
         {
@@ -37,9 +38,9 @@ public class RelationFilterService : IRelationFilter
     /// <returns>Lista de usuarios asociados al rol.</returns>
     public async Task<List<User>> GetUsersByRole(Guid role_id)
     {
-        var users_id = _webDbContext.User_Role!
+        var users_id = await _webDbContext.User_Role!
             .Where(ur => ur.RoleId == role_id)
-            .ToList();
+            .ToListAsync();
         var result = new List<User>();
         foreach (var user in users_id)
         {
@@ -56,9 +57,9 @@ public class RelationFilterService : IRelationFilter
     /// <returns>Lista de productos asociados al usuario.</returns>
     public async Task<List<Product>> GetProductsByUser(Guid user_id)
     {
-        var products_id = _webDbContext.User_Product!
+        var products_id = await _webDbContext.User_Product!
             .Where(up => up.User_ID == user_id)
-            .ToList();
+            .ToListAsync();
 
         var result = new List<Product>();
         foreach (var product in products_id)
@@ -75,9 +76,9 @@ public class RelationFilterService : IRelationFilter
     /// <returns>Lista de usuarios asociados al producto.</returns>
     public async Task<List<User>> GetUsersByProduct(Guid product_id)
     {
-        var users_id = _webDbContext.User_Product!
+        var users_id = await _webDbContext.User_Product!
             .Where(up => up.Product_ID == product_id)
-            .ToList();
+            .ToListAsync();
 
         var result = new List<User>();
         foreach (var user in users_id)
@@ -94,9 +95,9 @@ public class RelationFilterService : IRelationFilter
     /// <returns>Lista de puntos de venta asociados al producto.</returns>
     public async Task<List<Point_of_Sales>> GetPOSByProduct(Guid product_id)
     {
-        var poss_id = _webDbContext.Product_POS!
+        var poss_id = await _webDbContext.Product_POS!
             .Where(ppos => ppos.Product_ID == product_id)
-            .ToList();
+            .ToListAsync();
 
         var result = new List<Point_of_Sales>();
         foreach (var pos in poss_id)
@@ -113,9 +114,9 @@ public class RelationFilterService : IRelationFilter
     /// <returns>Lista de productos asociados al punto de venta.</returns>
     public async Task<List<Product>> GetProductsByPOS(Guid pos_id)
     {
-        var products_id = _webDbContext.Product_POS!
+        var products_id = await _webDbContext.Product_POS!
             .Where(ppos => ppos.Point_ID == pos_id)
-            .ToList();
+            .ToListAsync();
 
         var result = new List<Product>();
         foreach (var product in products_id)
