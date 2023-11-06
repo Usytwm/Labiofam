@@ -1,24 +1,13 @@
+using System.Text;
 using Labiofam.Models;
 using Labiofam.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
-
-///nuevo para agregar jwt
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options =>
-{
-    options.Authority = "{AUTH0_DOMAIN}";
-    options.Audience = "{AUTH0_AUDIENCE}";
-});
-///end
-
 
 var config = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
@@ -52,6 +41,27 @@ builder.Services.AddIdentity<User, Role>(options =>
     .AddUserStore<UserStore<User, Role, WebDbContext, Guid>>()
     .AddRoleStore<RoleStore<Role, WebDbContext, Guid>>();
 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                ValidAudience = builder.Configuration["Jwt:Audience"],
+                IssuerSigningKey = new SymmetricSecurityKey(
+                    Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)
+                    )
+            };
+    });
+
+builder.Services.AddAuthorization(options =>
+    options.AddPolicy("superadmin", policy => policy.RequireRole("superadmin"))
+    );
+
 // Cors
 builder.Services.AddCors(options => options.AddPolicy("AllowWebApp", builder => builder
     .AllowAnyOrigin()
@@ -75,6 +85,7 @@ builder.Services.AddScoped<IRelationService<User_Product>, UserProductService>()
 
 // Servicios de filtrado
 builder.Services.AddScoped<IRelationFilter, RelationFilterService>();
+builder.Services.AddScoped<ISearchFilter, SearchFilterService>();
 
 var app = builder.Build();
 
@@ -85,7 +96,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseCors("AllowWebApp");
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
 app.Run();
