@@ -12,7 +12,7 @@ public interface IRelationService<Entity>
     Task RemoveAllAsync();
 }
 
-public interface IProductPOSService : IRelationService<Product_POS>
+public interface IProductPOSService
 {
     Task AddAsync(Guid product_id, Guid pos_id, int size);
 }
