@@ -12,10 +12,14 @@ import { SharedModule } from './Shared/shared.module';
 //Componentes
 import { AppComponent } from './app.component';
 import { FeedbackComponent } from './Components/feedback/feedback.component';
-import { InfoComponent } from './Components/info/info.component';
+
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
+//interceptos
+import { LoginInterceptor } from './Interceptors/login.interceptor';
 
 @NgModule({
-  declarations: [AppComponent, FeedbackComponent, InfoComponent],
+  declarations: [AppComponent, FeedbackComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -25,7 +29,13 @@ import { InfoComponent } from './Components/info/info.component';
     PublicModule,
     SeccionAdminModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoginInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

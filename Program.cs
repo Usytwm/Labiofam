@@ -1,10 +1,25 @@
 using Labiofam.Models;
 using Labiofam.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+///nuevo para agregar jwt
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(options =>
+{
+    options.Authority = "{AUTH0_DOMAIN}";
+    options.Audience = "{AUTH0_AUDIENCE}";
+});
+///end
+
+
 var config = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
@@ -57,6 +72,10 @@ builder.Services.AddScoped<IEntityService<Service>, ServiceService>();
 builder.Services.AddScoped<IRelationService<User_Role>, UserRoleService>();
 builder.Services.AddScoped<IProductPOSService, ProductPOSService>();
 builder.Services.AddScoped<IRelationService<User_Product>, UserProductService>();
+
+// Servicios de filtrado
+builder.Services.AddScoped<IRelationFilter, RelationFilterService>();
+
 var app = builder.Build();
 
 // Configurar el pipeline de solicitudes HTTP.

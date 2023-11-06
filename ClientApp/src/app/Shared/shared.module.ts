@@ -22,11 +22,16 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+<<<<<<< HEAD
 //Nuevos
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
+=======
+import { MatDividerModule } from '@angular/material/divider';
+
+>>>>>>> 3a7a12664eb36fbfb8d51a0fbc2723aa2de4ef8e
 //componentes
 import { SpinnerComponent } from '../Components/spinner/spinner.component';
 
@@ -48,6 +53,7 @@ import { SpinnerComponent } from '../Components/spinner/spinner.component';
     MatGridListModule,
     ReactiveFormsModule,
     MatCheckboxModule,
+    MatDividerModule,
     HttpClientModule,
     MatSelectModule,
     FormsModule,
@@ -58,6 +64,7 @@ import { SpinnerComponent } from '../Components/spinner/spinner.component';
   exports: [
     MatTableModule,
     MatPaginatorModule,
+    MatDividerModule,
     MatSortModule,
     MatFormFieldModule,
     MatInputModule,
