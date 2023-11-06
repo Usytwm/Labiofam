@@ -18,24 +18,30 @@ export class InfoPOSComponent implements OnInit {
   products: Product[] = [];
 
   establecimientos: Point_of_Sales[] = [];
+  previousId: string;
 
   constructor(
     private personaService: PointsOfSalesService,
-    private router: Router,
     private aRoute: ActivatedRoute,
-    private _filter: FilterService,
-    private _location: Location
+    private _filter: FilterService
   ) {
     this.id = String(this.aRoute.snapshot.paramMap.get('id'));
+    this.previousId = this.id;
     console.log(this.id);
   }
 
   ngOnInit(): void {
     this.aRoute.params.subscribe((params) => {
       this.id = params['id'];
-      this.getPoint();
+      if (this.id !== this.previousId) {
+        location.reload();
+      } else {
+        this.getPoint();
+      }
+      this.previousId = this.id;
     });
   }
+
   getPoint() {
     this.personaService.get(this.id).subscribe((data) => {
       this.point = data;
@@ -46,8 +52,5 @@ export class InfoPOSComponent implements OnInit {
     this.personaService.take(3).subscribe((data) => {
       this.establecimientos = data;
     });
-  }
-  goBack() {
-    this._location.back();
   }
 }
