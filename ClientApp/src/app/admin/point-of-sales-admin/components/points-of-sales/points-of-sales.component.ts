@@ -31,8 +31,6 @@ export class PointsOfSalesComponent implements OnInit {
         direccion: 'address',
         municipio: 'municipality',
         provincia: 'province',
-        latitud: 'latitude',
-        longitud: 'longitude',
       };
       this._data = data;
       this.loading = false;

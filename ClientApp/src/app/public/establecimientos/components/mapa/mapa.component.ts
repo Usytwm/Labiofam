@@ -97,7 +97,7 @@ export class MapaComponent implements AfterViewInit, OnDestroy {
             properties: {
               description: `
               <div data-aos="fade-right" data-aos-duration="500">
-                <div class="card" style="height: 15rem !important ;  width: 17rem !important; transition: 0.7s; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); border:none;">
+                <div class="card" style="background: radial-gradient(circle,#94d7ee,#ffffff,#94d7ee) !important; height: 15rem !important ;  width: 17rem !important; transition: 0.7s; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); border:none;">
                   <div class="card-body" >
                     <h3 class="card-title">${punto.name}</h3>
                     <ul style=" text-align: left">
@@ -142,7 +142,7 @@ export class MapaComponent implements AfterViewInit, OnDestroy {
         properties: {
           description: `
                 <div data-aos="fade-right" data-aos-duration="500">
-                  <div class="card" style="height: 15rem ;  width: 17rem !important; transition: 0.7s; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); border:none;">
+                  <div class="card" style="background: radial-gradient(circle,#94d7ee,#ffffff) !important;height: 15rem ;  width: 17rem !important; transition: 0.7s; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); border:none;">
                     <div class="card-body" >
                       <h3 class="card-title">${punto.name}</h3>
                       <ul style=" text-align: left">
