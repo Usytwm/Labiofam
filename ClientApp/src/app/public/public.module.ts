@@ -29,14 +29,7 @@ import { PublicComponent } from './public.component';
     PointsOfSalesModule,
     ServicesModule,
     ContactosModule,
-<<<<<<< HEAD
-    BioproductosModule,
-    SharedModule,
-    //Pipes
-
-=======
     FontAwesomeModule,
->>>>>>> 3a7a12664eb36fbfb8d51a0fbc2723aa2de4ef8e
   ],
 })
 export class PublicModule {}

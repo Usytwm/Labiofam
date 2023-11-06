@@ -24,11 +24,6 @@ const routes: Routes = [
         path: 'points-of-sales-admin',
         component: PointsOfSalesComponent,
       },
-<<<<<<< HEAD
-
-      { path: 'points-of-sales/edit/:id', component: AddEditPosComponent },
-      { path: 'points-of-sales/add', component: AddEditPosComponent },
-=======
       {
         path: 'points-of-sales-admin/edit/:id',
         component: AddEditPosComponent,
@@ -38,7 +33,6 @@ const routes: Routes = [
         path: 'points-of-sales-admin/details/:id',
         component: InfoPosComponent,
       },
->>>>>>> 3a7a12664eb36fbfb8d51a0fbc2723aa2de4ef8e
       // otras rutas que deben mostrarse dentro de PublicComponent
     ],
   },
