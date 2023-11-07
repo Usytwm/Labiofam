@@ -21,7 +21,7 @@ export class InfoPOSComponent implements OnInit {
   previousId: string;
 
   constructor(
-    private personaService: PointsOfSalesService,
+    private pointService: PointsOfSalesService,
     private aRoute: ActivatedRoute,
     private _filter: FilterService
   ) {
@@ -43,13 +43,13 @@ export class InfoPOSComponent implements OnInit {
   }
 
   getPoint() {
-    this.personaService.get(this.id).subscribe((data) => {
+    this.pointService.get(this.id).subscribe((data) => {
       this.point = data;
     });
     this._filter.getproductsbypos(this.id).subscribe((data) => {
       this.products = data;
     });
-    this.personaService.take(3).subscribe((data) => {
+    this.pointService.take(3).subscribe((data) => {
       this.establecimientos = data;
     });
   }
