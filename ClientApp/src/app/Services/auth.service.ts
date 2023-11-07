@@ -4,6 +4,7 @@ import { Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LoginModel } from '../Interfaces/Loginmodel';
 import { RegistrationModel } from '../Interfaces/registration-model';
+import { RegistrationRequestModel } from '../Interfaces/Registration-Request';
 
 @Injectable({
   providedIn: 'root',
@@ -14,29 +15,28 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(data: LoginModel): Observable<{ access_token: string }> {
+  login(data: LoginModel): Observable<{ accessToken: string }> {
     return this.http
-      .post<{ access_token: string }>(
-        `${this.appUrl}${this.apiUrl}/login`,
-        data
-      )
+      .post<{ accessToken: string }>(`${this.appUrl}${this.apiUrl}/login`, data)
       .pipe(
         tap((res) => {
-          localStorage.setItem('access_token', res.access_token);
+          localStorage.setItem('AccessToken', res.accessToken);
         })
       );
   }
 
   logout() {
-    localStorage.removeItem('access_token');
+    localStorage.removeItem('AccessToken');
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('access_token');
+    return !!localStorage.getItem('AccessToken');
   }
 
-  register(data: RegistrationModel): Observable<RegistrationModel> {
-    return this.http.post<RegistrationModel>(
+  register(
+    data: RegistrationRequestModel
+  ): Observable<RegistrationRequestModel> {
+    return this.http.post<RegistrationRequestModel>(
       `${this.appUrl}${this.apiUrl}`,
       data
     );

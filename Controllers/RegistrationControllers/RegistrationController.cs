@@ -99,7 +99,7 @@ namespace Labiofam.Controllers
 
             var user = await _registrationService.GetAsync(login.Name!);
             var roles = await _relationFilter.GetRolesByUser(user.Id);
-            
+
             // Crea una lista de claims.
             var claims = new List<Claim>
             {
@@ -118,18 +118,18 @@ namespace Labiofam.Controllers
                 Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!)
                 );
             var credentials = new SigningCredentials(
-                securityKey, 
+                securityKey,
                 SecurityAlgorithms.HmacSha256Signature
                 );
             var tokenDescriptor = new JwtSecurityToken(
                 issuer: _configuration["Jwt:Issuer"],
                 audience: _configuration["Jwt:Audience"],
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(720),
+                expires: DateTime.Now.AddSeconds(15),
                 signingCredentials: credentials
                 );
             var jwt = new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
-            
+
             return Ok(new { AccessToken = jwt });
         }
     }

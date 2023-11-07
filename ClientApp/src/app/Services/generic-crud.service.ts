@@ -11,7 +11,7 @@ export abstract class AbstractService<T> {
   constructor(protected _http: HttpClient) {}
 
   getAll(): Observable<T[]> {
-    return this._http.get<T[]>(`${this.appUrl}${this.apiUrl}`);
+    return this._http.get<T[]>(`${this.appUrl}${this.apiUrl}all/`);
   }
 
   get(id: string): Observable<T> {

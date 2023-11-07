@@ -17,10 +17,12 @@ import { RegistrationModel } from 'src/app/Interfaces/registration-model';
 import { RegistrationService } from 'src/app/Services/registration.service';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Observable, map, startWith } from 'rxjs';
-import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { FilterService } from 'src/app/Services/filter.service';
+import { AuthService } from '../../../../Services/auth.service';
+import { RegistrationRequestModel } from 'src/app/Interfaces/Registration-Request';
+import { RoleModel } from 'src/app/Interfaces/Role-Model';
 
 @Component({
   selector: 'app-add-edit-user',
@@ -58,13 +60,14 @@ export class AddEditUserComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private registrationService: RegistrationService,
+    private userService: RegistrationService,
     private userservice: UserService,
     private roles: RolesService,
     private snackBar: MatSnackBar,
     private router: Router,
     private route: ActivatedRoute,
-    private filter: FilterService
+    private filter: FilterService,
+    private registrationservice: AuthService
   ) {
     this.id = String(this.route.snapshot.paramMap.get('id'));
     //obtengo la lista de todos los roles
@@ -170,7 +173,7 @@ export class AddEditUserComponent implements OnInit {
 
   editUser() {
     this.loading = true;
-    this.registrationService
+    this.userService
       .update(this.id, this.newUser())
       .pipe()
       .subscribe(() => {
@@ -184,17 +187,19 @@ export class AddEditUserComponent implements OnInit {
   }
 
   addUser() {
-    this.registrationService.add(this.newUser()).subscribe((data) => {
-      this.snackBar.open('Agregado con éxito', 'cerrar', {
-        duration: 3000,
-        horizontalPosition: 'right',
-      });
+    this.registrationservice
+      .register(this.newRegistrationRequest())
+      .subscribe((data) => {
+        this.snackBar.open('Agregado con éxito', 'cerrar', {
+          duration: 3000,
+          horizontalPosition: 'right',
+        });
 
-      this.router.navigate(['/dashboard/users-admin']);
-    });
+        this.router.navigate(['/dashboard/users-admin']);
+      });
   }
 
-  newUser(): RegistrationModel {
+  private newUser(): RegistrationModel {
     return {
       name: this.form.value.Username!,
       password:
@@ -207,6 +212,18 @@ export class AddEditUserComponent implements OnInit {
           : this.form.value.Newpassword!,
       email: '',
       email_Token: '',
+    };
+  }
+  private newRole(): RoleModel {
+    return {
+      name: this._roles_name[0],
+      Description: '',
+    };
+  }
+  private newRegistrationRequest(): RegistrationRequestModel {
+    return {
+      user: this.newUser(),
+      role: this.newRole(),
     };
   }
 }
