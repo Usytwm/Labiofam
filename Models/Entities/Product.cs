@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Labiofam.Models;
 
-public class Product
+public class Product : IEntityModel
 {
     [Key]
     public Guid Product_ID { get; set; }

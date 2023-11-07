@@ -1,24 +1,14 @@
+using System.Text;
 using Labiofam.Models;
 using Labiofam.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-
-///nuevo para agregar jwt
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options =>
-{
-    options.Authority = "{AUTH0_DOMAIN}";
-    options.Audience = "{AUTH0_AUDIENCE}";
-});
-///end
-
 
 var config = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
@@ -28,7 +18,38 @@ var config = new ConfigurationBuilder()
 // Agregar servicios al contenedor.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+    {
+        options.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
+        
+        // Configurar autenticación JWT en Swagger
+        var securityScheme = new OpenApiSecurityScheme
+        {
+            Name = "Authorization",
+            Description = "Bearer token",
+            In = ParameterLocation.Header,
+            Type = SecuritySchemeType.Http,
+            Scheme = "bearer",
+            BearerFormat = "JWT"
+        };
+        options.AddSecurityDefinition("Bearer", securityScheme);
+
+        var securityRequirement = new OpenApiSecurityRequirement
+        {
+            {
+                new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                    }
+                },
+                Array.Empty<string>()
+            }
+        };
+        options.AddSecurityRequirement(securityRequirement);
+    });
 
 // Agregar el contexto de base de datos como servicio.
 builder.Services.AddDbContext<WebDbContext>(
@@ -52,6 +73,25 @@ builder.Services.AddIdentity<User, Role>(options =>
     .AddUserStore<UserStore<User, Role, WebDbContext, Guid>>()
     .AddRoleStore<RoleStore<Role, WebDbContext, Guid>>();
 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                ValidAudience = builder.Configuration["Jwt:Audience"],
+                IssuerSigningKey = new SymmetricSecurityKey(
+                    Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)
+                    )
+            };
+    });
+
+builder.Services.AddAuthorization();
+
 // Cors
 builder.Services.AddCors(options => options.AddPolicy("AllowWebApp", builder => builder
     .AllowAnyOrigin()
@@ -70,11 +110,14 @@ builder.Services.AddScoped<IEntityService<Service>, ServiceService>();
 
 // Servicios de relaciones
 builder.Services.AddScoped<IRelationService<User_Role>, UserRoleService>();
-builder.Services.AddScoped<IProductPOSService, ProductPOSService>();
 builder.Services.AddScoped<IRelationService<User_Product>, UserProductService>();
+builder.Services.AddScoped<IRelationService<Product_POS>, ProductPOSService>();
+builder.Services.AddScoped<IProductPOSService, ProductPOSService>();
 
 // Servicios de filtrado
 builder.Services.AddScoped<IRelationFilter, RelationFilterService>();
+builder.Services.AddScoped<ISearchFilter, SearchFilterService>();
+builder.Services.AddScoped<IRelationSearchFilter, RelationSearchFilterService>();
 
 var app = builder.Build();
 
@@ -82,10 +125,12 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1"
+        ));
 }
 app.UseCors("AllowWebApp");
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 app.MapControllers();
 app.Run();

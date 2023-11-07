@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Labiofam.Models;
 
-public class Contact
+public class Contact : IEntityModel
 {
     [Key]
     public Guid Contact_ID { get; set; }
