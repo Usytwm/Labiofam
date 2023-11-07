@@ -67,29 +67,4 @@ public class SearchFilterService : ISearchFilter
             .ToListAsync();
         return users;
     }
-
-    public async Task<List<Point_of_Sales>> GetPOSByProductSubstring(string substring)
-    {
-        var products = await GetProductsBySubstring(substring);
-        
-        var result = new List<Point_of_Sales>();
-        foreach(var product in products)
-        {
-            var products_pos = await _webDbContext.Product_POS!
-                .Where(x => x.Product_ID == product.Product_ID)
-                .ToListAsync();
-            
-            foreach (var ppos in products_pos)
-            {
-                if (result.Any(x => x.Point_ID == ppos.Point_ID))
-                    continue;
-                
-                result.Add(await _webDbContext.FindAsync<Point_of_Sales>(ppos.Point_ID)
-                    ?? throw new NullReferenceException());
-            }
-        }
-        return result;
-    }
-
-
 }

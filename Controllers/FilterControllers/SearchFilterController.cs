@@ -14,7 +14,6 @@ namespace Labiofam.Controllers
             _searchFilter = searchFilter;
         }
 
-        #region Simple_GetBySubstring
         [HttpGet("getclients/{substring}")]
         public async Task<IActionResult> GetClientsBySubstring(string substring)
         {
@@ -99,21 +98,6 @@ namespace Labiofam.Controllers
             try
             {
                 var result = await _searchFilter.GetUsersBySubstring(substring);
-                return Ok(result);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
-        }
-        #endregion
-
-        [HttpGet("getpossbyproduct/{substring}")]
-        public async Task<IActionResult> GetPOSByProductSubstring(string substring)
-        {
-            try
-            {
-                var result = await _searchFilter.GetPOSByProductSubstring(substring);
                 return Ok(result);
             }
             catch (Exception ex)
