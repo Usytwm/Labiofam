@@ -36,7 +36,17 @@ builder.Services.AddSwaggerGen(options =>
 
         var securityRequirement = new OpenApiSecurityRequirement
         {
-            { new OpenApiSecurityScheme { Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" } }, Array.Empty<string>() }
+            {
+                new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                    }
+                },
+                Array.Empty<string>()
+            }
         };
         options.AddSecurityRequirement(securityRequirement);
     });
@@ -107,6 +117,7 @@ builder.Services.AddScoped<IProductPOSService, ProductPOSService>();
 // Servicios de filtrado
 builder.Services.AddScoped<IRelationFilter, RelationFilterService>();
 builder.Services.AddScoped<ISearchFilter, SearchFilterService>();
+builder.Services.AddScoped<IRelationSearchFilter, RelationSearchFilterService>();
 
 var app = builder.Build();
 

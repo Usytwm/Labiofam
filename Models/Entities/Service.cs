@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Labiofam.Models;
 
-public class Service
+public class Service : IEntityModel
 {
     [Key]
     public Guid Service_ID { get; set; }
