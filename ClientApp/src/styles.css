@@ -1,5 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~maplibre-gl/dist/maplibre-gl.css";
+:root {
+  --color-blue: #203468;
+  --color-yellow: #ffdd21;
+  --color-tory-blue: #2f4e9b;
+  --color-blue-white: #e9ecef;
+  --color-white: #ffffff;
+}
+
 html,
 body {
   height: 100%;
@@ -7,13 +15,6 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-:root {
-  --color-blue: #203468;
-  --color-yellow: #ffdd21;
-  --color-tory-blue: #2f4e9b;
-  --color-blue-white: #e9ecef;
-  --color-white: #ffffff;
 }
 .public-section {
   margin-top: 3.7rem;

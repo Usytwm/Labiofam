@@ -1,7 +1,3 @@
-.card {
-  margin-top: 10px;
-}
-
 .container1 {
   margin-left: 10%;
   margin-right: 10%;
@@ -18,8 +14,6 @@
   max-width: 65%;
   margin-right: auto;
   margin-left: auto;
-  justify-content: center;
-  height: 100%;
   overflow: auto; /* Asegura que el contenido pueda desplazarse si excede la altura máxima */
 }
 .titulo {
@@ -29,4 +23,11 @@
   color: #333;
   margin-bottom: 20px;
   padding: 10px;
+}
+.example-chip-list {
+  width: 100%;
+  border-radius: 15px;
+}
+.formulario {
+  width: 100%;
 }

@@ -30,3 +30,27 @@
   margin-bottom: 20px;
   padding: 10px;
 }
+.container {
+  width: 100%; /* Establece un ancho predeterminado */
+  height: 250px; /* Establece una altura predeterminada */
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.map-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.map {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+}
+.my-grid-tile {
+  width: 100% !important;
+  height: 250px !important;
+}

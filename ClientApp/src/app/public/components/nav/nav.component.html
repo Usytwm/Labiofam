@@ -1,16 +1,13 @@
-<nav
-  class="navbar navbar-expand-lg navbar-dark bg-pastel-blue"
-  style="z-index: 4"
->
+<nav class="navbar navbar-expand-lg navbar-dark bg-pastel-blue">
   <div class="container-fluid">
     <a class="navbar-brand" [routerLink]="['/']">
       <img
-        src="../../../assets/labiofam.png"
-        alt="Descripción de la imagen"
-        style="height: 20px"
+        src="assets/labiofam.png"
+        alt="Logo de labiofam"
+        style="height: 2rem"
       />
-      <strong><span class="text-warning"> Labio</span>Fam</strong></a
-    >
+    </a>
+    <!--Menu de hamburguesa-->
     <button
       class="navbar-toggler"
       type="button"
@@ -26,59 +23,30 @@
     <div class="collapse navbar-collapse text-end" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item" [routerLinkActive]="['link-active']">
-          <a class="nav-link active" aria-current="page"
-            ><button
-              type="button"
-              class="btn btn-outline-secondary no-border btn-nav"
-              [routerLink]="['/']"
-            >
-              Inicio
-            </button></a
+          <a class="nav-link active" aria-current="page" [routerLink]="['/']"
+            >Inicio</a
           >
         </li>
         <li class="nav-item" [routerLinkActive]="['link-active']">
-          <a class="nav-link"
-            ><button
-              type="button"
-              class="btn btn-outline-secondary no-border btn-nav"
-              [routerLink]="['/map']"
-            >
-              Establecimientos
-            </button></a
-          >
+          <a class="nav-link" [routerLink]="['/point-of-sales']">Establecimientos</a>
         </li>
         <li class="nav-item" [routerLinkActive]="['link-active']">
-          <a class="nav-link"
-            ><button
-              type="button"
-              class="btn btn-outline-secondary no-border btn-nav"
-              [routerLink]="['/users-management']"
-            >
-              Bioproductos
-            </button></a
-          >
+          <a class="nav-link" [routerLink]="['/Login']">Bioproductos</a>
         </li>
         <li class="nav-item" [routerLinkActive]="['link-active']">
-          <a class="nav-link">
-            <button
-              class="btn btn-outline-secondary no-border btn-nav"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              [routerLink]="['/services']"
-            >
-              Servicios
-            </button>
-          </a>
+          <a class="nav-link" [routerLink]="['/Services']"> Servicios </a>
         </li>
         <li class="nav-item" [routerLinkActive]="['link-active']">
-          <a class="nav-link"
+          <a class="nav-link" [routerLink]="['/Contact']">Contactos</a>
+        </li>
+        <li class="nav-item" [routerLinkActive]="['link-active']">
+          <a
             ><button
               type="button"
-              class="btn btn-outline-secondary no-border btn-nav"
-              [routerLink]="['/dashboard']"
+              class="btn btn-outline-warning"
+              [routerLink]="['/login']"
             >
-              Contactos
+              Iniciar
             </button></a
           >
         </li>
@@ -86,3 +54,4 @@
     </div>
   </div>
 </nav>
+<!-- btn-sm-->

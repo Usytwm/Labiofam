@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Labiofam.Models;
 
@@ -13,6 +14,9 @@ public class Product
     public string? Type { get; set; }
     public string? Summary { get; set; }
     public string? Specifications { get; set; }
+
+    [JsonIgnore]
     public ICollection<Product_POS>? Points_Of_Sales { get; set; }
+    [JsonIgnore]
     public ICollection<User_Product>? Users { get; set; }
 }

@@ -67,7 +67,11 @@
 
 .body {
   position: absolute;
-  background-image: url("../../../../../assets/login2.jpg");
+  background: radial-gradient(
+    circle,
+    #ffffff,
+    #94d7ee
+  ); /* Ajusta los colores según tus preferencias */
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;

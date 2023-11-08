@@ -29,4 +29,8 @@ export abstract class AbstractService<T> {
   update(id: string, item: T): Observable<void> {
     return this._http.put<void>(`${this.appUrl}${this.apiUrl}${id}`, item);
   }
+
+  take(size: number): Observable<T[]> {
+    return this._http.get<T[]>(`${this.appUrl}${this.apiUrl}take/${size}`);
+  }
 }

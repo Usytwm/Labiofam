@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PublicRoutingModule } from './public-routing.module';
 import { HomeModule } from './home/home.module';
-import { MapaModule } from './mapa/mapa.module';
+import { PointsOfSalesModule } from './establecimientos/points-of-sales.module';
 import { ServicesModule } from './servicios/servicios.module';
 import { ContactosModule } from './contactos/contactos.module';
 
@@ -18,9 +18,10 @@ import { PublicComponent } from './public.component';
     CommonModule,
     PublicRoutingModule,
     HomeModule,
-    MapaModule,
+    PointsOfSalesModule,
     ServicesModule,
     ContactosModule,
+    FontAwesomeModule,
   ],
 })
 export class PublicModule {}

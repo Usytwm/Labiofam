@@ -23,14 +23,18 @@
     <hr />
     <div class="section">
       <div>
-        <button mat-button [routerLink]="['users']" (click)="drawer.toggle()">
+        <button
+          mat-button
+          [routerLink]="['users-admin']"
+          (click)="drawer.toggle()"
+        >
           Usuarios
         </button>
       </div>
       <div>
         <button
           mat-button
-          [routerLink]="['points-of-sales']"
+          [routerLink]="['points-of-sales-admin']"
           (click)="drawer.toggle()"
         >
           Puntos de Venta

@@ -1,7 +1,6 @@
 /* Estilos para el contenedor principal del carrusel */
 .cont {
   position: relative;
-  margin: auto;
   text-align: center;
   box-shadow: 0 8px 16px #dce1e1; /* Sombra alrededor del contenedor */
   overflow: hidden; /*  */

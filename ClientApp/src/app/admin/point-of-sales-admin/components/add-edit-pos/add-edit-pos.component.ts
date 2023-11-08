@@ -1,27 +1,44 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+  AfterViewInit,
+} from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { User } from 'src/app/Interfaces/User';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormControl, Validators } from '@angular/forms';
-import { Role } from 'src/app/Interfaces/Role';
-import { UserService } from 'src/app/Services/user.service';
-import { RolesService } from 'src/app/Services/roles.service';
-import { User_Role } from 'src/app/Interfaces/User_Role';
-import { RegistrationModel } from 'src/app/Interfaces/registration-model';
-import { RegistrationService } from 'src/app/Services/registration.service';
+import { Validators } from '@angular/forms';
+import {
+  Map,
+  NavigationControl,
+  Marker,
+  GeolocateControl,
+  FullscreenControl,
+  LngLat,
+} from 'maplibre-gl';
 import { PointsOfSalesService } from 'src/app/Services/points-of-sales.service';
 import { Point_of_Sales } from 'src/app/Interfaces/Point_of_sales';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-add-edit-pos',
   templateUrl: './add-edit-pos.component.html',
   styleUrls: ['./add-edit-pos.component.css'],
 })
-export class AddEditPosComponent implements OnInit {
+export class AddEditPosComponent implements OnInit, AfterViewInit {
+  imagePreview?: string;
+  markerLngLat?: LngLat;
+  marker?: Marker;
+  private initialState = environment.initialState;
+  private apiKey = environment.apiKey;
+  private mapStyle = `${environment.mapStyle}${this.apiKey}`;
+  private map?: Map;
   loading = false;
   id: string;
   operacion = 'Agregar';
   point?: Point_of_Sales;
+  @ViewChild('map')
+  private mapContainerElement!: ElementRef<HTMLElement>;
 
   form = this.fb.group({
     name: ['', Validators.required],
@@ -57,10 +74,48 @@ export class AddEditPosComponent implements OnInit {
   ) {
     this.id = String(this.route.snapshot.paramMap.get('id'));
   }
+
   ngOnInit(): void {
     if (this.id !== 'null') {
       this.operacion = 'Editar';
       this.getPoint(this.id);
+    }
+  }
+
+  ngAfterViewInit() {
+    this.map = new Map({
+      container: this.mapContainerElement.nativeElement,
+      style: this.mapStyle,
+      center: [this.initialState.lng, this.initialState.lat],
+      zoom: this.initialState.zoom,
+    });
+    this.map.addControl(new NavigationControl(), 'top-right');
+    this.map.addControl(new FullscreenControl(), 'bottom-right');
+    this.map.addControl(
+      new GeolocateControl({
+        positionOptions: {
+          enableHighAccuracy: true,
+        },
+        trackUserLocation: true,
+      })
+    );
+    if (this.operacion === 'Agregar') {
+      this.form.patchValue({
+        latitude: 23.113592,
+        longitude: -82.366592,
+      });
+      this.marker = new Marker({
+        draggable: true,
+      })
+        .setLngLat([-82.366592, 23.113592])
+        .addTo(this.map!);
+      this.marker.on('dragend', () => {
+        this.form.patchValue({
+          latitude: this.marker!.getLngLat().lat,
+          longitude: this.marker!.getLngLat().lng,
+        });
+        this.markerLngLat = this.marker!.getLngLat();
+      });
     }
   }
 
@@ -77,6 +132,19 @@ export class AddEditPosComponent implements OnInit {
         latitude: data.latitude,
         longitude: data.longitude,
       });
+      this.marker = new Marker({
+        draggable: true,
+      })
+        .setLngLat([data.longitude, data.latitude])
+        .addTo(this.map!);
+      this.marker.on('dragend', () => {
+        this.form.patchValue({
+          latitude: this.marker!.getLngLat().lat,
+          longitude: this.marker!.getLngLat().lng,
+        });
+        this.markerLngLat = this.marker!.getLngLat();
+      });
+
       this.loading = false;
     });
   }
@@ -87,23 +155,23 @@ export class AddEditPosComponent implements OnInit {
     this._point_of_sales_service
       .update(this.id, this.newPoint())
       .subscribe(() => {
-        this.snackBar.open('Edit sucess', '', {
+        this.snackBar.open('Editado con éxito', 'cerrar', {
           duration: 3000,
           horizontalPosition: 'right',
         });
         this.loading = false;
-        this.router.navigate(['/dashboard/points-of-sales']);
+        this.router.navigate(['/dashboard/points-of-sales-admin']);
       });
   }
 
   addPoint() {
     this._point_of_sales_service.add(this.newPoint()).subscribe((data) => {
-      this.snackBar.open('Add sucess', '', {
+      this.snackBar.open('Agregado con éxito', 'cerrar', {
         duration: 3000,
         horizontalPosition: 'right',
       });
       //console.log(this.newUser());
-      this.router.navigate(['/dashboard/points-of-sales']);
+      this.router.navigate(['/dashboard/points-of-sales-admin']);
     });
   }
 
@@ -116,5 +184,16 @@ export class AddEditPosComponent implements OnInit {
       latitude: this.form.value.latitude!,
       longitude: this.form.value.longitude!,
     };
+  }
+  onFileChange(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length) {
+      const file = target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.imagePreview = reader.result as string;
+      };
+    }
   }
 }

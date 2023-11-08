@@ -10,9 +10,10 @@ import { SharedModule } from '../../Shared/shared.module';
 //componentes
 import { PointsOfSalesComponent } from './components/points-of-sales/points-of-sales.component';
 import { AddEditPosComponent } from './components/add-edit-pos/add-edit-pos.component';
+import { InfoPosComponent } from './components/info-pos/info-pos.component';
 
 @NgModule({
-  declarations: [PointsOfSalesComponent, AddEditPosComponent],
+  declarations: [PointsOfSalesComponent, AddEditPosComponent, InfoPosComponent],
   imports: [CommonModule, CrudsModule, SharedModule, RouterModule],
 })
 export class PointOfSalesAdminModule {}
