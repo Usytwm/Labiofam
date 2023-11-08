@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Point_of_Sales } from 'src/app/Interfaces/Point_of_sales';
-import { PointsOfSalesService } from 'src/app/Services/points-of-sales.service';
+import { PointsOfSalesService } from 'src/app/Services/EntitiesServices/points-of-sales.service';
 
 @Component({
   selector: 'app-points-of-sales',
@@ -40,7 +40,7 @@ export class PointsOfSalesComponent implements OnInit {
   Delete(id: string) {
     this.loading = true;
     console.log(id);
-    this._service.delete(id).subscribe(() => {
+    this._service.remove(id).subscribe(() => {
       this._snackBar.open('delete sucess', '', {
         duration: 3000,
         horizontalPosition: 'right',

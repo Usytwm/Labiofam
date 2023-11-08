@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Point_of_Sales } from 'src/app/Interfaces/Point_of_sales';
-import { PointsOfSalesService } from 'src/app/Services/points-of-sales.service';
+import { PointsOfSalesService } from 'src/app/Services/EntitiesServices/points-of-sales.service';
 import { Location } from '@angular/common';
 import { Product } from 'src/app/Interfaces/Product';
 import { FilterService } from 'src/app/Services/filter.service';

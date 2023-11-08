@@ -3,7 +3,6 @@ import {
   ElementRef,
   OnInit,
   ViewChild,
-  inject,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { User } from 'src/app/Interfaces/User';
@@ -11,8 +10,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { Role } from 'src/app/Interfaces/Role';
-import { UserService } from 'src/app/Services/user.service';
-import { RolesService } from 'src/app/Services/roles.service';
+import { UserService } from 'src/app/Services/EntitiesServices/user.service';
+import { RolesService } from 'src/app/Services/EntitiesServices/roles.service';
 import { RegistrationModel } from 'src/app/Interfaces/registration-model';
 import { RegistrationService } from 'src/app/Services/registration.service';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';

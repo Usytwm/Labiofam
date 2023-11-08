@@ -7,7 +7,7 @@ namespace Labiofam.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "superadmin")]
+    //[Authorize(Roles = "superadmin")]
     public class UserController : RegistrationController<User, RegistrationModel>
     {
         public UserController(IRegistrationService<User, RegistrationModel> entityService)
