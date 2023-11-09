@@ -46,6 +46,19 @@ namespace Labiofam.Services
         }
 
         /// <summary>
+        /// Obtiene una lista de entidades que contengan el substring en su nombre.
+        /// </summary>
+        /// <param name="substring">Cadena de caracteres</param>
+        /// <returns>Una lista de entidades</returns>
+        public async Task<ICollection<T>> GetBySubstring(string substring)
+        {
+            var result = await _webDbContext.Set<T>()
+                .Where(x => x.Name!.Contains(substring))
+                .ToListAsync();
+            return result;
+        }
+
+        /// <summary>
         /// Obtiene una lista de entidades con un tamaño específico.
         /// </summary>
         /// <param name="size">Tamaño de la lista.</param>
@@ -81,7 +94,7 @@ namespace Labiofam.Services
         /// Obtiene una lista de todas las entidades.
         /// </summary>
         /// <returns>La lista de entidades.</returns>
-        public async Task<List<T>> GetAllAsync()
+        public async Task<ICollection<T>> GetAllAsync()
         {
             var entities = await _webDbContext.Set<T>().ToListAsync();
             return entities;

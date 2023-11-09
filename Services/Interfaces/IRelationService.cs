@@ -37,7 +37,7 @@ public interface IRelationService<Relation>
     /// Obtiene todas las relaciones de forma asincrónica.
     /// </summary>
     /// <returns>Una lista de todas las relaciones</returns>
-    Task<List<Relation>> GetAllAsync();
+    Task<ICollection<Relation>> GetAllAsync();
 
     /// <summary>
     /// Elimina todas las relaciones de forma asincrónica.

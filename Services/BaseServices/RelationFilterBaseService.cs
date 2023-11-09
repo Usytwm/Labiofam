@@ -34,7 +34,7 @@ namespace Labiofam.Services
         /// </summary>
         /// <param name="id">El ID de tipo 1.</param>
         /// <returns>Una lista de entidades de tipo 2.</returns>
-        public async Task<List<T2>> GetType2ByType1(Guid id)
+        public async Task<ICollection<T2>> GetType2ByType1(Guid id)
         {
             var type1_id = await _webDbContext.Set<T>()
                 .Where(ur => ur.Id1 == id)
@@ -53,7 +53,7 @@ namespace Labiofam.Services
         /// </summary>
         /// <param name="id">El ID de tipo 2.</param>
         /// <returns>Una lista de entidades de tipo 1.</returns>
-        public async Task<List<T1>> GetType1ByType2(Guid id)
+        public async Task<ICollection<T1>> GetType1ByType2(Guid id)
         {
             var type1_id = await _webDbContext.Set<T>()
                 .Where(ur => ur.Id2 == id)
@@ -66,6 +66,30 @@ namespace Labiofam.Services
             }
             return result;
         }
+
+        // SUPER PENDIENTE
+        /*public async Task<ICollection<T2>> GetType2ByType1Substring(string substring)
+        {
+            var entities = await GetBySubstring(substring);
+            
+            var result = new List<Type>();
+            foreach(var entity in entities)
+            {
+                var relation = await _webDbContext.Set<Product_POS>()
+                    .Where(x => x.Id1 == entity.Id1)
+                    .ToListAsync();
+                
+                foreach (var ppos in relation)
+                {
+                    if (result.Any(x => x.Id2 == ppos.Point_ID))
+                        continue;
+                    
+                    result.Add(await _webDbContext.FindAsync<Type>(ppos.Point_ID)
+                        ?? throw new NullReferenceException());
+                }
+            }
+            return result;
+        }*/
 
         /// <summary>
         /// Agrega entidades de tipo 2 por tipo 1.

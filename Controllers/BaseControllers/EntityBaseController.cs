@@ -105,5 +105,18 @@ namespace Labiofam.Controllers
                 return BadRequest(ex);
             }
         }
+        [HttpGet("getbysubstring/{substring}")]
+        public async Task<IActionResult> GetBySubstring(string substring)
+        {
+            try
+            {
+                var result = await _entityService.GetBySubstring(substring);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
     }
 }

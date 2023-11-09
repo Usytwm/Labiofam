@@ -17,6 +17,13 @@ public interface IEntityService<Entity>
     Task<Entity> GetAsync(string name);
 
     /// <summary>
+    /// Obtiene una colección de entidades que contengan el substring en su nombre.
+    /// </summary>
+    /// <param name="substring">Cadena de caracteres</param>
+    /// <returns>Una colección de entidades</returns>
+    Task<ICollection<Entity>> GetBySubstring(string substring);
+
+    /// <summary>
     /// Obtiene una colección de entidades de tamaño específico.
     /// </summary>
     /// <param name="size">Tamaño de la colección</param>
@@ -46,7 +53,7 @@ public interface IEntityService<Entity>
     /// Obtiene todas las entidades de forma asincrónica.
     /// </summary>
     /// <returns>Una lista de todas las entidades</returns>
-    Task<List<Entity>> GetAllAsync();
+    Task<ICollection<Entity>> GetAllAsync();
 
     /// <summary>
     /// Elimina todas las entidades de forma asincrónica.

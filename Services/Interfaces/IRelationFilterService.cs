@@ -10,14 +10,14 @@ public interface IRelationFilter<T, T1, T2>
     /// </summary>
     /// <param name="id">ID del objeto de tipo T1</param>
     /// <returns>Una lista de objetos de tipo T2</returns>
-    Task<List<T2>> GetType2ByType1(Guid id);
+    Task<ICollection<T2>> GetType2ByType1(Guid id);
 
     /// <summary>
     /// Obtiene una lista de objetos de tipo T1 por un objeto de tipo T2 mediante su ID.
     /// </summary>
     /// <param name="id">ID del objeto de tipo T2</param>
     /// <returns>Una lista de objetos de tipo T1</returns>
-    Task<List<T1>> GetType1ByType2(Guid id);
+    Task<ICollection<T1>> GetType1ByType2(Guid id);
 
     /// <summary>
     /// Agrega una colección de objetos de tipo T2 asociados a un objeto de tipo T1 basado en un identificador específico.
