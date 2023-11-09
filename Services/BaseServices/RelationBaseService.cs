@@ -46,7 +46,7 @@ namespace Labiofam.Services
         /// Obtiene una lista de todas las relaciones.
         /// </summary>
         /// <returns>La lista de relaciones.</returns>
-        public async Task<List<T>> GetAllAsync()
+        public async Task<ICollection<T>> GetAllAsync()
         {
             var relations = await _webDbContext.Set<T>().ToListAsync();
             return relations;

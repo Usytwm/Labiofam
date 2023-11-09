@@ -38,6 +38,19 @@ namespace Labiofam.Services
         }
 
         /// <summary>
+        /// Obtiene una lista de usuarios que contengan el substring en su nombre.
+        /// </summary>
+        /// <param name="substring">Cadena de caracteres</param>
+        /// <returns>Una lista de usuarios</returns>
+        public async Task<ICollection<User>> GetBySubstring(string substring)
+        {
+            var result = await _userManager.Users
+                .Where(x => x.Name!.Contains(substring))
+                .ToListAsync();
+            return result;
+        }
+
+        /// <summary>
         /// Obtiene una lista de usuarios ordenados alfabéticamente y limitados por un tamaño específico.
         /// </summary>
         /// <param name="size">Tamaño máximo de la lista.</param>
@@ -110,7 +123,7 @@ namespace Labiofam.Services
         /// Obtiene una lista de todos los usuarios.
         /// </summary>
         /// <returns>La lista de usuarios.</returns>
-        public async Task<List<User>> GetAllAsync()
+        public async Task<ICollection<User>> GetAllAsync()
         {
             var users = await _userManager.Users.ToListAsync();
             return users;

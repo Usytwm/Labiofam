@@ -38,6 +38,19 @@ namespace Labiofam.Services
         }
 
         /// <summary>
+        /// Obtiene una lista de roles que contengan el substring en su nombre.
+        /// </summary>
+        /// <param name="substring">Cadena de caracteres</param>
+        /// <returns>Una lista de roles</returns>
+        public async Task<ICollection<Role>> GetBySubstring(string substring)
+        {
+            var result = await _roleManager.Roles
+                .Where(x => x.Name!.Contains(substring))
+                .ToListAsync();
+            return result;
+        }
+
+        /// <summary>
         /// Obtiene una lista de roles ordenados alfabéticamente y limitados por un tamaño específico.
         /// </summary>
         /// <param name="size">Tamaño máximo de la lista.</param>
@@ -92,7 +105,7 @@ namespace Labiofam.Services
         /// Obtiene una lista de todos los roles.
         /// </summary>
         /// <returns>La lista de roles.</returns>
-        public async Task<List<Role>> GetAllAsync()
+        public async Task<ICollection<Role>> GetAllAsync()
         {
             var roles = await _roleManager.Roles.ToListAsync();
             return roles;
