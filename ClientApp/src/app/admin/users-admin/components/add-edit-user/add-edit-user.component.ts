@@ -3,7 +3,6 @@ import {
   ElementRef,
   OnInit,
   ViewChild,
-  inject,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { User } from 'src/app/Interfaces/User';
@@ -11,17 +10,18 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { Role } from 'src/app/Interfaces/Role';
-import { UserService } from 'src/app/Services/user.service';
-import { RolesService } from 'src/app/Services/roles.service';
-import { User_Role } from 'src/app/Interfaces/User_Role';
+import { UserService } from 'src/app/Services/EntitiesServices/user.service';
+import { RolesService } from 'src/app/Services/EntitiesServices/roles.service';
 import { RegistrationModel } from 'src/app/Interfaces/registration-model';
 import { RegistrationService } from 'src/app/Services/registration.service';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Observable, map, startWith } from 'rxjs';
-import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { FilterService } from 'src/app/Services/filter.service';
+import { AuthService } from '../../../../Services/auth.service';
+import { RegistrationRequestModel } from 'src/app/Interfaces/Registration-Request';
+import { RoleModel } from 'src/app/Interfaces/Role-Model';
 
 @Component({
   selector: 'app-add-edit-user',
@@ -33,12 +33,12 @@ export class AddEditUserComponent implements OnInit {
 
   roleCtrl = new FormControl('', Validators.required);
   filtered_roles_name!: Observable<string[]>;
-  _roles_name: string[] = [];
-  all_roles_name!: string[];
-  _roles?: Role[];
-  @ViewChild('roleInput') roleInput?: ElementRef<HTMLInputElement>;
 
-  announcer = inject(LiveAnnouncer);
+  _roles_name: string[] = [];
+  _all_roles_name!: string[];
+  _roles?: Role[];
+
+  @ViewChild('roleInput') roleInput?: ElementRef<HTMLInputElement>;
 
   loading = false;
   id: string;
@@ -57,32 +57,23 @@ export class AddEditUserComponent implements OnInit {
     Oldpassword: ['', [Validators.pattern('^[^\\s]*$')]],
   });
 
-  selectFormControl = new FormControl('', Validators.required);
-
   constructor(
     private fb: FormBuilder,
-    private registrationService: RegistrationService,
+    private userService: RegistrationService,
     private userservice: UserService,
     private roles: RolesService,
     private snackBar: MatSnackBar,
     private router: Router,
     private route: ActivatedRoute,
-    private filter: FilterService
+    private filter: FilterService,
+    private registrationservice: AuthService
   ) {
     this.id = String(this.route.snapshot.paramMap.get('id'));
-    // Inicializa roleCtrl antes de la suscripción
-    this.roleCtrl = new FormControl('', Validators.required);
-
     //obtengo la lista de todos los roles
     this.roles.getAll().subscribe((data) => {
       this._roles = data;
-      this.all_roles_name = this._roles!.map((role) => role.name!);
-      this.filtered_roles_name = this.roleCtrl.valueChanges.pipe(
-        startWith(null),
-        map((role: string | null) =>
-          role ? this._filter(role) : this.all_roles_name.slice()
-        )
-      );
+      this._all_roles_name = this._roles!.map((role) => role.name!);
+      this.filtered_roles_name = this._observer();
     });
   }
 
@@ -105,9 +96,9 @@ export class AddEditUserComponent implements OnInit {
       this._roles_name.splice(index, 1);
 
       // Agregar role a all_roles_name
-      this.all_roles_name.push(role);
-
-      this.announcer.announce(`Removed ${role}`);
+      this._all_roles_name.push(role);
+      //actualizar el observable que muetra los roles
+      this.filtered_roles_name = this._observer();
     }
   }
 
@@ -121,16 +112,25 @@ export class AddEditUserComponent implements OnInit {
     const filterValue = value.toLowerCase();
 
     // Filtrar all_roles_name
-    const filteredRoles = this.all_roles_name.filter((role) =>
+    const filteredRoles = this._all_roles_name.filter((role) =>
       role.toLowerCase().includes(filterValue)
     );
 
     // Eliminar value de all_roles_name
-    this.all_roles_name = this.all_roles_name.filter(
+    this._all_roles_name = this._all_roles_name.filter(
       (role) => role.toLowerCase() !== filterValue
     );
 
     return filteredRoles;
+  }
+
+  private _observer(): Observable<string[]> {
+    return this.roleCtrl.valueChanges.pipe(
+      startWith(null),
+      map((role: string | null) =>
+        role ? this._filter(role) : this._all_roles_name.slice()
+      )
+    );
   }
 
   ngOnInit(): void {
@@ -167,13 +167,12 @@ export class AddEditUserComponent implements OnInit {
     });
     this.filter.getrolesbyuser(id).subscribe((data) => {
       this._roles_name = data.map((x) => x.name!);
-      this._roles_name.push('vida');
     });
   }
 
   editUser() {
     this.loading = true;
-    this.registrationService
+    this.userService
       .update(this.id, this.newUser())
       .pipe()
       .subscribe(() => {
@@ -187,17 +186,19 @@ export class AddEditUserComponent implements OnInit {
   }
 
   addUser() {
-    this.registrationService.add(this.newUser()).subscribe((data) => {
-      this.snackBar.open('Agregado con éxito', 'cerrar', {
-        duration: 3000,
-        horizontalPosition: 'right',
-      });
+    this.registrationservice
+      .register(this.newRegistrationRequest())
+      .subscribe((data) => {
+        this.snackBar.open('Agregado con éxito', 'cerrar', {
+          duration: 3000,
+          horizontalPosition: 'right',
+        });
 
-      this.router.navigate(['/dashboard/users-admin']);
-    });
+        this.router.navigate(['/dashboard/users-admin']);
+      });
   }
 
-  newUser(): RegistrationModel {
+  private newUser(): RegistrationModel {
     return {
       name: this.form.value.Username!,
       password:
@@ -210,6 +211,18 @@ export class AddEditUserComponent implements OnInit {
           : this.form.value.Newpassword!,
       email: '',
       email_Token: '',
+    };
+  }
+  private newRole(): RoleModel {
+    return {
+      name: this._roles_name[0],
+      Description: '',
+    };
+  }
+  private newRegistrationRequest(): RegistrationRequestModel {
+    return {
+      user: this.newUser(),
+      role: this.newRole(),
     };
   }
 }
