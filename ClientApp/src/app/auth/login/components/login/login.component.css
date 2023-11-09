@@ -11,12 +11,9 @@
 
 .card {
   position: relative;
-  max-width: 30%; /* Ajusta este valor a lo que necesites */
-  max-height: auto; /* Ajusta este valor a lo que necesites */
-  margin-right: auto;
-  margin-left: auto;
-  margin-top: 5%;
-  margin-bottom: 5%;
+  max-width: 90%; /* Ajusta este valor a lo que necesites */
+  height: auto; /* Ajusta este valor a lo que necesites */
+  margin: 5% auto; /* Centra el contenedor horizontalmente y verticalmente */
   justify-content: center;
   overflow: auto; /* Asegura que el contenido pueda desplazarse si excede la altura máxima */
   box-shadow: 0 8px 16px 0 rgba(48, 46, 46, 0.5);
@@ -48,20 +45,21 @@
 /* Estilos para pantallas medianas */
 @media (max-width: 1199px) {
   .form-control {
-    width: 100%;
+    width: 320px;
   }
   .card {
-    max-width: 40%;
+    max-width: 50%;
   }
 }
 
 /* Estilos para pantallas pequeñas */
-@media (max-width: 768px) {
+@media (max-width: 700px) {
   .form-control {
-    width: 100%;
+    width: 310px;
   }
+
   .card {
-    max-width: 50%;
+    max-width: 100%;
   }
 }
 
