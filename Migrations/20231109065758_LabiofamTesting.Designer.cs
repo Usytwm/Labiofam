@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Labiofam.Migrations
 {
     [DbContext(typeof(WebDbContext))]
-    [Migration("20231024201432_Initial")]
-    partial class Initial
+    [Migration("20231109065758_LabiofamTesting")]
+    partial class LabiofamTesting
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ namespace Labiofam.Migrations
 
             modelBuilder.Entity("Labiofam.Models.Client", b =>
                 {
-                    b.Property<Guid>("Client_ID")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
@@ -35,14 +35,14 @@ namespace Labiofam.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("varchar(64)");
 
-                    b.HasKey("Client_ID");
+                    b.HasKey("Id");
 
                     b.ToTable("Clientes", (string)null);
                 });
 
             modelBuilder.Entity("Labiofam.Models.Contact", b =>
                 {
-                    b.Property<Guid>("Contact_ID")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
@@ -61,14 +61,14 @@ namespace Labiofam.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("varchar(64)");
 
-                    b.HasKey("Contact_ID");
+                    b.HasKey("Id");
 
                     b.ToTable("Contactos", (string)null);
                 });
 
             modelBuilder.Entity("Labiofam.Models.Point_of_Sales", b =>
                 {
-                    b.Property<Guid>("Point_ID")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
@@ -97,14 +97,14 @@ namespace Labiofam.Migrations
                         .HasMaxLength(32)
                         .HasColumnType("varchar(32)");
 
-                    b.HasKey("Point_ID");
+                    b.HasKey("Id");
 
                     b.ToTable("PuntosDeVenta", (string)null);
                 });
 
             modelBuilder.Entity("Labiofam.Models.Product", b =>
                 {
-                    b.Property<Guid>("Product_ID")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
@@ -125,25 +125,25 @@ namespace Labiofam.Migrations
                         .HasMaxLength(32)
                         .HasColumnType("varchar(32)");
 
-                    b.HasKey("Product_ID");
+                    b.HasKey("Id");
 
                     b.ToTable("Productos", (string)null);
                 });
 
             modelBuilder.Entity("Labiofam.Models.Product_POS", b =>
                 {
-                    b.Property<Guid>("Point_ID")
+                    b.Property<Guid>("Id1")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("Product_ID")
+                    b.Property<Guid>("Id2")
                         .HasColumnType("char(36)");
 
                     b.Property<int>("Cantidad")
                         .HasColumnType("int");
 
-                    b.HasKey("Point_ID", "Product_ID");
+                    b.HasKey("Id1", "Id2");
 
-                    b.HasIndex("Product_ID");
+                    b.HasIndex("Id2");
 
                     b.ToTable("Producto_PuntoDeVenta", (string)null);
                 });
@@ -173,7 +173,7 @@ namespace Labiofam.Migrations
 
             modelBuilder.Entity("Labiofam.Models.Service", b =>
                 {
-                    b.Property<Guid>("Service_ID")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
@@ -184,7 +184,7 @@ namespace Labiofam.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("varchar(64)");
 
-                    b.HasKey("Service_ID");
+                    b.HasKey("Id");
 
                     b.ToTable("Servicios", (string)null);
                 });
@@ -212,6 +212,9 @@ namespace Labiofam.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("longtext");
 
                     b.Property<string>("NormalizedEmail")
                         .HasColumnType("longtext");
@@ -244,15 +247,15 @@ namespace Labiofam.Migrations
 
             modelBuilder.Entity("Labiofam.Models.User_Product", b =>
                 {
-                    b.Property<Guid>("User_ID")
+                    b.Property<Guid>("Id1")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("Product_ID")
+                    b.Property<Guid>("Id2")
                         .HasColumnType("char(36)");
 
-                    b.HasKey("User_ID", "Product_ID");
+                    b.HasKey("Id1", "Id2");
 
-                    b.HasIndex("Product_ID");
+                    b.HasIndex("Id2");
 
                     b.ToTable("Usuario_Producto", (string)null);
                 });
@@ -358,6 +361,12 @@ namespace Labiofam.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>");
 
+                    b.Property<Guid>("Id1")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("Id2")
+                        .HasColumnType("char(36)");
+
                     b.HasIndex("RoleId");
 
                     b.ToTable("Usuario_Rol", (string)null);
@@ -365,15 +374,15 @@ namespace Labiofam.Migrations
 
             modelBuilder.Entity("Labiofam.Models.Product_POS", b =>
                 {
-                    b.HasOne("Labiofam.Models.Point_of_Sales", "Point_Of_Sales")
-                        .WithMany("Available_Products")
-                        .HasForeignKey("Point_ID")
+                    b.HasOne("Labiofam.Models.Product", "Product")
+                        .WithMany("Points_Of_Sales")
+                        .HasForeignKey("Id1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Labiofam.Models.Product", "Product")
-                        .WithMany("Points_Of_Sales")
-                        .HasForeignKey("Product_ID")
+                    b.HasOne("Labiofam.Models.Point_of_Sales", "Point_Of_Sales")
+                        .WithMany("Available_Products")
+                        .HasForeignKey("Id2")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -384,15 +393,15 @@ namespace Labiofam.Migrations
 
             modelBuilder.Entity("Labiofam.Models.User_Product", b =>
                 {
-                    b.HasOne("Labiofam.Models.Product", "Product")
-                        .WithMany("Users")
-                        .HasForeignKey("Product_ID")
+                    b.HasOne("Labiofam.Models.User", "User")
+                        .WithMany("Products")
+                        .HasForeignKey("Id1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Labiofam.Models.User", "User")
-                        .WithMany("Products")
-                        .HasForeignKey("User_ID")
+                    b.HasOne("Labiofam.Models.Product", "Product")
+                        .WithMany("Users")
+                        .HasForeignKey("Id2")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

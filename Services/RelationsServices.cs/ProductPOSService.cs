@@ -16,24 +16,11 @@ namespace Labiofam.Services
         }
 
         /// <summary>
-        /// Obtiene la relación entre un producto y un punto de venta por sus IDs.
-        /// </summary>
-        /// <param name="product_id">ID del producto.</param>
-        /// <param name="pos_id">ID del punto de venta.</param>
-        /// <returns>La relación entre el producto y el punto de venta.</returns>
-        public override async Task<Product_POS> GetAsync(Guid product_id, Guid pos_id)
-        {
-            var product_POS = await _webDbContext.Set<Product_POS>().FirstOrDefaultAsync(
-                x => x.Product_ID.Equals(product_id) && x.Point_ID.Equals(pos_id)
-            ) ?? throw new InvalidOperationException("Product_POS no encontrado");
-            return product_POS;
-        }
-
-        /// <summary>
         /// Agrega una nueva relación entre un producto y un punto de venta.
         /// </summary>
         /// <param name="product_id">ID del producto.</param>
         /// <param name="pos_id">ID del punto de venta.</param>
+        /// <param name="relation">Nuevo objeto que representa la relación vacía.</param>
         public override async Task AddAsync(Guid product_id, Guid pos_id)
         {
             try
@@ -43,12 +30,13 @@ namespace Labiofam.Services
             }
             catch
             {
-                await _webDbContext.AddAsync(new Product_POS()
+                var relation = new Product_POS
                 {
-                    Product_ID = product_id,
-                    Point_ID = pos_id,
+                    Id1 = product_id,
+                    Id2 = pos_id,
                     Cantidad = 1
-                });
+                };
+                await _webDbContext.AddAsync(relation);
             }
             await _webDbContext.SaveChangesAsync();
         }
@@ -59,6 +47,7 @@ namespace Labiofam.Services
         /// <param name="product_id">ID del producto.</param>
         /// <param name="pos_id">ID del punto de venta.</param>
         /// <param name="size">Tamaño/cantidad a agregar.</param>
+        /// <param name="new_relation">Nuevo objeto que representa la relación vacía.</param>
         public async Task AddAsync(Guid product_id, Guid pos_id, int size)
         {
             try
@@ -68,12 +57,13 @@ namespace Labiofam.Services
             }
             catch
             {
-                await _webDbContext.AddAsync(new Product_POS()
+                var relation = new Product_POS
                 {
-                    Product_ID = product_id,
-                    Point_ID = pos_id,
+                    Id1 = product_id,
+                    Id2 = pos_id,
                     Cantidad = size
-                });
+                };
+                await _webDbContext.AddAsync(relation);
             }
             await _webDbContext.SaveChangesAsync();
         }

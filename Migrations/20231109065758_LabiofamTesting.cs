@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Labiofam.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class LabiofamTesting : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,7 +19,7 @@ namespace Labiofam.Migrations
                 name: "Clientes",
                 columns: table => new
                 {
-                    Client_ID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Name = table.Column<string>(type: "varchar(64)", maxLength: 64, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Image = table.Column<string>(type: "longtext", nullable: true)
@@ -27,7 +27,7 @@ namespace Labiofam.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Clientes", x => x.Client_ID);
+                    table.PrimaryKey("PK_Clientes", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -35,7 +35,7 @@ namespace Labiofam.Migrations
                 name: "Contactos",
                 columns: table => new
                 {
-                    Contact_ID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Name = table.Column<string>(type: "varchar(64)", maxLength: 64, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Image = table.Column<string>(type: "longtext", nullable: true)
@@ -47,7 +47,7 @@ namespace Labiofam.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Contactos", x => x.Contact_ID);
+                    table.PrimaryKey("PK_Contactos", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -55,7 +55,7 @@ namespace Labiofam.Migrations
                 name: "Productos",
                 columns: table => new
                 {
-                    Product_ID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Name = table.Column<string>(type: "varchar(64)", maxLength: 64, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Image = table.Column<string>(type: "longtext", nullable: true)
@@ -69,7 +69,7 @@ namespace Labiofam.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Productos", x => x.Product_ID);
+                    table.PrimaryKey("PK_Productos", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -77,7 +77,7 @@ namespace Labiofam.Migrations
                 name: "PuntosDeVenta",
                 columns: table => new
                 {
-                    Point_ID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Name = table.Column<string>(type: "varchar(64)", maxLength: 64, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Image = table.Column<string>(type: "longtext", nullable: true)
@@ -93,7 +93,7 @@ namespace Labiofam.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PuntosDeVenta", x => x.Point_ID);
+                    table.PrimaryKey("PK_PuntosDeVenta", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -139,7 +139,7 @@ namespace Labiofam.Migrations
                 name: "Servicios",
                 columns: table => new
                 {
-                    Service_ID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Name = table.Column<string>(type: "varchar(64)", maxLength: 64, nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Info = table.Column<string>(type: "longtext", nullable: true)
@@ -147,7 +147,7 @@ namespace Labiofam.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Servicios", x => x.Service_ID);
+                    table.PrimaryKey("PK_Servicios", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -223,6 +223,8 @@ namespace Labiofam.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Name = table.Column<string>(type: "longtext", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     UserName = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     NormalizedUserName = table.Column<string>(type: "longtext", nullable: true)
@@ -256,24 +258,24 @@ namespace Labiofam.Migrations
                 name: "Producto_PuntoDeVenta",
                 columns: table => new
                 {
-                    Product_ID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Point_ID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Id1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Id2 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Cantidad = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Producto_PuntoDeVenta", x => new { x.Point_ID, x.Product_ID });
+                    table.PrimaryKey("PK_Producto_PuntoDeVenta", x => new { x.Id1, x.Id2 });
                     table.ForeignKey(
-                        name: "FK_Producto_PuntoDeVenta_Productos_Product_ID",
-                        column: x => x.Product_ID,
+                        name: "FK_Producto_PuntoDeVenta_Productos_Id1",
+                        column: x => x.Id1,
                         principalTable: "Productos",
-                        principalColumn: "Product_ID",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Producto_PuntoDeVenta_PuntosDeVenta_Point_ID",
-                        column: x => x.Point_ID,
+                        name: "FK_Producto_PuntoDeVenta_PuntosDeVenta_Id2",
+                        column: x => x.Id2,
                         principalTable: "PuntosDeVenta",
-                        principalColumn: "Point_ID",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
@@ -282,21 +284,21 @@ namespace Labiofam.Migrations
                 name: "Usuario_Producto",
                 columns: table => new
                 {
-                    Product_ID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    User_ID = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
+                    Id1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Id2 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Usuario_Producto", x => new { x.User_ID, x.Product_ID });
+                    table.PrimaryKey("PK_Usuario_Producto", x => new { x.Id1, x.Id2 });
                     table.ForeignKey(
-                        name: "FK_Usuario_Producto_Productos_Product_ID",
-                        column: x => x.Product_ID,
+                        name: "FK_Usuario_Producto_Productos_Id2",
+                        column: x => x.Id2,
                         principalTable: "Productos",
-                        principalColumn: "Product_ID",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Usuario_Producto_Usuarios_User_ID",
-                        column: x => x.User_ID,
+                        name: "FK_Usuario_Producto_Usuarios_Id1",
+                        column: x => x.Id1,
                         principalTable: "Usuarios",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -308,7 +310,9 @@ namespace Labiofam.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    RoleId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
+                    RoleId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Id1 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Id2 = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
                 },
                 constraints: table =>
                 {
@@ -335,14 +339,14 @@ namespace Labiofam.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Producto_PuntoDeVenta_Product_ID",
+                name: "IX_Producto_PuntoDeVenta_Id2",
                 table: "Producto_PuntoDeVenta",
-                column: "Product_ID");
+                column: "Id2");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Usuario_Producto_Product_ID",
+                name: "IX_Usuario_Producto_Id2",
                 table: "Usuario_Producto",
-                column: "Product_ID");
+                column: "Id2");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Usuario_Rol_RoleId",
