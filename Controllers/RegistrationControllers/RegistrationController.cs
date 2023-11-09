@@ -16,7 +16,7 @@ namespace Labiofam.Controllers
         private readonly IRegistrationService<User, RegistrationModel> _registrationService;
         private readonly IRegistrationService<Role, RoleModel> _modelService;
         private readonly IRelationService<User_Role> _relationService;
-        private readonly IRelationFilter _relationFilter;
+        private readonly IRelationFilter<User_Role, User, Role> _relationFilter;
         private readonly IConfiguration _configuration;
         private readonly SignInManager<User> _signInManager;
 
@@ -24,7 +24,7 @@ namespace Labiofam.Controllers
             IRegistrationService<User, RegistrationModel> registrationService,
             IRegistrationService<Role, RoleModel> modelService,
             IRelationService<User_Role> relationService,
-            IRelationFilter relationFilter,
+            IRelationFilter<User_Role, User, Role> relationFilter,
             IConfiguration configuration,
             SignInManager<User> signInManager)
         {
@@ -98,8 +98,8 @@ namespace Labiofam.Controllers
                 return BadRequest("Wrong name or password");
 
             var user = await _registrationService.GetAsync(login.Name!);
-            var roles = await _relationFilter.GetRolesByUser(user.Id);
-
+            var roles = await _relationFilter.GetType2ByType1(user.Id);
+            
             // Crea una lista de claims.
             var claims = new List<Claim>
             {

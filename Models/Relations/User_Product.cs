@@ -2,10 +2,10 @@ using System.Text.Json.Serialization;
 
 namespace Labiofam.Models;
 
-public class User_Product
+public class User_Product : IRelationModel
 {
-    public Guid Product_ID { get; set; }
-    public Guid User_ID { get; set; }
+    public Guid Id1 { get; set; }
+    public Guid Id2 { get; set; }
     
     [JsonIgnore]
     public Product? Product { get; set; }

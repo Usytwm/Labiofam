@@ -5,7 +5,7 @@ namespace Labiofam.Models;
 public class Contact : IEntityModel
 {
     [Key]
-    public Guid Contact_ID { get; set; }
+    public Guid Id { get; set; }
     [StringLength(64)]
     public string? Name { get; set; }
     public string? Image { get; set; }

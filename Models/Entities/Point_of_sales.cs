@@ -6,7 +6,7 @@ namespace Labiofam.Models;
 public class Point_of_Sales : IEntityModel
 {
     [Key]
-    public Guid Point_ID { get; set; }
+    public Guid Id { get; set; }
     [StringLength(64)]
     public string? Name { get; set; }
     public string? Image { get; set; }
