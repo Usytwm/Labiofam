@@ -1,4 +1,3 @@
-using System.Drawing;
 using Labiofam.Models;
 
 namespace Labiofam.Services;

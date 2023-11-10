@@ -31,6 +31,15 @@ public interface IEntityService<Entity>
     IEnumerable<Entity> Take(int size);
 
     /// <summary>
+    /// Obtiene una colección de entidades de tamaño específico
+    /// para una porción dada de la colección original.
+    /// </summary>
+    /// <param name="size">Tamaño de la colección</param>
+    /// <param name="page_number">Número de la página</param>
+    /// <returns>Una colección de entidades</returns>
+    IEnumerable<Entity> TakeRange(int size, int page_number);
+
+    /// <summary>
     /// Elimina una entidad de forma asincrónica por su ID de modelo.
     /// </summary>
     /// <param name="model_id">ID del modelo</param>
