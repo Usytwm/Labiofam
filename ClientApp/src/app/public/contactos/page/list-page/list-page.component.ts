@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Contact } from 'src/app/Interfaces/Contact';
-import { ContactService } from 'src/app/Services/contact.service';
+import { ContactService } from 'src/app/Services/EntitiesServices/contact.service';
 
 
 @Component({

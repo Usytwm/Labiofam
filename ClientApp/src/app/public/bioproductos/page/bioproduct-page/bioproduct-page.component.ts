@@ -3,14 +3,14 @@ import { FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/Interfaces/Product';
-import { ProductService } from 'src/app/Services/product.service';
+import { ProductService } from 'src/app/Services/EntitiesServices/product.service';
 
 @Component({
   selector: 'app-bioproduct-page',
   templateUrl: './bioproduct-page.component.html',
   styleUrls: ['./bioproduct-page.component.css']
 })
-export class BioproductPageComponent  {
+export class BioproductPageComponent {
   loading = false;
   id: string;
   bioproducto?: Product;
@@ -25,7 +25,7 @@ export class BioproductPageComponent  {
   }
   ngOnInit(): void {
     if (this.id !== 'null') {
-    this.getBioproduct(this.id);
+      this.getBioproduct(this.id);
 
     }
   }
@@ -37,7 +37,7 @@ export class BioproductPageComponent  {
       this.loading = false;
     });
   }
-  goBack():void {
+  goBack(): void {
     this.router.navigateByUrl('Bioproducts')
   }
 }

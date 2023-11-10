@@ -37,7 +37,6 @@ export class AddEditUserComponent implements OnInit {
 
   _roles_name: string[] = [];
   _all_roles_name!: string[];
-  _all_roles_name!: string[];
   _roles?: Role[];
 
 
@@ -78,7 +77,6 @@ export class AddEditUserComponent implements OnInit {
       this._all_roles_name = this._roles!.map((role) => role.name!);
       this.filtered_roles_name = this._observer();
       this._all_roles_name = this._roles!.map((role) => role.name!);
-      this.filtered_roles_name = this._observer();
     });
   }
 
@@ -105,8 +103,6 @@ export class AddEditUserComponent implements OnInit {
       //actualizar el observable que muetra los roles
       this.filtered_roles_name = this._observer();
       this._all_roles_name.push(role);
-      //actualizar el observable que muetra los roles
-      this.filtered_roles_name = this._observer();
     }
   }
 
@@ -121,12 +117,10 @@ export class AddEditUserComponent implements OnInit {
 
     // Filtrar all_roles_name
     const filteredRoles = this._all_roles_name.filter((role) =>
-    const filteredRoles = this._all_roles_name.filter((role) =>
       role.toLowerCase().includes(filterValue)
     );
 
     // Eliminar value de all_roles_name
-    this._all_roles_name = this._all_roles_name.filter(
     this._all_roles_name = this._all_roles_name.filter(
       (role) => role.toLowerCase() !== filterValue
     );
@@ -134,14 +128,7 @@ export class AddEditUserComponent implements OnInit {
     return filteredRoles;
   }
 
-  private _observer(): Observable<string[]> {
-    return this.roleCtrl.valueChanges.pipe(
-      startWith(null),
-      map((role: string | null) =>
-        role ? this._filter(role) : this._all_roles_name.slice()
-      )
-    );
-  }
+
 
   private _observer(): Observable<string[]> {
     return this.roleCtrl.valueChanges.pipe(

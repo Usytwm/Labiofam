@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Product } from 'src/app/Interfaces/Product';
-import { ProductService } from 'src/app/Services/product.service';
+import { ProductService } from 'src/app/Services/EntitiesServices/product.service';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
 
