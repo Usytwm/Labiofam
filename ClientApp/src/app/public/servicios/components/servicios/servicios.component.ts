@@ -3,7 +3,7 @@ import { Component, AfterViewInit, ViewChild, OnInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { ServicesService } from './../../../../Services/services.service';
+import { ServicesService } from './../../../../Services/EntitiesServices/services.service';
 
 @Component({
   selector: 'app-services',
@@ -18,9 +18,7 @@ export class ServicesComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(
-    private _servicesservices: ServicesService
-  ) {}
+  constructor(private _servicesservices: ServicesService) {}
   ngOnInit(): void {
     this.obtenerServicios();
   }
@@ -49,7 +47,7 @@ export class ServicesComponent implements AfterViewInit, OnInit {
     }
   }
 
-/*  Delete(id: string) {
+  /*  Delete(id: string) {
     this.loading = true;
     this._servicesservices.delete(id).subscribe(() => {
       this._snackBar.open('delete sucess', '', {

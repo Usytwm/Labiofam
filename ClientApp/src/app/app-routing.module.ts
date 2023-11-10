@@ -28,6 +28,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./admin/admin.module').then((m) => m.SeccionAdminModule),
   },
+  {
+    path: '**',
+    redirectTo: 'home',
+    
+  },
 ];
 
 @NgModule({

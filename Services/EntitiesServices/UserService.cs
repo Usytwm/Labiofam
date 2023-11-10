@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Labiofam.Services
 {
-    public class UserService : IRegistrationService<User, RegistrationModel>
+    public class UserService : IEntityService<User>, IEntityModelService<User, RegistrationModel>
     {
         private readonly UserManager<User> _userManager;
 
@@ -35,6 +35,19 @@ namespace Labiofam.Services
             var current_user = await _userManager.FindByNameAsync(user_name)
                 ?? throw new InvalidOperationException("User not found");
             return current_user;
+        }
+
+        /// <summary>
+        /// Obtiene una lista de usuarios que contengan el substring en su nombre.
+        /// </summary>
+        /// <param name="substring">Cadena de caracteres</param>
+        /// <returns>Una lista de usuarios</returns>
+        public async Task<ICollection<User>> GetBySubstring(string substring)
+        {
+            var result = await _userManager.Users
+                .Where(x => x.Name!.Contains(substring))
+                .ToListAsync();
+            return result;
         }
 
         /// <summary>
@@ -110,7 +123,7 @@ namespace Labiofam.Services
         /// Obtiene una lista de todos los usuarios.
         /// </summary>
         /// <returns>La lista de usuarios.</returns>
-        public async Task<List<User>> GetAllAsync()
+        public async Task<ICollection<User>> GetAllAsync()
         {
             var users = await _userManager.Users.ToListAsync();
             return users;

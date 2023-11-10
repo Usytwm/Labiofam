@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
-import { ServicesService } from '../../../../Services/services.service';
+import { ServicesService } from '../../../../Services/EntitiesServices/services.service';
 import { Service } from '../../../../Interfaces/Service';
 
 @Component({
@@ -55,7 +55,7 @@ export class AddEditServiceComponent implements OnInit {
 
   editService() {
     this.loading = true;
-    this.servicesService.update(this.id, this.newService()).subscribe(() => {
+    this.servicesService.edit(this.id, this.newService()).subscribe(() => {
       this.snackBar.open('Edit sucess', '', {
         duration: 3000,
         horizontalPosition: 'right',
@@ -79,7 +79,7 @@ export class AddEditServiceComponent implements OnInit {
 
   newService(): Service {
     return {
-      service_ID : this.id,
+      service_ID: this.id,
       name: this.NameControl.value!,
       info: this.InfoControl.value!,
     };
