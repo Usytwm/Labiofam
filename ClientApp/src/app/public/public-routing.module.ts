@@ -6,6 +6,8 @@ import { MapaComponent } from './establecimientos/components/mapa/mapa.component
 import { ServicesComponent } from './servicios/components/servicios/servicios.component';
 import { ContactosComponent } from './contactos/components/contactos/contactos.component';
 import { InfoPOSComponent } from './establecimientos/components/info-point-of-sale/info.component';
+import { BioproductosComponent } from './bioproductos/components/bioproductos/bioproductos.component';
+import { BioproductPageComponent } from './bioproductos/page/bioproduct-page/bioproduct-page.component';
 
 const routes: Routes = [
   {
@@ -31,8 +33,16 @@ const routes: Routes = [
         component: ServicesComponent,
       },
       {
-        path: 'dashboard',
-        component: SidenavComponent,
+        path: 'Bioproducts',
+        component: BioproductosComponent,
+      },
+      {
+        path: 'Bioproducts/:id',
+        component: BioproductPageComponent,
+      },
+      {
+        path: 'Contact',
+        component: ContactosComponent,
       },
       // otras rutas que deben mostrarse dentro de PublicComponent
     ],

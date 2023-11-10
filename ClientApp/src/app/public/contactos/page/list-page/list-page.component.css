@@ -1,0 +1,54 @@
+body {
+  min-height: 100vh;
+  background: #fafafa;
+}
+
+
+.social-link {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  border-radius: 50%;
+  transition: all 0.3s;
+  font-size: 0.9rem;
+}
+
+.social-link:hover,
+.social-link:focus {
+  background: #ddd;
+  text-decoration: none;
+  color: #555;
+}
+
+.progress {
+  height: 10px;
+}
+
+
+
+.container {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%; /* Establece un ancho predeterminado */
+  height: auto; /* Establece una altura predeterminada */
+}
+.titulo {
+  text-align: center;
+  font-weight: bold;
+  color: var(--color-tory-blue);
+  font-style: italic !important;
+}
+@media (min-width: 1200px) {
+  .display-4 {
+    font-size: 3.5rem;
+  }
+}
+.display-4 {
+  font-size: calc(1rem + 2.7vw);
+  font-weight: 500;
+}

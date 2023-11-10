@@ -13,7 +13,6 @@ import { FormControl, Validators } from '@angular/forms';
 import { Role } from 'src/app/Interfaces/Role';
 import { UserService } from 'src/app/Services/user.service';
 import { RolesService } from 'src/app/Services/roles.service';
-import { User_Role } from 'src/app/Interfaces/User_Role';
 import { RegistrationModel } from 'src/app/Interfaces/registration-model';
 import { RegistrationService } from 'src/app/Services/registration.service';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
@@ -33,12 +32,12 @@ export class AddEditUserComponent implements OnInit {
 
   roleCtrl = new FormControl('', Validators.required);
   filtered_roles_name!: Observable<string[]>;
-  _roles_name: string[] = [];
-  all_roles_name!: string[];
-  _roles?: Role[];
-  @ViewChild('roleInput') roleInput?: ElementRef<HTMLInputElement>;
 
-  announcer = inject(LiveAnnouncer);
+  _roles_name: string[] = [];
+  _all_roles_name!: string[];
+  _roles?: Role[];
+
+  @ViewChild('roleInput') roleInput?: ElementRef<HTMLInputElement>;
 
   loading = false;
   id: string;
@@ -57,8 +56,6 @@ export class AddEditUserComponent implements OnInit {
     Oldpassword: ['', [Validators.pattern('^[^\\s]*$')]],
   });
 
-  selectFormControl = new FormControl('', Validators.required);
-
   constructor(
     private fb: FormBuilder,
     private registrationService: RegistrationService,
@@ -70,19 +67,11 @@ export class AddEditUserComponent implements OnInit {
     private filter: FilterService
   ) {
     this.id = String(this.route.snapshot.paramMap.get('id'));
-    // Inicializa roleCtrl antes de la suscripción
-    this.roleCtrl = new FormControl('', Validators.required);
-
     //obtengo la lista de todos los roles
     this.roles.getAll().subscribe((data) => {
       this._roles = data;
-      this.all_roles_name = this._roles!.map((role) => role.name!);
-      this.filtered_roles_name = this.roleCtrl.valueChanges.pipe(
-        startWith(null),
-        map((role: string | null) =>
-          role ? this._filter(role) : this.all_roles_name.slice()
-        )
-      );
+      this._all_roles_name = this._roles!.map((role) => role.name!);
+      this.filtered_roles_name = this._observer();
     });
   }
 
@@ -105,9 +94,9 @@ export class AddEditUserComponent implements OnInit {
       this._roles_name.splice(index, 1);
 
       // Agregar role a all_roles_name
-      this.all_roles_name.push(role);
-
-      this.announcer.announce(`Removed ${role}`);
+      this._all_roles_name.push(role);
+      //actualizar el observable que muetra los roles
+      this.filtered_roles_name = this._observer();
     }
   }
 
@@ -121,16 +110,25 @@ export class AddEditUserComponent implements OnInit {
     const filterValue = value.toLowerCase();
 
     // Filtrar all_roles_name
-    const filteredRoles = this.all_roles_name.filter((role) =>
+    const filteredRoles = this._all_roles_name.filter((role) =>
       role.toLowerCase().includes(filterValue)
     );
 
     // Eliminar value de all_roles_name
-    this.all_roles_name = this.all_roles_name.filter(
+    this._all_roles_name = this._all_roles_name.filter(
       (role) => role.toLowerCase() !== filterValue
     );
 
     return filteredRoles;
+  }
+
+  private _observer(): Observable<string[]> {
+    return this.roleCtrl.valueChanges.pipe(
+      startWith(null),
+      map((role: string | null) =>
+        role ? this._filter(role) : this._all_roles_name.slice()
+      )
+    );
   }
 
   ngOnInit(): void {
@@ -167,7 +165,6 @@ export class AddEditUserComponent implements OnInit {
     });
     this.filter.getrolesbyuser(id).subscribe((data) => {
       this._roles_name = data.map((x) => x.name!);
-      this._roles_name.push('vida');
     });
   }
 

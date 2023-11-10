@@ -3325,11 +3325,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Eric\\Desktop\\Proyectos\\Labiofam\\Github\\Labiofam\\Labiofam.csproj",
+      "projectUniqueName": "C:\\Users\\Eric\\Desktop\\Labiofam\\Labiofam\\Labiofam.csproj",
       "projectName": "Labiofam",
-      "projectPath": "C:\\Users\\Eric\\Desktop\\Proyectos\\Labiofam\\Github\\Labiofam\\Labiofam.csproj",
+      "projectPath": "C:\\Users\\Eric\\Desktop\\Labiofam\\Labiofam\\Labiofam.csproj",
       "packagesPath": "C:\\Users\\Eric\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Eric\\Desktop\\Proyectos\\Labiofam\\Github\\Labiofam\\obj\\",
+      "outputPath": "C:\\Users\\Eric\\Desktop\\Labiofam\\Labiofam\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -11,7 +11,7 @@ import { InfoPosComponent } from './point-of-sales-admin/components/info-pos/inf
 
 const routes: Routes = [
   {
-    path: 'dashboard',
+    path: '',
     component: SidenavComponent,
     children: [
       { path: 'users-admin', component: UsersAdminComponent },

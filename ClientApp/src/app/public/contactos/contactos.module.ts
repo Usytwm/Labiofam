@@ -1,30 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
+//componentes
 import { ContactosComponent } from './components/contactos/contactos.component';
-import { ContactPageComponent } from './pages/contact-page/contact-page.component';
-import { ContactListPageComponent } from './pages/contact-list-page/contact-list-page.component';
-import { ContactCardComponent } from './components/contact-card/contact-card.component';
-import { ContactosRoutingModule } from './contactos-routing.module';
-
-import { ContactImagePipe } from './pipes/contactos-image.pipes';
-import { SharedModule } from 'src/app/Shared/shared.module';
-
+import { ListPageComponent } from './page/list-page/list-page.component';
+import { ContactPageComponent } from './page/contact-page/contact-page.component';
 
 @NgModule({
-  declarations: [
-    ContactosComponent,
-    ContactPageComponent,
-    ContactListPageComponent,
-    ContactCardComponent,
-    //Pipes
-    ContactImagePipe,
-
-  ],
+  declarations: [ContactosComponent, ListPageComponent, ContactPageComponent,],
   imports: [
     CommonModule,
-    ContactosRoutingModule,
-    SharedModule
+    RouterModule,
   ],
 })
 export class ContactosModule {}

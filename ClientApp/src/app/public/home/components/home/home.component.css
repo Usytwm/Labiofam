@@ -11,7 +11,7 @@
 .cont img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .card {
@@ -24,7 +24,7 @@
   width: 100%;
 }
 .card-title {
-  font-family: "Roboto", sans-serif; /* Reemplaza 'Tu Fuente Bonita' con el nombre de la fuente que quieras usar */
+  font-family: "friz-quadrata-std-bold-587034a220f9f"; /* Reemplaza 'Tu Fuente Bonita' con el nombre de la fuente que quieras usar */
   font-size: 100;
 }
 .card:hover {
@@ -59,6 +59,37 @@
   text-align: center;
   font-weight: bold;
   color: var(--color-tory-blue) !important;
-  font-style: italic !important;
+  font-style: "friz-quadrata-std-bold-587034a220f9f" !important;
 }
+
+@font-face {
+  font-family: 'Friz Quadrata Std Italic';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Friz Quadrata Std Italic'), url('friz-quadrata-std-italic-587033b2c95df.woff') format('woff');
+  }
+  
+
+  @font-face {
+  font-family: 'Friz Quadrata Std Medium';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Friz Quadrata Std Medium'), url('friz-quadrata-std-medium-5870338ec7ef8.woff') format('woff');
+  }
+  
+
+  @font-face {
+  font-family: 'Friz Quadrata Std Bold';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Friz Quadrata Std Bold'), url('friz-quadrata-std-bold-587034a220f9f.woff') format('woff');
+  }
+  
+
+  @font-face {
+  font-family: 'Friz Quadrata Std Bold Italic';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Friz Quadrata Std Bold Italic'), url('friz-quadrata-std-bold-italic-587033d6d4298.woff') format('woff');
+  }
 /*mooroor*/

@@ -23,8 +23,8 @@ export class CarouselComponent {
       label: 'Visita Nuestros Establecimientos',
       content:
         'Encuentra el establecimiento más cercano y descubre nuestros bioproductos en persona',
-      button: 'Ver',
-      buttonsrc: 'map',
+      button: 'Ver establecimientos',
+      buttonsrc: 'point-of-sales',
     },
     {
       src: 'assets/3.jpg',
@@ -33,7 +33,7 @@ export class CarouselComponent {
       content:
         '“Ofrecemos una variedad de servicios adaptados a tus necesidades, ayudándote a aprovechar al máximo nuestros bioproductos',
       button: 'Ver servicios',
-      buttonsrc: 'services',
+      buttonsrc: 'Services',
     },
     {
       src: 'assets/4.jpg',

@@ -1,32 +1,36 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
-import { BioproductosRoutingModule } from './bioproduct-routing.module';
-import { ListPageComponent } from './pages/list-page/list-page.component';
-import { BioproductosComponent } from './components/bioproductos/bioproductos.component';
-import { CardComponent } from './components/card/card.component';
-import { BioproductPageComponent } from './pages/bioproduct-page/bioproduct-page.component';
-
-
+//Angular Material
+import { MatListModule } from '@angular/material/list';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { SharedModule } from 'src/app/Shared/shared.module';
-import { BioProductImagePipe } from './pipes/bioproductos-image.pipes';
+
+
+
+//componentes
+import { ListPageComponent } from './page/list-page/list-page.component';
+import { BioproductosComponent } from './components/bioproductos/bioproductos.component';
+import { BioproductCardComponent } from './components/bioproduct-card/bioproduct-card.component';
+import { BioproductPageComponent } from './page/bioproduct-page/bioproduct-page.component';
+
 
 @NgModule({
   declarations: [
-    BioproductosComponent,
-    ListPageComponent,
-    BioproductPageComponent,
-    CardComponent,
-    //Pipes
-    BioProductImagePipe,
-
-
+    ListPageComponent,BioproductosComponent,BioproductCardComponent, BioproductPageComponent,
   ],
   imports: [
     CommonModule,
-    BioproductosRoutingModule,
+    RouterModule,
+    //Prescindible
     SharedModule,
-
+    MatListModule,
+    MatProgressSpinnerModule,
+    MatSidenavModule,
+    MatToolbarModule,
   ]
 })
 export class BioproductosModule { }

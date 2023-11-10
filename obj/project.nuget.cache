@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "YaKW/QeGSIc/KkuGI+iU7wMPl1sSFXY+hon+LUblYsiIptnM7mtAk2jj+/geph6FA86v8dkomq72t6rCpk5xHA==",
+  "dgSpecHash": "kHyQhNdngLUD0OcC8yUiFP49mYd8fwTxEuGe+qfKS8iEQ8Nqkakge2FHlR98zPIu/O0JndX6u2TGpTxFTr14qw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Eric\\Desktop\\Proyectos\\Labiofam\\Github\\Labiofam\\Labiofam.csproj",
+  "projectFilePath": "C:\\Users\\Eric\\Desktop\\Labiofam\\Labiofam\\Labiofam.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Eric\\.nuget\\packages\\bouncycastle.cryptography\\2.2.1\\bouncycastle.cryptography.2.2.1.nupkg.sha512",
     "C:\\Users\\Eric\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

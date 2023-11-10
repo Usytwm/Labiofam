@@ -144,7 +144,6 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
         });
         this.markerLngLat = this.marker!.getLngLat();
       });
-
       this.loading = false;
     });
   }
