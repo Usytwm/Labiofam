@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Labiofam.Services
 {
-    public class RoleService : IRegistrationService<Role, RoleModel>
+    public class RoleService : IEntityService<Role>, IEntityModelService<Role, RoleModel>
     {
         private readonly RoleManager<Role> _roleManager;
 
@@ -35,6 +35,19 @@ namespace Labiofam.Services
             var current_role = await _roleManager.FindByNameAsync(role_name)
                 ?? throw new InvalidOperationException("Role not found");
             return current_role;
+        }
+
+        /// <summary>
+        /// Obtiene una lista de roles que contengan el substring en su nombre.
+        /// </summary>
+        /// <param name="substring">Cadena de caracteres</param>
+        /// <returns>Una lista de roles</returns>
+        public async Task<ICollection<Role>> GetBySubstring(string substring)
+        {
+            var result = await _roleManager.Roles
+                .Where(x => x.Name!.Contains(substring))
+                .ToListAsync();
+            return result;
         }
 
         /// <summary>
@@ -92,7 +105,7 @@ namespace Labiofam.Services
         /// Obtiene una lista de todos los roles.
         /// </summary>
         /// <returns>La lista de roles.</returns>
-        public async Task<List<Role>> GetAllAsync()
+        public async Task<ICollection<Role>> GetAllAsync()
         {
             var roles = await _roleManager.Roles.ToListAsync();
             return roles;

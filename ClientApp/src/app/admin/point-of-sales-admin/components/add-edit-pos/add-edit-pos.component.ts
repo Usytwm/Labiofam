@@ -17,7 +17,7 @@ import {
   FullscreenControl,
   LngLat,
 } from 'maplibre-gl';
-import { PointsOfSalesService } from 'src/app/Services/points-of-sales.service';
+import { PointsOfSalesService } from 'src/app/Services/EntitiesServices/points-of-sales.service';
 import { Point_of_Sales } from 'src/app/Interfaces/Point_of_sales';
 import { environment } from 'src/environments/environment';
 @Component({
@@ -144,16 +144,14 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
         });
         this.markerLngLat = this.marker!.getLngLat();
       });
-
       this.loading = false;
     });
   }
 
   editPoint() {
     this.loading = true;
-    console.log(this.newPoint());
     this._point_of_sales_service
-      .update(this.id, this.newPoint())
+      .edit(this.id, this.newPoint())
       .subscribe(() => {
         this.snackBar.open('Editado con éxito', 'cerrar', {
           duration: 3000,
@@ -185,6 +183,7 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
       longitude: this.form.value.longitude!,
     };
   }
+  
   onFileChange(event: Event) {
     const target = event.target as HTMLInputElement;
     if (target.files && target.files.length) {
