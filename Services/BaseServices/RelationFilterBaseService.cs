@@ -9,7 +9,7 @@ namespace Labiofam.Services
     /// <typeparam name="T">El tipo de modelo de relación.</typeparam>
     /// <typeparam name="T1">El tipo de modelo de entidad 1.</typeparam>
     /// <typeparam name="T2">El tipo de modelo de entidad 2.</typeparam>
-    public abstract class RelationFilterService<T, T1, T2>
+    public abstract class RelationFilterService<T, T1, T2> : IRelationFilter<T, T1, T2>
         where T : class, IRelationModel, new()
         where T1 : class, IEntityModel
         where T2 : class, IEntityModel
@@ -20,10 +20,8 @@ namespace Labiofam.Services
         private readonly IEntityService<T2> _entityService2;
 
         public RelationFilterService(
-            WebDbContext webDbContext,
-            IRelationService<T> relationService,
-            IEntityService<T1> entityService1,
-            IEntityService<T2> entityService2)
+            WebDbContext webDbContext, IRelationService<T> relationService,
+            IEntityService<T1> entityService1, IEntityService<T2> entityService2)
         {
             _webDbContext = webDbContext;
             _relationService = relationService;

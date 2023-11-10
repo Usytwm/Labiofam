@@ -1,5 +1,4 @@
 using Labiofam.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace Labiofam.Services
 {
