@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Labiofam.Migrations
 {
     [DbContext(typeof(WebDbContext))]
-    [Migration("20231110220636_LabiofamTesting")]
+    [Migration("20231110230549_LabiofamTesting")]
     partial class LabiofamTesting
     {
         /// <inheritdoc />
