@@ -150,7 +150,6 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
 
   editPoint() {
     this.loading = true;
-    console.log(this.newPoint());
     this._point_of_sales_service
       .edit(this.id, this.newPoint())
       .subscribe(() => {
@@ -184,6 +183,7 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
       longitude: this.form.value.longitude!,
     };
   }
+  
   onFileChange(event: Event) {
     const target = event.target as HTMLInputElement;
     if (target.files && target.files.length) {
