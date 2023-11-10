@@ -20,7 +20,7 @@ export abstract class EntityAbstractService<T> implements IEntityService<T> {
   }
 
   getAll(): Observable<T[]> {
-    return this._http.get<T[]>(`${this.appUrl}${this.apiUrl}`);
+    return this._http.get<T[]>(`${this.appUrl}${this.apiUrl}all`);
   }
 
   add(newEntity: T): Observable<T> {
