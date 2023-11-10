@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Labiofam.Services
 {
-    public class UserService : IRegistrationService<User, RegistrationModel>
+    public class UserService : IEntityService<User>, IEntityModelService<User, RegistrationModel>
     {
         private readonly UserManager<User> _userManager;
 

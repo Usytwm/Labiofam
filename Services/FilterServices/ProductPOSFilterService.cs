@@ -2,17 +2,20 @@ using Labiofam.Models;
 
 namespace Labiofam.Services;
 
-public class ProductPOSFilterService : 
+public class ProductPOSFilterService :
     RelationFilterService<Product_POS, Product, Point_of_Sales>,
     IRelationFilter<Product_POS, Product, Point_of_Sales>,
     IProductPOSFilter
 {
     private readonly IProductPOSService _relationService;
 
-    public ProductPOSFilterService(WebDbContext webDbContext,
+    public ProductPOSFilterService(
+        WebDbContext webDbContext,
         IRelationService<Product_POS> relationService,
-        IProductPOSService productPOSService)
-        : base(webDbContext, relationService)
+        IEntityService<Product> entityService1,
+        IEntityService<Point_of_Sales> entityService2,
+        IProductPOSService productPOSService
+        ) : base(webDbContext, relationService, entityService1, entityService2)
     {
         _relationService = productPOSService;
     }

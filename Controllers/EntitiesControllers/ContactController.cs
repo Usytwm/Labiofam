@@ -6,9 +6,11 @@ namespace Labiofam.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ContactController : EntityController<Contact>
+    public class ContactController : EntityNoModelController<Contact>
     {
-        public ContactController(IEntityService<Contact> entityService)
-            : base(entityService) { }
+        public ContactController(
+            IEntityService<Contact> entityService,
+            IEntityNoModelService<Contact> entityNoModelService
+            ) : base(entityService, entityNoModelService) { }
     }
 }

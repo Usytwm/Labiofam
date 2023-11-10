@@ -16,17 +16,19 @@ namespace Labiofam.Services
     {
         private readonly WebDbContext _webDbContext;
         private readonly IRelationService<T> _relationService;
+        private readonly IEntityService<T1> _entityService1;
+        private readonly IEntityService<T2> _entityService2;
 
-        /// <summary>
-        /// Crea una nueva instancia de la clase <see cref="RelationFilterService{T, T1, T2}"/>.
-        /// </summary>
-        /// <param name="webDbContext">El contexto de base de datos web.</param>
-        /// <param name="relationService">El servicio de relación.</param>
-        public RelationFilterService(WebDbContext webDbContext,
-            IRelationService<T> relationService)
+        public RelationFilterService(
+            WebDbContext webDbContext,
+            IRelationService<T> relationService,
+            IEntityService<T1> entityService1,
+            IEntityService<T2> entityService2)
         {
             _webDbContext = webDbContext;
             _relationService = relationService;
+            _entityService1 = entityService1;
+            _entityService2 = entityService2;
         }
 
         /// <summary>
@@ -67,29 +69,63 @@ namespace Labiofam.Services
             return result;
         }
 
-        // SUPER PENDIENTE
-        /*public async Task<ICollection<T2>> GetType2ByType1Substring(string substring)
+        /// <summary>
+        /// Obtiene una lista de entidades de tipo 2 relacionadas con los objetos
+        /// de tipo 1 cuyo nombre contenga la subcadena dada.
+        /// </summary>
+        /// <param name="substring">La subacadena dada.</param>
+        /// <returns>Una lista de entidades de tipo 2.</returns>
+        public async Task<ICollection<T2>> GetType2ByType1Substring(string substring)
         {
-            var entities = await GetBySubstring(substring);
+            var entities = await _entityService1.GetBySubstring(substring);
             
-            var result = new List<Type>();
+            var result = new List<T2>();
             foreach(var entity in entities)
             {
-                var relation = await _webDbContext.Set<Product_POS>()
-                    .Where(x => x.Id1 == entity.Id1)
+                var relation = await _webDbContext.Set<T>()
+                    .Where(x => x.Id1 == entity.Id)
                     .ToListAsync();
                 
-                foreach (var ppos in relation)
+                foreach (var item in relation)
                 {
-                    if (result.Any(x => x.Id2 == ppos.Point_ID))
+                    if (result.Any(x => x.Id == item.Id2))
                         continue;
                     
-                    result.Add(await _webDbContext.FindAsync<Type>(ppos.Point_ID)
+                    result.Add(await _webDbContext.FindAsync<T2>(item.Id2)
                         ?? throw new NullReferenceException());
                 }
             }
             return result;
-        }*/
+        }
+
+        /// <summary>
+        /// Obtiene una lista de entidades de tipo 1 relacionadas con los objetos
+        /// de tipo 2 cuyo nombre contenga la subcadena dada.
+        /// </summary>
+        /// <param name="substring">La subacadena dada.</param>
+        /// <returns>Una lista de entidades de tipo 1.</returns>
+        public async Task<ICollection<T1>> GetType1ByType2Substring(string substring)
+        {
+            var entities = await _entityService2.GetBySubstring(substring);
+            
+            var result = new List<T1>();
+            foreach(var entity in entities)
+            {
+                var relation = await _webDbContext.Set<T>()
+                    .Where(x => x.Id2 == entity.Id)
+                    .ToListAsync();
+                
+                foreach (var item in relation)
+                {
+                    if (result.Any(x => x.Id == item.Id1))
+                        continue;
+                    
+                    result.Add(await _webDbContext.FindAsync<T1>(item.Id1)
+                        ?? throw new NullReferenceException());
+                }
+            }
+            return result;
+        }
 
         /// <summary>
         /// Agrega entidades de tipo 2 por tipo 1.

@@ -3,7 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Labiofam.Services
 {
-    public class ProductService : EntityService<Product>, IEntityService<Product>
+    public class ProductService : EntityService<Product>,
+        IEntityService<Product>, IEntityNoModelService<Product>
     {
         private readonly WebDbContext _webDbContext;
 
