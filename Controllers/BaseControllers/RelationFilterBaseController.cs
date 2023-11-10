@@ -38,6 +38,32 @@ namespace Labiofam.Controllers
                 return BadRequest(ex);
             }
         }
+        [HttpPost("gettype2bytype1/{substring}")]
+        public async Task<IActionResult> GetType2ByType1Substring(string substring)
+        {
+            try
+            {
+                var result = await _relationFilter.GetType2ByType1Substring(substring);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+        [HttpPost("gettype1bytype2/{substring}")]
+        public async Task<IActionResult> GetType1ByType2Substring(string substring)
+        {
+            try
+            {
+                var result = await _relationFilter.GetType1ByType2Substring(substring);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
         [HttpPost("addtype2bytype1")]
         public async Task<IActionResult> AddType2ByType1(
             Guid type1_id, [FromBody] ICollection<T2> entities)

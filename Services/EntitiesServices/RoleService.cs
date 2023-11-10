@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Labiofam.Services
 {
-    public class RoleService : IRegistrationService<Role, RoleModel>
+    public class RoleService : IEntityService<Role>, IEntityModelService<Role, RoleModel>
     {
         private readonly RoleManager<Role> _roleManager;
 

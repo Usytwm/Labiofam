@@ -6,9 +6,11 @@ namespace Labiofam.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RoleController : RegistrationController<Role, RoleModel>
+    public class RoleController : EntityModelController<Role, RoleModel>
     {
-        public RoleController(IRegistrationService<Role, RoleModel> entityService)
-            : base(entityService) { }
+        public RoleController(
+            IEntityService<Role> entityService,
+            IEntityModelService<Role, RoleModel> entityModelService
+            ) : base(entityService, entityModelService) { }
     }
 }
