@@ -106,7 +106,7 @@ export class MapaComponent implements AfterViewInit, OnDestroy {
                       <li><strong>Provincia:</strong> ${punto.province}</li>
                       <li><strong>Productos disponibles:</strong> coquisgv sbdcjh bcshjac sdbhc sbdhj</li>
                     </ul>
-                  <a href="point-of-sales/details/${punto.point_ID}" class="btn btn-primary">Ver mas</a>
+                  <a href="point-of-sales/details/${punto.id}" class="btn btn-primary">Ver mas</a>
                 </div>
               </div>
     `,
@@ -151,7 +151,7 @@ export class MapaComponent implements AfterViewInit, OnDestroy {
                         <li><strong>Provincia:</strong> ${punto.province}</li>
                         <li><strong>Productos disponibles:</strong> coquisgv sbdcjh bcshjac sdbhc sbdhj</li>
                       </ul>
-                    <a href="point-of-sales/details/${punto.point_ID}" class="btn btn-primary">Ver mas</a>
+                    <a href="point-of-sales/details/${punto.id}" class="btn btn-primary">Ver mas</a>
                   </div>
                 </div>
       `,
