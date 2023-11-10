@@ -17,20 +17,18 @@ namespace Labiofam.Controllers
             _productPOSFilter = productPOSFilter;
         }
 
-        // SUPER PENDIENTE
-        /*[HttpPost("addtype1bytype2")]
-        public async Task<IActionResult> AddType1ByType2(
-            Guid type2_id, [FromBody] ICollection<Product> entities)
+        [HttpPost("addtype1bytype2/size")]
+        public async Task<IActionResult> AddType1ByType2(Guid type2_id, Product_POSFilterModel model)
         {
             try
             {
-                await _productPOSFilter.AddType1ByType2(type2_id, entities);
+                await _productPOSFilter.AddType1ByType2(type2_id, model.Products!, model.Sizes!);
                 return Ok();
             }
             catch (Exception ex)
             {
                 return BadRequest(ex);
             }
-        }*/
+        }
     }
 }

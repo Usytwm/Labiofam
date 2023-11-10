@@ -52,8 +52,6 @@ public interface IRelationFilter<T, T1, T2>
     Task AddType1ByType2(Guid id, ICollection<T1> entities);
 }
 
-// SUPER PENDIENTE
-
 public interface IProductPOSFilter
 {
     /// <summary>
@@ -62,5 +60,5 @@ public interface IProductPOSFilter
     /// <param name="pos_id">El identificador del punto de venta.</param>
     /// <param name="entities">La colección de productos a agregar.</param>
     /// <param name="size">Cantidad de productos de cada tipo a agregar.</param>
-    Task AddType1ByType2(Guid pos_id, ICollection<(Product, int)> entities);
+    Task AddType1ByType2(Guid pos_id, ICollection<Product> entities, ICollection<int> sizes);
 }

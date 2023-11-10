@@ -38,7 +38,7 @@ namespace Labiofam.Controllers
                 return BadRequest(ex);
             }
         }
-        [HttpPost("gettype2bytype1/{substring}")]
+        [HttpGet("gettype2bytype1/{substring}")]
         public async Task<IActionResult> GetType2ByType1Substring(string substring)
         {
             try
@@ -51,7 +51,7 @@ namespace Labiofam.Controllers
                 return BadRequest(ex);
             }
         }
-        [HttpPost("gettype1bytype2/{substring}")]
+        [HttpGet("gettype1bytype2/{substring}")]
         public async Task<IActionResult> GetType1ByType2Substring(string substring)
         {
             try
