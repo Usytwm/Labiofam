@@ -1,0 +1,34 @@
+<ng-template #divLoading></ng-template>
+
+<div *ngIf="bioproducto else divLoading" class="grid p-2">
+  <mat-card class="col-12 sm:col-6">
+    <img [src]="" [alt]="" mat-card-image  />
+  </mat-card>
+
+  <mat-card class="col-12 sm:col-6">
+
+    <mat-card-header>
+      <mat-card-title>{{bioproducto.name}}</mat-card-title>
+      <mat-card-subtitle>{{ bioproducto.type }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <mat-list>
+
+      </mat-list>
+
+      <button
+        mat-button
+        color="warn"
+        (click)="goBack()"
+      >
+        Regresar
+      </button>
+
+    </mat-card-content>
+
+
+  </mat-card>
+
+</div>
+
