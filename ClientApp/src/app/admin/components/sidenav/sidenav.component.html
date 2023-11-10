@@ -40,7 +40,14 @@
           Puntos de Venta
         </button>
       </div>
-      <div><button mat-button>Servicios</button></div>
+      <div>
+        <button
+          mat-button
+          [routerLink]="['services-admin']"
+          (click)="drawer.toggle()"
+        >
+          Servicios</button></div>
+      <div><button mat-button>bioproductos</button></div>
       <!-- Añade aquí más botones según sea necesario -->
     </div>
 
