@@ -7,8 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class CarouselComponent {
   // Arreglo de imágenes para el carrusel
-
-  images1 = [
+  images = [
     {
       src: 'assets/1.jpg',
       alt: 'Bioproductos',
@@ -16,7 +15,7 @@ export class CarouselComponent {
       content:
         'Explora nuestra amplia gama de bioproductos de alta calidad, diseñados para mejorar tu vida de manera sostenible',
       button: 'Ver productos',
-      buttonsrc: 'map',
+      buttonsrc: 'bioproduct',
     },
     {
       src: 'assets/2.jpg',
@@ -34,7 +33,7 @@ export class CarouselComponent {
       content:
         '“Ofrecemos una variedad de servicios adaptados a tus necesidades, ayudándote a aprovechar al máximo nuestros bioproductos',
       button: 'Ver servicios',
-      buttonsrc: 'map',
+      buttonsrc: 'services',
     },
     {
       src: 'assets/4.jpg',

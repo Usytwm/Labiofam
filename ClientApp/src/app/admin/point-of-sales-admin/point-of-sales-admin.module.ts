@@ -4,15 +4,16 @@ import { RouterModule } from '@angular/router';
 
 //modulos
 
-import { GenericTableModule } from '../generic-table/generic-table.module';
+import { CrudsModule } from '../cruds/cruds.module';
 import { SharedModule } from '../../Shared/shared.module';
 
 //componentes
 import { PointsOfSalesComponent } from './components/points-of-sales/points-of-sales.component';
 import { AddEditPosComponent } from './components/add-edit-pos/add-edit-pos.component';
+import { InfoPosComponent } from './components/info-pos/info-pos.component';
 
 @NgModule({
-  declarations: [PointsOfSalesComponent, AddEditPosComponent],
-  imports: [CommonModule, GenericTableModule, SharedModule, RouterModule],
+  declarations: [PointsOfSalesComponent, AddEditPosComponent, InfoPosComponent],
+  imports: [CommonModule, CrudsModule, SharedModule, RouterModule],
 })
 export class PointOfSalesAdminModule {}

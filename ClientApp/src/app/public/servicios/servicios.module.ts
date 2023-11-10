@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ServiciosComponent } from './components/servicios/servicios.component';
+import { ServicesComponent } from './components/servicios/servicios.component';
+import { SharedModule } from '../../Shared/shared.module';
 
 @NgModule({
-  declarations: [ServiciosComponent],
-  imports: [CommonModule],
+  declarations: [ServicesComponent],
+  imports: [CommonModule, SharedModule],
 })
-export class ServiciosModule {}
+export class ServicesModule {}

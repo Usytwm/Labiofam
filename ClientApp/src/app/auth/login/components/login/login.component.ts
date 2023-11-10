@@ -3,7 +3,8 @@ import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, throwError } from 'rxjs';
 import { LoginModel } from 'src/app/Interfaces/Loginmodel';
-import { LoginService } from 'src/app/Services/login.service';
+import { AuthService } from 'src/app/Services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,8 +16,9 @@ export class LoginComponent {
   contrasena?: string;
   rememberMe: boolean = false;
   constructor(
-    private _loginservice: LoginService,
-    private _snackBar: MatSnackBar
+    private _authnservice: AuthService,
+    private _snackBar: MatSnackBar,
+    private _route: Router
   ) {}
   onSubmit(form: NgForm) {
     const loginmodel: LoginModel = {
@@ -26,8 +28,8 @@ export class LoginComponent {
     console.log(loginmodel);
     this.rememberMe = Boolean(this.rememberMe);
     console.log(this.rememberMe);
-    this._loginservice
-      .sendData(loginmodel)
+    this._authnservice
+      .login(loginmodel)
       .pipe(
         catchError((error) => {
           console.error('Hubo un error:', error);
@@ -42,7 +44,10 @@ export class LoginComponent {
           return throwError(error);
         })
       )
-      .subscribe();
+      .subscribe((res) => {
+        console.log(res.access_token);
+        this._route.navigate(['/home']);
+      });
     // aquí puedes enviar los datos al backend
   }
 }

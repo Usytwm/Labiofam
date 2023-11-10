@@ -1,22 +1,79 @@
 .bg-pastel-blue {
-  background-color: #3f51b5;
+  background-color: var(--color-tory-blue);
 }
 .navbar {
-  box-shadow: 0 3px 5px -1px #0003, 0 6px 10px #00000024, 0 1px 28px #0000001f;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10; /* Esto asegura que la barra de navegación se muestre por encima de otros elementos */
 }
 
-.btn-nav {
-  color: rgb(255, 255, 255);
-  background-color: transparent;
-  border-radius: 11px;
-  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-  border: none;
-  font-family: "Arial", sans-serif;
-  font-weight: bold;
+.navbar-nav {
+  display: flex;
+  align-items: center; /* Esto alinea verticalmente los elementos en el centro */
+}
+.nav-item {
+  flex: 1;
 }
 
-.btn-nav:hover {
-  background-color: #7584f4;
-  color: #ffffff;
-  box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.2);
+/* Primero, define la fuente y el color de tus enlaces */
+.nav-link {
+  font-family: "Roboto", sans-serif; /* Reemplaza 'Tu Fuente Bonita' con el nombre de la fuente que quieras usar */
+  color: #ffffff; /* Este es el color inicial de tus enlaces, puedes cambiarlo por el que prefieras */
+  text-decoration: none; /* Esto quita el subrayado inicial de los enlaces */
+  position: relative; /* Esto es necesario para posicionar correctamente la línea debajo del enlace */
+  font-size: 17px; /* Este es el tamaño de la fuente, puedes cambiarlo por el que prefieras */
+  font-weight: 500; /* Este es el grosor de la fuente, puedes cambiarlo por el que prefieras */
+}
+
+/* Luego, añade la línea debajo del enlace, pero inicialmente con ancho 0 */
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px; /* Este es el grosor de la línea, puedes cambiarlo por lo que prefieras */
+  background-color: var(
+    --color-yellow
+  ); /* Este es el color de la línea, puedes cambiarlo por lo que prefieras */
+  transition: all 0.5s ease; /* Esta es la duración de la animación, puedes cambiarla por lo que prefieras */
+}
+
+/* Finalmente, define lo que quieres que suceda cuando pases el cursor sobre los enlaces */
+.nav-link:hover {
+  color: var(
+    --color-yellow
+  ); /* Este es el color al que cambiarán tus enlaces, puedes cambiarlo por el que prefieras */
+}
+
+.nav-link:hover::after {
+  width: 100%; /* Esto hace que la línea se expanda hasta cubrir todo el ancho del enlace */
+  left: 0; /* Esto hace que la línea se expanda desde el centro hacia ambos lados */
+}
+
+/* Primero, define la clase del botón */
+.btn-outline-warning {
+  border-color: var(
+    --color-yellow
+  ); /* Este es el color inicial del borde, puedes cambiarlo por el que prefieras */
+  color: var(
+    --color-yellow
+  ); /* Este es el color inicial del texto, puedes cambiarlo por el que prefieras */
+  font-family: "Roboto", sans-serif;
+  font-size: 17px; /* Este es el tamaño de la fuente, puedes cambiarlo por el que prefieras */
+  font-weight: 500;
+}
+
+/* Luego, define lo que quieres que suceda cuando pases el cursor sobre el botón */
+.btn-outline-warning:hover {
+  background-color: var(
+    --color-yellow
+  ); /* Este es el color al que cambiará el fondo, puedes cambiarlo por el que prefieras */
+  color: var(
+    --color-tory-blue
+  ); /* Este es el color al que cambiará el texto, puedes cambiarlo por el que prefieras */
+  border-color: var(
+    --color-yellow
+  ); /* Este es el color al que cambiará el borde, puedes cambiarlo por el que prefieras */
 }
