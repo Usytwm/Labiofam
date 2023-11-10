@@ -7,7 +7,7 @@ namespace Labiofam.Services
     /// Clase base abstracta para servicios de relaciones.
     /// </summary>
     /// <typeparam name="T">Tipo de relación.</typeparam>
-    public abstract class RelationService<T> where T : class
+    public abstract class RelationService<T> where T : class, IRelationModel, new()
     {
         private readonly WebDbContext _webDbContext;
 
@@ -46,7 +46,7 @@ namespace Labiofam.Services
         /// Obtiene una lista de todas las relaciones.
         /// </summary>
         /// <returns>La lista de relaciones.</returns>
-        public async Task<List<T>> GetAllAsync()
+        public async Task<ICollection<T>> GetAllAsync()
         {
             var relations = await _webDbContext.Set<T>().ToListAsync();
             return relations;
@@ -69,7 +69,13 @@ namespace Labiofam.Services
         /// <param name="id1">ID1 de la relación.</param>
         /// <param name="id2">ID2 de la relación.</param>
         /// <returns>La relación encontrada.</returns>
-        public abstract Task<T> GetAsync(Guid id1, Guid id2);
+        public async Task<T> GetAsync(Guid id1, Guid id2)
+        {
+            var relation = await _webDbContext.Set<T>().FirstOrDefaultAsync(
+                x => x.Id1.Equals(id1) && x.Id2.Equals(id2)
+            ) ?? throw new InvalidOperationException("Relation not found");
+            return relation;
+        }
 
         /// <summary>
         /// Método abstracto para agregar una nueva relación por sus IDs.
@@ -78,6 +84,23 @@ namespace Labiofam.Services
         /// </summary>
         /// <param name="id1">ID1 de la relación.</param>
         /// <param name="id2">ID2 de la relación.</param>
-        public abstract Task AddAsync(Guid id1, Guid id2);
+        public virtual async Task AddAsync(Guid id1, Guid id2)
+        {
+            try
+            {
+                await GetAsync(id1, id2);
+                throw new InvalidOperationException("The relation already exists");
+            }
+            catch
+            {
+                var relation = new T
+                {
+                    Id1 = id1,
+                    Id2 = id2
+                };
+                await _webDbContext.AddAsync(relation);
+                await _webDbContext.SaveChangesAsync();
+            }
+        }
     }
 }

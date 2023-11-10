@@ -6,9 +6,11 @@ namespace Labiofam.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductController : EntityController<Product>
+    public class ProductController : EntityNoModelController<Product>
     {
-        public ProductController(IEntityService<Product> entityService)
-            : base(entityService) { }
+        public ProductController(
+            IEntityService<Product> entityService,
+            IEntityNoModelService<Product> entityNoModelService
+            ) : base(entityService, entityNoModelService) { }
     }
 }

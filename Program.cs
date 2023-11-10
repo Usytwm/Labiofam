@@ -100,24 +100,45 @@ builder.Services.AddCors(options => options.AddPolicy("AllowWebApp", builder => 
     ));
 
 // Servicios de entidades
-builder.Services.AddScoped<IRegistrationService<User, RegistrationModel>, UserService>();
+builder.Services.AddScoped<IEntityService<User>, UserService>();
+builder.Services.AddScoped<IEntityModelService<User, RegistrationModel>, UserService>();
+
 builder.Services.AddScoped<IEntityService<Client>, ClientService>();
+builder.Services.AddScoped<IEntityNoModelService<Client>, ClientService>();
+
 builder.Services.AddScoped<IEntityService<Product>, ProductService>();
+builder.Services.AddScoped<IEntityNoModelService<Product>, ProductService>();
+
 builder.Services.AddScoped<IEntityService<Contact>, ContactService>();
+builder.Services.AddScoped<IEntityNoModelService<Contact>, ContactService>();
+
 builder.Services.AddScoped<IEntityService<Point_of_Sales>, POSService>();
-builder.Services.AddScoped<IRegistrationService<Role, RoleModel>, RoleService>();
+builder.Services.AddScoped<IEntityNoModelService<Point_of_Sales>, POSService>();
+
+builder.Services.AddScoped<IEntityService<Role>, RoleService>();
+builder.Services.AddScoped<IEntityModelService<Role, RoleModel>, RoleService>();
+
 builder.Services.AddScoped<IEntityService<Service>, ServiceService>();
+builder.Services.AddScoped<IEntityNoModelService<Service>, ServiceService>();
 
 // Servicios de relaciones
 builder.Services.AddScoped<IRelationService<User_Role>, UserRoleService>();
+
 builder.Services.AddScoped<IRelationService<User_Product>, UserProductService>();
+
 builder.Services.AddScoped<IRelationService<Product_POS>, ProductPOSService>();
 builder.Services.AddScoped<IProductPOSService, ProductPOSService>();
 
 // Servicios de filtrado
-builder.Services.AddScoped<IRelationFilter, RelationFilterService>();
-builder.Services.AddScoped<ISearchFilter, SearchFilterService>();
-builder.Services.AddScoped<IRelationSearchFilter, RelationSearchFilterService>();
+builder.Services.AddScoped<IRelationFilter<User_Role, User, Role>, UserRoleFilterService>();
+builder.Services.AddScoped<IRelationFilter<User_Product, User, Product>, UserProductFilterService>();
+builder.Services.AddScoped<IRelationFilter<Product_POS, Product, Point_of_Sales>, ProductPOSFilterService>();
+builder.Services.AddScoped<IProductPOSFilter, ProductPOSFilterService>();
+// builder.Services.AddScoped<ISearchFilter, SearchFilterService>();
+// builder.Services.AddScoped<IRelationSearchFilter, RelationSearchFilterService>();
+
+// Servicio de correo
+builder.Services.AddScoped<IMailService, MailService>();
 
 var app = builder.Build();
 

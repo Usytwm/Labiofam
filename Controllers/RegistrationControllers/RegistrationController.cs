@@ -13,23 +13,29 @@ namespace Labiofam.Controllers
     [ApiController]
     public class RegistrationController : Controller
     {
-        private readonly IRegistrationService<User, RegistrationModel> _registrationService;
-        private readonly IRegistrationService<Role, RoleModel> _modelService;
+        private readonly IEntityService<User> _userService;
+        private readonly IEntityService<Role> _roleService;
+        private readonly IEntityModelService<User, RegistrationModel> _userModelService;
+        private readonly IEntityModelService<Role, RoleModel> _roleModelService;
         private readonly IRelationService<User_Role> _relationService;
-        private readonly IRelationFilter _relationFilter;
+        private readonly IRelationFilter<User_Role, User, Role> _relationFilter;
         private readonly IConfiguration _configuration;
         private readonly SignInManager<User> _signInManager;
 
         public RegistrationController(
-            IRegistrationService<User, RegistrationModel> registrationService,
-            IRegistrationService<Role, RoleModel> modelService,
+            IEntityService<User> userService,
+            IEntityService<Role> roleService,
+            IEntityModelService<User, RegistrationModel> userModelService,
+            IEntityModelService<Role, RoleModel> roleModelService,
             IRelationService<User_Role> relationService,
-            IRelationFilter relationFilter,
+            IRelationFilter<User_Role, User, Role> relationFilter,
             IConfiguration configuration,
             SignInManager<User> signInManager)
         {
-            _registrationService = registrationService;
-            _modelService = modelService;
+            _userService = userService;
+            _userModelService = userModelService;
+            _roleService = roleService;
+            _roleModelService = roleModelService;
             _relationService = relationService;
             _relationFilter = relationFilter;
             _configuration = configuration;
@@ -48,7 +54,7 @@ namespace Labiofam.Controllers
             Role current_role;
             try
             {
-                current_user = await _registrationService.AddAsync(new_user.User!);
+                current_user = await _userModelService.AddAsync(new_user.User!);
             }
             catch (InvalidOperationException)
             {
@@ -65,16 +71,16 @@ namespace Labiofam.Controllers
             }
             try
             {
-                current_role = await _modelService.AddAsync(new_user.Role!);
+                current_role = await _roleModelService.AddAsync(new_user.Role!);
             }
             catch (InvalidOperationException)
             {
-                current_role = await _modelService.GetAsync(new_user.Role!.Name!);
+                current_role = await _roleService.GetAsync(new_user.Role!.Name!);
             }
             catch
             {
-                await _registrationService.RemoveAsync(current_user.Id);
-                return BadRequest("Fatal error");
+                await _roleService.RemoveAsync(current_user.Id);
+                return BadRequest("Fatal errwor");
             }
             await _relationService.AddAsync(current_user.Id, current_role.Id);
             await _signInManager.SignInAsync(current_user, isPersistent: false);
@@ -97,9 +103,9 @@ namespace Labiofam.Controllers
             if (!result.Succeeded)
                 return BadRequest("Wrong name or password");
 
-            var user = await _registrationService.GetAsync(login.Name!);
-            var roles = await _relationFilter.GetRolesByUser(user.Id);
-
+            var user = await _userService.GetAsync(login.Name!);
+            var roles = await _relationFilter.GetType2ByType1(user.Id);
+            
             // Crea una lista de claims.
             var claims = new List<Claim>
             {

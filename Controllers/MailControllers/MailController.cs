@@ -24,10 +24,4 @@ public class MailController : Controller
             return BadRequest();
         }
     }
-    [HttpGet]
-    public IActionResult NameApp()
-    {
-        var appName = Assembly.GetEntryAssembly()!.GetName().Name;
-        return Ok(appName);
-    }
 }

@@ -40,38 +40,12 @@ namespace Labiofam.Controllers
         }
         [HttpGet("take/{size}")]
         public IEnumerable<T> Take(int size) => _entityService.Take(size);
-        [HttpPost]
-        public async Task<IActionResult> Add(T new_entity)
-        {
-            try
-            {
-                await _entityService.AddAsync(new_entity);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
-        }
         [HttpDelete("{id}")]
         public async Task<IActionResult> Remove(Guid id)
         {
             try
             {
                 await _entityService.RemoveAsync(id);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
-        }
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Edit(Guid id, T edited_entity)
-        {
-            try
-            {
-                await _entityService.EditAsync(id, edited_entity);
                 return Ok();
             }
             catch (Exception ex)
@@ -99,6 +73,19 @@ namespace Labiofam.Controllers
             {
                 await _entityService.RemoveAllAsync();
                 return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+        [HttpGet("getbysubstring/{substring}")]
+        public async Task<IActionResult> GetBySubstring(string substring)
+        {
+            try
+            {
+                var result = await _entityService.GetBySubstring(substring);
+                return Ok(result);
             }
             catch (Exception ex)
             {
