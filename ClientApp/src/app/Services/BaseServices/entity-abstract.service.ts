@@ -16,7 +16,7 @@ export abstract class EntityAbstractService<T> implements IEntityService<T> {
   }
 
   getByName(name: string): Observable<T> {
-    return this._http.get<T>(`${this.appUrl}${this.apiUrl}${name}`);
+    return this._http.get<T>(`${this.appUrl}${this.apiUrl}name/${name}`);
   }
 
   getAll(): Observable<T[]> {
@@ -39,7 +39,7 @@ export abstract class EntityAbstractService<T> implements IEntityService<T> {
   }
 
   removeAll(): Observable<void> {
-    return this._http.delete<void>(`${this.appUrl}${this.apiUrl}`);
+    return this._http.delete<void>(`${this.appUrl}${this.apiUrl}all`);
   }
 
   take(size: number): Observable<T[]> {

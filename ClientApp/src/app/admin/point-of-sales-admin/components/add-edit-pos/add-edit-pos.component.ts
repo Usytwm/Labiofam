@@ -78,6 +78,8 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     if (this.id !== 'null') {
       this.operacion = 'Editar';
+      console.log(this.id);
+      
       this.getPoint(this.id);
     }
   }

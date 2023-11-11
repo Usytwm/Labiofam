@@ -14,7 +14,10 @@
   <div class="row g-5 mor">
     <div data-aos="fade-right" class="col-md-8">
       <div class="imag">
-        <img src="assets/10.jpg" alt="foto del  {{ point?.name }} " />
+        <img
+          src="assets/{{ point?.image }}"
+          alt="foto del  {{ point?.name }} "
+        />
       </div>
       <br />
       <mat-card class="card-param">
@@ -56,14 +59,11 @@
           <li *ngFor="let establecimiento of establecimientos">
             <a
               class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top"
-              [routerLink]="[
-                '/point-of-sales/details/',
-                establecimiento.point_ID
-              ]"
+              [routerLink]="['/point-of-sales/details/', establecimiento.id]"
             >
               <div class="conti">
                 <img
-                  src="{{ establecimiento.image }}"
+                  src="assets/{{ establecimiento.image }}"
                   class="bd-placeholder-img"
                   width="100%"
                   height="96"

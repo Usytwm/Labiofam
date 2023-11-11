@@ -20,12 +20,25 @@ public class ProductPOSFilterService :
         _relationService = productPOSService;
     }
 
-    public async Task AddType1ByType2(Guid id, ICollection<(Product, int)> entities)
+    public async Task AddType1ByType2(Guid id,
+        ICollection<Product> entities, ICollection<int> sizes)
     {
+        if (entities.Count != sizes.Count)
+            throw new InvalidDataException();
+
+        int index = 0;
+        var aux = sizes.ToList();
         foreach (var product in entities)
         {
-            try { await _relationService.AddAsync(product.Item1.Id, id, product.Item2); }
-            catch { continue; }
+            try
+            {
+                await _relationService.AddAsync(product.Id, id, aux[index]);
+                index++;
+            }
+            catch (IndexOutOfRangeException)
+            {
+                throw new IndexOutOfRangeException();
+            }
         }
     }
 }

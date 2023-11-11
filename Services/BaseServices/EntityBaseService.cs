@@ -7,14 +7,11 @@ namespace Labiofam.Services
     /// Clase base abstracta para servicios de entidades.
     /// </summary>
     /// <typeparam name="T">Tipo de entidad.</typeparam>
-    public abstract class EntityService<T> where T : class, IEntityModel
+    public abstract class EntityService<T> : IEntityService<T>
+        where T : class, IEntityModel
     {
         private readonly WebDbContext _webDbContext;
 
-        /// <summary>
-        /// Constructor de la clase EntityService.
-        /// </summary>
-        /// <param name="webDbContext">Contexto de base de datos.</param>
         public EntityService(WebDbContext webDbContext)
         {
             _webDbContext = webDbContext;
@@ -64,20 +61,15 @@ namespace Labiofam.Services
         /// <param name="size">Tamaño de la lista.</param>
         /// <returns>La lista de entidades.</returns>
         public IEnumerable<T> Take(int size) =>
-            _webDbContext.Set<T>().OrderBy(x => x.Name).Take(size);
+            _webDbContext.Set<T>().Take(size);
 
         /// <summary>
-        /// Agrega una nueva entidad.
+        /// Obtiene una lista de entidades con un tamaño específico.
         /// </summary>
-        /// <param name="new_entity">La entidad a agregar.</param>
-        public async Task AddAsync(T new_entity)
-        {
-            if (await _webDbContext.Set<T>().AnyAsync(entity => entity.Name!.Equals(new_entity.Name)))
-                throw new InvalidOperationException("La entidad ya existe");
-
-            await _webDbContext.AddAsync(new_entity);
-            await _webDbContext.SaveChangesAsync();
-        }
+        /// <param name="size">Tamaño de la lista.</param>
+        /// <returns>La lista de entidades.</returns>
+        public IEnumerable<T> TakeRange(int skip, int take) =>
+            _webDbContext.Set<T>().Skip(skip).Take(take);
 
         /// <summary>
         /// Elimina una entidad por su ID.
@@ -108,12 +100,5 @@ namespace Labiofam.Services
             _webDbContext.RemoveRange(_webDbContext.Set<T>());
             await _webDbContext.SaveChangesAsync();
         }
-
-        /// <summary>
-        /// Método abstracto para editar una entidad por su ID.
-        /// </summary>
-        /// <param name="id">ID de la entidad a editar.</param>
-        /// <param name="edited_entity">La entidad editada.</param>
-        public abstract Task EditAsync(Guid id, T edited_entity);
     }
 }

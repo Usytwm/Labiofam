@@ -1,5 +1,3 @@
-using Labiofam.Models;
-
 namespace Labiofam.Services;
 
 public interface IRelationService<Relation>

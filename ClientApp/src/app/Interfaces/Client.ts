@@ -1,5 +1,5 @@
 export interface Client {
-  client_ID: string;
+  Id: string;
   name?: string;
   image?: string;
 }

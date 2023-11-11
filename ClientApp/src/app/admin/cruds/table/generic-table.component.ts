@@ -53,6 +53,9 @@ export class GenericTableComponent<T> implements OnInit, AfterViewInit {
       this.columns = { ...this.columns };
       delete this.columns['id']; //elimina la columna id de la tabla para que no se muetre
     }
+    if (this.dataSource.data.length > 0) {
+      this.existobjects = true;
+    }
   }
 
   ngOnInit() {
@@ -76,9 +79,7 @@ export class GenericTableComponent<T> implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.paginator._intl.itemsPerPageLabel = 'Items por pagina';
-    if (this.dataLoaded) {
-      this.existobjects = true;
-    }
+    
   }
   deleteRow(id: string) {
     this.delete.emit(id);
