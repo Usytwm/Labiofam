@@ -4,14 +4,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { Service } from './../../../../Interfaces/Service';
 import { RegistrationModel } from './../../../../Interfaces/registration-model';
-import { RegistrationService } from './../../../../Services/registration.service';
+import { ServicesService } from './../../../../Services/EntitiesServices/services.service';
 @Component({
   selector: 'app-service-admin',
   templateUrl: './services-admin.component.html',
   styleUrls: ['./services-admin.component.css'],
 })
 export class ServicesAdminComponent implements OnInit {
-  _data: RegistrationModel[] = [];
+  _data: Service[] = [];
   _dataColumns: Record<string, string> = {};
   loading: Boolean = false;
 
@@ -20,7 +20,7 @@ export class ServicesAdminComponent implements OnInit {
 
   constructor(
     private _snackBar: MatSnackBar,
-    private _registrationervice: RegistrationService
+    private _registrationervice: ServicesService
   ) {}
 
   ngOnInit() {
@@ -42,7 +42,7 @@ export class ServicesAdminComponent implements OnInit {
 
   Delete(id: string) {
     this.loading = true;
-    this._registrationervice.delete(id).subscribe(() => {
+    this._registrationervice.remove(id).subscribe(() => {
       this._snackBar.open('delete sucess', '', {
         duration: 3000,
         horizontalPosition: 'right',

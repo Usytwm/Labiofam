@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Role } from '../Interfaces/Role';
+import { Role } from '../../Interfaces/Role';
 import { Observable } from 'rxjs';
-import { User } from '../Interfaces/User';
-import { Product } from '../Interfaces/Product';
-import { Point_of_Sales } from '../Interfaces/Point_of_sales';
+import { User } from '../../Interfaces/User';
+import { Product } from '../../Interfaces/Product';
+import { Point_of_Sales } from '../../Interfaces/Point_of_sales';
 
 @Injectable({
   providedIn: 'root',

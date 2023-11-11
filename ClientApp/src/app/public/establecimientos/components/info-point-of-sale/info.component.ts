@@ -4,7 +4,7 @@ import { Point_of_Sales } from 'src/app/Interfaces/Point_of_sales';
 import { PointsOfSalesService } from 'src/app/Services/EntitiesServices/points-of-sales.service';
 import { Location } from '@angular/common';
 import { Product } from 'src/app/Interfaces/Product';
-import { FilterService } from 'src/app/Services/filter.service';
+import { FilterService } from 'src/app/Services/FilterServices/filter.service';
 
 @Component({
   selector: 'app-info',

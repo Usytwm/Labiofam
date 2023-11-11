@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { SendFeedbackService } from 'src/app/Services/send-feedback.service';
+import { SendFeedbackService } from '../../Services/MailServices/send-feedback.service';
 
 @Component({
   selector: 'app-feedback',

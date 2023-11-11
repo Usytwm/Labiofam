@@ -22,7 +22,7 @@ import { Product } from 'src/app/Interfaces/Product';
 //Servicios
 
 import { ProductService } from 'src/app/Services/EntitiesServices/product.service';
-import { FilterService } from 'src/app/Services/filter.service';
+import { FilterService } from 'src/app/Services/FilterServices/filter.service';
 
 
 @Component({
