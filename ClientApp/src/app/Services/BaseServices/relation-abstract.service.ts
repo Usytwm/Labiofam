@@ -7,7 +7,7 @@ import { IBaseService } from '../Interfaces/Base';
   providedIn: 'root',
 })
 export abstract class RelationService<T> implements IBaseService<T> {
-  private appUrl: string = environment.endpoint;
+  protected appUrl: string = environment.endpoint;
   protected apiUrl?: string;
   constructor(protected _http: HttpClient) {}
 
