@@ -2,9 +2,7 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
-import { User } from 'src/app/Interfaces/User';
 import { RegistrationModel } from 'src/app/Interfaces/registration-model';
-import { FilterService } from 'src/app/Services/FilterServices/filter.service';
 import { RegistrationService } from 'src/app/Services/RegistrationsService/registration.service';
 @Component({
   selector: 'app-users-admin',
@@ -21,8 +19,7 @@ export class UsersAdminComponent implements OnInit {
 
   constructor(
     private _snackBar: MatSnackBar,
-    private _registrationervice: RegistrationService,
-    private _filter: FilterService
+    private _registrationervice: RegistrationService
   ) {}
 
   ngOnInit() {

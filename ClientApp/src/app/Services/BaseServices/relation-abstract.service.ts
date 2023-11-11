@@ -7,7 +7,7 @@ import { IBaseService } from '../Interfaces/Base';
   providedIn: 'root',
 })
 export abstract class RelationService<T> implements IBaseService<T> {
-  private appUrl: string = environment.endpoint;
+  protected appUrl: string = environment.endpoint;
   protected apiUrl?: string;
   constructor(protected _http: HttpClient) {}
 
@@ -20,7 +20,7 @@ export abstract class RelationService<T> implements IBaseService<T> {
   }
 
   getAll(): Observable<T[]> {
-    return this._http.get<T[]>(`${this.appUrl}${this.apiUrl}`);
+    return this._http.get<T[]>(`${this.appUrl}${this.apiUrl}all`);
   }
 
   remove(id: string): Observable<void> {
@@ -28,7 +28,7 @@ export abstract class RelationService<T> implements IBaseService<T> {
   }
 
   removeAll(): Observable<void> {
-    return this._http.delete<void>(`${this.appUrl}${this.apiUrl}`);
+    return this._http.delete<void>(`${this.appUrl}${this.apiUrl}all`);
   }
 
   take(size: number): Observable<T[]> {

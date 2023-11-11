@@ -1,4 +1,5 @@
 <div *ngIf="!existobjects" class="container">
+  <app-spinner *ngIf="!dataLoaded"></app-spinner>
   <div class="p-5 text-center bg-body-tertiary rounded-3">
     <h1 class="text-body-emphasis">No se encontraron elementos</h1>
     <p class="col-lg-8 mx-auto fs-5 text-muted">

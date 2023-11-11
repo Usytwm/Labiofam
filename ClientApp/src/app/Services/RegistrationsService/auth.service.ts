@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LoginModel } from '../../Interfaces/Loginmodel';
-import { RegistrationModel } from '../../Interfaces/registration-model';
 import { RegistrationRequestModel } from '../../Interfaces/Registration-Request';
 
 @Injectable({

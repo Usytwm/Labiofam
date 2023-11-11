@@ -1,30 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { IEntityService } from '../Interfaces/Entity';
+import { RelationService } from './relation-abstract.service';
 @Injectable({
   providedIn: 'root',
 })
-export abstract class EntityAbstractService<T> implements IEntityService<T> {
-  private appUrl: string = environment.endpoint;
-  protected apiUrl?: string;
-  constructor(protected _http: HttpClient) {}
-
-  get(id: string): Observable<T> {
-    return this._http.get<T>(`${this.appUrl}${this.apiUrl}${id}`);
-  }
-
+export abstract class EntityAbstractService<T> extends RelationService<T> {
   getByName(name: string): Observable<T> {
     return this._http.get<T>(`${this.appUrl}${this.apiUrl}name/${name}`);
-  }
-
-  getAll(): Observable<T[]> {
-    return this._http.get<T[]>(`${this.appUrl}${this.apiUrl}all`);
-  }
-
-  add(newEntity: T): Observable<T> {
-    return this._http.post<T>(`${this.appUrl}${this.apiUrl}`, newEntity);
   }
 
   edit(id: string, editedEntity: T): Observable<void> {
@@ -34,15 +16,9 @@ export abstract class EntityAbstractService<T> implements IEntityService<T> {
     );
   }
 
-  remove(id: string): Observable<void> {
-    return this._http.delete<void>(`${this.appUrl}${this.apiUrl}${id}`);
-  }
-
-  removeAll(): Observable<void> {
-    return this._http.delete<void>(`${this.appUrl}${this.apiUrl}all`);
-  }
-
-  take(size: number): Observable<T[]> {
-    return this._http.get<T[]>(`${this.appUrl}${this.apiUrl}take/${size}`);
+  takerange(size: number, page_number: number): Observable<T[]> {
+    return this._http.get<T[]>(
+      `${this.appUrl}${this.apiUrl}take/${size}${page_number}`
+    );
   }
 }
