@@ -26,6 +26,9 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./add-edit-pos.component.css'],
 })
 export class AddEditPosComponent implements OnInit, AfterViewInit {
+onFileSelected($event: Event) {
+throw new Error('Method not implemented.');
+}
   imagePreview?: string;
   markerLngLat?: LngLat;
   marker?: Marker;

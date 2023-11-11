@@ -1,14 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { IEntityService } from '../Interfaces/Entity';
 import { RelationService } from './relation-abstract.service';
 @Injectable({
   providedIn: 'root',
 })
 export abstract class EntityAbstractService<T> extends RelationService<T> {
-  
   getByName(name: string): Observable<T> {
     return this._http.get<T>(`${this.appUrl}${this.apiUrl}name/${name}`);
   }

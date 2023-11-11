@@ -54,3 +54,8 @@
   width: 100% !important;
   height: 250px !important;
 }
+input[type="file"] {
+  width: 100%; /* ajusta esto al ancho que desees */
+  height: 100%; /* ajusta esto a la altura que desees */
+  background-size: contain;
+}
