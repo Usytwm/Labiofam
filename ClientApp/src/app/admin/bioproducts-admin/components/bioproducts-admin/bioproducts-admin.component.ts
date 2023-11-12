@@ -17,7 +17,7 @@ import { ProductService } from 'src/app/Services/EntitiesServices/product.servic
   styleUrls: ['./bioproducts-admin.component.css']
 })
 
-export class BioproductsAdminComponent {
+export class BioproductsAdminComponent implements OnInit{
 
   _data: Product[] = [];
   _dataColumns: Record<string, string> = {};

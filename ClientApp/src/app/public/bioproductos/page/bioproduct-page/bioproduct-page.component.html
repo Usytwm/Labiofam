@@ -1,34 +1,29 @@
-<ng-template #divLoading></ng-template>
+<!-- Page Content -->
+<section class="section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <article class="post position-relative">
+          <div class="date-box rounded shadow text-center bg-primary position-absolute top-0 start-0 p-3 ms-3 mt-3">
+            <h5 class="mb-0 text-light">Acetazolamida (250mg)</h5>
+          </div>
+          <div class="post-preview mb-4">
+            <img loading="lazy" class="img-fluid rounded lazyload img-border" src="assets/12.jpg"  width="735" height="430" alt="">
+          </div>
+          <div class="post">
+            <div class="row fs-22">
+              <div class="col-lg-6 fw-bold align-right">Categoría(s) Farmacológica(s):
 
-<div *ngIf="bioproducto else divLoading" class="grid p-2">
-  <mat-card class="col-12 sm:col-6">
-    <img [src]="" [alt]="" mat-card-image  />
-  </mat-card>
-
-  <mat-card class="col-12 sm:col-6">
-
-    <mat-card-header>
-      <mat-card-title>{{bioproducto.name}}</mat-card-title>
-      <mat-card-subtitle>{{ bioproducto.type }}</mat-card-subtitle>
-    </mat-card-header>
-
-    <mat-card-content>
-      <mat-list>
-
-      </mat-list>
-
-      <button
-        mat-button
-        color="warn"
-        (click)="goBack()"
-      >
-        Regresar
-      </button>
-
-    </mat-card-content>
-
-
-  </mat-card>
-
-</div>
-
+              </div>
+              <div class="col-lg-6">
+                <ul>
+                  <li>Antiglaucomatosos</li>
+                  <li>Anticonvulsivos</li>
+                  <li>Antiurolitiásico</li>
+                </ul>
+              </div>
+            </div>
+            <div class="products-accordion mt-4 accrdion-wrapper single">
+              <article class="accrdion-entry accrdion-active">
+                <header class="accrdion-header">Descripción</header>
+                <div class="accrdion-content fs-18 pb-4 pt-2" style="">
