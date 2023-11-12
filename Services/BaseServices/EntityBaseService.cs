@@ -68,8 +68,8 @@ namespace Labiofam.Services
         /// </summary>
         /// <param name="size">Tamaño de la lista.</param>
         /// <returns>La lista de entidades.</returns>
-        public IEnumerable<T> TakeRange(int skip, int take) =>
-            _webDbContext.Set<T>().Skip(skip).Take(take);
+        public IEnumerable<T> TakeRange(int size, int page_number) =>
+            _webDbContext.Set<T>().Skip(size * page_number).Take(size);
 
         /// <summary>
         /// Elimina una entidad por su ID.
