@@ -8,6 +8,8 @@ import { AddEditPosComponent } from './point-of-sales-admin/components/add-edit-
 import { ServicesAdminComponent } from './services-admin/components/services-admin/services-admin.component';
 import { AddEditServiceComponent } from './services-admin/components/add-edit-service/Service-edit.component';
 import { InfoPosComponent } from './point-of-sales-admin/components/info-pos/info-pos.component';
+import { BioproductsAdminComponent } from './bioproducts-admin/components/bioproducts-admin/bioproducts-admin.component';
+import { AddEditBioproductComponent } from './bioproducts-admin/components/add-edit-bioproduct/add-edit-bioproduct.component';
 
 const routes: Routes = [
   {
@@ -20,6 +22,11 @@ const routes: Routes = [
       { path: 'services-admin', component: ServicesAdminComponent },
       { path: 'services-admin/edit/:id', component: AddEditServiceComponent },
       { path: 'services-admin/add', component: AddEditServiceComponent },
+      { path: 'bioproducts-admin', component: BioproductsAdminComponent },
+      { path: 'bioproducts-admin/edit/:id', component: AddEditBioproductComponent },
+      { path: 'bioproducts-admin/add', component: AddEditBioproductComponent },
+
+
       {
         path: 'points-of-sales-admin',
         component: PointsOfSalesComponent,

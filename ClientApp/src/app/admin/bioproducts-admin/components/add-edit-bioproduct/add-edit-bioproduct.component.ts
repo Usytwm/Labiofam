@@ -31,5 +31,67 @@ import { FilterService } from 'src/app/Services/filter.service';
   styleUrls: ['./add-edit-bioproduct.component.css']
 })
 export class AddEditBioproductComponent {
+  loading = false;
+  id: string;
+  operacion = 'Agregar';
+  product?: Product;
 
+  form = this.fb.group({
+    name: ['', Validators.required],
+    type: ['', Validators.required],
+    summary: ['', Validators.required],
+    specifications: ['', Validators.required],
+
+  });
+
+
+  constructor(
+    private fb: FormBuilder,
+    private snackBar: MatSnackBar,
+    private _productservice: ProductService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    this.id = String(this.route.snapshot.paramMap.get('id'));
+  }
+  ngOnInit(): void {
+    if (this.id !== 'null') {
+      this.operacion = 'Editar';
+      this.getProduct(this.id);
+    }
+  }
+  getProduct(id: string) {
+    this.loading = true;
+    this._productservice.get(id).subscribe((data) => {
+      this.product = data;
+      console.log(data);
+      this.form.patchValue({
+        name: data.name,
+        summary: data.summary,
+        type: data.type,
+        specifications: data.specifications,
+
+      });
+      this.loading = false;
+    });
+  }
+  addProduct() {
+    this._productservice.add(this.newProduct()).subscribe((data) => {
+      this.snackBar.open('Agregado con éxito', 'cerrar', {
+        duration: 3000,
+        horizontalPosition: 'right',
+      });
+      //console.log(this.newUser());
+      this.router.navigate(['/dashboard/points-of-sales-admin']);
+    });
+  }
+  newProduct(): Product {
+    return {
+
+      name: this.form.value.name!,
+      type: this.form.value.type!,
+      summary: this.form.value.summary!,
+      specifications: this.form.value.specifications!,
+    }
+  }
 }

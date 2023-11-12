@@ -1,0 +1,33 @@
+.container1 {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+.mat-form-field {
+  width: 100%;
+  margin: 10px;
+}
+.btnacept {
+  margin-right: 5px;
+}
+
+.card {
+  max-width: 65%;
+  margin-right: auto;
+  margin-left: auto;
+  overflow: auto; /* Asegura que el contenido pueda desplazarse si excede la altura máxima */
+}
+.titulo {
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+.example-chip-list {
+  width: 100%;
+  border-radius: 15px;
+}
+.formulario {
+  width: 100%;
+}

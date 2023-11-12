@@ -9,7 +9,7 @@ import { Product } from 'src/app/Interfaces/Product';
 
 //Servicios
 import { FilterService } from 'src/app/Services/filter.service';
-import { ProductService } from 'src/app/Services/product.service';
+import { ProductService } from 'src/app/Services/EntitiesServices/product.service';
 
 @Component({
   selector: 'app-bioproducts-admin',
@@ -51,7 +51,7 @@ export class BioproductsAdminComponent {
   }
   Delete(id: string) {
     this.loading = true;
-    this._bioproductservice.delete(id).subscribe(() => {
+    this._bioproductservice.remove(id).subscribe(() => {
       this._snackBar.open('Eliminado con éxito', '', {
         duration: 3000,
         horizontalPosition: 'right',
