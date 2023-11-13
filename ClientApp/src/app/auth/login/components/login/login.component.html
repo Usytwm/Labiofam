@@ -10,7 +10,7 @@
     </mat-card-subtitle>
 
     <div class="form-container">
-      <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="containersvg">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -36,7 +36,7 @@
             type="email"
             class="form-control"
             id="floatingInput"
-            [(ngModel)]="username"
+            formControlName="username"
             placeholder="name@example.com"
             name="username"
             required
@@ -51,7 +51,7 @@
             type="password"
             class="form-control"
             id="floatingPassword"
-            [(ngModel)]="contrasena"
+            formControlName="password"
             placeholder="Password"
             name="password"
             required

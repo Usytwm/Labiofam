@@ -12,6 +12,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
+  loginForm = new FormGroup({
+    username: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
+  });
   username?: string;
   contrasena?: string;
   rememberMe: boolean = false;
@@ -20,14 +24,14 @@ export class LoginComponent {
     private _snackBar: MatSnackBar,
     private _route: Router
   ) {}
-  onSubmit(form: NgForm) {
+  onSubmit() {
     const loginmodel: LoginModel = {
-      name: form.value.username,
-      password: form.value.password,
+      name: this.loginForm.value.username!,
+      password: this.loginForm.value.password!,
     };
     console.log(loginmodel);
+    
     this.rememberMe = Boolean(this.rememberMe);
-    console.log(this.rememberMe);
     this._authnservice
       .login(loginmodel)
       .pipe(
@@ -40,7 +44,7 @@ export class LoginComponent {
               duration: 5000,
             }
           );
-          form.resetForm();
+          this.loginForm.reset();
           return throwError(error);
         })
       )
