@@ -7,7 +7,7 @@ import { ServicesService } from '../../../../Services/services.service';
 import { Service } from '../../../../Interfaces/Service';
 
 @Component({
-  selector: 'app-Service-edit',
+  selector: 'app-service-edit',
   templateUrl: './Service-edit.component.html',
   styleUrls: ['./Service-edit.component.css'],
 })
@@ -62,7 +62,7 @@ export class AddEditServiceComponent implements OnInit {
       });
       this.loading = false;
       console.log(this.newService());
-      this.router.navigate(['/Services']);
+      this.router.navigate(['/dashboard/services-admin']);
     });
   }
 
@@ -73,7 +73,7 @@ export class AddEditServiceComponent implements OnInit {
         horizontalPosition: 'right',
       });
       console.log(this.newService());
-      this.router.navigate(['/Services']);
+      this.router.navigate(['/dashboard/services-admin']);
     });
   }
 

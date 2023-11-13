@@ -6,7 +6,7 @@ import { ServicesService } from './../../../../Services/services.service';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-services',
+  selector: 'app-Service',
   templateUrl: './servicios.component.html',
   styleUrls: ['./servicios.component.css'],
 

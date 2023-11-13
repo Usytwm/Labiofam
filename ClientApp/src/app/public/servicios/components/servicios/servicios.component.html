@@ -1,10 +1,15 @@
-<div class="container">
-<div class="mat-primary titulo">Servicios</div>
+<section class="light">
+	<div class="container py-2">
+		<article class="postcard light blue" *ngFor="let servicio of servicios">
+			<a class="postcard__img_link" >
+				<img class="postcard__img" src="https://picsum.photos/1000/1000" alt="Image Title" />
+			</a>
+			<div class="postcard__text t-dark">
+				<h1 class="postcard__title blue">{{ servicio.name }}</h1>
+				<div class="postcard__bar"></div>
+				<div class="postcard__preview-txt">{{ servicio.info }}</div>
+			</div>
+		</article>
+		</div>
+</section>
 
-<div class="card text-center" *ngFor="let servicio of servicios">
-  <div class="card-body bg-light-blue">
-    <h2 class="card-title">{{ servicio.name }}</h2>
-    <p class="card-text">{{ servicio.info }}</p>
-  </div>
-</div>
-</div>

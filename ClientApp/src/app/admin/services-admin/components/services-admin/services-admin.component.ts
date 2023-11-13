@@ -6,7 +6,7 @@ import { Service } from './../../../../Interfaces/Service';
 import { RegistrationModel } from './../../../../Interfaces/registration-model';
 import { RegistrationService } from './../../../../Services/registration.service';
 @Component({
-  selector: 'app-service-admin',
+  selector: 'app-services-admin',
   templateUrl: './services-admin.component.html',
   styleUrls: ['./services-admin.component.css'],
 })
