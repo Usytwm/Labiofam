@@ -23,34 +23,36 @@ namespace Labiofam.Models
         public DbSet<User_Product>? User_Product { get; set; }
         public DbSet<User_Role>? User_Role { get; set; }
 
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Definición de las relaciones y claves primarias compuestas
             modelBuilder.Entity<Product_POS>()
-                .HasKey(ppv => new { ppv.Point_ID, ppv.Product_ID });
+                .HasKey(ppv => new { ppv.Id1, ppv.Id2 });
 
             modelBuilder.Entity<Product_POS>()
                 .HasOne(ppos => ppos.Point_Of_Sales)
                 .WithMany(pos => pos.Available_Products)
-                .HasForeignKey(ppos => ppos.Point_ID);
+                .HasForeignKey(ppos => ppos.Id2);
 
             modelBuilder.Entity<Product_POS>()
                 .HasOne(ppos => ppos.Product)
                 .WithMany(p => p.Points_Of_Sales)
-                .HasForeignKey(ppos => ppos.Product_ID);
+                .HasForeignKey(ppos => ppos.Id1);
 
             modelBuilder.Entity<User_Product>()
-                .HasKey(up => new { up.User_ID, up.Product_ID });
+                .HasKey(up => new { up.Id1, up.Id2 });
 
             modelBuilder.Entity<User_Product>()
                 .HasOne(up => up.Product)
                 .WithMany(p => p.Users)
-                .HasForeignKey(up => up.Product_ID);
+                .HasForeignKey(up => up.Id2);
 
             modelBuilder.Entity<User_Product>()
                 .HasOne(up => up.User)
                 .WithMany(u => u.Products)
-                .HasForeignKey(up => up.User_ID);
+                .HasForeignKey(up => up.Id1);
 
             modelBuilder.Entity<IdentityUserLogin<Guid>>()
                 .HasKey(key => key.ProviderKey);

@@ -6,6 +6,8 @@ import { MapaComponent } from './establecimientos/components/mapa/mapa.component
 import { ServicesComponent } from './servicios/components/servicios/servicios.component';
 import { ContactosComponent } from './contactos/components/contactos/contactos.component';
 import { InfoPOSComponent } from './establecimientos/components/info-point-of-sale/info.component';
+import { BioproductosComponent } from './bioproductos/components/bioproductos/bioproductos.component';
+import { BioproductPageComponent } from './bioproductos/page/bioproduct-page/bioproduct-page.component';
 
 const routes: Routes = [
   {
@@ -29,6 +31,14 @@ const routes: Routes = [
       {
         path: 'Services',
         component: ServicesComponent,
+      },
+      {
+        path: 'Bioproducts',
+        component: BioproductosComponent,
+      },
+      {
+        path: 'Bioproducts/:id',
+        component: BioproductPageComponent,
       },
       {
         path: 'Contact',

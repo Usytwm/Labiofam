@@ -3,7 +3,7 @@ import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, throwError } from 'rxjs';
 import { LoginModel } from 'src/app/Interfaces/Loginmodel';
-import { AuthService } from 'src/app/Services/auth.service';
+import { AuthService } from 'src/app/Services/RegistrationsService/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -45,7 +45,7 @@ export class LoginComponent {
         })
       )
       .subscribe((res) => {
-        console.log(res.access_token);
+        console.log(res.accessToken);
         this._route.navigate(['/home']);
       });
     // aquí puedes enviar los datos al backend

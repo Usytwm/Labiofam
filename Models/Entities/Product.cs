@@ -3,10 +3,10 @@ using System.Text.Json.Serialization;
 
 namespace Labiofam.Models;
 
-public class Product
+public class Product : IEntityModel
 {
     [Key]
-    public Guid Product_ID { get; set; }
+    public Guid Id { get; set; }
     [StringLength(64)]
     public string? Name { get; set; }
     public string? Image { get; set; }

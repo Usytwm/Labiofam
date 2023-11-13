@@ -20,6 +20,7 @@
   font-style: italic !important;
   display: inline-block;
   position: relative;
+  
 }
 .titulo:after {
   content: "";
@@ -80,6 +81,7 @@
 .card {
   transition: 0.7s;
   box-shadow: 0 8px 16px #dce1e1;
+  border: none;
 }
 
 .card-btn {

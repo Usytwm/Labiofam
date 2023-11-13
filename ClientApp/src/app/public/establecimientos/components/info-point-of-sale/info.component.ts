@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Point_of_Sales } from 'src/app/Interfaces/Point_of_sales';
-import { PointsOfSalesService } from 'src/app/Services/points-of-sales.service';
+import { PointsOfSalesService } from 'src/app/Services/EntitiesServices/points-of-sales.service';
 import { Location } from '@angular/common';
 import { Product } from 'src/app/Interfaces/Product';
-import { FilterService } from 'src/app/Services/filter.service';
+import { ProductPosFilterService } from 'src/app/Services/FilterServices/product-pos-filter.service';
 
 @Component({
   selector: 'app-info',
@@ -18,36 +18,39 @@ export class InfoPOSComponent implements OnInit {
   products: Product[] = [];
 
   establecimientos: Point_of_Sales[] = [];
+  previousId: string;
 
   constructor(
-    private personaService: PointsOfSalesService,
-    private router: Router,
+    private pointService: PointsOfSalesService,
     private aRoute: ActivatedRoute,
-    private _filter: FilterService,
-    private _location: Location
+    private _filter: ProductPosFilterService
   ) {
     this.id = String(this.aRoute.snapshot.paramMap.get('id'));
+    this.previousId = this.id;
     console.log(this.id);
   }
 
   ngOnInit(): void {
     this.aRoute.params.subscribe((params) => {
       this.id = params['id'];
-      this.getPoint();
+      if (this.id !== this.previousId) {
+        location.reload();
+      } else {
+        this.getPoint();
+      }
+      this.previousId = this.id;
     });
   }
+
   getPoint() {
-    this.personaService.get(this.id).subscribe((data) => {
+    this.pointService.get(this.id).subscribe((data) => {
       this.point = data;
     });
-    this._filter.getproductsbypos(this.id).subscribe((data) => {
+    this._filter.getType2byType1(this.id).subscribe((data) => {
       this.products = data;
     });
-    this.personaService.take(3).subscribe((data) => {
+    this.pointService.take(3).subscribe((data) => {
       this.establecimientos = data;
     });
-  }
-  goBack() {
-    this._location.back();
   }
 }

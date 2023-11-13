@@ -2,8 +2,8 @@ import { Service } from './../../../../Interfaces/Service';
 import { Component, AfterViewInit, ViewChild, OnInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { ServicesService } from './../../../../Services/services.service';
-import { Observable } from 'rxjs';
+import { MatTableDataSource } from '@angular/material/table';
+import { ServicesService } from './../../../../Services/EntitiesServices/services.service';
 
 @Component({
   selector: 'app-Service',
@@ -16,9 +16,7 @@ export class ServicesComponent implements OnInit {
   loading: Boolean = false;
   servicios: Service[] = [];
 
-  constructor(
-    private _servicesservices: ServicesService
-  ) { }
+  constructor(private _servicesservices: ServicesService) {}
   ngOnInit(): void {
     this.obtenerServicios();
   }

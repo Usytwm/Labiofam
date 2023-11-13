@@ -12,9 +12,10 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { SharedModule } from '../Shared/shared.module';
 //componentes
 import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { AddEditBioproductComponent } from './bioproducts-admin/components/add-edit-bioproduct/add-edit-bioproduct.component';
 
 @NgModule({
-  declarations: [SidenavComponent],
+  declarations: [SidenavComponent,],
   imports: [
     CommonModule,
     SeccionAdminRoutingModule,

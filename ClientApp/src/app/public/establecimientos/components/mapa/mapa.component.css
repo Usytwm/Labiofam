@@ -61,3 +61,16 @@
   font-size: calc(1rem + 2.7vw);
   font-weight: 500;
 }
+button.btn-primary:active {
+  transform: scale(0.95);
+  transition: transform 0.1s;
+  background-color: var(
+    --color-yellow
+  ); /* Este será el color de fondo del botón cuando pases el dedo por encima */
+  color: var(
+    --color-tory-blue
+  ); /* Este será el color del texto del botón cuando pases el dedo por encima */
+  font-family: "Roboto", Courier, monospace; /* Esta será la fuente del texto del botón cuando pases el dedo por encima */
+  font-weight: 600;
+}
+

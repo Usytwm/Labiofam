@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Point_of_Sales } from 'src/app/Interfaces/Point_of_sales';
-import { PointsOfSalesService } from 'src/app/Services/points-of-sales.service';
+import { PointsOfSalesService } from 'src/app/Services/EntitiesServices/points-of-sales.service';
 
 @Component({
   selector: 'app-points-of-sales',
@@ -26,13 +26,11 @@ export class PointsOfSalesComponent implements OnInit {
     this.loading = true;
     this._service.getAll().subscribe((data) => {
       this._dataColumns = {
-        id: 'point_ID',
+        id: 'id',
         nombre: 'name',
         direccion: 'address',
         municipio: 'municipality',
         provincia: 'province',
-        latitud: 'latitude',
-        longitud: 'longitude',
       };
       this._data = data;
       this.loading = false;
@@ -42,8 +40,8 @@ export class PointsOfSalesComponent implements OnInit {
   Delete(id: string) {
     this.loading = true;
     console.log(id);
-    this._service.delete(id).subscribe(() => {
-      this._snackBar.open('delete sucess', '', {
+    this._service.remove(id).subscribe(() => {
+      this._snackBar.open('Eliminado con éxito', 'cerrar', {
         duration: 3000,
         horizontalPosition: 'right',
       });
