@@ -7,7 +7,6 @@
   width: 100%;
 }
 
-
 .full-width {
   width: 100%;
 }
@@ -27,4 +26,13 @@
   width: 100%; /* Ajusta el ancho al 100% del contenedor padre */
   height: 100%; /* Ajusta la altura de manera automática para mantener las proporciones de la imagen */
   object-fit: cover; /* Esto hará que la imagen cubra todo el espacio disponible, cortando las partes que no caben si es necesario */
+}
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
 }

@@ -16,8 +16,6 @@ export class LoginComponent {
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
   });
-  username?: string;
-  contrasena?: string;
   rememberMe: boolean = false;
   constructor(
     private _authnservice: AuthService,
@@ -30,7 +28,7 @@ export class LoginComponent {
       password: this.loginForm.value.password!,
     };
     console.log(loginmodel);
-    
+
     this.rememberMe = Boolean(this.rememberMe);
     this._authnservice
       .login(loginmodel)
