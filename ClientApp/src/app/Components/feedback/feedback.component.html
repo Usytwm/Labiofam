@@ -17,53 +17,63 @@
           </p>
           <br />
           <div class="container">
-            <form class="example-form">
-              <mat-form-field class="example-full-width">
-                <mat-label>Favorite food</mat-label>
-                <input matInput placeholder="Ex. Pizza" value="Sushi" />
-              </mat-form-field>
-
-              
-              <mat-form-field class="example-full-width">
-                <mat-label>Leave a comment</mat-label>
-                <textarea
-                  matInput
-                  placeholder="Ex. It makes me feel..."
-                ></textarea>
-              </mat-form-field>
-            </form>
-            <form class="was-validated" (ngSubmit)="onSubmit()">
-              <div
-                class="form-floating"
-                style="margin-right: 30%; margin-left: 0px"
-              >
+            <form
+              class="form"
+              [formGroup]="formfedback"
+              (ngSubmit)="onSubmit()"
+            >
+              <mat-form-field class="email-width">
+                <mat-label>Correo electrónico</mat-label>
                 <input
                   type="email"
-                  class="form-control"
-                  id="floatingInputGrid"
-                  placeholder="name@example.com"
+                  matInput
+                  placeholder="Ej. ejemplo@dominio.com"
+                  formControlName="email"
                   required
                 />
-                <label for="floatingInputGrid">Correo electronico</label>
-              </div>
-              <br />
-              <div class="mb-3">
-                <div class="form-floating">
-                  <textarea
-                    class="form-control"
-                    id="validationTextarea"
-                    placeholder="Required example textarea"
-                    required
-                    style="height: 190px"
-                  ></textarea>
-                  <label for="floatingTextarea">Comentarios</label>
+                <mat-error
+                  *ngIf="
+                    formfedback.get('email')!.hasError('email') &&
+                    !formfedback.get('email')!.hasError('required')
+                  "
+                >
+                  Por favor introduzca un email válido
+                </mat-error>
+
+                <mat-error
+                  *ngIf="formfedback.get('email')!.hasError('required')"
+                >
+                  Email <strong>requerido</strong>
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="textarea">
+                <mat-label>Comentarios</mat-label>
+                <textarea
+                  matInput
+                  placeholder="Ej. Esto me hace sentir..."
+                  formControlName="comments"
+                  required
+                ></textarea>
+                <mat-error
+                  *ngIf="formfedback.get('comments')!.hasError('required')"
+                >
+                  Comentarios <strong>requeridos</strong>
+                </mat-error>
+              </mat-form-field>
+              <div style="display: flex; justify-content: space-between">
+                <div class="mb-3">
+                  <button class="btn btn-primary" type="submit">Enviar</button>
                 </div>
-                <div class="invalid-feedback">
-                  Por favor escriba un mensaje.
+                <div class="mb-3">
+                  <button
+                    [routerLink]="['/home']"
+                    class="btn btn-light"
+                    type="button"
+                  >
+                    Volver
+                  </button>
                 </div>
-              </div>
-              <div class="mb-3">
-                <button class="btn btn-primary" type="submit">Enviar</button>
               </div>
             </form>
           </div>

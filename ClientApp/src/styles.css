@@ -42,6 +42,13 @@ a.btn-primary:hover {
   font-weight: 600;
 }
 
+.titulo {
+  text-align: center;
+  font-weight: bold;
+  color: var(--color-tory-blue) !important;
+  font-style: "friz-quadrata-std-bold-587034a220f9f" !important;
+}
+
 text,
 a.text {
   font-family: "Friz Quadrata Std Italic";

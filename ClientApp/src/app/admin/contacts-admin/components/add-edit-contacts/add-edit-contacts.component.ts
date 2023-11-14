@@ -76,6 +76,8 @@ export class AddEditContactsComponent {
   }
 
   addContact() {
+    console.log(this.newContact());
+    
     this.contactService.add(this.newContact()).subscribe((data) => {
       this.snackBar.open('Agregado con éxito', 'cerrar', {
         duration: 3000,

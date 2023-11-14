@@ -14,13 +14,6 @@
   font-size: 2.8rem;
 }
 
-.titulo {
-  text-align: center;
-  font-weight: bold;
-  color: var(--color-tory-blue) !important;
-  font-style: "friz-quadrata-std-bold-587034a220f9f" !important;
-}
-
 @font-face {
   font-family: "Friz Quadrata Std Italic";
   font-style: normal;
