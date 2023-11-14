@@ -1,47 +1,3 @@
-.cont {
-  position: relative;
-  text-align: center;
-  box-shadow: 0 8px 16px #dce1e1;
-  overflow: hidden;
-  height: 15rem;
-  margin-top: 4%;
-  margin-left: 4%;
-  margin-right: 4%;
-}
-.cont img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.card {
-  transition: 0.7s;
-  box-shadow: 0 8px 16px #dce1e1;
-  border: none;
-  border-radius: 10px;
-  margin-bottom: 5%;
-}
-
-.card-btn {
-  border-radius: 20px;
-  width: 100%;
-}
-.card-title {
-  font-family: "Roboto", sans-serif;
-  font-size: 100;
-}
-.card:hover {
-  box-shadow: 0 16px 32px 0 rgba(0, 0, 0, 0.5);
-}
-
-.img {
-  display: flexbox; /* La imagen activa se muestra */
-  width: 100%; /* La imagen activa ocupará el ancho completo de su contenedor padre */
-  height: auto; /* Altura de la imagen activa como porcentaje de la altura de la ventana del navegador */
-  transition: transform 1s; /* Añade una transición suave al efecto de zoom */
-  cursor: pointer;
-}
-
 .espacio {
   margin-bottom: 100px;
 }
@@ -66,33 +22,34 @@
 }
 
 @font-face {
-  font-family: 'Friz Quadrata Std Italic';
+  font-family: "Friz Quadrata Std Italic";
   font-style: normal;
   font-weight: normal;
-  src: local('Friz Quadrata Std Italic'), url('friz-quadrata-std-italic-587033b2c95df.woff') format('woff');
-  }
+  src: local("Friz Quadrata Std Italic"),
+    url("friz-quadrata-std-italic-587033b2c95df.woff") format("woff");
+}
 
-
-  @font-face {
-  font-family: 'Friz Quadrata Std Medium';
+@font-face {
+  font-family: "Friz Quadrata Std Medium";
   font-style: normal;
   font-weight: normal;
-  src: local('Friz Quadrata Std Medium'), url('friz-quadrata-std-medium-5870338ec7ef8.woff') format('woff');
-  }
+  src: local("Friz Quadrata Std Medium"),
+    url("friz-quadrata-std-medium-5870338ec7ef8.woff") format("woff");
+}
 
-
-  @font-face {
-  font-family: 'Friz Quadrata Std Bold';
+@font-face {
+  font-family: "Friz Quadrata Std Bold";
   font-style: normal;
   font-weight: normal;
-  src: local('Friz Quadrata Std Bold'), url('friz-quadrata-std-bold-587034a220f9f.woff') format('woff');
-  }
+  src: local("Friz Quadrata Std Bold"),
+    url("friz-quadrata-std-bold-587034a220f9f.woff") format("woff");
+}
 
-
-  @font-face {
-  font-family: 'Friz Quadrata Std Bold Italic';
+@font-face {
+  font-family: "Friz Quadrata Std Bold Italic";
   font-style: normal;
   font-weight: normal;
-  src: local('Friz Quadrata Std Bold Italic'), url('friz-quadrata-std-bold-italic-587033d6d4298.woff') format('woff');
-  }
+  src: local("Friz Quadrata Std Bold Italic"),
+    url("friz-quadrata-std-bold-italic-587033d6d4298.woff") format("woff");
+}
 /*mooroor*/
