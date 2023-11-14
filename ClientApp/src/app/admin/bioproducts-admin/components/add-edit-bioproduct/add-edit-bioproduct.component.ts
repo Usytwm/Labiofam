@@ -16,13 +16,12 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 
 //Interfaces
-import { Role } from 'src/app/Interfaces/Role';
+
 import { Product } from 'src/app/Interfaces/Product';
 
 //Servicios
 
 import { ProductService } from 'src/app/Services/EntitiesServices/product.service';
-import { FilterService } from 'src/app/Services/filter.service';
 
 
 @Component({
@@ -82,7 +81,19 @@ export class AddEditBioproductComponent {
         horizontalPosition: 'right',
       });
       //console.log(this.newUser());
-      this.router.navigate(['/dashboard/points-of-sales-admin']);
+      this.router.navigate(['/dashboard/bioproducts-admin']);
+    });
+  }
+  editProduct() {
+    this.loading = true;
+    this._productservice.edit(this.id, this.newProduct()).subscribe(() => {
+      this.snackBar.open('Editado con éxito', 'cerrar', {
+        duration: 3000,
+        horizontalPosition: 'right',
+      });
+      this.loading = false;
+      console.log(this.newProduct());
+      this.router.navigate(['/dashboard/bioproducts-admin']);
     });
   }
   newProduct(): Product {
