@@ -1,5 +1,7 @@
+
+
 <div data-aos="fade-left">
-  <div class="mat-primary titulo">{{ operacion }} Bioproductos</div>
+  <div class="mat-primary titulo">{{ operacion }} Contactos</div>
 
   <div
     class="container1"
@@ -15,7 +17,7 @@
       <form
         [formGroup]="form"
         style="margin-top: 10px"
-        (ngSubmit)="operacion === 'Agregar' ? addProduct() : editProduct()"
+        (ngSubmit)="operacion === 'Agregar' ? addContact() : editContact()"
       >
         <mat-grid-list cols="2" rowHeight="80px">
           <mat-grid-tile>
@@ -32,48 +34,28 @@
 
           <mat-grid-tile>
             <mat-form-field class="mat-form-field" appearance="outline">
-              <mat-label>Tipo</mat-label>
+              <mat-label>Ocupación</mat-label>
               <input
-                formControlName="type"
+                formControlName="occupation"
                 matInput
                 autocomplete="off"
               />
               <mat-error
-
+                *ngIf="ocupationControl.hasError('required')"
               >
-                Por favor introduzca el tipo del bioproducto
+                Por favor introduzca la ocupación del contacto
               </mat-error>
             </mat-form-field>
           </mat-grid-tile>
 
-          <mat-grid-tile>
-            <mat-form-field class="mat-form-field" appearance="outline">
-              <mat-label>Descripción</mat-label>
-              <input
-                formControlName="summary"
-                matInput
-                autocomplete="off"
-              />
+          <mat-grid-tile colspan="2">
+            <mat-form-field class="mat-form-field" appearance="outline" cols="1" style="position: absolute; width: 96%">
+              <mat-label>Información</mat-label>
+              <input formControlName="info" matInput autocomplete="off" />
               <mat-error
-
+                *ngIf="infoControl.hasError('required')"
               >
-                Por favor introduzca la información del bioproducto
-              </mat-error>
-            </mat-form-field>
-          </mat-grid-tile>
-
-          <mat-grid-tile>
-            <mat-form-field class="mat-form-field" appearance="outline">
-              <mat-label>Especificación</mat-label>
-              <input
-                formControlName="specifications"
-                matInput
-                autocomplete="off"
-              />
-              <mat-error
-
-              >
-                Por favor introduzca la información del bioproducto
+                Por favor introduzca información de interes del contacto
               </mat-error>
             </mat-form-field>
           </mat-grid-tile>
@@ -98,7 +80,7 @@
             <button
               type="button"
               mat-raised-button
-              routerLink="/dashboard/bioproducts-admin"
+              routerLink="/dashboard/contacts-admin"
             >
               Volver
             </button>

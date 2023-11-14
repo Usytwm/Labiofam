@@ -2,7 +2,8 @@ import { Product_POS } from './Product_POS';
 import { User_Product } from './User_Product';
 
 export interface Product {
-  id: string;
+
+  id?: string;
   name?: string;
   image?: string;
   type?: string;
