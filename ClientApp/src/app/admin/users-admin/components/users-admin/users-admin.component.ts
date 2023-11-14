@@ -2,10 +2,8 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
-import { User } from 'src/app/Interfaces/User';
 import { RegistrationModel } from 'src/app/Interfaces/registration-model';
-import { FilterService } from 'src/app/Services/filter.service';
-import { RegistrationService } from 'src/app/Services/registration.service';
+import { RegistrationService } from 'src/app/Services/RegistrationsService/registration.service';
 @Component({
   selector: 'app-users-admin',
   templateUrl: './users-admin.component.html',
@@ -21,8 +19,7 @@ export class UsersAdminComponent implements OnInit {
 
   constructor(
     private _snackBar: MatSnackBar,
-    private _registrationervice: RegistrationService,
-    private _filter: FilterService
+    private _registrationervice: RegistrationService
   ) {}
 
   ngOnInit() {
@@ -47,7 +44,7 @@ export class UsersAdminComponent implements OnInit {
 
   Delete(id: string) {
     this.loading = true;
-    this._registrationervice.delete(id).subscribe(() => {
+    this._registrationervice.remove(id).subscribe(() => {
       this._snackBar.open('Eliminado con éxito', '', {
         duration: 3000,
         horizontalPosition: 'right',

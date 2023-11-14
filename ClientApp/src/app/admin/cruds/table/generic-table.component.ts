@@ -12,6 +12,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { faL } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-generic-table',
   templateUrl: './generic-table.component.html',
@@ -44,6 +45,7 @@ export class GenericTableComponent<T> implements OnInit, AfterViewInit {
   loading: Boolean = false;
 
   ngOnChanges(changes: SimpleChanges) {
+    this.dataLoaded = false;
     if (changes['data']) {
       this.dataSource.data = changes['data'].currentValue.map((item: any) => {
         let newItem = { ...item, elementId: item[this.columns['id']] };
@@ -52,6 +54,10 @@ export class GenericTableComponent<T> implements OnInit, AfterViewInit {
       });
       this.columns = { ...this.columns };
       delete this.columns['id']; //elimina la columna id de la tabla para que no se muetre
+    }
+
+    if (this.dataLoaded) {
+      this.existobjects = true;
     }
   }
 
@@ -76,9 +82,6 @@ export class GenericTableComponent<T> implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.paginator._intl.itemsPerPageLabel = 'Items por pagina';
-    if (this.dataLoaded) {
-      this.existobjects = true;
-    }
   }
   deleteRow(id: string) {
     this.delete.emit(id);

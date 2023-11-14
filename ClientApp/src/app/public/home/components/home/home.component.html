@@ -3,12 +3,15 @@
   <div data-aos="zoom-out-up" data-aos-duration="1000">
     <app-carousel></app-carousel>
   </div>
+
   <!--Productos-->
   <section class="container">
     <div
+      class="my-5"
       data-aos="zoom-out-up"
       data-aos-duration="1000"
       class="px-4 pt-5 my-5 text-center"
+      style="background-color: var(--color-blue-white); width: 100%"
     >
       <h1 class="display-4 fw-bold text-body-emphasis titulo">
         Nuestros Productos Exclusivos
@@ -27,57 +30,25 @@
 
       <div class="container">
         <div class="row row-cols-1 row-cols-md-3 g-4">
-          <div class="col">
-            <div data-aos="fade-right" data-aos-duration="500">
+          <div class="col" *ngFor="let product of products; let i = index">
+            <div
+              [attr.data-aos]="'fade-right'"
+              [attr.data-aos-duration]="500 * (i + 1)"
+            >
               <div class="card" style="height: 25rem">
                 <div class="cont">
-                  <img
-                    src="assets/producto1.png"
-                    class="card-img-top"
-                    alt="..."
-                  />
+                  <img src="10.jpg" class="card-img-top" alt="..." />
                 </div>
                 <div class="card-body">
-                  <h2 class="card-title">Card title</h2>
+                  <h2 class="card-title">{{ product.name }}</h2>
                   <p class="card-text">
-                    This is a longer card with supporting text below as a
-                    natural lead-in to additional content.
+                    {{ product.summary }}
                   </p>
-                  <a href="#" class="btn btn-primary card-btn">Go somewhere</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div data-aos="fade-right" data-aos-duration="1000">
-              <div class="card" style="height: 25rem">
-                <div class="cont">
-                  <img src="assets/11.jpg" class="card-img-top" alt="..." />
-                </div>
-                <div class="card-body">
-                  <h2 class="card-title">Card title</h2>
-                  <p class="card-text">
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </p>
-                  <a href="#" class="btn btn-primary card-btn">Go somewhere</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div data-aos="fade-right" data-aos-duration="1500">
-              <div class="card" style="height: 25rem">
-                <div class="cont">
-                  <img src="assets/12.jpg" class="card-img-top" alt="..." />
-                </div>
-                <div class="card-body">
-                  <h2 class="card-title">Card title</h2>
-                  <p class="card-text">
-                    This is a longer card with supporting text below as a
-                    natural lead-in to additional content.
-                  </p>
-                  <a href="#" class="btn btn-primary card-btn">Go somewhere</a>
+                  <a
+                    [routerLink]="['/Bioproducts/', product.id]"
+                    class="btn btn-primary card-btn"
+                    >Detalles</a
+                  >
                 </div>
               </div>
             </div>

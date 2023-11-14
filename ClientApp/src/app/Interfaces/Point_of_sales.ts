@@ -1,7 +1,7 @@
 import { Product_POS } from "./Product_POS";
 
 export interface Point_of_Sales {
-  point_ID?: string;
+  id?: string;
   name?: string;
   image?: string;
   address?: string;

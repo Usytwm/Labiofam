@@ -233,7 +233,15 @@ _Pvt_Extensions
 
 ClientApp/.angular/cache
 ClientApp/src/assets
+# Ignora todos los archivos de la carpeta
 **/bin/
 **/obj/
+
+# Ignora todos los archivos de la carpeta
+Migrations/*
+
+# no ignorar el contexto 
+!Migrations/DbContext.cs
+
 
 

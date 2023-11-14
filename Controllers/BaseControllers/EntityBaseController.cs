@@ -40,6 +40,10 @@ namespace Labiofam.Controllers
         }
         [HttpGet("take/{size}")]
         public IEnumerable<T> Take(int size) => _entityService.Take(size);
+        [HttpGet("take/{size}/{page_number}")]
+        public IEnumerable<T> TakeRange(int size, int page_number) =>
+            _entityService.TakeRange(size, page_number);
+             
         [HttpDelete("{id}")]
         public async Task<IActionResult> Remove(Guid id)
         {
