@@ -91,7 +91,7 @@ namespace Labiofam.Controllers
         /// Método para realizar el inicio de sesión de un usuario.
         /// </summary>
         /// <param name="login">Datos de inicio de sesión del usuario.</param>
-        /// <returns>Estado de la operación de inicio de sesión.</returns>
+        /// <returns>Token de inicio de sesión.</returns>
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginModel login)
         {

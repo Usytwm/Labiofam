@@ -3,12 +3,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Labiofam.Services
 {
-    /// <summary>
-    /// Servicio abstracto para filtrar relaciones entre entidades.
-    /// </summary>
-    /// <typeparam name="T">El tipo de modelo de relación.</typeparam>
-    /// <typeparam name="T1">El tipo de modelo de entidad 1.</typeparam>
-    /// <typeparam name="T2">El tipo de modelo de entidad 2.</typeparam>
     public abstract class RelationFilterService<T, T1, T2> : IRelationFilter<T, T1, T2>
         where T : class, IRelationModel, new()
         where T1 : class, IEntityModel
