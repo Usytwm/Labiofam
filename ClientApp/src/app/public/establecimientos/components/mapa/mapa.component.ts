@@ -212,7 +212,7 @@ export class MapaComponent implements AfterViewInit, OnDestroy {
       (p) => p.id == punto.id
     )!.name;
     return `<div data-aos="fade-right" data-aos-duration="500">
-    <div class="card" style="background: radial-gradient(circle,#94d7ee,#ffffff) !important;height: 15rem ;  width: 17rem !important; transition: 0.7s; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); border:none;">
+    <div class="card" style="background-color: #94d7ee !important;height: 15rem ;  width: 17rem !important; transition: 0.7s; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); border:none;">
       <div class="card-body" >
         <h3 class="card-title">${punto.name}</h3>
         <ul style=" text-align: left">

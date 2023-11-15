@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/Interfaces/Product';
 import { ProductService } from 'src/app/Services/EntitiesServices/product.service';
 
+
 @Component({
   selector: 'app-bioproduct-page',
   templateUrl: './bioproduct-page.component.html',

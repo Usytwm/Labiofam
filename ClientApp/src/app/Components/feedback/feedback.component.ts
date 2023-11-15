@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { SendFeedbackService } from '../../Services/MailServices/send-feedback.service';
+import { ErrorStateMatcher } from '@angular/material/core';
 
 @Component({
   selector: 'app-feedback',
@@ -8,11 +9,17 @@ import { SendFeedbackService } from '../../Services/MailServices/send-feedback.s
   styleUrls: ['./feedback.component.css'],
 })
 export class FeedbackComponent {
+  formfedback = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    comments: new FormControl('', [Validators.required]),
+  });
+  matcher = new ErrorStateMatcher();
   constructor(private feedbackservice: SendFeedbackService) {} // Inyecta tu servicio
 
-  onSubmit(form: NgForm) {
-    const correo = form.value.floatingInputGrid;
-    const comentario = form.value.validationTextarea;
+  onSubmit() {
+    const correo = this.formfedback.value.email!;
+    const comentario = this.formfedback.value.comments!;
+    console.log({ correo, comentario });
 
     this.feedbackservice.sendData({ correo, comentario }).subscribe(
       (response) => {

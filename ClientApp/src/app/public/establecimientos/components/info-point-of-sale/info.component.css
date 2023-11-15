@@ -6,22 +6,7 @@
   margin-left: auto;
   margin-right: auto;
 }
-.titulo {
-  text-align: center;
-  font-weight: bold;
-  /*background: linear-gradient(
-    to right,
-    var(--color-yellow),
-    var(--color-tory-blue)
-  );
-  background-clip: text;
-  color: transparent;*/
-  color: var(--color-tory-blue);
-  font-style: italic !important;
-  display: inline-block;
-  position: relative;
-  
-}
+
 .titulo:after {
   content: "";
   position: absolute;
