@@ -3,8 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Labiofam.Controllers
 {
-    public abstract class EntityModelController<T, Model>
-        : EntityController<T>
+    public abstract class EntityModelController<T, Model> : EntityController<T>
     {
         private readonly IEntityModelService<T, Model> _entityModelService;
 
@@ -16,6 +15,11 @@ namespace Labiofam.Controllers
             _entityModelService = entityModelService;
         }
 
+        /// <summary>
+        /// Agrega una nueva entidad utilizando un modelo.
+        /// </summary>
+        /// <param name="new_entity">Nuevo modelo de entidad.</param>
+        /// <returns>Respuesta HTTP 200 OK si se agrega correctamente.</returns>
         [HttpPost]
         public async Task<IActionResult> Add(Model new_entity)
         {
@@ -29,6 +33,12 @@ namespace Labiofam.Controllers
                 return BadRequest(ex);
             }
         }
+        /// <summary>
+        /// Edita una entidad existente utilizando un modelo.
+        /// </summary>
+        /// <param name="id">ID de la entidad a editar.</param>
+        /// <param name="edited_entity">Modelo de entidad editado.</param>
+        /// <returns>Respuesta HTTP 200 OK si se edita correctamente.</returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> Edit(Guid id, Model edited_entity)
         {

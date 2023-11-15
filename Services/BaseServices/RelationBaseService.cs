@@ -3,19 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Labiofam.Services
 {
-    /// <summary>
-    /// Clase base abstracta para servicios de relaciones.
-    /// </summary>
-    /// <typeparam name="T">Tipo de relación.</typeparam>
     public abstract class RelationService<T> : IRelationService<T>
         where T : class, IRelationModel, new()
     {
         private readonly WebDbContext _webDbContext;
 
-        /// <summary>
-        /// Constructor de la clase RelationService.
-        /// </summary>
-        /// <param name="webDbContext">Contexto de base de datos.</param>
         public RelationService(WebDbContext webDbContext)
         {
             _webDbContext = webDbContext;

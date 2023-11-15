@@ -3,8 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Labiofam.Controllers
 {
-    public abstract class EntityNoModelController<T>
-        : EntityController<T>
+    public abstract class EntityNoModelController<T> : EntityController<T>
     {
         private readonly IEntityNoModelService<T> _entityNoModelService;
 
@@ -16,6 +15,11 @@ namespace Labiofam.Controllers
             _entityNoModelService = entityNoModelService;
         }
 
+        /// <summary>
+        /// Agrega una nueva entidad sin utilizar un modelo.
+        /// </summary>
+        /// <param name="new_entity">Nueva entidad.</param>
+        /// <returns>Respuesta HTTP 200 OK si se agrega correctamente.</returns>
         [HttpPost]
         public async Task<IActionResult> Add(T new_entity)
         {
@@ -29,6 +33,12 @@ namespace Labiofam.Controllers
                 return BadRequest(ex);
             }
         }
+        /// <summary>
+        /// Edita una entidad existente sin utilizar un modelo.
+        /// </summary>
+        /// <param name="id">ID de la entidad a editar.</param>
+        /// <param name="edited_entity">Entidad editada.</param>
+        /// <returns>Respuesta HTTP 200 OK si se edita correctamente.</returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> Edit(Guid id, T edited_entity)
         {

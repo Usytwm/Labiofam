@@ -3,10 +3,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Labiofam.Services
 {
-    /// <summary>
-    /// Clase base abstracta para servicios de entidades.
-    /// </summary>
-    /// <typeparam name="T">Tipo de entidad.</typeparam>
     public abstract class EntityService<T> : IEntityService<T>
         where T : class, IEntityModel
     {
