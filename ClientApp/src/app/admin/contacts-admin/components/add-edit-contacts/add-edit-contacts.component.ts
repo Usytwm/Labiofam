@@ -16,21 +16,12 @@ export class AddEditContactsComponent {
   id: string;
   operacion = 'Agregar';
   contacto?: Contact;
+
   form = this.fb.group({
     name: ['', Validators.required],
     occupation: ['', Validators.required],
     info: ['', Validators.required],
   });
-
-  NameControl = new FormControl<string | null>(null, Validators.required);
-  selectFormControl = new FormControl('', Validators.required);
-  _name?: '';
-
-  ocupationControl = new FormControl<string | null>(null, Validators.required);
-  _occupation?: '';
-
-  infoControl = new FormControl<string | null>(null, Validators.required);
-  _info?: '';
 
   constructor(
     private fb: FormBuilder,
@@ -53,6 +44,7 @@ export class AddEditContactsComponent {
     this.loading = true;
     this.contactService.get(id).subscribe((data) => {
       this.contacto = data;
+      console.log(data);
       this.form.patchValue({
         name: data.name,
         occupation : data.occupation,
@@ -88,10 +80,10 @@ export class AddEditContactsComponent {
 
   newContact(): Contact {
     return {
-      id: this.id,
-      name: this.NameControl.value!,
-      occupation: this.ocupationControl.value!,
-      contact_Info: this.infoControl.value!
+
+      name: this.form.value.name!,
+      occupation: this.form.value.occupation!,
+      contact_Info: this.form.value.info!
     };
   }
 }
