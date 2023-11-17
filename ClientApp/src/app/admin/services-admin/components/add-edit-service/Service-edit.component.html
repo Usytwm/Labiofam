@@ -1,59 +1,80 @@
+<div data-aos="fade-left">
+  <div class="mat-primary titulo">{{ operacion }} Servicios</div>
 
-<div class="title">{{ operacion }} Servicios</div>
-<app-spinner *ngIf="loading"></app-spinner>
-<div
-  class="container"
-  fxLayout="row"
-  fxLayout.lt-sm="column"
-  fxLayoutAlign="center center"
-  fxLayoutGap="10px"
->
-  <mat-card class="card" fxFlex="200%" fxFlex.lt-md="100%">
-    <mat-card-subtitle style="text-align: center">
-      <h2>Datos del Servicio</h2>
-    </mat-card-subtitle>
-    <form
-      [formGroup]="form"
-      style="margin-top: 10px"
-      (ngSubmit)="operacion === 'Agregar' ? addService() : editService()"
-    >
-      <mat-grid-list cols="2" rowHeight="80px" col>
-        <mat-grid-tile>
-          <mat-form-field class="mat-form-field" appearance="outline">
-            <mat-label>Nombre</mat-label>
-            <input formControlName="ServiceName" matInput autocomplete="off" required />
-
-            <mat-error *ngIf="NameControl.hasError('required')"
-            >Por favor introduzca un nombre</mat-error>
-            <mat-hint>{{ NameControl.value }}</mat-hint>
-          </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile>
+  <div
+    class="container1"
+    fxLayout="row"
+    fxLayout.lt-sm="column"
+    fxLayoutAlign="center center"
+    fxLayoutGap="10px"
+  >
+    <mat-card class="card" fxFlex="80%" fxFlex.lt-md="100%">
+      <mat-card-subtitle style="text-align: center">
+        <h2>Datos</h2>
+      </mat-card-subtitle>
+      <form
+        [formGroup]="form"
+        style="margin-top: 10px"
+        (ngSubmit)="operacion === 'Agregar' ? addService() : editService()"
+      >
+        <mat-grid-list cols="2" rowHeight="80px">
+          <mat-grid-tile>
             <mat-form-field class="mat-form-field" appearance="outline">
-            <mat-label>Descripción</mat-label>
-            <input formControlName="ServiceInfo" matInput autocomplete="off" required />
+              <mat-label>Nombre</mat-label>
+              <input formControlName="name" matInput autocomplete="off" />
+              <mat-error
+                *ngIf="form.controls.name.invalid && form.controls.name.touched"
+              >
+                nombre inválido
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
 
-            <mat-error *ngIf="InfoControl.hasError('required')"
-              >Por favor introduzca una descripción</mat-error
+
+          <mat-grid-tile>
+            <mat-form-field class="mat-form-field" appearance="outline">
+              <mat-label>Descripción</mat-label>
+              <input
+                formControlName="info"
+                matInput
+                autocomplete="off"
+              />
+              <mat-error
+
+              >
+                Introduzca la descripción del servicio
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+
+
+          <mat-grid-tile colspan="2">
+            <form style="position: absolute; width: 96%">
+
+            </form>
+          </mat-grid-tile>
+
+          <mat-grid-tile colspan="2">
+            <button
+              [disabled]="form.invalid"
+              y
+              type="submit"
+              class="btnacept"
+              mat-raised-button
+              color="primary"
             >
-            <mat-hint>{{ InfoControl.value }}</mat-hint>
-          </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="2">
-          <button
-            type="submit"
-            class="btnacept"
-            mat-raised-button
-            color="primary"
-            routerLink="/dashboard/services-admin"
-          >
-            Aceptar
-          </button>
-          <button mat-raised-button routerLink="/dashboard/services-admin">
-            Volver
-          </button>
-        </mat-grid-tile>
-      </mat-grid-list>
-    </form>
-  </mat-card>
+              Aceptar
+            </button>
+            <button
+              type="button"
+              mat-raised-button
+              routerLink="/dashboard/services-admin"
+            >
+              Volver
+            </button>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </form>
+    </mat-card>
+  </div>
 </div>

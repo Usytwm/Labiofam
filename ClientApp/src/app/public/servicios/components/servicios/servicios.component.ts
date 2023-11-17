@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ServicesService } from './../../../../Services/EntitiesServices/services.service';
 
 @Component({
-  selector: 'app-Service',
+  selector: 'app-Services',
   templateUrl: './servicios.component.html',
   styleUrls: ['./servicios.component.css'],
 
