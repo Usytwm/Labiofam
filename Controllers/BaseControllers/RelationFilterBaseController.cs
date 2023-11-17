@@ -22,7 +22,7 @@ namespace Labiofam.Controllers
         {
             try
             {
-                var result = await _relationFilter.GetType2ByType1(type1_id);
+                var result = await _relationFilter.GetType2ByType1Async(type1_id);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -40,7 +40,7 @@ namespace Labiofam.Controllers
         {
             try
             {
-                var result = await _relationFilter.GetType1ByType2(type2_id);
+                var result = await _relationFilter.GetType1ByType2Async(type2_id);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -58,7 +58,7 @@ namespace Labiofam.Controllers
         {
             try
             {
-                var result = await _relationFilter.GetType2ByType1Substring(substring);
+                var result = await _relationFilter.GetType2ByType1SubstringAsync(substring);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -76,7 +76,7 @@ namespace Labiofam.Controllers
         {
             try
             {
-                var result = await _relationFilter.GetType1ByType2Substring(substring);
+                var result = await _relationFilter.GetType1ByType2SubstringAsync(substring);
                 return Ok(result);
             }
             catch (Exception ex)
@@ -95,7 +95,7 @@ namespace Labiofam.Controllers
         {
             try
             {
-                await _relationFilter.AddType2ByType1(type1_id, entities);
+                await _relationFilter.AddType2ByType1Async(type1_id, entities);
                 return Ok();
             }
             catch (Exception ex)
@@ -114,7 +114,7 @@ namespace Labiofam.Controllers
         {
             try
             {
-                await _relationFilter.AddType1ByType2(type1_id, entities);
+                await _relationFilter.AddType1ByType2Async(type1_id, entities);
                 return Ok();
             }
             catch (Exception ex)

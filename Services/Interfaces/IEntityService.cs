@@ -21,14 +21,14 @@ public interface IEntityService<Entity>
     /// </summary>
     /// <param name="substring">Cadena de caracteres</param>
     /// <returns>Una colección de entidades</returns>
-    Task<ICollection<Entity>> GetBySubstring(string substring);
+    Task<ICollection<Entity>> GetBySubstringAsync(string substring);
 
     /// <summary>
     /// Obtiene una colección de entidades de tamaño específico.
     /// </summary>
     /// <param name="size">Tamaño de la colección</param>
     /// <returns>Una colección de entidades</returns>
-    IEnumerable<Entity> Take(int size);
+    Task<IEnumerable<Entity>> TakeAsync(int size);
 
     /// <summary>
     /// Obtiene una colección de entidades de tamaño específico
@@ -37,7 +37,7 @@ public interface IEntityService<Entity>
     /// <param name="size">Tamaño de la colección</param>
     /// <param name="page_number">Número de la página</param>
     /// <returns>Una colección de entidades</returns>
-    IEnumerable<Entity> TakeRange(int size, int page_number);
+    Task<IEnumerable<Entity>> TakeRangeAsync(int size, int page_number);
 
     /// <summary>
     /// Elimina una entidad de forma asincrónica por su ID de modelo.
@@ -55,6 +55,14 @@ public interface IEntityService<Entity>
     /// Elimina todas las entidades de forma asincrónica.
     /// </summary>
     Task RemoveAllAsync();
+
+    /// <summary>
+    /// Filtra las entidades de acuerdo a una expresión lambda.
+    /// </summary>
+    /// <param name="lambda_exp">Expresión con los atributos según los cuales se filtra.</param>
+    /// <returns>La lista de entidades filtrada.</returns>
+    Task<IEnumerable<Entity>> PropertiesFilterAsync(ICollection<string> properties_names,
+        ICollection<string> properties_values);
 }
 
 public interface IEntityModelService<Entity, Model>

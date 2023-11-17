@@ -18,8 +18,8 @@ namespace Labiofam.Services
         /// </summary>
         /// <param name="size">Tamaño de la lista.</param>
         /// <returns>La lista de relaciones.</returns>
-        public IEnumerable<T> Take(int size) =>
-            _webDbContext.Set<T>().Take(size);
+        public async Task<IEnumerable<T>> TakeAsync(int size) =>
+            await _webDbContext.Set<T>().Take(size).ToListAsync();
 
         /// <summary>
         /// Elimina una relación por sus IDs.

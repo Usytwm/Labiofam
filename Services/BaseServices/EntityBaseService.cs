@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Labiofam.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -43,7 +44,7 @@ namespace Labiofam.Services
         /// </summary>
         /// <param name="substring">Cadena de caracteres</param>
         /// <returns>Una lista de entidades</returns>
-        public async Task<ICollection<T>> GetBySubstring(string substring)
+        public async Task<ICollection<T>> GetBySubstringAsync(string substring)
         {
             var result = await _webDbContext.Set<T>()
                 .Where(x => x.Name!.Contains(substring))
@@ -56,8 +57,8 @@ namespace Labiofam.Services
         /// </summary>
         /// <param name="size">Tamaño de la lista.</param>
         /// <returns>La lista de entidades.</returns>
-        public IEnumerable<T> Take(int size) =>
-            _webDbContext.Set<T>().Take(size);
+        public async Task<IEnumerable<T>> TakeAsync(int size) =>
+            await _webDbContext.Set<T>().Take(size).ToListAsync();
 
         /// <summary>
         /// Obtiene una lista de entidades con un tamaño específico.
@@ -65,8 +66,8 @@ namespace Labiofam.Services
         /// <param name="size">Tamaño de la lista.</param>
         /// <param name="page_number">Número de página actual.</param>
         /// <returns>La lista de entidades.</returns>
-        public IEnumerable<T> TakeRange(int size, int page_number) =>
-            _webDbContext.Set<T>().Skip(size*page_number).Take(size);
+        public async Task<IEnumerable<T>> TakeRangeAsync(int size, int page_number) =>
+            await _webDbContext.Set<T>().Skip(size * page_number).Take(size).ToListAsync();
 
         /// <summary>
         /// Elimina una entidad por su ID.
@@ -96,6 +97,36 @@ namespace Labiofam.Services
         {
             _webDbContext.RemoveRange(_webDbContext.Set<T>());
             await _webDbContext.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Filtra las entidades de acuerdo a una expresión lambda.
+        /// </summary>
+        /// <param name="lambda_exp">Expresión con los atributos según los cuales se filtra.</param>
+        /// <returns>La lista de entidades filtrada.</returns>
+        public async Task<IEnumerable<T>> PropertiesFilterAsync(ICollection<string> properties_names,
+            ICollection<string> properties_values)
+        {
+            var parameter = Expression.Parameter(typeof(T), "e");
+            Expression? body = null;
+
+            for (int i = 0; i < properties_names.Count; i++)
+            {
+                var property = Expression.Property(parameter, properties_names.ElementAtOrDefault(i)
+                    ?? throw new ArgumentNullException($"Null property at index: {i}"));
+                var value = Expression.Constant(properties_values.ElementAtOrDefault(i));
+                var contains = Expression.Call(property, "Contains", Type.EmptyTypes, value);
+
+                if (body == null)
+                    body = contains;
+                else
+                    body = Expression.AndAlso(body, contains);
+            }
+
+            var lambda = Expression.Lambda<Func<T, bool>>(body
+                ?? throw new ArgumentNullException("Some pair {property, value} is required"), parameter);
+
+            return await _webDbContext.Set<T>().Where(lambda).ToListAsync();
         }
     }
 }

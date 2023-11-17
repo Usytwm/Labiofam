@@ -37,7 +37,18 @@ namespace Labiofam.Controllers
         /// <param name="size">Tamaño de la colección.</param>
         /// <returns>Colección de relaciones.</returns>
         [HttpGet("take/{size}")]
-        public IEnumerable<T> Take(int size) => _relationService.Take(size);
+        public async Task<IActionResult> Take(int size)
+        {
+            try
+            {
+                var result = await _relationService.TakeAsync(size);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
         /// <summary>
         /// Agrega una nueva relación utilizando dos identificadores.
         /// </summary>
