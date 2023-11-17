@@ -6,13 +6,14 @@ import { SeccionAdminRoutingModule } from './admin-routing.module';
 import { PointOfSalesAdminModule } from './point-of-sales-admin/point-of-sales-admin.module';
 import { UsersadminModule } from './users-admin/users-admin.module';
 import { ServicesAdminModule } from './services-admin/service-admin.module';
+import { ContactsAdminModule } from './contacts-admin/contacts-admin.module';
+import { BioproductadminModule } from './bioproducts-admin/bioproduct-admin.module';
 
 //material
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { SharedModule } from '../Shared/shared.module';
 //componentes
 import { SidenavComponent } from './components/sidenav/sidenav.component';
-import { AddEditBioproductComponent } from './bioproducts-admin/components/add-edit-bioproduct/add-edit-bioproduct.component';
 
 @NgModule({
   declarations: [SidenavComponent,],
@@ -24,6 +25,8 @@ import { AddEditBioproductComponent } from './bioproducts-admin/components/add-e
     MatSidenavModule,
     SharedModule,
     ServicesAdminModule,
+    ContactsAdminModule,
+    BioproductadminModule,
   ],
 })
 export class SeccionAdminModule {}

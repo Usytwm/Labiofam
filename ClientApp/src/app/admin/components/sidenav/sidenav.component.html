@@ -47,7 +47,19 @@
           (click)="drawer.toggle()"
         >
           Servicios</button></div>
-      <div><button mat-button>bioproductos</button></div>
+      <div>
+        <button
+          mat-button
+          [routerLink]="['bioproducts-admin']"
+          (click)="drawer.toggle()"
+          >Bioproductos</button></div>
+      <div>
+        <button
+            mat-button
+            [routerLink]="['contacts-admin']"
+              (click)="drawer.toggle()"
+              >Contactos</button></div>
+
       <!-- Añade aquí más botones según sea necesario -->
     </div>
 

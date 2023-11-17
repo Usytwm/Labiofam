@@ -46,12 +46,7 @@
   width: 180px;
 }
 
-.titulo {
-  text-align: center;
-  font-weight: bold;
-  color: var(--color-tory-blue);
-  font-style: italic !important;
-}
+
 @media (min-width: 1200px) {
   .display-4 {
     font-size: 3.5rem;
@@ -73,4 +68,3 @@ button.btn-primary:active {
   font-family: "Roboto", Courier, monospace; /* Esta será la fuente del texto del botón cuando pases el dedo por encima */
   font-weight: 600;
 }
-

@@ -15,7 +15,7 @@ export class CarouselComponent {
       content:
         'Explora nuestra amplia gama de bioproductos de alta calidad, diseñados para mejorar tu vida de manera sostenible',
       button: 'Ver productos',
-      buttonsrc: 'bioproduct',
+      buttonsrc: 'Bioproducts',
     },
     {
       src: 'assets/2.jpg',
