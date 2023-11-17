@@ -29,7 +29,7 @@ namespace Labiofam.Controllers
         {
             try
             {
-                await _productPOSFilter.AddType1ByType2(type2_id, model.Products!, model.Sizes!);
+                await _productPOSFilter.AddType1ByType2Async(type2_id, model.Products!, model.Sizes!);
                 return Ok();
             }
             catch (Exception ex)

@@ -24,17 +24,16 @@ namespace Labiofam.Services
         /// <param name="id">ID del punto de venta.</param>
         /// <param name="entities">Colección de productos.</param>
         /// <param name="sizes">Colección de tamaños correspondientes a los productos.</param>
-        public async Task AddType1ByType2(Guid id, ICollection<Product> entities, ICollection<int> sizes)
+        public async Task AddType1ByType2Async(Guid id, ICollection<Product> entities, ICollection<int> sizes)
         {
             if (entities.Count != sizes.Count)
                 throw new InvalidDataException();
             int index = 0;
-            var aux = sizes.ToList();
             foreach (var product in entities)
             {
                 try
                 {
-                    await _relationService.AddAsync(product.Id, id, aux[index]);
+                    await _relationService.AddAsync(product.Id, id, sizes.ElementAt(index));
                     index++;
                 }
                 catch (IndexOutOfRangeException)

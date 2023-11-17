@@ -104,7 +104,7 @@ namespace Labiofam.Controllers
                 return BadRequest("Wrong name or password");
 
             var user = await _userService.GetAsync(login.Name!);
-            var roles = await _relationFilter.GetType2ByType1(user.Id);
+            var roles = await _relationFilter.GetType2ByType1Async(user.Id);
             
             // Crea una lista de claims.
             var claims = new List<Claim>

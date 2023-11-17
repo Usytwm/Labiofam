@@ -1,3 +1,5 @@
+using System.Linq.Expressions;
+using Labiofam.Models;
 using Labiofam.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -54,7 +56,18 @@ namespace Labiofam.Controllers
         /// <param name="size">Tamaño de la colección de entidades.</param>
         /// <returns>Una colección de entidades de tamaño especificado.</returns>
         [HttpGet("take/{size}")]
-        public IEnumerable<T> Take(int size) => _entityService.Take(size);
+        public async Task<IActionResult> Take(int size)
+        {
+            try
+            {
+                var result = await _entityService.TakeAsync(size);;
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
         /// <summary>
         /// Obtiene una página específica de entidades.
         /// </summary>
@@ -62,9 +75,18 @@ namespace Labiofam.Controllers
         /// <param name="page_number">Número de la página.</param>
         /// <returns>Una colección de entidades correspondiente a la página y tamaño especificados.</returns>
         [HttpGet("take/{size}/{page_number}")]
-        public IEnumerable<T> TakeRange(int size, int page_number) =>
-            _entityService.TakeRange(size, page_number);
-
+        public async Task<IActionResult> TakeRange(int size, int page_number)
+        {
+            try
+            {
+                var result = await _entityService.TakeRangeAsync(size, page_number);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
         /// <summary>
         /// Elimina una entidad por su ID.
         /// </summary>
@@ -127,7 +149,28 @@ namespace Labiofam.Controllers
         {
             try
             {
-                var result = await _entityService.GetBySubstring(substring);
+                var result = await _entityService.GetBySubstringAsync(substring);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+        /// <summary>
+        /// Filtra las entidades de acuerdo a una expresión lambda.
+        /// </summary>
+        /// <param name="lambda_exp">Expresión con los atributos según los cuales se filtra.</param>
+        /// <returns>La lista de entidades filtrada.</returns>
+        [HttpPost("filterbyproperties")]
+        public async Task<IActionResult> FilterByProperties(PropertiesFilterModel model)
+        {
+            if (model.Names is null || model.Values is null)
+                throw new ArgumentNullException("All parameters must be not null");
+
+            try
+            {
+                var result = await _entityService.PropertiesFilterAsync(model.Names, model.Values);
                 return Ok(result);
             }
             catch (Exception ex)
