@@ -1,47 +1,88 @@
+<!--Important link from https://bootsnipp.com/snippets/XqvZr-->
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
 
-<ng-template #divLoading>
-</ng-template>
-<section class="section" *ngIf="bioproducto; else divLoading">
+<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800&display=swap" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"><div class="pd-wrap">
+		<div class="container">
+	        <div class="heading-section">
+	            <h2>Product Details</h2>
+	        </div>
+	        <div class="row">
+	        	<div class="col-md-6">
+	        		<div class="card" style="height: 30rem">
 
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-
-<div class="container">
-    <div class="card">
-        <div class="card-body">
-            <h1 class="card-title">{{bioproducto.name}}</h1>
-
-            <div class="row">
-                <div class="col-lg-5 col-md-5 col-sm-6">
-                  <img loading="lazy" class="img-fluid rounded lazyload img-border" src="assets/8.jpg"
-                  alt="">
-                </div>
-                <div class="col-lg-7 col-md-7 col-sm-6">
-                    <h4 class="box-title mt-5">Descripción: </h4>
-                    <p>{{bioproducto.summary}} </p>
-
-                    <button class="btn btn-primary btn-rounded">Buy Now</button>
-                    <h3 class="box-title mt-5">Key Highlights</h3>
-                    <ul class="list-unstyled">
-                        <li><i class="fa fa-check text-success"></i>Sturdy structure</li>
-                        <li><i class="fa fa-check text-success"></i>Designed to foster easy portability</li>
-                        <li><i class="fa fa-check text-success"></i>Perfect furniture to flaunt your wonderful collectibles</li>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>
+              <img src="assets/10.jpg" class="square" />
 
 
+          </div>
+
+	        	</div>
+	        	<div class="col-md-6">
+	        		<div class="product-dtl">
+        				<div class="product-info">
+		        			<div class="product-name">Variable Product</div>
+		        			<div class="reviews-counter">
+
+							</div>
+
+		        		</div>
+	        			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+	        			<div class="row">
+	        				<div class="col-md-6">
+	        					<label for="size">Size</label>
+								<select id="size" name="size" class="form-control">
+									<option>S</option>
+									<option>M</option>
+									<option>L</option>
+									<option>XL</option>
+								</select>
+	        				</div>
+	        				<div class="col-md-6">
+	        					<label for="color">Color</label>
+								<select id="color" name="color" class="form-control">
+									<option>Blue</option>
+									<option>Green</option>
+									<option>Red</option>
+								</select>
+	        				</div>
+	        			</div>
+
+	        		</div>
+	        	</div>
+	        </div>
+	        <div class="product-info-tabs">
+		        <ul class="nav nav-tabs" id="myTab" role="tablist">
+				  	<li class="nav-item">
+				    	<a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Descripción</a>
+				  	</li>
+            <li class="nav-item">
+				    	<a class="nav-link active" id="enfermedades-tab" data-toggle="tab" href="#enfermedades" role="tab" aria-controls="enfermedades" aria-selected="true">Enfermedades que controla</a>
+				  	</li>
+            <li class="nav-item">
+				    	<a class="nav-link active" id="ventajas-tab" data-toggle="tab" href="#ventajas" role="tab" aria-controls="ventajas" aria-selected="true">Ventajas</a>
+				  	</li>
+            <li class="nav-item">
+				    	<a class="nav-link active" id="modo_accion-tab" data-toggle="tab" href="#modo_accion" role="tab" aria-controls="modo_acción" aria-selected="true">Modo de acción</a>
+				  	</li>
+            <li class="nav-item">
+				    	<a class="nav-link active" id="modo_aplicacion-tab" data-toggle="tab" href="#modo_aplicacion" role="tab" aria-controls="modo_aplicacion" aria-selected="true">Modo de aplicación</a>
+				  	</li>
+            <li class="nav-item">
+				    	<a class="nav-link active" id="compatibilidad-tab" data-toggle="tab" href="#compatibilidad" role="tab" aria-controls="compatibilidad" aria-selected="true">Compatibilidad</a>
+				  	</li>
 
 
 
+				</ul>
 
-</section>
-
-
-
+			</div>
 
 
+		</div>
+	</div>
 
