@@ -9,7 +9,8 @@ import { ProductService } from 'src/app/Services/EntitiesServices/product.servic
 @Component({
   selector: 'app-bioproduct-page',
   templateUrl: './bioproduct-page.component.html',
-  styleUrls: ['./bioproduct-page.component.css']
+  styleUrls: ['./bioproduct-page.component.css'],
+
 })
 export class BioproductPageComponent {
   loading = false;

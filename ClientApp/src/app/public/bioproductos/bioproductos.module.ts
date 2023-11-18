@@ -31,6 +31,7 @@ import { BioproductPageComponent } from './page/bioproduct-page/bioproduct-page.
     MatProgressSpinnerModule,
     MatSidenavModule,
     MatToolbarModule,
+
   ]
 })
 export class BioproductosModule { }

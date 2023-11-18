@@ -4,6 +4,19 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
+
+
+<ng-template #divLoading>
+  <mat-grid-list cols="1">
+    <mat-grid-tile>
+      <mat-spinner></mat-spinner>
+    </mat-grid-tile>
+  </mat-grid-list>
+</ng-template>
+
+
+
+<div *ngIf="bioproducto; else divLoading">
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
@@ -14,9 +27,9 @@
 	        </div>
 	        <div class="row">
 	        	<div class="col-md-6">
-	        		<div class="card" style="height: 30rem">
+	        		<div class="card" style="height: 25 rem">
 
-              <img src="assets/10.jpg" class="square" />
+              <img src="assets/11.jpg" class="card-img-top" />
 
 
           </div>
@@ -25,7 +38,7 @@
 	        	<div class="col-md-6">
 	        		<div class="product-dtl">
         				<div class="product-info">
-		        			<div class="product-name">Variable Product</div>
+		        			<div class="product-name">{{bioproducto.name}}</div>
 		        			<div class="reviews-counter">
 
 							</div>
@@ -55,34 +68,52 @@
 	        		</div>
 	        	</div>
 	        </div>
-	        <div class="product-info-tabs">
-		        <ul class="nav nav-tabs" id="myTab" role="tablist">
-				  	<li class="nav-item">
-				    	<a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Descripción</a>
-				  	</li>
-            <li class="nav-item">
-				    	<a class="nav-link active" id="enfermedades-tab" data-toggle="tab" href="#enfermedades" role="tab" aria-controls="enfermedades" aria-selected="true">Enfermedades que controla</a>
-				  	</li>
-            <li class="nav-item">
-				    	<a class="nav-link active" id="ventajas-tab" data-toggle="tab" href="#ventajas" role="tab" aria-controls="ventajas" aria-selected="true">Ventajas</a>
-				  	</li>
-            <li class="nav-item">
-				    	<a class="nav-link active" id="modo_accion-tab" data-toggle="tab" href="#modo_accion" role="tab" aria-controls="modo_acción" aria-selected="true">Modo de acción</a>
-				  	</li>
-            <li class="nav-item">
-				    	<a class="nav-link active" id="modo_aplicacion-tab" data-toggle="tab" href="#modo_aplicacion" role="tab" aria-controls="modo_aplicacion" aria-selected="true">Modo de aplicación</a>
-				  	</li>
-            <li class="nav-item">
-				    	<a class="nav-link active" id="compatibilidad-tab" data-toggle="tab" href="#compatibilidad" role="tab" aria-controls="compatibilidad" aria-selected="true">Compatibilidad</a>
-				  	</li>
+
+          <div class="tabset" style="margin-top: 1cm;">
+            <!-- Tab 1 -->
+            <input type="radio" name="tabset" id="tab1" aria-controls="descripción" checked>
+            <label for="tab1">Descripción</label>
+            <!-- Tab 2 -->
+            <input type="radio" name="tabset" id="tab2" aria-controls="Ventajas">
+            <label for="tab2">Ventajas</label>
+            <!-- Tab 3 -->
+            <input type="radio" name="tabset" id="tab3" aria-controls="Indicaciones">
+            <label for="tab3">Indicaciones</label>
+            <!-- Tab 4 -->
+            <input type="radio" name="tabset" id="tab4" aria-controls="ModoDeAcción">
+            <label for="tab4">Modo de Acción</label>
+            <!-- Tab 5 -->
+            <input type="radio" name="tabset" id="tab5" aria-controls="ModoDeAplicación">
+            <label for="tab5">Modo de Aplicación</label>
+            <!-- Tab 6 -->
+            <input type="radio" name="tabset" id="tab6" aria-controls="Estabilidad">
+            <label for="tab6">Estabilidad/Almacenaje </label>
 
 
+            <div class="tab-panels">
+              <section id="descripción" class="tab-panel">
+                <p> Loco , malty German amber lager with a clean, rich, toasty and bready malt flavor, restrained bitterness, and a dry finish that encourages another drink. The overall malt impression is soft, elegant, and complex, with a rich aftertaste that is never cloying or heavy.</p>
+              </section>
+              <section id="Ventajas" class="tab-panel">
+                <p> An elegant, malty German amber lager with a balanced, complementary beechwood smoke character. Toasty-rich malt in aroma and flavor, restrained bitterness, low to high smoke flavor, clean fermentation profile, and an attenuated finish are characteristic.</p>
+              </section>
+              <section id="Indicaciones" class="tab-panel">
+                <p> A dark, strong, malty German lager beer that emphasizes the malty-rich and somewhat toasty qualities of continental malts without being sweet in the finish.</p>
+              </section>
+              <section id="ModoDeAcción" class="tab-panel">
+                <p> Loco , malty German amber lager with a clean, rich, toasty and bready malt flavor, restrained bitterness, and a dry finish that encourages another drink. The overall malt impression is soft, elegant, and complex, with a rich aftertaste that is never cloying or heavy.</p>
+              </section>
+              <section id="ModoDeAplicación" class="tab-panel">
+                <p> Loco , malty German amber lager with a clean, rich, toasty and bready malt flavor, restrained bitterness, and a dry finish that encourages another drink. The overall malt impression is soft, elegant, and complex, with a rich aftertaste that is never cloying or heavy.</p>
+              </section>
+              <section id="Estabilidad" class="tab-panel">
+                <p> Loco , malty German amber lager with a clean, rich, toasty and bready malt flavor, restrained bitterness, and a dry finish that encourages another drink. The overall malt impression is soft, elegant, and complex, with a rich aftertaste that is never cloying or heavy.</p>
+              </section>
+            </div>
 
-				</ul>
-
-			</div>
+          </div>
 
 
 		</div>
 	</div>
-
+</div>
