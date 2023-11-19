@@ -18,20 +18,21 @@
         (ngSubmit)="operacion === 'Agregar' ? addPoint() : editPoint()"
       >
         <mat-grid-list cols="2" rowHeight="80px">
-          
-          <mat-grid-tile  colspan="2" rowspan="2">
-              <div class="container">
-                <form>
-                  <div class="mb-3">
-                    <label for="formFile" class="form-label">Imagen</label>
-                    <input class="form-control" type="file" (change)="onFileSelected($event)">
-                  </div>
-                </form>
-              </div>
+          <mat-grid-tile colspan="2" rowspan="2">
+            <div class="container">
+              <form>
+                <div class="mb-3">
+                  <label for="formFile" class="form-label">Imagen</label>
+                  <input
+                    class="form-control"
+                    type="file"
+                    (change)="onFileSelected($event)"
+                  />
+                </div>
+              </form>
+            </div>
           </mat-grid-tile>
 
-
-         
           <mat-grid-tile>
             <mat-form-field class="mat-form-field" appearance="outline">
               <mat-label>Nombre</mat-label>
@@ -120,6 +121,10 @@
                 latitud inválida.
               </mat-error>
             </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile colspan="2"
+            ><h2>Seleccione una ubicación</h2>
           </mat-grid-tile>
 
           <mat-grid-tile colspan="2" rowspan="3" class="my-grid-tile">
