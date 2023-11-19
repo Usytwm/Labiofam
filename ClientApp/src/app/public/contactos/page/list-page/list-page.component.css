@@ -55,11 +55,18 @@ body {
 
 .team-boxed {
   color:#313437;
-  background-color:#eef4f7;
+  background-color:#ffffff;
 }
 
 .team-boxed p {
   color:#7d8285;
+}
+
+.rounded-circle {
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+  overflow: hidden;
 }
 
 .team-boxed h2 {
@@ -98,8 +105,10 @@ body {
 .team-boxed .item .box {
   text-align:center;
   padding:30px;
-  background-color:#fff;
+  background-color:#fbfbfbf3;
+  box-shadow: 0 8px 16px #dce1e1;
   margin-bottom:30px;
+  border-radius: 20px;
 }
 
 .team-boxed .item .name {
