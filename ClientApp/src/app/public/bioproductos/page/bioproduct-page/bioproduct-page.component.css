@@ -73,12 +73,12 @@
 	height: 100px;
 }
 .product-name {
-	font-size: 22px;
-	font-weight: 500;
+	font-size: 35px;
+	font-weight: 5000;
 	line-height: 22px;
 	margin-bottom: 4px;
 }
-.product-price-discount {
+.product-type {
 	font-size: 22px;
     font-weight: 400;
     padding: 10px 0;
@@ -229,6 +229,9 @@
 	line-height: 24px;
 	color: #7a7a7a;
 }
+.mat-tab {
+  font-size: 50px;
+}
 .review-form .form-group {
 	clear: both;
 }
@@ -357,3 +360,8 @@ body {
 .tabset {
   max-width: 65em;
 }
+
+
+/*
+Barra de información
+*/

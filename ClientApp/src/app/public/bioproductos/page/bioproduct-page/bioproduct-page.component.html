@@ -39,12 +39,13 @@
 	        		<div class="product-dtl">
         				<div class="product-info">
 		        			<div class="product-name">{{bioproducto.name}}</div>
-		        			<div class="reviews-counter">
+		        			<div class="product-type">{{bioproducto.type}}</div>
+                  <div class="reviews-counter">
 
 							</div>
 
 		        		</div>
-	        			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+	        			<p> </p>
 
 
 	        		</div>
@@ -52,50 +53,20 @@
 	        </div>
 
           <div class="tabset" style="margin-top: 1cm;">
-            <!-- Tab 1 -->
-            <input type="radio" name="tabset" id="tab1" aria-controls="descripción" checked>
-            <label for="tab1">Descripción</label>
-            <!-- Tab 2 -->
-            <input type="radio" name="tabset" id="tab2" aria-controls="Ventajas">
-            <label for="tab2">Ventajas</label>
-            <!-- Tab 3 -->
-            <input type="radio" name="tabset" id="tab3" aria-controls="Indicaciones">
-            <label for="tab3">Indicaciones</label>
-            <!-- Tab 4 -->
-            <input type="radio" name="tabset" id="tab4" aria-controls="ModoDeAcción">
-            <label for="tab4">Modo de Acción</label>
-            <!-- Tab 5 -->
-            <input type="radio" name="tabset" id="tab5" aria-controls="ModoDeAplicación">
-            <label for="tab5">Modo de Aplicación</label>
-            <!-- Tab 6 -->
-            <input type="radio" name="tabset" id="tab6" aria-controls="Estabilidad">
-            <label for="tab6">Estabilidad/Almacenaje </label>
+            <mat-tab-group fitInkBarToContent>
+              <mat-tab label="Descripción">{{bioproducto.summary}}</mat-tab>
+              <mat-tab label="Indicaciones">{{bioproducto.specifications }}</mat-tab>
+              <mat-tab label="Ventajas">....</mat-tab>
+              <mat-tab label="Modo de acción">....</mat-tab>
+              <mat-tab label="Modo de aplicación">Content 3</mat-tab>
+              <mat-tab label="Estabilidad/Almacenaje">Content 2</mat-tab>
+              <mat-tab label="Compatibilidad">Content 3</mat-tab>
+              <mat-tab label="Fitotoxicidad">Content 2</mat-tab>
+              <mat-tab label="Presentación">Content 3</mat-tab>
 
-
-            <div class="tab-panels">
-              <section id="descripción" class="tab-panel">
-                <p> {{bioproducto.summary}} </p>
-              </section>
-              <section id="Ventajas" class="tab-panel">
-                <p> </p>
-              </section>
-              <section id="Indicaciones" class="tab-panel">
-                <p> </p>
-              </section>
-              <section id="ModoDeAcción" class="tab-panel">
-                <p> </p>
-              </section>
-              <section id="ModoDeAplicación" class="tab-panel">
-                <p> </p>
-              </section>
-              <section id="Estabilidad" class="tab-panel">
-                <p> </p>
-              </section>
-            </div>
+            </mat-tab-group>
 
           </div>
-
-
 		</div>
 	</div>
 </div>

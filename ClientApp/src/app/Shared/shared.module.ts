@@ -23,9 +23,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDividerModule } from '@angular/material/divider';
-
+import { MatTabsModule } from '@angular/material/tabs';
 //componentes
 import { SpinnerComponent } from '../Components/spinner/spinner.component';
+
 
 @NgModule({
   declarations: [SpinnerComponent],
@@ -52,6 +53,7 @@ import { SpinnerComponent } from '../Components/spinner/spinner.component';
     MatDialogModule,
     MatChipsModule,
     MatAutocompleteModule,
+    MatTabsModule,
   ],
   exports: [
     MatTableModule,
@@ -75,7 +77,9 @@ import { SpinnerComponent } from '../Components/spinner/spinner.component';
     MatDialogModule,
     MatChipsModule,
     MatAutocompleteModule,
+    MatTabsModule,
     SpinnerComponent,
+
   ],
 })
 export class SharedModule {}
