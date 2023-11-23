@@ -6,6 +6,7 @@ import { SeccionAdminRoutingModule } from './admin-routing.module';
 import { PointOfSalesAdminModule } from './point-of-sales-admin/point-of-sales-admin.module';
 import { UsersadminModule } from './users-admin/users-admin.module';
 import { ServicesAdminModule } from './services-admin/service-admin.module';
+import { TestimoniosAdminModule } from './testimonios-admin/testimonios-admin.module';
 
 //material
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -24,6 +25,7 @@ import { AddEditBioproductComponent } from './bioproducts-admin/components/add-e
     MatSidenavModule,
     SharedModule,
     ServicesAdminModule,
+    TestimoniosAdminModule
   ],
 })
 export class SeccionAdminModule {}

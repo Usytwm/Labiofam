@@ -7,6 +7,9 @@ import { AddEditUserComponent } from './users-admin/components/add-edit-user/add
 import { AddEditPosComponent } from './point-of-sales-admin/components/add-edit-pos/add-edit-pos.component';
 import { ServicesAdminComponent } from './services-admin/components/services-admin/services-admin.component';
 import { AddEditServiceComponent } from './services-admin/components/add-edit-service/Service-edit.component';
+import { TestimoniosAdminComponent } from './testimonios-admin/components/testimonios-admin/testimonios-admin.component';
+import { AddEditTestimoniosComponent } from './testimonios-admin/components/add-edit-testimonios/testimonios-edit.component';
+
 import { InfoPosComponent } from './point-of-sales-admin/components/info-pos/info-pos.component';
 
 const routes: Routes = [
@@ -20,6 +23,10 @@ const routes: Routes = [
       { path: 'services-admin', component: ServicesAdminComponent },
       { path: 'services-admin/edit/:id', component: AddEditServiceComponent },
       { path: 'services-admin/add', component: AddEditServiceComponent },
+      { path: 'testimonios-admin', component: TestimoniosAdminComponent },
+      { path: 'testimonios-admin/edit/:id', component: AddEditTestimoniosComponent },
+      { path: 'testimonios-admin/add', component: AddEditTestimoniosComponent },
+
       {
         path: 'points-of-sales-admin',
         component: PointsOfSalesComponent,

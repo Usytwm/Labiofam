@@ -21,7 +21,6 @@ export class ServicesComponent implements OnInit {
     this.obtenerServicios();
   }
 
-
   obtenerServicios() {
     this.loading = true;
     this._servicesservices.getAll().subscribe((data) => {
