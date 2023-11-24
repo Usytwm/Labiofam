@@ -7,7 +7,7 @@
       class="px-4 pt-5 my-5 text-center">
       <div class="container">
         <div class="row row-cols-1 row-cols-md-3 g-4">
-          <div class="col" *ngFor="let bioproducto of bioproductos">
+          <div class="col" *ngFor="let bioproducto of bioproductos | paginate: { itemsPerPage: 9, currentPage: page}">
             <div data-aos="fade-right" data-aos-duration="1500">
               <div class="card" style="height: 25rem">
                 <div class="cont">
@@ -25,6 +25,10 @@
           </div>
         </div>
       </div>
+    </div>
+    <div style="margin-bottom: 2cm;">
+
+    <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
     </div>
   </section>
 

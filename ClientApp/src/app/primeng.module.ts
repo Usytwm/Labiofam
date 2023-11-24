@@ -29,7 +29,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog';
 import { TagModule } from 'primeng/tag';
-
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
     imports: [
@@ -63,7 +63,8 @@ import { TagModule } from 'primeng/tag';
         TableModule,
         TagModule,
         TieredMenuModule,
-        ToastModule
+        ToastModule,
+        ButtonModule,
     ]
 })
 export class PrimeNgModule { }

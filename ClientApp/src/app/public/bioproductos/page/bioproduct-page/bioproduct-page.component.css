@@ -365,3 +365,34 @@ body {
 /*
 Barra de información
 */
+.card-img-top {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+
+  background-size: cover;
+}
+.cont img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.img {
+  display: flexbox; /* La imagen activa se muestra */
+  width: 100%; /* La imagen activa ocupará el ancho completo de su contenedor padre */
+  height: 100%; /* Altura de la imagen activa como porcentaje de la altura de la ventana del navegador */
+  transition: transform 1s; /* Añade una transición suave al efecto de zoom */
+  cursor: pointer;
+}
+.card {
+  transition: 0.7s;
+  box-shadow: 0 8px 16px #dce1e1;
+}
+
+.card-btn {
+  border-radius: 20px;
+  width: 100%;
+}
+.cont {
+  object-fit: cover;
+}

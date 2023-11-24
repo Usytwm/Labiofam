@@ -8,7 +8,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { SharedModule } from 'src/app/Shared/shared.module';
-
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 //componentes
@@ -17,6 +17,7 @@ import { BioproductosComponent } from './components/bioproductos/bioproductos.co
 import { BioproductCardComponent } from './components/bioproduct-card/bioproduct-card.component';
 import { BioproductPageComponent } from './page/bioproduct-page/bioproduct-page.component';
 
+import { PrimeNgModule } from 'src/app/primeng.module';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { BioproductPageComponent } from './page/bioproduct-page/bioproduct-page.
     MatProgressSpinnerModule,
     MatSidenavModule,
     MatToolbarModule,
-
+    PrimeNgModule,
+    NgxPaginationModule,
   ]
 })
 export class BioproductosModule { }

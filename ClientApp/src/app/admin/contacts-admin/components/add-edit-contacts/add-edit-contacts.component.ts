@@ -6,6 +6,8 @@ import { FormControl, Validators } from '@angular/forms';
 import { Contact } from 'src/app/Interfaces/Contact';
 import { ContactService } from 'src/app/Services/EntitiesServices/contact.service';
 
+
+
 @Component({
   selector: 'app-add-edit-contacts',
   templateUrl: './add-edit-contacts.component.html',
@@ -21,6 +23,7 @@ export class AddEditContactsComponent {
     name: ['', Validators.required],
     occupation: ['', Validators.required],
     info: ['', Validators.required],
+    image: ['',Validators.required],
   });
 
   constructor(
@@ -48,7 +51,8 @@ export class AddEditContactsComponent {
       this.form.patchValue({
         name: data.name,
         occupation : data.occupation,
-        info: data.contact_Info
+        info: data.contact_Info,
+        image: data.image,
       });
       this.loading = false;
     });
@@ -80,10 +84,11 @@ export class AddEditContactsComponent {
 
   newContact(): Contact {
     return {
-
       name: this.form.value.name!,
       occupation: this.form.value.occupation!,
-      contact_Info: this.form.value.info!
+      contact_Info: this.form.value.info!,
+      image: this.form.value.image!,
     };
   }
+
 }

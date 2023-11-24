@@ -16,6 +16,7 @@ export class BioproductPageComponent {
   loading = false;
   id: string;
   bioproducto?: Product;
+
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
@@ -35,6 +36,7 @@ export class BioproductPageComponent {
     this.loading = true;
     this._bioproductsservices.get(id).subscribe((data) => {
       this.bioproducto = data;
+
       console.log(data);
       this.loading = false;
     });
@@ -42,4 +44,5 @@ export class BioproductPageComponent {
   goBack(): void {
     this.router.navigateByUrl('Bioproducts')
   }
+
 }

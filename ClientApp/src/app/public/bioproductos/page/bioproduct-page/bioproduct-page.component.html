@@ -27,10 +27,10 @@
 	        </div>
 	        <div class="row">
 	        	<div class="col-md-6">
-	        		<div class="card" style="height: 25 rem">
-
-              <img src="assets/11.jpg" class="card-img-top" />
-
+	        		<div class="card" style="height: 35rem">
+                <div class ="cont">
+                  <img src="assets/11.jpg" class="card-img-cover" />
+                </div>
 
           </div>
 
@@ -39,34 +39,34 @@
 	        		<div class="product-dtl">
         				<div class="product-info">
 		        			<div class="product-name">{{bioproducto.name}}</div>
-		        			<div class="product-type">{{bioproducto.type}}</div>
+		        			<div class="product-type">Tipo:{{bioproducto.type}}</div>
                   <div class="reviews-counter">
 
 							</div>
 
-		        		</div>
-	        			<p> </p>
-
-
-	        		</div>
+              <p-accordion [activeIndex]="0">
+                <p-accordionTab header="Descripción">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </p>
+                </p-accordionTab>
+                <p-accordionTab header="Indicaciones">
+                    <p>
+                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim
+                        ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
+                    </p>
+                </p-accordionTab>
+                <p-accordionTab header="Ventajas">
+                    <p>
+                        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa
+                        qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
+                    </p>
+                </p-accordionTab>
+              </p-accordion>
+              </div>
 	        	</div>
 	        </div>
-
-          <div class="tabset" style="margin-top: 1cm;">
-            <mat-tab-group fitInkBarToContent>
-              <mat-tab label="Descripción">{{bioproducto.summary}}</mat-tab>
-              <mat-tab label="Indicaciones">{{bioproducto.specifications }}</mat-tab>
-              <mat-tab label="Ventajas">....</mat-tab>
-              <mat-tab label="Modo de acción">....</mat-tab>
-              <mat-tab label="Modo de aplicación">Content 3</mat-tab>
-              <mat-tab label="Estabilidad/Almacenaje">Content 2</mat-tab>
-              <mat-tab label="Compatibilidad">Content 3</mat-tab>
-              <mat-tab label="Fitotoxicidad">Content 2</mat-tab>
-              <mat-tab label="Presentación">Content 3</mat-tab>
-
-            </mat-tab-group>
-
-          </div>
-		</div>
+    </div>
 	</div>
 </div>
