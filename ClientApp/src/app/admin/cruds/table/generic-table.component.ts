@@ -8,15 +8,16 @@ import {
   EventEmitter,
   SimpleChanges,
 } from '@angular/core';
+
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { faL } from '@fortawesome/free-solid-svg-icons';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 @Component({
   selector: 'app-generic-table',
   templateUrl: './generic-table.component.html',
   styleUrls: ['./generic-table.component.css'],
+  providers: [MatPaginator, MatSort],
 })
 export class GenericTableComponent<T> implements OnInit, AfterViewInit {
   @Input() data!: T[];
@@ -33,39 +34,45 @@ export class GenericTableComponent<T> implements OnInit, AfterViewInit {
    */
   @Output() delete = new EventEmitter<string>();
 
-  //@Input() Delete(id: string): void {}
-
-  dataSource = new MatTableDataSource<T>();
+  dataSource!: MatTableDataSource<T>;
   dataLoaded: boolean = false;
-  existobjects: boolean = false;
+  existobjects: boolean = true;
 
-  @ViewChild(MatSort, { static: false }) sort!: MatSort;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatPaginator) paginator?: MatPaginator;
+  @ViewChild(MatSort) sort?: MatSort;
 
   loading: Boolean = false;
 
   ngOnChanges(changes: SimpleChanges) {
-    this.dataLoaded = false;
     if (changes['data']) {
-      this.dataSource.data = changes['data'].currentValue.map((item: any) => {
+      let newData = changes['data'].currentValue.map((item: any) => {
         let newItem = { ...item, elementId: item[this.columns['id']] };
-        this.dataLoaded = true;
         return newItem;
       });
-      this.columns = { ...this.columns };
-      delete this.columns['id']; //elimina la columna id de la tabla para que no se muetre
+      this.dataSource = new MatTableDataSource<T>(newData);
+      this.dataSource.paginator = this.paginator!;
+      this.dataSource.sort = this.sort!;
+      this.dataLoaded = true;
+      // Elimina la columna 'id'
+      delete this.columns['id'];
     }
-
-    if (this.dataLoaded) {
-      this.existobjects = true;
+    if (this.dataSource.sort) {
+      this.dataSource.sort.sortChange.emit();
     }
   }
 
   ngOnInit() {
-    this.dataSource.sort = this.sort;
+    this.dataSource = new MatTableDataSource<T>(this.data);
+    this.dataSource.paginator = this.paginator!;
+    this.dataSource.sort = this.sort!;
   }
 
-  constructor(protected _snackBar: MatSnackBar) {}
+  constructor(protected _snackBar: MatSnackBar, private _pag: MatPaginator) {}
+  ngAfterViewInit(): void {
+    this.dataSource = new MatTableDataSource<T>(this.data);
+    this.dataSource.paginator = this.paginator!;
+    this.dataSource.sort = this.sort!;
+  }
 
   keys(): string[] {
     return Object.keys(this.columns);
@@ -78,11 +85,7 @@ export class GenericTableComponent<T> implements OnInit, AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    this.paginator._intl.itemsPerPageLabel = 'Items por pagina';
-  }
+
   deleteRow(id: string) {
     this.delete.emit(id);
   }
