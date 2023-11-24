@@ -18,6 +18,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 //interceptos
 import { LoginInterceptor } from './Interceptors/login.interceptor';
 
+
 @NgModule({
   declarations: [AppComponent, FeedbackComponent],
   imports: [
@@ -28,6 +29,7 @@ import { LoginInterceptor } from './Interceptors/login.interceptor';
     AuthModule,
     PublicModule,
     SeccionAdminModule,
+
   ],
   providers: [
     {

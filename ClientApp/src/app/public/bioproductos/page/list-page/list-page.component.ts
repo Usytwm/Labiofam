@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class ListPageComponent {
   loading: Boolean = false;
   bioproductos: Product[] = [];
+  page: number = 0;
   constructor(
     private _bioproductsservices: ProductService
   ) { }

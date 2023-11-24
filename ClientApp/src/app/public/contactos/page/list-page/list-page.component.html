@@ -9,26 +9,20 @@
 
 
 
-<section class="container">
-  <div class="container py-5">
-    <div class="row pb-5 mb-4">
-      <div class="col-lg-3 col-md-6 mb-4 mb-lg-0" *ngFor="let contacto of contactos">
-        <!-- Card-->
-        <div class="col">
-          <div class="card shadow-sm border-0 rounded">
-            <div class="card-body p-0"><img src="https://bootstrapious.com/i/snippets/sn-cards/profile-3_ybnq8v.jpg" alt="" class="w-100 card-img-top">
-              <div class="p-4">
-                <h5 class="mb-0">{{contacto.name}}</h5>
-                <p class="small text-muted">{{contacto.occupation}}</p>
-                <ul class="social mb-0 list-inline mt-3">
+    <div class="team-boxed">
+        <div class="container">
+          <div class="row people">
+                <div class="col-md-6 col-lg-4 item" *ngFor="let contacto of contactos">
 
-                </ul>
-              </div>
+                    <div class="box"><img  class="rounded-circle"src="assets/1.jpg">
+                        <h3 class="name">{{contacto.name}}</h3>
+                        <p class="title">{{contacto.occupation}}</p>
+                        <p class="description"> </p>
+                        <a href="#">Ben.&#64;gmail.cu</a>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
-</section>
+
 

@@ -5,6 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { Contact } from 'src/app/Interfaces/Contact';
 import { ContactService } from 'src/app/Services/EntitiesServices/contact.service';
+import { Observable } from 'rxjs';
+import swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-add-edit-contacts',
@@ -16,21 +19,13 @@ export class AddEditContactsComponent {
   id: string;
   operacion = 'Agregar';
   contacto?: Contact;
+  private foto?: File;
   form = this.fb.group({
     name: ['', Validators.required],
     occupation: ['', Validators.required],
     info: ['', Validators.required],
+    image: ['',Validators.required],
   });
-
-  NameControl = new FormControl<string | null>(null, Validators.required);
-  selectFormControl = new FormControl('', Validators.required);
-  _name?: '';
-
-  ocupationControl = new FormControl<string | null>(null, Validators.required);
-  _occupation?: '';
-
-  infoControl = new FormControl<string | null>(null, Validators.required);
-  _info?: '';
 
   constructor(
     private fb: FormBuilder,
@@ -53,10 +48,12 @@ export class AddEditContactsComponent {
     this.loading = true;
     this.contactService.get(id).subscribe((data) => {
       this.contacto = data;
+      console.log(data);
       this.form.patchValue({
         name: data.name,
         occupation : data.occupation,
-        info: data.contact_Info
+        info: data.contact_Info,
+        image: data.image,
       });
       this.loading = false;
     });
@@ -77,7 +74,7 @@ export class AddEditContactsComponent {
 
   addContact() {
     console.log(this.newContact());
-    
+
     this.contactService.add(this.newContact()).subscribe((data) => {
       this.snackBar.open('Agregado con éxito', 'cerrar', {
         duration: 3000,
@@ -90,10 +87,11 @@ export class AddEditContactsComponent {
 
   newContact(): Contact {
     return {
-      id: this.id,
-      name: this.NameControl.value!,
-      occupation: this.ocupationControl.value!,
-      contact_Info: this.infoControl.value!
+      name: this.form.value.name!,
+      occupation: this.form.value.occupation!,
+      contact_Info: this.form.value.info!,
+      image: this.form.value.image!,
     };
   }
+
 }

@@ -10,6 +10,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { SharedModule } from 'src/app/Shared/shared.module';
 
+import {NgxPaginationModule} from 'ngx-pagination';
+
 //componentes
 import { ListPageComponent } from './page/list-page/list-page.component';
 import { BioproductosComponent } from './components/bioproductos/bioproductos.component';
@@ -33,6 +35,7 @@ import { BioproductPageComponent } from './page/bioproduct-page/bioproduct-page.
     MatProgressSpinnerModule,
     MatSidenavModule,
     MatToolbarModule,
-  ],
-})
+
+    NgxPaginationModule,
+  ]
 export class BioproductosModule {}
