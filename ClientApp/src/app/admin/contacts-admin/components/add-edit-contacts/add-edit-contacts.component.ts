@@ -5,7 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { Contact } from 'src/app/Interfaces/Contact';
 import { ContactService } from 'src/app/Services/EntitiesServices/contact.service';
-
+import { Observable } from 'rxjs';
+import swal from 'sweetalert2';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class AddEditContactsComponent {
   id: string;
   operacion = 'Agregar';
   contacto?: Contact;
-
+  private foto?: File;
   form = this.fb.group({
     name: ['', Validators.required],
     occupation: ['', Validators.required],
@@ -73,7 +74,7 @@ export class AddEditContactsComponent {
 
   addContact() {
     console.log(this.newContact());
-    
+
     this.contactService.add(this.newContact()).subscribe((data) => {
       this.snackBar.open('Agregado con éxito', 'cerrar', {
         duration: 3000,
