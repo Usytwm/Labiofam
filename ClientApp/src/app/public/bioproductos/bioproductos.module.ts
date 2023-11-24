@@ -17,7 +17,6 @@ import { BioproductosComponent } from './components/bioproductos/bioproductos.co
 import { BioproductCardComponent } from './components/bioproduct-card/bioproduct-card.component';
 import { BioproductPageComponent } from './page/bioproduct-page/bioproduct-page.component';
 
-import { PrimeNgModule } from 'src/app/primeng.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +31,7 @@ import { PrimeNgModule } from 'src/app/primeng.module';
     MatProgressSpinnerModule,
     MatSidenavModule,
     MatToolbarModule,
-    PrimeNgModule,
+
     NgxPaginationModule,
   ]
 })
