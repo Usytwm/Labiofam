@@ -10,9 +10,8 @@ import {
 } from '@angular/core';
 
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
 @Component({
   selector: 'app-generic-table',
   templateUrl: './generic-table.component.html',
@@ -67,7 +66,6 @@ export class GenericTableComponent<T> implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort!;
   }
 
-  constructor(protected _snackBar: MatSnackBar, private _pag: MatPaginator) {}
   ngAfterViewInit(): void {
     this.dataSource = new MatTableDataSource<T>(this.data);
     this.dataSource.paginator = this.paginator!;
