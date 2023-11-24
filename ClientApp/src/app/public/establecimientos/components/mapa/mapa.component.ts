@@ -15,9 +15,9 @@ import {
   FullscreenControl,
 } from 'maplibre-gl';
 import { Point_of_Sales } from 'src/app/Interfaces/Point_of_sales';
-import { Product } from 'src/app/Interfaces/Product';
 import { PointsOfSalesService } from 'src/app/Services/EntitiesServices/points-of-sales.service';
 import { ProductPosFilterService } from 'src/app/Services/FilterServices/product-pos-filter.service';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-mapa',
@@ -25,16 +25,13 @@ import { ProductPosFilterService } from 'src/app/Services/FilterServices/product
   styleUrls: ['./mapa.component.css'],
 })
 export class MapaComponent implements AfterViewInit, OnDestroy {
-  onFileSelected($event: Event) {
-    throw new Error('Method not implemented.');
-  }
   miFormulario: FormGroup;
   productos_disponibles: { id: string; name: string }[] = [];
   all_productos_disponibles: string = '';
 
-  private initialState = { lng: -79.481167, lat: 21.521757, zoom: 5.8 };
-  private apiKey = 'tbjXu9R4kQGNcVpje2Yg';
-  private mapStyle = `https://api.maptiler.com/maps/streets-v2/style.json?key=${this.apiKey}`;
+  private initialState = environment.initialState;
+  private apiKey = environment.apiKey;
+  private mapStyle = `${environment.mapStyle}${this.apiKey}`;
   private map?: Map;
   private markers: Marker[] = [];
   private puntosDeVenta?: Point_of_Sales[];
@@ -212,7 +209,7 @@ export class MapaComponent implements AfterViewInit, OnDestroy {
       (p) => p.id == punto.id
     )!.name;
     return `<div data-aos="fade-right" data-aos-duration="500">
-    <div class="card" style="background-color: #94d7ee !important;height: 15rem ;  width: 17rem !important; transition: 0.7s; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); border:none;">
+    <div class="card" style="background-color: #fffff !important;height: 15rem ;  width: 17rem !important; transition: 0.7s; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); border:none;">
       <div class="card-body" >
         <h3 class="card-title">${punto.name}</h3>
         <ul style=" text-align: left">
