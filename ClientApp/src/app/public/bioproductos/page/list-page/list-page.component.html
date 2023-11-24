@@ -1,12 +1,20 @@
-
 <section class="container">
   <div
     data-aos="zoom-out-up"
     data-aos-duration="1000"
     class="px-4 pt-5 my-5 text-center"
   >
-    <app-bioproduct-list [products]="bioproductos"></app-bioproduct-list>
+    <app-bioproduct-list
+      [products]="
+        bioproductos | paginate : { itemsPerPage: pageSize, currentPage: page }
+      "
+    ></app-bioproduct-list>
   </div>
-  </section>
-
-
+  <div style="margin-bottom: 2cm">
+    <pagination-controls
+      (pageChange)="handlePageChange($event)"
+      previousLabel="Anterior"
+      nextLabel="Siguiente"
+    ></pagination-controls>
+  </div>
+</section>
