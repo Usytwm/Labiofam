@@ -27,6 +27,10 @@
           compras con nosotros hoy!
         </p>
       </div>
+      <app-bioprduct-cards-placeholder
+        *ngIf="loading"
+        [cantidad]="3"
+      ></app-bioprduct-cards-placeholder>
       <app-bioproduct-list [products]="products"></app-bioproduct-list>
     </div>
   </section>

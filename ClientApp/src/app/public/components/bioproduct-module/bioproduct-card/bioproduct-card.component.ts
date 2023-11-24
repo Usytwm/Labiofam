@@ -7,5 +7,5 @@ import { Product } from 'src/app/Interfaces/Product';
   styleUrls: ['./bioproduct-card.component.css']
 })
 export class BioproductCardComponent {
-  @Input() product!: Product;
+  @Input() product?: Product;
 }
