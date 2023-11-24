@@ -5,6 +5,7 @@ import {
   AfterViewInit,
   OnDestroy,
 } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import {
   Map,
   NavigationControl,
@@ -14,13 +15,23 @@ import {
   FullscreenControl,
 } from 'maplibre-gl';
 import { Point_of_Sales } from 'src/app/Interfaces/Point_of_sales';
+import { Product } from 'src/app/Interfaces/Product';
 import { PointsOfSalesService } from 'src/app/Services/EntitiesServices/points-of-sales.service';
+import { ProductPosFilterService } from 'src/app/Services/FilterServices/product-pos-filter.service';
+
 @Component({
   selector: 'app-mapa',
   templateUrl: './mapa.component.html',
   styleUrls: ['./mapa.component.css'],
 })
 export class MapaComponent implements AfterViewInit, OnDestroy {
+  onFileSelected($event: Event) {
+    throw new Error('Method not implemented.');
+  }
+  miFormulario: FormGroup;
+  productos_disponibles: { id: string; name: string }[] = [];
+  all_productos_disponibles: string = '';
+
   private initialState = { lng: -79.481167, lat: 21.521757, zoom: 5.8 };
   private apiKey = 'tbjXu9R4kQGNcVpje2Yg';
   private mapStyle = `https://api.maptiler.com/maps/streets-v2/style.json?key=${this.apiKey}`;
@@ -31,11 +42,28 @@ export class MapaComponent implements AfterViewInit, OnDestroy {
   @ViewChild('map')
   private mapContainerElement!: ElementRef<HTMLElement>;
 
-  constructor(private _puntos_de_ventaService: PointsOfSalesService) {}
+  constructor(
+    private _puntos_de_ventaService: PointsOfSalesService,
+    private _filter: ProductPosFilterService
+  ) {
+    this.miFormulario = new FormGroup({
+      busqueda: new FormControl(''),
+    });
+  }
 
   ngOnInit(): void {
     this._puntos_de_ventaService.getAll().subscribe((data) => {
       this.puntosDeVenta = data;
+      this.puntosDeVenta.forEach((punto) => {
+        this._filter.getType2byType1(punto.id!).subscribe((data) => {
+          this.all_productos_disponibles = data.map((p) => p.name!).join(', ');
+          let name = data
+            .slice(0, 5)
+            .map((p) => p.name!)
+            .join(', ');
+          this.productos_disponibles.push({ id: punto.id!, name: name });
+        });
+      });
     });
   }
 
@@ -89,27 +117,21 @@ export class MapaComponent implements AfterViewInit, OnDestroy {
           /// Actualiza el filtro de la capa de marcadores en el mapa
           this.map?.setFilter('places', ['==', ['get', 'nombre'], value]);
           this.map?.setFilter('places', ['==', ['get', 'productos'], value]);
+          this.map?.setFilter('places', ['==', ['get', 'municipio'], value]);
+          this.map?.setFilter('places', ['==', ['get', 'provincia'], value]);
+          this.map?.setFilter('places', ['==', ['get', 'direccion'], value]);
           // Actualiza los datos de la capa
-          geojson.features = this.puntosDeVenta!.filter((punto) =>
-            punto.name!.toLowerCase().includes(value)
+          geojson.features = this.puntosDeVenta!.filter(
+            (punto) =>
+              punto.name!.toLowerCase().includes(value) ||
+              punto.municipality!.toLowerCase().includes(value) ||
+              punto.province!.toLowerCase().includes(value) ||
+              punto.address!.toLowerCase().includes(value) ||
+              this.all_productos_disponibles.toLowerCase().includes(value)
           ).map((punto) => ({
             type: 'Feature',
             properties: {
-              description: `
-              <div data-aos="fade-right" data-aos-duration="500">
-                <div class="card" style="background: radial-gradient(circle,#94d7ee,#ffffff,#94d7ee) !important; height: 15rem !important ;  width: 17rem !important; transition: 0.7s; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); border:none;">
-                  <div class="card-body" >
-                    <h3 class="card-title">${punto.name}</h3>
-                    <ul style=" text-align: left">
-                      <li><strong>Dirección:</strong> ${punto.address}</li>
-                      <li><strong>Municipio:</strong> ${punto.municipality}</li>
-                      <li><strong>Provincia:</strong> ${punto.province}</li>
-                      <li><strong>Productos disponibles:</strong> coquisgv sbdcjh bcshjac sdbhc sbdhj</li>
-                    </ul>
-                  <a href="point-of-sales/details/${punto.point_ID}" class="btn btn-primary">Ver mas</a>
-                </div>
-              </div>
-    `,
+              description: this.description(punto),
               nombre: punto.name,
               icon: 'theatre',
             },
@@ -118,7 +140,6 @@ export class MapaComponent implements AfterViewInit, OnDestroy {
               coordinates: [punto.longitude, punto.latitude],
             },
           }));
-          console.log(geojson);
           this.viewGeojson(geojson);
         });
 
@@ -140,21 +161,8 @@ export class MapaComponent implements AfterViewInit, OnDestroy {
       features: puntosDeVenta?.map((punto) => ({
         type: 'Feature',
         properties: {
-          description: `
-                <div data-aos="fade-right" data-aos-duration="500">
-                  <div class="card" style="background: radial-gradient(circle,#94d7ee,#ffffff) !important;height: 15rem ;  width: 17rem !important; transition: 0.7s; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); border:none;">
-                    <div class="card-body" >
-                      <h3 class="card-title">${punto.name}</h3>
-                      <ul style=" text-align: left">
-                        <li><strong>Dirección:</strong> ${punto.address}</li>
-                        <li><strong>Municipio:</strong> ${punto.municipality}</li>
-                        <li><strong>Provincia:</strong> ${punto.province}</li>
-                        <li><strong>Productos disponibles:</strong> coquisgv sbdcjh bcshjac sdbhc sbdhj</li>
-                      </ul>
-                    <a href="point-of-sales/details/${punto.point_ID}" class="btn btn-primary">Ver mas</a>
-                  </div>
-                </div>
-      `,
+          description: this.description(punto),
+          nombre: punto.name,
         },
         geometry: {
           type: 'Point',
@@ -186,11 +194,35 @@ export class MapaComponent implements AfterViewInit, OnDestroy {
     });
   }
 
+  find() {
+    const busqueda = this.miFormulario.get('busqueda')!.value;
+    this._filter.getType2ByType1Substring(busqueda).subscribe((data) => {
+      this.puntosDeVenta = data;
+      const geojson = this.createGeojson(this.puntosDeVenta);
+      this.viewGeojson(geojson);
+    });
+  }
+
   ngOnDestroy() {
     this.map?.remove();
   }
-  applyFilter(filterValue: string) {
-    // Aquí puedes filtrar tus datos del mapa basándote en filterValue
-    // y luego actualizar tu mapa
+
+  private description(punto: Point_of_Sales): string {
+    let productos_disponibles = this.productos_disponibles.find(
+      (p) => p.id == punto.id
+    )!.name;
+    return `<div data-aos="fade-right" data-aos-duration="500">
+    <div class="card" style="background-color: #94d7ee !important;height: 15rem ;  width: 17rem !important; transition: 0.7s; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); border:none;">
+      <div class="card-body" >
+        <h3 class="card-title">${punto.name}</h3>
+        <ul style=" text-align: left">
+          <li><strong>Dirección:</strong> ${punto.address}</li>
+          <li><strong>Municipio:</strong> ${punto.municipality}</li>
+          <li><strong>Provincia:</strong> ${punto.province}</li>
+          <li><strong>Productos disponibles:</strong> ${productos_disponibles} ...</li>
+        </ul>
+      <a href="point-of-sales/details/${punto.id}" class="btn btn-primary">Ver mas</a>
+      </div>
+    </div>`;
   }
 }

@@ -1,6 +1,8 @@
 <div data-aos="fade-down">
   <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
-    <h1 class="display-4 fst-italic titulo">Nuestros establecimientos</h1>
+    <h1 class="display-4 fw-bold text-body-emphasis titulo">
+      Nuestros establecimientos
+    </h1>
     <p class="lead my-3 container">
       Embárcate en un viaje de descubrimiento donde puedes explorar una amplia
       gama de productos y establecimientos. Sumérgete en la diversidad de
@@ -12,16 +14,36 @@
   <div class="container">
     <div class="map-wrap">
       <div class="map" #map></div>
-
       <div class="filter-ctrl">
+        <div class="container-fluid">
+          <form
+            class="d-flex"
+            role="search"
+            [formGroup]="miFormulario"
+            (ngSubmit)="find()"
+          >
+            <input
+              id="filter-input"
+              class="form-control me-2"
+              type="search"
+              placeholder="busqueda"
+              aria-label="Search"
+              formControlName="busqueda"
+            />
+            <!--<button type="submit" class="btn btn-primary">buscar</button>-->
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<hr class="featurette-divider" />
+
+<!-- <div class="filter-ctrl">
         <input
           id="filter-input"
           type="text"
           name="filter"
           placeholder="Filter by name"
         />
-      </div>
-    </div>
-  </div>
-</div>
-<hr class="featurette-divider" />
+      </div>-->

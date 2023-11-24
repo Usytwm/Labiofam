@@ -1,4 +1,4 @@
-import { Component , ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
@@ -6,18 +6,19 @@ import { MatSort } from '@angular/material/sort';
 //Interfaces
 import { Product } from 'src/app/Interfaces/Product';
 
-
 //Servicios
-import { ProductService } from 'src/app/Services/EntitiesServices/product.service';
+import { ProductPosFilterService } from 'src/app/Services/FilterServices/product-pos-filter.service';
+import { ProductService } from '../../../../Services/EntitiesServices/product.service';
+
 
 @Component({
   selector: 'app-bioproducts-admin',
   templateUrl: './bioproducts-admin.component.html',
-  styleUrls: ['./bioproducts-admin.component.css']
+  styleUrls: ['./bioproducts-admin.component.css'],
 })
 
-export class BioproductsAdminComponent implements OnInit{
 
+export class BioproductsAdminComponent implements OnInit{
   _data: Product[] = [];
   _dataColumns: Record<string, string> = {};
   loading: Boolean = false;
@@ -27,6 +28,7 @@ export class BioproductsAdminComponent implements OnInit{
 
   constructor(
     private _snackBar: MatSnackBar,
+
     private _bioproductservice: ProductService,
 
   ) {}

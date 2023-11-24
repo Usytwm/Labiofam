@@ -1,5 +1,3 @@
-using Labiofam.Models;
-
 namespace Labiofam.Services;
 
 public interface IRelationService<Relation>
@@ -17,7 +15,7 @@ public interface IRelationService<Relation>
     /// </summary>
     /// <param name="size">Tamaño de la colección</param>
     /// <returns>Una colección de relaciones</returns>
-    IEnumerable<Relation> Take(int size);
+    Task<IEnumerable<Relation>> TakeAsync(int size);
 
     /// <summary>
     /// Agrega una nueva relación de forma asincrónica.

@@ -3,13 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Labiofam.Services
 {
-    /// <summary>
-    /// Servicio abstracto para filtrar relaciones entre entidades.
-    /// </summary>
-    /// <typeparam name="T">El tipo de modelo de relación.</typeparam>
-    /// <typeparam name="T1">El tipo de modelo de entidad 1.</typeparam>
-    /// <typeparam name="T2">El tipo de modelo de entidad 2.</typeparam>
-    public abstract class RelationFilterService<T, T1, T2>
+    public abstract class RelationFilterService<T, T1, T2> : IRelationFilter<T, T1, T2>
         where T : class, IRelationModel, new()
         where T1 : class, IEntityModel
         where T2 : class, IEntityModel
@@ -20,10 +14,8 @@ namespace Labiofam.Services
         private readonly IEntityService<T2> _entityService2;
 
         public RelationFilterService(
-            WebDbContext webDbContext,
-            IRelationService<T> relationService,
-            IEntityService<T1> entityService1,
-            IEntityService<T2> entityService2)
+            WebDbContext webDbContext, IRelationService<T> relationService,
+            IEntityService<T1> entityService1, IEntityService<T2> entityService2)
         {
             _webDbContext = webDbContext;
             _relationService = relationService;
@@ -36,7 +28,7 @@ namespace Labiofam.Services
         /// </summary>
         /// <param name="id">El ID de tipo 1.</param>
         /// <returns>Una lista de entidades de tipo 2.</returns>
-        public async Task<ICollection<T2>> GetType2ByType1(Guid id)
+        public async Task<ICollection<T2>> GetType2ByType1Async(Guid id)
         {
             var type1_id = await _webDbContext.Set<T>()
                 .Where(ur => ur.Id1 == id)
@@ -55,7 +47,7 @@ namespace Labiofam.Services
         /// </summary>
         /// <param name="id">El ID de tipo 2.</param>
         /// <returns>Una lista de entidades de tipo 1.</returns>
-        public async Task<ICollection<T1>> GetType1ByType2(Guid id)
+        public async Task<ICollection<T1>> GetType1ByType2Async(Guid id)
         {
             var type1_id = await _webDbContext.Set<T>()
                 .Where(ur => ur.Id2 == id)
@@ -75,9 +67,9 @@ namespace Labiofam.Services
         /// </summary>
         /// <param name="substring">La subacadena dada.</param>
         /// <returns>Una lista de entidades de tipo 2.</returns>
-        public async Task<ICollection<T2>> GetType2ByType1Substring(string substring)
+        public async Task<ICollection<T2>> GetType2ByType1SubstringAsync(string substring)
         {
-            var entities = await _entityService1.GetBySubstring(substring);
+            var entities = await _entityService1.GetBySubstringAsync(substring);
             
             var result = new List<T2>();
             foreach(var entity in entities)
@@ -104,9 +96,9 @@ namespace Labiofam.Services
         /// </summary>
         /// <param name="substring">La subacadena dada.</param>
         /// <returns>Una lista de entidades de tipo 1.</returns>
-        public async Task<ICollection<T1>> GetType1ByType2Substring(string substring)
+        public async Task<ICollection<T1>> GetType1ByType2SubstringAsync(string substring)
         {
-            var entities = await _entityService2.GetBySubstring(substring);
+            var entities = await _entityService2.GetBySubstringAsync(substring);
             
             var result = new List<T1>();
             foreach(var entity in entities)
@@ -132,7 +124,7 @@ namespace Labiofam.Services
         /// </summary>
         /// <param name="id">El ID de tipo 1.</param>
         /// <param name="entities">Las entidades de tipo 2.</param>
-        public async Task AddType2ByType1(Guid id, ICollection<T2> entities)
+        public async Task AddType2ByType1Async(Guid id, ICollection<T2> entities)
         {
             foreach (var type2 in entities)
             {
@@ -146,7 +138,7 @@ namespace Labiofam.Services
         /// </summary>
         /// <param name="id">El ID de tipo 2.</param>
         /// <param name="entities">Las entidades de tipo 1.</param>
-        public async Task AddType1ByType2(Guid id, ICollection<T1> entities)
+        public async Task AddType1ByType2Async(Guid id, ICollection<T1> entities)
         {
             foreach (var type1 in entities)
             {

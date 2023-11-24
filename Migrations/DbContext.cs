@@ -23,8 +23,6 @@ namespace Labiofam.Models
         public DbSet<User_Product>? User_Product { get; set; }
         public DbSet<User_Role>? User_Role { get; set; }
 
-
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Definición de las relaciones y claves primarias compuestas

@@ -1,9 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { User } from 'src/app/Interfaces/User';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -13,15 +8,15 @@ import { Role } from 'src/app/Interfaces/Role';
 import { UserService } from 'src/app/Services/EntitiesServices/user.service';
 import { RolesService } from 'src/app/Services/EntitiesServices/roles.service';
 import { RegistrationModel } from 'src/app/Interfaces/registration-model';
-import { RegistrationService } from 'src/app/Services/registration.service';
+import { RegistrationService } from 'src/app/Services/RegistrationsService/registration.service';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Observable, map, startWith } from 'rxjs';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
-import { FilterService } from 'src/app/Services/filter.service';
-import { AuthService } from '../../../../Services/auth.service';
+import { AuthService } from '../../../../Services/RegistrationsService/auth.service';
 import { RegistrationRequestModel } from 'src/app/Interfaces/Registration-Request';
 import { RoleModel } from 'src/app/Interfaces/Role-Model';
+import { UserRoleFilterService } from 'src/app/Services/FilterServices/user-roles-filter.service';
 
 @Component({
   selector: 'app-add-edit-user',
@@ -34,11 +29,9 @@ export class AddEditUserComponent implements OnInit {
   roleCtrl = new FormControl('', Validators.required);
   filtered_roles_name!: Observable<string[]>;
 
-
   _roles_name: string[] = [];
   _all_roles_name!: string[];
   _roles?: Role[];
-
 
   @ViewChild('roleInput') roleInput?: ElementRef<HTMLInputElement>;
 
@@ -67,14 +60,13 @@ export class AddEditUserComponent implements OnInit {
     private snackBar: MatSnackBar,
     private router: Router,
     private route: ActivatedRoute,
-    private filter: FilterService,
+    private filter: UserRoleFilterService,
     private registrationservice: AuthService
   ) {
     this.id = String(this.route.snapshot.paramMap.get('id'));
     //obtengo la lista de todos los roles
     this.roles.getAll().subscribe((data) => {
       this._roles = data;
-      this._all_roles_name = this._roles!.map((role) => role.name!);
       this.filtered_roles_name = this._observer();
       this._all_roles_name = this._roles!.map((role) => role.name!);
     });
@@ -102,7 +94,6 @@ export class AddEditUserComponent implements OnInit {
       this._all_roles_name.push(role);
       //actualizar el observable que muetra los roles
       this.filtered_roles_name = this._observer();
-      this._all_roles_name.push(role);
     }
   }
 
@@ -127,8 +118,6 @@ export class AddEditUserComponent implements OnInit {
 
     return filteredRoles;
   }
-
-
 
   private _observer(): Observable<string[]> {
     return this.roleCtrl.valueChanges.pipe(
@@ -171,15 +160,19 @@ export class AddEditUserComponent implements OnInit {
       this.form.patchValue({ Username: data.userName });
       this.loading = false;
     });
-    this.filter.getrolesbyuser(id).subscribe((data) => {
+    this.filter.getType1byType2(id).subscribe((data) => {
       this._roles_name = data.map((x) => x.name!);
+      this._all_roles_name = this._all_roles_name.filter(
+        (x) => !this._roles_name.includes(x)
+      );
+      this.filtered_roles_name = this._observer();
     });
   }
 
   editUser() {
     this.loading = true;
     this.userService
-      .update(this.id, this.newUser())
+      .edit(this.id, this.newUser())
       .pipe()
       .subscribe(() => {
         this.snackBar.open('Editado con éxito', 'cerrar', {
@@ -219,7 +212,10 @@ export class AddEditUserComponent implements OnInit {
       email_Token: '',
     };
   }
+  
   private newRole(): RoleModel {
+    console.log(this._roles_name[0]);
+    
     return {
       name: this._roles_name[0],
       Description: '',

@@ -1,20 +1,14 @@
+using System.Linq.Expressions;
 using Labiofam.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Labiofam.Services
 {
-    /// <summary>
-    /// Clase base abstracta para servicios de entidades.
-    /// </summary>
-    /// <typeparam name="T">Tipo de entidad.</typeparam>
-    public abstract class EntityService<T> where T : class, IEntityModel
+    public abstract class EntityService<T> : IEntityService<T>
+        where T : class, IEntityModel
     {
         private readonly WebDbContext _webDbContext;
 
-        /// <summary>
-        /// Constructor de la clase EntityService.
-        /// </summary>
-        /// <param name="webDbContext">Contexto de base de datos.</param>
         public EntityService(WebDbContext webDbContext)
         {
             _webDbContext = webDbContext;
@@ -50,7 +44,7 @@ namespace Labiofam.Services
         /// </summary>
         /// <param name="substring">Cadena de caracteres</param>
         /// <returns>Una lista de entidades</returns>
-        public async Task<ICollection<T>> GetBySubstring(string substring)
+        public async Task<ICollection<T>> GetBySubstringAsync(string substring)
         {
             var result = await _webDbContext.Set<T>()
                 .Where(x => x.Name!.Contains(substring))
@@ -63,21 +57,17 @@ namespace Labiofam.Services
         /// </summary>
         /// <param name="size">Tamaño de la lista.</param>
         /// <returns>La lista de entidades.</returns>
-        public IEnumerable<T> Take(int size) =>
-            _webDbContext.Set<T>().OrderBy(x => x.Name).Take(size);
+        public async Task<IEnumerable<T>> TakeAsync(int size) =>
+            await _webDbContext.Set<T>().Take(size).ToListAsync();
 
         /// <summary>
-        /// Agrega una nueva entidad.
+        /// Obtiene una lista de entidades con un tamaño específico.
         /// </summary>
-        /// <param name="new_entity">La entidad a agregar.</param>
-        public async Task AddAsync(T new_entity)
-        {
-            if (await _webDbContext.Set<T>().AnyAsync(entity => entity.Name!.Equals(new_entity.Name)))
-                throw new InvalidOperationException("La entidad ya existe");
-
-            await _webDbContext.AddAsync(new_entity);
-            await _webDbContext.SaveChangesAsync();
-        }
+        /// <param name="size">Tamaño de la lista.</param>
+        /// <param name="page_number">Número de página actual.</param>
+        /// <returns>La lista de entidades.</returns>
+        public async Task<IEnumerable<T>> TakeRangeAsync(int size, int page_number) =>
+            await _webDbContext.Set<T>().Skip(size * page_number).Take(size).ToListAsync();
 
         /// <summary>
         /// Elimina una entidad por su ID.
@@ -110,10 +100,33 @@ namespace Labiofam.Services
         }
 
         /// <summary>
-        /// Método abstracto para editar una entidad por su ID.
+        /// Filtra las entidades de acuerdo a una expresión lambda.
         /// </summary>
-        /// <param name="id">ID de la entidad a editar.</param>
-        /// <param name="edited_entity">La entidad editada.</param>
-        public abstract Task EditAsync(Guid id, T edited_entity);
+        /// <param name="lambda_exp">Expresión con los atributos según los cuales se filtra.</param>
+        /// <returns>La lista de entidades filtrada.</returns>
+        public async Task<IEnumerable<T>> PropertiesFilterAsync(ICollection<string> properties_names,
+            ICollection<string> properties_values)
+        {
+            var parameter = Expression.Parameter(typeof(T), "e");
+            Expression? body = null;
+
+            for (int i = 0; i < properties_names.Count; i++)
+            {
+                var property = Expression.Property(parameter, properties_names.ElementAtOrDefault(i)
+                    ?? throw new ArgumentNullException($"Null property at index: {i}"));
+                var value = Expression.Constant(properties_values.ElementAtOrDefault(i));
+                var contains = Expression.Call(property, "Contains", Type.EmptyTypes, value);
+
+                if (body == null)
+                    body = contains;
+                else
+                    body = Expression.AndAlso(body, contains);
+            }
+
+            var lambda = Expression.Lambda<Func<T, bool>>(body
+                ?? throw new ArgumentNullException("Some pair {property, value} is required"), parameter);
+
+            return await _webDbContext.Set<T>().Where(lambda).ToListAsync();
+        }
     }
 }

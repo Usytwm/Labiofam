@@ -12,6 +12,12 @@ namespace Labiofam.Controllers
             _relationService = relationService;
         }
 
+        /// <summary>
+        /// Obtiene una relación específica utilizando dos identificadores.
+        /// </summary>
+        /// <param name="id1">Primer identificador.</param>
+        /// <param name="id2">Segundo identificador.</param>
+        /// <returns>Respuesta HTTP 200 OK con la relación.</returns>
         [HttpGet("{id1}/{id2}")]
         public async Task<IActionResult> Get(Guid id1, Guid id2)
         {
@@ -25,8 +31,30 @@ namespace Labiofam.Controllers
                 return BadRequest(ex);
             }
         }
+        /// <summary>
+        /// Obtiene una colección de relaciones limitada por un tamaño específico.
+        /// </summary>
+        /// <param name="size">Tamaño de la colección.</param>
+        /// <returns>Colección de relaciones.</returns>
         [HttpGet("take/{size}")]
-        public IEnumerable<T> Take(int size) => _relationService.Take(size);
+        public async Task<IActionResult> Take(int size)
+        {
+            try
+            {
+                var result = await _relationService.TakeAsync(size);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+        /// <summary>
+        /// Agrega una nueva relación utilizando dos identificadores.
+        /// </summary>
+        /// <param name="id1">Primer identificador.</param>
+        /// <param name="id2">Segundo identificador.</param>
+        /// <returns>Respuesta HTTP 200 OK si se agrega correctamente.</returns>
         [HttpPost("{id1}/{id2}")]
         public virtual async Task<IActionResult> Add(Guid id1, Guid id2)
         {
@@ -40,6 +68,12 @@ namespace Labiofam.Controllers
                 return BadRequest(ex);
             }
         }
+        /// <summary>
+        /// Elimina una relación existente utilizando dos identificadores.
+        /// </summary>
+        /// <param name="id1">Primer identificador.</param>
+        /// <param name="id2">Segundo identificador.</param>
+        /// <returns>Respuesta HTTP 200 OK si se elimina correctamente.</returns>
         [HttpDelete("{id1}/{id2}")]
         public async Task<IActionResult> Remove(Guid id1, Guid id2)
         {
@@ -53,6 +87,10 @@ namespace Labiofam.Controllers
                 return BadRequest(ex);
             }
         }
+        /// <summary>
+        /// Obtiene todas las relaciones.
+        /// </summary>
+        /// <returns>Respuesta HTTP 200 OK con todas las relaciones.</returns>
         [HttpGet("all")]
         public async Task<IActionResult> GetAll()
         {
@@ -66,6 +104,10 @@ namespace Labiofam.Controllers
                 return BadRequest(ex);
             }
         }
+        /// <summary>
+        /// Elimina todas las relaciones existentes.
+        /// </summary>
+        /// <returns>Respuesta HTTP 200 OK si se eliminan correctamente.</returns>
         [HttpDelete("all")]
         public async Task<IActionResult> RemoveAll()
         {

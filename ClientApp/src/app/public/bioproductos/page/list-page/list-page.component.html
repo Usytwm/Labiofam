@@ -1,5 +1,6 @@
 
 
+
   <section class="container">
     <div
       data-aos="zoom-out-up"
@@ -20,15 +21,15 @@
                   </p>
                   <a [routerLink]="['/Bioproducts/',bioproducto.id]" class="btn btn-primary card-btn">Detalles</a>
                 </div>
-              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div style="margin-bottom: 2cm;">
 
-    <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+    <div style="margin-bottom: 2cm;">
+      <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
     </div>
   </section>
+
 

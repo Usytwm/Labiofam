@@ -79,7 +79,7 @@ export class AddEditServiceComponent implements OnInit {
 
   newService(): Service {
     return {
-      service_ID: this.id,
+      id: this.id,
       name: this.NameControl.value!,
       info: this.InfoControl.value!,
     };

@@ -3,18 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Labiofam.Services
 {
-    /// <summary>
-    /// Clase base abstracta para servicios de relaciones.
-    /// </summary>
-    /// <typeparam name="T">Tipo de relación.</typeparam>
-    public abstract class RelationService<T> where T : class, IRelationModel, new()
+    public abstract class RelationService<T> : IRelationService<T>
+        where T : class, IRelationModel, new()
     {
         private readonly WebDbContext _webDbContext;
 
-        /// <summary>
-        /// Constructor de la clase RelationService.
-        /// </summary>
-        /// <param name="webDbContext">Contexto de base de datos.</param>
         public RelationService(WebDbContext webDbContext)
         {
             _webDbContext = webDbContext;
@@ -25,8 +18,8 @@ namespace Labiofam.Services
         /// </summary>
         /// <param name="size">Tamaño de la lista.</param>
         /// <returns>La lista de relaciones.</returns>
-        public IEnumerable<T> Take(int size) =>
-            _webDbContext.Set<T>().Take(size);
+        public async Task<IEnumerable<T>> TakeAsync(int size) =>
+            await _webDbContext.Set<T>().Take(size).ToListAsync();
 
         /// <summary>
         /// Elimina una relación por sus IDs.
