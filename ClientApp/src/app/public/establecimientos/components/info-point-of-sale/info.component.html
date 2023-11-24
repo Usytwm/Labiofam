@@ -91,26 +91,11 @@
   <section style="background-color: var(--color-blue-white)">
     <br />
     <div class="row content">
-      <div class="col-md-4 mb-4" *ngFor="let producto of products">
-        <div class="card" style="height: 20rem">
-          <div class="cont imagen1">
-            <img
-              src="{{ producto.image }}"
-              class="card-img-top"
-              alt="Imagen de {{ producto.name }}"
-            />
-          </div>
-          <div class="card-body">
-            <h2 class="card-title">{{ producto.name }}</h2>
-            <p class="card-text">{{ producto.summary }}</p>
-            <a href="#" class="btn btn-primary card-btn">Ver más</a>
-          </div>
-        </div>
-      </div>
+      <app-bioproduct-list [products]="products"></app-bioproduct-list>
     </div>
   </section>
 
-  <div style="margin: 3%; text-align: right;">
+  <div style="margin: 3%; text-align: right">
     <a class="btn btn-primary" [routerLink]="['/point-of-sales']">Volver</a>
   </div>
 </div>

@@ -13,6 +13,7 @@ import { NavComponent } from './components/nav/nav.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PublicComponent } from './public.component';
 
+
 @NgModule({
   declarations: [NavComponent, FooterComponent, PublicComponent],
   imports: [

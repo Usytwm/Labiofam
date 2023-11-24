@@ -4,29 +4,6 @@
     data-aos-duration="1000"
     class="px-4 pt-5 my-5 text-center"
   >
-    <div class="container">
-      <div class="row row-cols-1 row-cols-md-3 g-4">
-        <div class="col" *ngFor="let bioproducto of bioproductos">
-          <div data-aos="fade-right" data-aos-duration="1500">
-            <div class="card" style="height: 25rem">
-              <div class="cont">
-                <img src="assets/12.jpg" class="card-img-top" alt="..." />
-              </div>
-              <div class="card-body">
-                <h2 class="card-title">{{ bioproducto.name }}</h2>
-                <p class="card-text">
-                  {{ bioproducto.summary }}
-                </p>
-                <a
-                  [routerLink]="['/Bioproducts/', bioproducto.id]"
-                  class="btn btn-primary card-btn"
-                  >Detalles</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <app-bioproduct-list [products]="bioproductos"></app-bioproduct-list>
   </div>
 </section>
