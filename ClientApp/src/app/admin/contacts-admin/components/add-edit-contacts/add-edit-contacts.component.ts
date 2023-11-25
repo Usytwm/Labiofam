@@ -25,6 +25,7 @@ export class AddEditContactsComponent {
     occupation: ['', Validators.required],
     info: ['', Validators.required],
     image: ['',Validators.required],
+
   });
 
   constructor(
@@ -43,6 +44,7 @@ export class AddEditContactsComponent {
       this.getContact(this.id);
     }
   }
+
 
   getContact(id: string) {
     this.loading = true;

@@ -79,9 +79,34 @@
           </mat-grid-tile>
 
 
-          <mat-grid-tile colspan="2">
-            <form style="position: absolute; width: 96%">
 
+          <mat-grid-tile rowspan="10" colspan="2">
+            <form style="position: absolute; width: 96%">
+              <div class="add-lessons-form" [formGroup]="form">
+                <ng-container formArrayName="lessons">
+                    <ng-container *ngFor="let extrasForm of extras.controls; let i = index">
+                        <div class="lesson-form-row" [formGroupName]="i">
+                            <mat-form-field appearance="fill">
+                                <input matInput
+                                       formControlName="nameC"
+                                       placeholder="Nombre del campo">
+                            </mat-form-field>
+                            <mat-form-field appearance="fill">
+                              <input matInput
+                                      formControlName="nameC"
+                                      placeholder="Descripción del campo">
+                            </mat-form-field>
+                            <mat-icon class="delete-btn" (click)="deleteExtras(i)">
+                                delete_forever</mat-icon>
+                        </div>
+                    </ng-container>
+                </ng-container>
+
+                <button mat-mini-fab (click)="addExtras()">
+                    <mat-icon class="add-course-btn">add</mat-icon>
+                </button>
+
+              </div>
             </form>
           </mat-grid-tile>
 
