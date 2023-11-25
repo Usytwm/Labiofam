@@ -2,8 +2,8 @@
 @import "~maplibre-gl/dist/maplibre-gl.css";
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
-@import 'primeng/resources/themes/saga-blue/theme.css';
-@import 'primeng/resources/primeng.min.css';
+@import "primeng/resources/themes/saga-blue/theme.css";
+@import "primeng/resources/primeng.min.css";
 :root {
   --color-blue: #203468;
   --color-yellow: #ffdd21;
@@ -59,31 +59,30 @@ a.text {
   font-style: normal;
   font-weight: normal;
 
-  src: local('Friz Quadrata Std Italic'), url('friz-quadrata-std-italic-587033b2c95df.woff') format('woff');
-
+  src: local("Friz Quadrata Std Italic"),
+    url("friz-quadrata-std-italic-587033b2c95df.woff") format("woff");
 
   font-family: "Friz Quadrata Std Medium";
   font-style: normal;
   font-weight: normal;
 
-  src: local('Friz Quadrata Std Medium'), url('friz-quadrata-std-medium-5870338ec7ef8.woff') format('woff');
-
-
+  src: local("Friz Quadrata Std Medium"),
+    url("friz-quadrata-std-medium-5870338ec7ef8.woff") format("woff");
 
   font-family: "Friz Quadrata Std Bold";
   font-style: normal;
   font-weight: normal;
 
-  src: local('Friz Quadrata Std Bold'), url('friz-quadrata-std-bold-587034a220f9f.woff') format('woff');
-
+  src: local("Friz Quadrata Std Bold"),
+    url("friz-quadrata-std-bold-587034a220f9f.woff") format("woff");
 
   font-family: "Friz Quadrata Std Bold Italic";
   font-style: normal;
   font-weight: normal;
 
-  src: local('Friz Quadrata Std Bold Italic'), url('friz-quadrata-std-bold-italic-587033d6d4298.woff') format('woff');
-
-
+  src: local("Friz Quadrata Std Bold Italic"),
+    url("friz-quadrata-std-bold-italic-587033d6d4298.woff") format("woff");
+}
 .cont {
   position: relative;
   text-align: center;
@@ -128,6 +127,4 @@ a.text {
   height: auto; /* Altura de la imagen activa como porcentaje de la altura de la ventana del navegador */
   transition: transform 1s; /* Añade una transición suave al efecto de zoom */
   cursor: pointer;
-
-}
 }

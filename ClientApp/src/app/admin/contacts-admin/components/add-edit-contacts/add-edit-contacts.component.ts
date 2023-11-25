@@ -6,7 +6,6 @@ import { FormControl, Validators } from '@angular/forms';
 import { Contact } from 'src/app/Interfaces/Contact';
 import { ContactService } from 'src/app/Services/EntitiesServices/contact.service';
 import { Observable } from 'rxjs';
-import swal from 'sweetalert2';
 
 
 @Component({
