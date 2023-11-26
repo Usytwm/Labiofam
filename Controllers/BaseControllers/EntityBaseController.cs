@@ -159,6 +159,7 @@ namespace Labiofam.Controllers
         }
         /// <summary>
         /// Filtra las entidades de acuerdo a una expresión lambda.
+        /// No acepta atributos que no sean strings en la entidad dada.
         /// </summary>
         /// <param name="lambda_exp">Expresión con los atributos según los cuales se filtra.</param>
         /// <returns>La lista de entidades filtrada.</returns>

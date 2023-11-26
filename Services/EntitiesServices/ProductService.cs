@@ -23,10 +23,11 @@ namespace Labiofam.Services
         {
             var current_product = await GetAsync(product_id);
             current_product.Name = edited_Product.Name;
-            current_product.Type = edited_Product.Type;
+            current_product.Description = edited_Product.Description;
             current_product.Image = edited_Product.Image;
             current_product.Summary = edited_Product.Summary;
-            current_product.Specifications = edited_Product.Specifications;
+            current_product.Advantages = edited_Product.Advantages;
+            current_product.Diseases = edited_Product.Diseases;
             _webDbContext.Entry(current_product).State = EntityState.Modified;
             await _webDbContext.SaveChangesAsync();
         }

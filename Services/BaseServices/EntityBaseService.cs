@@ -101,6 +101,7 @@ namespace Labiofam.Services
 
         /// <summary>
         /// Filtra las entidades de acuerdo a una expresión lambda.
+        /// No acepta atributos que no sean strings en la entidad dada.
         /// </summary>
         /// <param name="lambda_exp">Expresión con los atributos según los cuales se filtra.</param>
         /// <returns>La lista de entidades filtrada.</returns>
@@ -114,13 +115,24 @@ namespace Labiofam.Services
             {
                 var property = Expression.Property(parameter, properties_names.ElementAtOrDefault(i)
                     ?? throw new ArgumentNullException($"Null property at index: {i}"));
-                var value = Expression.Constant(properties_values.ElementAtOrDefault(i));
-                var contains = Expression.Call(property, "Contains", Type.EmptyTypes, value);
 
-                if (body == null)
-                    body = contains;
-                else
-                    body = Expression.AndAlso(body, contains);
+                try
+                {
+                    var value = Expression.Constant(properties_values.ElementAtOrDefault(i));
+                    body = body == null ? Expression.Call(property, "Contains", Type.EmptyTypes, value)
+                        : Expression.AndAlso(body, Expression.Call(property, "Contains", Type.EmptyTypes, value));
+                }
+                catch
+                {
+                    if (double.TryParse(properties_values.ElementAtOrDefault(i), out double doubleValue))
+                    {
+                        var value = Expression.Constant(doubleValue);
+                        body = body == null ? Expression.Equal(property, value)
+                            : Expression.AndAlso(body, Expression.Equal(property, value));
+                    }
+                    else throw new ArgumentException("Only string or double values can be passed"
+                        + "as parameters");
+                }
             }
 
             var lambda = Expression.Lambda<Func<T, bool>>(body
@@ -128,5 +140,6 @@ namespace Labiofam.Services
 
             return await _webDbContext.Set<T>().Where(lambda).ToListAsync();
         }
+
     }
 }
