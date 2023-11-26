@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { BioproductModuleModule } from '../components/bioproduct-module/bioproduct-module.module';
 
 //Angular Material
 import { MatListModule } from '@angular/material/list';
@@ -9,7 +10,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { SharedModule } from 'src/app/Shared/shared.module';
 
-
+import { NgxPaginationModule } from 'ngx-pagination';
 
 //componentes
 import { ListPageComponent } from './page/list-page/list-page.component';
@@ -17,20 +18,25 @@ import { BioproductosComponent } from './components/bioproductos/bioproductos.co
 import { BioproductCardComponent } from './components/bioproduct-card/bioproduct-card.component';
 import { BioproductPageComponent } from './page/bioproduct-page/bioproduct-page.component';
 
-
 @NgModule({
   declarations: [
-    ListPageComponent,BioproductosComponent,BioproductCardComponent, BioproductPageComponent,
+    ListPageComponent,
+    BioproductosComponent,
+    BioproductCardComponent,
+    BioproductPageComponent,
   ],
   imports: [
     CommonModule,
     RouterModule,
+    BioproductModuleModule,
     //Prescindible
     SharedModule,
     MatListModule,
     MatProgressSpinnerModule,
     MatSidenavModule,
     MatToolbarModule,
-  ]
+
+    NgxPaginationModule,
+  ],
 })
-export class BioproductosModule { }
+export class BioproductosModule {}

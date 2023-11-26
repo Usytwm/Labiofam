@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col" *ngFor="let product of products; let i = index">
+      <div
+        [attr.data-aos]="'fade-right'"
+        [attr.data-aos-duration]="500 * ((i % 3) + 1)"
+      >
+        <app-bioproduct-card [product]="product"></app-bioproduct-card>
+      </div>
+    </div>
+  </div>
+</div>

@@ -27,35 +27,11 @@
           compras con nosotros hoy!
         </p>
       </div>
-
-      
-      <div class="container">
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-          <div class="col" *ngFor="let product of products; let i = index">
-            <div
-              [attr.data-aos]="'fade-right'"
-              [attr.data-aos-duration]="500 * (i + 1)"
-            >
-              <div class="card" style="height: 25rem">
-                <div class="cont">
-                  <img src="10.jpg" class="card-img-top" alt="..." />
-                </div>
-                <div class="card-body">
-                  <h2 class="card-title">{{ product.name }}</h2>
-                  <p class="card-text">
-                    {{ product.summary }}
-                  </p>
-                  <a
-                    [routerLink]="['/Bioproducts/', product.id]"
-                    class="btn btn-primary card-btn"
-                    >Detalles</a
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <app-bioprduct-cards-placeholder
+        *ngIf="loading"
+        [cantidad]="3"
+      ></app-bioprduct-cards-placeholder>
+      <app-bioproduct-list [products]="products"></app-bioproduct-list>
     </div>
   </section>
 

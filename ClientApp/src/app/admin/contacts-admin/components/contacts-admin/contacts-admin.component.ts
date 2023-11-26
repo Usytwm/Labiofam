@@ -31,6 +31,7 @@ export class ContactsAdminComponent {
     this.loading = true;
     this._contactservice.getAll().subscribe((data) => {
       this._dataColumns = {
+        id : 'id',
         nombre: 'name',
         ocupación: 'occupation',
       };
