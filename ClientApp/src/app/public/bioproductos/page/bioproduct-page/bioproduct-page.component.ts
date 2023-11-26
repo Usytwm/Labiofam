@@ -9,12 +9,14 @@ import { ProductService } from 'src/app/Services/EntitiesServices/product.servic
 @Component({
   selector: 'app-bioproduct-page',
   templateUrl: './bioproduct-page.component.html',
-  styleUrls: ['./bioproduct-page.component.css']
+  styleUrls: ['./bioproduct-page.component.css'],
+
 })
 export class BioproductPageComponent {
   loading = false;
   id: string;
   bioproducto?: Product;
+
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
@@ -34,6 +36,7 @@ export class BioproductPageComponent {
     this.loading = true;
     this._bioproductsservices.get(id).subscribe((data) => {
       this.bioproducto = data;
+
       console.log(data);
       this.loading = false;
     });
@@ -41,4 +44,5 @@ export class BioproductPageComponent {
   goBack(): void {
     this.router.navigateByUrl('Bioproducts')
   }
+
 }

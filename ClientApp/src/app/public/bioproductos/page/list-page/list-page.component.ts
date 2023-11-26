@@ -7,14 +7,14 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-list-page',
   templateUrl: './list-page.component.html',
-  styleUrls: ['./list-page.component.css']
+  styleUrls: ['./list-page.component.css'],
 })
 export class ListPageComponent {
   loading: Boolean = false;
   bioproductos: Product[] = [];
-  constructor(
-    private _bioproductsservices: ProductService
-  ) { }
+  pageSize: number = 9;
+  page: number = 1;
+  constructor(private _bioproductsservices: ProductService) {}
   ngOnInit(): void {
     this.obtenerBioproductos();
   }
@@ -25,5 +25,9 @@ export class ListPageComponent {
       console.log(data);
       this.loading = false;
     });
+  }
+
+  handlePageChange(event: number) {
+    this.page = event;
   }
 }
