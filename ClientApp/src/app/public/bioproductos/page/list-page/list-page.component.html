@@ -1,4 +1,14 @@
 <section class="container">
+  <nav class="navbar" style="background-color: #ffffff;">
+    <div class="container-fluid">
+      <a></a>
+      <form class="d-flex" role="search">
+        <input class="form-control me-10" type="search" placeholder="" aria-label="Search" style="width: 300px;   background-color: #f5f5f5;
+        box-shadow: 0 0 10px #3b3b3b;">
+        <button class="btn btn-outline-success" type="submit" style="background-color:#2f4e9b; color: #ffdd21; width: 120px; border-color: #203468;">Buscar</button>
+      </form>
+    </div>
+</nav>
   <div
     data-aos="zoom-out-up"
     data-aos-duration="1000"
@@ -14,11 +24,13 @@
       "
     ></app-bioproduct-list>
   </div>
-  <div *ngIf="!loading" style="margin-bottom: 2cm">
-    <pagination-controls
-      (pageChange)="handlePageChange($event)"
-      previousLabel="Anterior"
-      nextLabel="Siguiente"
-    ></pagination-controls>
+  <div *ngIf="!loading" style="margin-bottom: 2cm" >
+    <div style="display: flex; justify-content: center;">
+      <pagination-controls
+        (pageChange)="handlePageChange($event)"
+        previousLabel="Anterior"
+        nextLabel="Siguiente"
+      ></pagination-controls>
+    </div>
   </div>
 </section>
