@@ -14,7 +14,7 @@ import { Observable, map, startWith } from 'rxjs';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
-
+//import {} from '@angular/cdk';
 //Interfaces
 
 import { Service } from 'src/app/Interfaces/Service';
@@ -25,7 +25,7 @@ import { ServicesService } from 'src/app/Services/EntitiesServices/services.serv
 
 
 @Component({
-  selector: 'app-add-edit-bioproduct',
+  selector: 'app-add-edit-service',
   templateUrl: './Service-edit.component.html',
   styleUrls: ['./Service-edit.component.css']
 })
@@ -53,10 +53,10 @@ export class AddEditServiceComponent {
   ngOnInit(): void {
     if (this.id !== 'null') {
       this.operacion = 'Editar';
-      this.getProduct(this.id);
+      this.getService(this.id);
     }
   }
-  getProduct(id: string) {
+  getService(id: string) {
     this.loading = true;
     this._serviceservice.get(id).subscribe((data) => {
       this.service = data;
