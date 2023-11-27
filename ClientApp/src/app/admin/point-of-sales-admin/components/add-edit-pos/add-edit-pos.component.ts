@@ -26,9 +26,17 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./add-edit-pos.component.css'],
 })
 export class AddEditPosComponent implements OnInit, AfterViewInit {
-onFileSelected($event: Event) {
-throw new Error('Method not implemented.');
-}
+  onFileSelected(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length) {
+      const file = target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.imagePreview = reader.result as string;
+      };
+    }
+  }
   imagePreview?: string;
   markerLngLat?: LngLat;
   marker?: Marker;
@@ -81,8 +89,6 @@ throw new Error('Method not implemented.');
   ngOnInit(): void {
     if (this.id !== 'null') {
       this.operacion = 'Editar';
-      console.log(this.id);
-      
       this.getPoint(this.id);
     }
   }
@@ -188,7 +194,7 @@ throw new Error('Method not implemented.');
       longitude: this.form.value.longitude!,
     };
   }
-  
+
   onFileChange(event: Event) {
     const target = event.target as HTMLInputElement;
     if (target.files && target.files.length) {
@@ -198,6 +204,7 @@ throw new Error('Method not implemented.');
       reader.onload = () => {
         this.imagePreview = reader.result as string;
       };
+      console.log(this.imagePreview);
     }
   }
 }

@@ -1,1 +1,111 @@
-<p>add-edit-bioproduct works!</p>
+<div data-aos="fade-left">
+  <div class="mat-primary titulo">{{ operacion }} Bioproductos</div>
+
+  <div
+    class="container1"
+    fxLayout="row"
+    fxLayout.lt-sm="column"
+    fxLayoutAlign="center center"
+    fxLayoutGap="10px"
+  >
+    <mat-card class="card" fxFlex="80%" fxFlex.lt-md="100%">
+      <mat-card-subtitle style="text-align: center">
+        <h2>Datos</h2>
+      </mat-card-subtitle>
+      <form
+        [formGroup]="form"
+        style="margin-top: 10px"
+        (ngSubmit)="operacion === 'Agregar' ? addProduct() : editProduct()"
+      >
+        <mat-grid-list cols="2" rowHeight="80px">
+          <mat-grid-tile>
+            <mat-form-field class="mat-form-field" appearance="outline">
+              <mat-label>Nombre</mat-label>
+              <input formControlName="name" matInput autocomplete="off" />
+              <mat-error
+                *ngIf="form.controls.name.invalid && form.controls.name.touched"
+              >
+                nombre inválido
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-form-field class="mat-form-field" appearance="outline">
+              <mat-label>Tipo</mat-label>
+              <input
+                formControlName="type"
+                matInput
+                autocomplete="off"
+              />
+              <mat-error
+
+              >
+                Por favor introduzca el tipo del bioproducto
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-form-field class="mat-form-field" appearance="outline">
+              <mat-label>Descripción</mat-label>
+              <input
+                formControlName="summary"
+                matInput
+                autocomplete="off"
+              />
+              <mat-error
+
+              >
+                Por favor introduzca la información del bioproducto
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-form-field class="mat-form-field" appearance="outline">
+              <mat-label>Especificación</mat-label>
+              <input
+                formControlName="specifications"
+                matInput
+                autocomplete="off"
+              />
+              <mat-error
+
+              >
+                Por favor introduzca la información del bioproducto
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+
+
+          <mat-grid-tile colspan="2">
+            <form style="position: absolute; width: 96%">
+
+            </form>
+          </mat-grid-tile>
+
+          <mat-grid-tile colspan="2">
+            <button
+              [disabled]="form.invalid"
+              y
+              type="submit"
+              class="btnacept"
+              mat-raised-button
+              color="primary"
+            >
+              Aceptar
+            </button>
+            <button
+              type="button"
+              mat-raised-button
+              routerLink="/dashboard/bioproducts-admin"
+            >
+              Volver
+            </button>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </form>
+    </mat-card>
+  </div>
+</div>

@@ -1,32 +1,28 @@
-<div class="container py-5">
-  <!-- For Demo Purpose-->
-  <header class="text-center mb-5">
-    <h1 class="display-4 font-weight-bold">Bootstrap Cards</h1>
-    <p class="font-italic text-muted mb-0">An awesome Bootstrap 4 cards collection with variant content.</p>
-    <p class="font-italic text-muted">Snippet By <a href="https://bootstrapious.com" class="text-muted">
-        <u>Bootstrapious</u></a>
+<div data-aos="fade-down">
+  <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
+    <h1 class="display-4 fst-italic titulo">Nuestros Directivos</h1>
+    <p class="lead my-3 container">
+      Labiofam, la elección segura, económica y efectiva. Nuestros productos ofrecen soluciones para una amplia variedad de problemas agroindustriales.
     </p>
-  </header>
+  </div>
+</div>
 
-  <h2 class="font-weight-bold mb-2">Our Team</h2>
-  <p class="font-italic text-muted mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
 
-  <div class="row pb-5 mb-4">
-    <div class="col-lg-3 col-md-6 mb-4 mb-lg-0 ">
-      <!-- Card-->
-      <div class="col" *ngFor="let contacto of contactos">
-        <div class="card shadow-sm border-0 rounded">
-          <div class="card-body p-0"><img src="https://bootstrapious.com/i/snippets/sn-cards/profile-3_ybnq8v.jpg" alt="" class="w-100 card-img-top">
-            <div class="p-4">
-              <h5 class="mb-0">Mark Rockwell</h5>
-              <p class="small text-muted">CEO - Consultant</p>
-              <ul class="social mb-0 list-inline mt-3">
 
-              </ul>
+    <div class="team-boxed">
+        <div class="container">
+          <div class="row people">
+                <div class="col-md-6 col-lg-4 item" *ngFor="let contacto of contactos">
+
+                    <div class="box"><img  class="rounded-circle"src="assets/1.jpg">
+                        <h3 class="name">{{contacto.name}}</h3>
+                        <p class="title">{{contacto.occupation}}</p>
+                        <p class="description"> </p>
+                        <a href="#">Ben.&#64;gmail.cu</a>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
 
 

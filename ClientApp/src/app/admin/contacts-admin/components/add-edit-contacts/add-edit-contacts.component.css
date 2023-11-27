@@ -1,0 +1,99 @@
+.card {
+  margin-top: 10px;
+}
+
+.container1 {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+.mat-form-field {
+  width: 100%;
+  margin: 10px;
+}
+.btnacept {
+  margin-right: 5px;
+}
+
+.card {
+  max-width: 65%;
+  margin-right: auto;
+  margin-left: auto;
+  justify-content: center;
+  height: 100%;
+  overflow: auto; /* Asegura que el contenido pueda desplazarse si excede la altura máxima */
+}
+.titulo {
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+.container {
+  width: 100%; /* Establece un ancho predeterminado */
+  height: 250px; /* Establece una altura predeterminada */
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.map-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.map {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+}
+.my-grid-tile {
+  width: 100% !important;
+  height: 250px !important;
+}
+
+
+.card-img-top {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  background-size: cover;
+  padding-top:25px;
+  padding-block-end:25px;
+}
+
+section {
+  display: table;
+}
+
+.example-label {
+  display: table-cell;
+  font-size: 14px;
+  margin-left: 8px;
+  min-width: 120px;
+}
+
+.example-button-row {
+  display: table-cell;
+  max-width: 600px;
+}
+
+.example-button-row .mat-mdc-button-base {
+  margin: 8px 8px 8px 0;
+}
+
+.example-flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.example-button-container {
+  display: flex;
+  justify-content: center;
+  width: 120px;
+}

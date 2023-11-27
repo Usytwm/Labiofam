@@ -9,9 +9,12 @@ import { ServicesAdminComponent } from './services-admin/components/services-adm
 import { AddEditServiceComponent } from './services-admin/components/add-edit-service/Service-edit.component';
 import { TestimoniosAdminComponent } from './testimonios-admin/components/testimonios-admin/testimonios-admin.component';
 import { AddEditTestimoniosComponent } from './testimonios-admin/components/add-edit-testimonios/testimonios-edit.component';
-
 import { InfoPosComponent } from './point-of-sales-admin/components/info-pos/info-pos.component';
 
+import { BioproductsAdminComponent } from './bioproducts-admin/components/bioproducts-admin/bioproducts-admin.component';
+import { AddEditBioproductComponent } from './bioproducts-admin/components/add-edit-bioproduct/add-edit-bioproduct.component';
+import { ContactsAdminComponent } from './contacts-admin/components/contacts-admin/contacts-admin.component';
+import { AddEditContactsComponent } from './contacts-admin/components/add-edit-contacts/add-edit-contacts.component';
 const routes: Routes = [
   {
     path: '',
@@ -27,6 +30,17 @@ const routes: Routes = [
       { path: 'testimonios-admin/edit/:id', component: AddEditTestimoniosComponent },
       { path: 'testimonios-admin/add', component: AddEditTestimoniosComponent },
 
+      { path: 'bioproducts-admin', component: BioproductsAdminComponent },
+      {
+        path: 'bioproducts-admin/edit/:id',
+        component: AddEditBioproductComponent,
+      },
+      { path: 'bioproducts-admin/add', component: AddEditBioproductComponent },
+
+      { path: 'contacts-admin', component: ContactsAdminComponent },
+      { path: 'contacts-admin/edit/:id', component: AddEditContactsComponent },
+      { path: 'contacts-admin/add', component: AddEditContactsComponent },
+
       {
         path: 'points-of-sales-admin',
         component: PointsOfSalesComponent,
@@ -36,10 +50,7 @@ const routes: Routes = [
         component: AddEditPosComponent,
       },
       { path: 'points-of-sales-admin/add', component: AddEditPosComponent },
-      {
-        path: 'points-of-sales-admin/details/:id',
-        component: InfoPosComponent,
-      },
+
       // otras rutas que deben mostrarse dentro de PublicComponent
     ],
   },

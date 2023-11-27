@@ -1,5 +1,6 @@
 export interface Contact {
-  Id: string;
+
+  id?: string;
   name?: string;
   image?: string;
   contact_Info?: string;
