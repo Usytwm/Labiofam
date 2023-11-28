@@ -1,14 +1,20 @@
 <section class="container">
   <nav class="navbar" style="background-color: #ffffff;">
-    <div class="container-fluid">
-      <a></a>
-      <form class="d-flex" role="search">
-        <input class="form-control me-10" type="search" placeholder="" aria-label="Search" style="width: 300px;   background-color: #f5f5f5;
-        box-shadow: 0 0 10px #3b3b3b;">
-        <button class="btn btn-outline-success" type="submit" style="background-color:#2f4e9b; color: #ffdd21; width: 120px; border-color: #203468;">Buscar</button>
-      </form>
+    <a></a>
+    <div class="filter">
+      <mat-form-field>
+        <mat-label>Filtrar</mat-label>
+        <input
+          matInput
+
+          placeholder="producto o enfermedad que controla"
+          #input
+          autocomplete="off"
+        />
+      </mat-form-field>
     </div>
 </nav>
+
   <div
     data-aos="zoom-out-up"
     data-aos-duration="1000"

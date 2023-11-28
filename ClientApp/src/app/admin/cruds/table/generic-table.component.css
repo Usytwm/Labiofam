@@ -2,9 +2,10 @@ table {
   width: 100%;
 }
 .filter {
-  margin-left: 0px;
+
   margin-right: auto;
-  width: 30%;
+  width: 100%;
+  flex: 1;
 }
 
 td,

@@ -17,6 +17,7 @@ import { ListPageComponent } from './page/list-page/list-page.component';
 import { BioproductosComponent } from './components/bioproductos/bioproductos.component';
 import { BioproductCardComponent } from './components/bioproduct-card/bioproduct-card.component';
 import { BioproductPageComponent } from './page/bioproduct-page/bioproduct-page.component';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ import { BioproductPageComponent } from './page/bioproduct-page/bioproduct-page.
     MatProgressSpinnerModule,
     MatSidenavModule,
     MatToolbarModule,
-
+    AutoCompleteModule,
     NgxPaginationModule,
   ],
 })
