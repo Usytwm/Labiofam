@@ -36,13 +36,13 @@ export class AddEditBioproductComponent {
   id: string;
   operacion = 'Agregar';
   product?: Product;
-  //extrasForm?: FormGroup;
+  extrasForm?: FormGroup;
   form = this.fb.group({
     name: ['', Validators.required],
     type: ['', Validators.required],
     summary: ['', Validators.required],
     specifications: ['', Validators.required],
-    //extras: this.fb.array([])
+    extras: this.fb.array([])
   });
 
 
@@ -61,7 +61,7 @@ export class AddEditBioproductComponent {
       this.getProduct(this.id);
     }
   }
-  /*
+
   get extras() {
     return this.form.controls["extras"] as FormArray;
   }
@@ -75,7 +75,7 @@ export class AddEditBioproductComponent {
   deleteExtras(extraIndex: number){
     this.extras.removeAt(extraIndex);
   }
-  */
+
 
 
   getProduct(id: string) {

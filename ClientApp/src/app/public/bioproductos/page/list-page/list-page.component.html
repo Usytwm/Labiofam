@@ -6,7 +6,7 @@
         <mat-label>Filtrar</mat-label>
         <input
           matInput
-
+          (keyup)="applyFilter($event)"
           placeholder="producto o enfermedad que controla"
           #input
           autocomplete="off"
