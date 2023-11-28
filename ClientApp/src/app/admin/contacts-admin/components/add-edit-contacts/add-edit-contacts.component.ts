@@ -23,6 +23,7 @@ export class AddEditContactsComponent {
     name: ['', Validators.required],
     occupation: ['', Validators.required],
     info: ['', Validators.required],
+
     image: ['',Validators.required],
 
   });
