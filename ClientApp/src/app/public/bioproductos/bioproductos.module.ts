@@ -18,6 +18,8 @@ import { BioproductosComponent } from './components/bioproductos/bioproductos.co
 import { BioproductCardComponent } from './components/bioproduct-card/bioproduct-card.component';
 import { BioproductPageComponent } from './page/bioproduct-page/bioproduct-page.component';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { AccordionModule } from 'primeng/accordion';
+import { AccordionTab } from 'primeng/accordion';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,8 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
     MatToolbarModule,
     AutoCompleteModule,
     NgxPaginationModule,
+
+    AccordionModule,
   ],
 })
 export class BioproductosModule {}

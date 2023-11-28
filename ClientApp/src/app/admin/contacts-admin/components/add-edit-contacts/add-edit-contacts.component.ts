@@ -22,8 +22,8 @@ export class AddEditContactsComponent {
   form = this.fb.group({
     name: ['', Validators.required],
     occupation: ['', Validators.required],
-    info: ['', Validators.required],
-
+    info: ['', [Validators.required, Validators.pattern(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/)]],
+    teléfono: [''],
     image: ['',Validators.required],
 
   });

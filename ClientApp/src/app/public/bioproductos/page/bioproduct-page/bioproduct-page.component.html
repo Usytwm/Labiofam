@@ -29,7 +29,7 @@
 	        	<div class="col-md-6">
 	        		<div class="card" style="height: 35rem">
                 <div class ="cont">
-                  <img src="assets/11.jpg" class="card-img-cover" />
+                  <img src="assets/11.jpg"  />
                 </div>
 
           </div>
@@ -39,11 +39,27 @@
 	        		<div class="product-dtl">
         				<div class="product-info">
 		        			<div class="product-name">{{bioproducto.name}}</div>
-		        			<div class="product-type">Tipo:{{bioproducto.type}}</div>
+		        			<div class="product-type" style="margin-top: 1cm;" >
+                    <span style="color:#0000008a;">Tipo:</span> {{bioproducto.type}}</div>
                   <div class="reviews-counter">
 
 							</div>
-
+              <div class="card flex justify-content-center" style="margin-top: 1cm;">
+                <p-accordion [activeIndex]="0">
+                    <p-accordionTab header="Descripción">
+                        <p>
+                            {{bioproducto.summary}}</p>
+                    </p-accordionTab>
+                    <p-accordionTab header="Indicaciones">
+                        <p>{{bioproducto.specifications}} </p>
+                    </p-accordionTab>
+                    <p-accordionTab header="Ventajas">
+                        <p>
+                            Ventaja
+                        </p>
+                    </p-accordionTab>
+                </p-accordion>
+              </div>
 
 
               </div>
