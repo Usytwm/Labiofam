@@ -1,0 +1,40 @@
+table {
+  width: 100%;
+}
+.filter {
+  margin-left: 0px;
+  margin-right: auto;
+  width: 30%;
+}
+
+td,
+th {
+  width: 15%;
+}
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+.delete {
+  cursor: pointer;
+  color: chocolate;
+}
+.edit {
+  cursor: pointer;
+  color: cornflowerblue;
+}
+.search {
+  cursor: pointer;
+}
+.texto {
+  display: inline-block;
+  cursor: pointer;
+}
+.titulo {
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+  padding: 10px;
+}
