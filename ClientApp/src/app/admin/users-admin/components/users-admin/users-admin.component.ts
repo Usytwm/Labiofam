@@ -59,7 +59,7 @@ export class UsersAdminComponent implements OnInit {
   Delete(id: string) {
     this.loading = true;
     this._registrationervice.remove(id).subscribe(() => {
-      this._snackBar.open('Eliminado con éxito', '', {
+      this._snackBar.open('Eliminado con éxito', 'cerrar', {
         duration: 3000,
         horizontalPosition: 'right',
       });

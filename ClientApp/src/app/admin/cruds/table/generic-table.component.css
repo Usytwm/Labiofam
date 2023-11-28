@@ -2,9 +2,10 @@ table {
   width: 100%;
 }
 .filter {
-  margin-left: 0px;
+
   margin-right: auto;
-  width: 30%;
+  width: 100%;
+  flex: 1;
 }
 
 td,
@@ -16,13 +17,21 @@ th {
   width: 100%;
 }
 .delete {
+  background: none;
+  border: none;
   cursor: pointer;
   color: chocolate;
+  font-size: 18px; /* Aumenta el tamaño del icono */
 }
+
 .edit {
   cursor: pointer;
   color: cornflowerblue;
+  background: none;
+  border: none;
+  font-size: 18px; /* Aumenta el tamaño del icono */
 }
+
 .search {
   cursor: pointer;
 }
