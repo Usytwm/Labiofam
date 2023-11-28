@@ -46,19 +46,27 @@
           [routerLink]="['services-admin']"
           (click)="drawer.toggle()"
         >
-          Servicios</button></div>
+          Servicios
+        </button>
+      </div>
       <div>
         <button
           mat-button
           [routerLink]="['bioproducts-admin']"
           (click)="drawer.toggle()"
-          >Bioproductos</button></div>
+        >
+          Bioproductos
+        </button>
+      </div>
       <div>
         <button
-            mat-button
-            [routerLink]="['contacts-admin']"
-              (click)="drawer.toggle()"
-              >Contactos</button></div>
+          mat-button
+          [routerLink]="['contacts-admin']"
+          (click)="drawer.toggle()"
+        >
+          Contactos
+        </button>
+      </div>
 
       <!-- Añade aquí más botones según sea necesario -->
     </div>
@@ -73,7 +81,7 @@
 
   <div class="sidenav-content">
     <button type="button" mat-icon-button (click)="drawer.toggle()">
-      <mat-icon>menu</mat-icon>
+      <fa-icon [icon]="barra" class="icon"></fa-icon>
     </button>
     <router-outlet></router-outlet>
   </div>
