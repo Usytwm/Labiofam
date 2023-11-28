@@ -5,7 +5,7 @@ import {
   ViewChild,
   inject,
 } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Form, FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
@@ -14,7 +14,7 @@ import { Observable, map, startWith } from 'rxjs';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
-
+import { FormArray } from '@angular/forms';
 //Interfaces
 
 import { Product } from 'src/app/Interfaces/Product';
@@ -36,13 +36,13 @@ export class AddEditBioproductComponent {
   id: string;
   operacion = 'Agregar';
   product?: Product;
-
+  extrasForm?: FormGroup;
   form = this.fb.group({
     name: ['', Validators.required],
     type: ['', Validators.required],
     summary: ['', Validators.required],
     specifications: ['', Validators.required],
-
+    extras: this.fb.array([])
   });
 
 
@@ -61,6 +61,23 @@ export class AddEditBioproductComponent {
       this.getProduct(this.id);
     }
   }
+
+  get extras() {
+    return this.form.controls["extras"] as FormArray;
+  }
+  addExtras() {
+    this.extrasForm = this.fb.group({
+      nameC: ['',Validators.required],
+      InfoC: ['',Validators.required]
+    });
+    this.extras.push(this.extrasForm);
+  }
+  deleteExtras(extraIndex: number){
+    this.extras.removeAt(extraIndex);
+  }
+
+
+
   getProduct(id: string) {
     this.loading = true;
     this._productservice.get(id).subscribe((data) => {

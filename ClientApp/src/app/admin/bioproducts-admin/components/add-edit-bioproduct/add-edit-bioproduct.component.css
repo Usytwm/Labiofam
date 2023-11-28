@@ -31,3 +31,9 @@
 .formulario {
   width: 100%;
 }
+
+.custom-button {
+  background-color: #2f4e9b; /* Cambia el color de fondo del botón */
+  color: white; /* Cambia el color del texto del botón */
+  border: none; /* Elimina el borde del botón */
+}
