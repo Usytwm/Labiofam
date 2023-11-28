@@ -9,7 +9,6 @@ import { ServicesAdminComponent } from './services-admin/components/services-adm
 import { AddEditServiceComponent } from './services-admin/components/add-edit-service/Service-edit.component';
 import { TestimoniosAdminComponent } from './testimonios-admin/components/testimonios-admin/testimonios-admin.component';
 import { AddEditTestimoniosComponent } from './testimonios-admin/components/add-edit-testimonios/testimonios-edit.component';
-import { InfoPosComponent } from './point-of-sales-admin/components/info-pos/info-pos.component';
 
 import { BioproductsAdminComponent } from './bioproducts-admin/components/bioproducts-admin/bioproducts-admin.component';
 import { AddEditBioproductComponent } from './bioproducts-admin/components/add-edit-bioproduct/add-edit-bioproduct.component';

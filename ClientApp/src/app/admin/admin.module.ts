@@ -26,7 +26,7 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
     MatSidenavModule,
     SharedModule,
     ServicesAdminModule,
-    TestimoniosAdminModule
+    TestimoniosAdminModule,
     ContactsAdminModule,
     BioproductadminModule,
   ],
