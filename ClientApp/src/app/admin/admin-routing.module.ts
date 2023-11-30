@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { UsersAdminComponent } from './users-admin/components/users-admin/users-admin.component';
 import { PointsOfSalesComponent } from './point-of-sales-admin/components/points-of-sales/points-of-sales.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { HomeAdminComponent } from './components/home-admin/home-admin.component';
 import { AddEditUserComponent } from './users-admin/components/add-edit-user/add-edit-user.component';
 import { AddEditPosComponent } from './point-of-sales-admin/components/add-edit-pos/add-edit-pos.component';
 import { ServicesAdminComponent } from './services-admin/components/services-admin/services-admin.component';
@@ -19,6 +20,8 @@ const routes: Routes = [
     path: '',
     component: SidenavComponent,
     children: [
+
+      { path: 'home', component: HomeAdminComponent },
       { path: 'users-admin', component: UsersAdminComponent },
       { path: 'users-admin/edit/:id', component: AddEditUserComponent },
       { path: 'users-admin/add', component: AddEditUserComponent },

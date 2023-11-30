@@ -9,6 +9,7 @@ import { ServicesAdminModule } from './services-admin/service-admin.module';
 import { TestimoniosAdminModule } from './testimonios-admin/testimonios-admin.module';
 import { ContactsAdminModule } from './contacts-admin/contacts-admin.module';
 import { BioproductadminModule } from './bioproducts-admin/bioproduct-admin.module';
+import { HomeAdminModule } from './components/home-admin.module.module';
 
 //material
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -29,6 +30,7 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
     TestimoniosAdminModule,
     ContactsAdminModule,
     BioproductadminModule,
+    HomeAdminModule,
   ],
 })
 export class SeccionAdminModule {}
