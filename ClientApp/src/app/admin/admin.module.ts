@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 //modulos
 import { SeccionAdminRoutingModule } from './admin-routing.module';
@@ -14,13 +15,15 @@ import { HomeAdminModule } from './components/home-admin.module.module';
 //material
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { SharedModule } from '../Shared/shared.module';
+
 //componentes
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 
 @NgModule({
-  declarations: [SidenavComponent,],
+  declarations: [SidenavComponent],
   imports: [
     CommonModule,
+    FontAwesomeModule,
     SeccionAdminRoutingModule,
     PointOfSalesAdminModule,
     UsersadminModule,

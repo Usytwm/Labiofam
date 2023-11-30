@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { faFacebook } from '@fortawesome/free-brands-svg-icons';
+import { faPlus, faBars ,faHamburger} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-sidenav',
@@ -7,5 +9,7 @@ import { Component } from '@angular/core';
 })
 export class SidenavComponent {
   showFiller = false;
+  barra = faBars;
+
   logout() {}
 }

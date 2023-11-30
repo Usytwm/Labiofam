@@ -1,6 +1,5 @@
 <div data-aos="fade-left">
   <div class="mat-primary titulo">{{ operacion }} Bioproductos</div>
-
   <div
     class="container1"
     fxLayout="row"
@@ -29,7 +28,6 @@
               </mat-error>
             </mat-form-field>
           </mat-grid-tile>
-
           <mat-grid-tile>
             <mat-form-field class="mat-form-field" appearance="outline">
               <mat-label>Tipo</mat-label>
@@ -39,13 +37,11 @@
                 autocomplete="off"
               />
               <mat-error
-
               >
                 Por favor introduzca el tipo del bioproducto
               </mat-error>
             </mat-form-field>
           </mat-grid-tile>
-
           <mat-grid-tile>
             <mat-form-field class="mat-form-field" appearance="outline">
               <mat-label>Descripción</mat-label>
@@ -55,13 +51,11 @@
                 autocomplete="off"
               />
               <mat-error
-
               >
                 Por favor introduzca la información del bioproducto
               </mat-error>
             </mat-form-field>
           </mat-grid-tile>
-
           <mat-grid-tile>
             <mat-form-field class="mat-form-field" appearance="outline">
               <mat-label>Especificación</mat-label>
@@ -71,20 +65,41 @@
                 autocomplete="off"
               />
               <mat-error
-
               >
                 Por favor introduzca la información del bioproducto
               </mat-error>
             </mat-form-field>
           </mat-grid-tile>
 
-
-          <mat-grid-tile colspan="2">
-            <form style="position: absolute; width: 96%">
-
-            </form>
+          <mat-grid-tile colspan="2" style="text-align: center; color: #0000008A;">
+            <h2>Campos adicionales</h2>
           </mat-grid-tile>
 
+
+          <mat-grid-tile rowspan="{{ extras.controls.length + 1}}" colspan="2">
+            <div style="display: flex; justify-content: center;">
+              <form style="width: 96%">
+                <div class="add-lessons-form" [formGroup]="form">
+                  <ng-container formArrayName="lessons">
+                    <ng-container *ngFor="let extrasForm of extras.controls; let i = index">
+                      <div class="lesson-form-row" [formGroupName]="i">
+                        <mat-form-field appearance="fill">
+                          <input matInput formControlName="nameC" placeholder="Nombre del campo">
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                          <input matInput formControlName="nameC" placeholder="Descripción del campo">
+                        </mat-form-field>
+                        <mat-icon class="delete-btn" (click)="deleteExtras(i)">delete_forever</mat-icon>
+                      </div>
+                    </ng-container>
+                  </ng-container>
+                  <button mat-mini-fab (click)="addExtras()" class="custom-button">
+                    <mat-icon class="add-course-btn">add</mat-icon>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </mat-grid-tile>
           <mat-grid-tile colspan="2">
             <button
               [disabled]="form.invalid"

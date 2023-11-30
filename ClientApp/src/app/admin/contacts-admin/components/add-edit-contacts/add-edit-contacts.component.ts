@@ -22,8 +22,10 @@ export class AddEditContactsComponent {
   form = this.fb.group({
     name: ['', Validators.required],
     occupation: ['', Validators.required],
-    info: ['', Validators.required],
+    info: ['', [Validators.required, Validators.pattern(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/)]],
+    teléfono: [''],
     image: ['',Validators.required],
+
   });
 
   constructor(
@@ -42,6 +44,7 @@ export class AddEditContactsComponent {
       this.getContact(this.id);
     }
   }
+
 
   getContact(id: string) {
     this.loading = true;

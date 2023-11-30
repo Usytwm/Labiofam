@@ -49,21 +49,24 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>Acciones</th>
         <td mat-cell *matCellDef="let element">
-          <mat-icon
-            routerLink="edit/{{ element.elementId }}"
-            matTooltip="Edit"
-            class="edit"
-            fontIcon="edit"
-          ></mat-icon>
-          <mat-icon
-            (click)="deleteRow(element.elementId)"
-            matTooltip="Delete"
-            class="delete"
-            fontIcon="delete"
-          ></mat-icon>
+          
+            <button
+              routerLink="edit/{{ element.elementId }}"
+              matTooltip="Editar"
+              class="edit"
+            >
+              <fa-icon [icon]="editar" class="icon"></fa-icon>
+            </button>
+            <button
+              (click)="deleteRow(element.elementId)"
+              matTooltip="Eliminar"
+              class="delete"
+            >
+              <fa-icon [icon]="eliminar" class="icon"></fa-icon>
+            </button>
+          
         </td>
       </ng-container>
-
       <tr mat-header-row *matHeaderRowDef="keys().concat('actions')"></tr>
       <tr mat-row *matRowDef="let row; columns: keys().concat('actions')"></tr>
     </table>
@@ -76,6 +79,6 @@
   </mat-paginator>
 
   <button routerLink="add" mat-fab color="primary" matTooltip="agregar">
-    <mat-icon>add</mat-icon>
+    <fa-icon [icon]="agregar" class="icon"></fa-icon>
   </button>
 </div>

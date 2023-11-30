@@ -52,9 +52,9 @@
             </mat-form-field>
           </mat-grid-tile>
 
-          <mat-grid-tile colspan="2">
-            <mat-form-field class="mat-form-field" appearance="outline" cols="1" style="position: absolute; width: 96%">
-              <mat-label>Información</mat-label>
+          <mat-grid-tile colspan="1">
+            <mat-form-field class="mat-form-field" appearance="outline" >
+              <mat-label>Correo</mat-label>
               <input
                 formControlName="info"
                 matInput
@@ -68,8 +68,22 @@
             </mat-form-field>
           </mat-grid-tile>
 
-          <mat-grid-tile >
 
+
+          <mat-grid-tile colspan="1">
+            <mat-form-field class="mat-form-field" appearance="outline" >
+              <mat-label>Teléfono</mat-label>
+              <input
+                formControlName="teléfono"
+                matInput
+                autocomplete="off"
+              />
+              <mat-error
+
+              >
+                Por favor introduzca información de interes del contacto
+              </mat-error>
+            </mat-form-field>
           </mat-grid-tile>
 
           <mat-grid-tile colspan="1" rowspan="3" >
