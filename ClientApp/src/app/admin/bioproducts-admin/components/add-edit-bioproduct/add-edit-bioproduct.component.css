@@ -117,16 +117,7 @@ form {
   position: relative;
 }
 
-.custom-button {
-  width: 15vw; /* Cambia esto al ancho que desees */
-  position: absolute;
-  bottom: 0; /* Esto posiciona el botón en la parte inferior del div */
-  left: 50%; /* Esto posiciona el botón en el centro horizontalmente */
-  transform: translateX(
-    -50%
-  ); /* Esto corrige la posición para que el centro del botón esté alineado con el centro del div */
-  margin-bottom: 3%;
-}
+
 
 .file-input {
   position: absolute;

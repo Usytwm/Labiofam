@@ -134,6 +134,7 @@ export class AddEditBioproductComponent {
       this.loading = false;
     });
   }
+  /*
   addProduct() {
     this._productservice.add(this.newProduct()).subscribe((data) => {
       this.snackBar.open('Agregado con éxito', 'cerrar', {
@@ -142,6 +143,28 @@ export class AddEditBioproductComponent {
       });
       //console.log(this.newUser());
       this.router.navigate(['/dashboard/bioproducts-admin']);
+    });
+  }*/
+  addProduct() {
+    this._productservice.add(this.newProduct()).subscribe((data) => {
+      this.snackBar.open('Agregado con éxito', 'cerrar', {
+        duration: 3000,
+        horizontalPosition: 'right',
+      });
+      this.router.navigate(['/dashboard/bioproducts-admin']);
+    }, (error) => {
+      if (error.error.code === 'DUPLICATE_PRODUCT_NAME') {
+        this.snackBar.open('El nombre del producto ya existe', 'cerrar', {
+          duration: 3000,
+          horizontalPosition: 'right',
+        });
+      } else {
+        console.error(error);
+        this.snackBar.open('Ha ocurrido un error al agregar el producto', 'cerrar', {
+          duration: 3000,
+          horizontalPosition: 'right',
+        });
+      }
     });
   }
   editProduct() {

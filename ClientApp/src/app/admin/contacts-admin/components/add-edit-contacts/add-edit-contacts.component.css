@@ -152,3 +152,14 @@ section {
   object-fit: cover;
   border-radius: 7px;
 }
+.card {
+  max-width: 65%;
+  margin-right: auto;
+  margin-left: auto;
+  justify-content: center;
+  height: 100%;
+  overflow: auto; /* Asegura que el contenido pueda desplazarse si excede la altura máxima */
+}
+.card {
+  margin-top: 10px;
+}
