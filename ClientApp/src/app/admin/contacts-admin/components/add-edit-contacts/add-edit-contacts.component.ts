@@ -7,7 +7,7 @@ import { ContactService } from 'src/app/Services/EntitiesServices/contact.servic
 import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
 import { DomSanitizer } from '@angular/platform-browser';
-//import { blob } from 'stream/consumers';
+
 
 @Component({
   selector: 'app-add-edit-contacts',
@@ -39,13 +39,6 @@ export class AddEditContactsComponent {
   ) {
     this.id = String(this.route.snapshot.paramMap.get('id'));
   }
-
-  ngOnInit(): void {
-    if (this.id !== 'null') {
-      this.operacion = 'Editar';
-      this.getContact(this.id);
-    }
-  }
   onFileSelected(event: Event) {
     const target = event.target as HTMLInputElement;
     if (target.files && target.files.length) {
@@ -57,6 +50,13 @@ export class AddEditContactsComponent {
       };
     }
   }
+  ngOnInit(): void {
+    if (this.id !== 'null') {
+      this.operacion = 'Editar';
+      this.getContact(this.id);
+    }
+  }
+
   getContact(id: string) {
     this.loading = true;
     this.contactService.get(id).subscribe((data) => {
@@ -97,18 +97,16 @@ export class AddEditContactsComponent {
       this.router.navigate(['/dashboard/contacts-admin']);
     });
   }
+
+
   newContact(): Contact {
-    const imageName = this.imagePreview?.split('/').pop();
-    const imagePath = imageName ? `assets/${imageName}` : '';
     return {
       name: this.form.value.name!,
       occupation: this.form.value.occupation!,
       contact_Info: this.form.value.info!,
-      image: imagePath,
+      image: this.imagePreview || 'https://picsum.photos/200/300', // Use a default image if no image is selected
     };
   }
-
-
 
 
 
@@ -182,6 +180,16 @@ export class AddEditContactsComponent {
   }
   */
  /*
+ newContact(): Contact {
+    const imageName = this.imagePreview?.split('/').pop();
+    const imagePath = imageName ? `assets/${imageName}` : '';
+    return {
+      name: this.form.value.name!,
+      occupation: this.form.value.occupation!,
+      contact_Info: this.form.value.info!,
+      image: imagePath,
+    };
+  }
   onFileSelected(event: Event){
     this.foto = event.target.files[0]
     console.log(this.foto);
