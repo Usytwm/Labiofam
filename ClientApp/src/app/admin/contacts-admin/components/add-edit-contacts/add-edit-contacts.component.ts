@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Contact } from 'src/app/Interfaces/Contact';
-import { ContactService } from 'src/app/Services/EntitiesServices/contact.service';
+
+
 import { Observable } from 'rxjs';
 import Swal from 'sweetalert2';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Contact } from '../../../../Interfaces/Contact';
+import { ContactService } from '../../../../Services/EntitiesServices/contact.service';
 
 
 @Component({
