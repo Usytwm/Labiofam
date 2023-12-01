@@ -1,7 +1,7 @@
 import { Component,OnInit } from '@angular/core';
-import { ServicesComponent } from './../../servicios/components/servicios/servicios.component'
-import {ServicesService} from './../../../Services/EntitiesServices/services.service'
-import {Service} from './../../../Interfaces/Service'
+import { ServicesComponent } from '../../public/servicios/components/servicios/servicios.component'
+import {ServicesService} from '../../Services/EntitiesServices/services.service'
+import {Service} from '../../Interfaces/Service'
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
