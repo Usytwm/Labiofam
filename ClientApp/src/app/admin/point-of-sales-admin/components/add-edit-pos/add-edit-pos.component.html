@@ -18,6 +18,35 @@
         (ngSubmit)="operacion === 'Agregar' ? addPoint() : editPoint()"
       >
         <mat-grid-list cols="2" rowHeight="80px">
+          <mat-grid-tile colspan="2" rowspan="3">
+            <div class="row">
+                <div class="card-top">
+                  <img
+                    class="card-img-top"
+                    *ngIf="image"
+                    [src]="image"
+                    alt="Preview"
+                  />
+              </div>
+              <div class="button-container">
+                <button
+                  *ngIf="!image"
+                  type="button"
+                  color="primary"
+                  class="btn btn-primary custom-button"
+                >
+                  <input
+                    (change)="onFileChange($event)"
+                    type="file"
+                    id="fileInput"
+                    class="file-input"
+                  />
+                  Agregar Foto
+                </button>
+              </div>
+            </div>
+          </mat-grid-tile>
+
           <mat-grid-tile>
             <mat-form-field class="mat-form-field" appearance="outline">
               <mat-label>Nombre</mat-label>
@@ -28,20 +57,6 @@
                 nombre inválido
               </mat-error>
             </mat-form-field>
-          </mat-grid-tile>
-
-          <mat-grid-tile colspan="1" rowspan="2">
-            <div class="input-group">
-              <div class="custom-file">
-                <input
-                  (change)="onFileSelected($event)"
-                  id="inputgroupfile"
-                  type="file"
-                  class="custom-file-input"
-                />
-                <label class="custom-file-label" for="inputgroupfile">Subir foto</label>
-              </div>
-            </div>
           </mat-grid-tile>
 
           <mat-grid-tile>
