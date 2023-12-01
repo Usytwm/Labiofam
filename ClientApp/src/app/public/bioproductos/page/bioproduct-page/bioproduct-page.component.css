@@ -397,3 +397,7 @@ Barra de información
   object-fit: cover;
   height: 100%;
 }
+
+.card .p-accordion-button {
+  background-color: #0000ff;
+}

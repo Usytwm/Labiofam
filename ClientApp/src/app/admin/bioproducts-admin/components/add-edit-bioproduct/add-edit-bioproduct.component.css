@@ -37,3 +37,73 @@
   color: white; /* Cambia el color del texto del botón */
   border: none; /* Elimina el borde del botón */
 }
+.container1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+mat-card {
+  flex-grow: 1;
+  flex-basis: 60%;
+  max-width: 800px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+
+/* For "Nombre de Campos" */
+.mat-form-field.nameC {
+  width: 150px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* For "descripción de campo" */
+.mat-form-field.InfoC {
+  width: 200px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  .container1 {
+    margin-left: 0;
+    margin-right: 0;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  mat-card {
+    flex-grow: 1;
+    flex-basis: 100%;
+    max-width: 100%;
+  }
+
+  .mat-form-field {
+    width: 100%;
+  }
+
+  .add-lessons-form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .lesson-form-row {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mat-form-field.nameC,
+  .mat-form-field.InfoC {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}

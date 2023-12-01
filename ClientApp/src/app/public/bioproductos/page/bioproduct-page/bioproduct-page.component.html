@@ -50,8 +50,12 @@
                         <p>
                             {{bioproducto.summary}}</p>
                     </p-accordionTab>
-                    <p-accordionTab header="Indicaciones">
-                        <p>{{bioproducto.specifications}} </p>
+                    <p-accordionTab header="Enfermedades que controla">
+                        <mat-chip-listbox>
+                          <mat-chip *ngFor="let enfermedad of bioproducto?.specifications?.split(',') || []">
+                            {{enfermedad}}
+                          </mat-chip>
+                        </mat-chip-listbox>
                     </p-accordionTab>
                     <p-accordionTab header="Ventajas">
                         <p>
@@ -64,7 +68,7 @@
 
               </div>
               <section style="left: 2cm;">
-                <button mat-raised-button color="primary" (click)="goBack()">Regresar</button>
+                <button class ="btn btn-primary card-btn" (click)="goBack()">Regresar</button>
               </section>
 	        	</div>
 	        </div>
