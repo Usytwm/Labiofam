@@ -20,6 +20,7 @@ import {
 import { PointsOfSalesService } from 'src/app/Services/EntitiesServices/points-of-sales.service';
 import { Point_of_Sales } from 'src/app/Interfaces/Point_of_sales';
 import { environment } from 'src/environments/environment';
+import { FileService } from 'src/app/Services/FilesService/File.service';
 @Component({
   selector: 'app-add-edit-pos',
   templateUrl: './add-edit-pos.component.html',
@@ -30,6 +31,7 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
     const target = event.target as HTMLInputElement;
     if (target.files && target.files.length) {
       const file = target.files[0];
+      const imagename = file.name;
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
@@ -37,6 +39,29 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
       };
     }
   }
+  onFileChange(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length) {
+      const file = target.files[0];
+      this._fotoservice.uploadPhoto(file).subscribe((response) => {
+        // Maneja la respuesta del servidor aquí
+        this.imagePreview = response;
+        this.getPhoto(this.imagePreview);
+      });
+    }
+  }
+
+  getPhoto(photoName: string) {
+    this._fotoservice.getPhoto(photoName).subscribe((photo) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.image = reader.result as string;
+      };
+      reader.readAsDataURL(photo);
+    });
+  }
+
+  image?: string;
   imagePreview?: string;
   markerLngLat?: LngLat;
   marker?: Marker;
@@ -81,7 +106,8 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
     private snackBar: MatSnackBar,
     private _point_of_sales_service: PointsOfSalesService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private _fotoservice: FileService
   ) {
     this.id = String(this.route.snapshot.paramMap.get('id'));
   }
@@ -134,7 +160,6 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
     this.loading = true;
     this._point_of_sales_service.get(id).subscribe((data) => {
       this.point = data;
-      console.log(data);
       this.form.patchValue({
         name: data.name,
         address: data.address,
@@ -143,6 +168,9 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
         latitude: data.latitude,
         longitude: data.longitude,
       });
+      if (data.image) {
+        this.getPhoto(data.image);
+      }
       this.marker = new Marker({
         draggable: true,
       })
@@ -174,6 +202,8 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
   }
 
   addPoint() {
+    console.log(this.newPoint());
+
     this._point_of_sales_service.add(this.newPoint()).subscribe((data) => {
       this.snackBar.open('Agregado con éxito', 'cerrar', {
         duration: 3000,
@@ -185,6 +215,7 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
   }
 
   newPoint(): Point_of_Sales {
+    const imagePath = this.imagePreview!;
     return {
       name: this.form.value.name!,
       address: this.form.value.address!,
@@ -192,19 +223,7 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
       province: this.form.value.province!,
       latitude: this.form.value.latitude!,
       longitude: this.form.value.longitude!,
+      image: imagePath,
     };
-  }
-
-  onFileChange(event: Event) {
-    const target = event.target as HTMLInputElement;
-    if (target.files && target.files.length) {
-      const file = target.files[0];
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.imagePreview = reader.result as string;
-      };
-      console.log(this.imagePreview);
-    }
   }
 }
