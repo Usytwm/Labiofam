@@ -1,10 +1,4 @@
 {
-<<<<<<< HEAD
     "git-blame.gitWebUrl": "",
     "editor.inlineSuggest.showToolbar": "onHover"
-=======
-
-    "editor.inlineSuggest.showToolbar": "onHover"
-
->>>>>>> 636b22ab94a228b45320d553c199bba491c9e985
 }
