@@ -20,7 +20,6 @@ const routes: Routes = [
     path: '',
     component: SidenavComponent,
     children: [
-
       { path: 'home', component: HomeAdminComponent },
       { path: 'users-admin', component: UsersAdminComponent },
       { path: 'users-admin/edit/:id', component: AddEditUserComponent },
@@ -29,7 +28,10 @@ const routes: Routes = [
       { path: 'services-admin/edit/:id', component: AddEditServiceComponent },
       { path: 'services-admin/add', component: AddEditServiceComponent },
       { path: 'testimonios-admin', component: TestimoniosAdminComponent },
-      { path: 'testimonios-admin/edit/:id', component: AddEditTestimoniosComponent },
+      {
+        path: 'testimonios-admin/edit/:id',
+        component: AddEditTestimoniosComponent,
+      },
       { path: 'testimonios-admin/add', component: AddEditTestimoniosComponent },
 
       { path: 'bioproducts-admin', component: BioproductsAdminComponent },
@@ -64,5 +66,3 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class SeccionAdminRoutingModule {}
-
-
