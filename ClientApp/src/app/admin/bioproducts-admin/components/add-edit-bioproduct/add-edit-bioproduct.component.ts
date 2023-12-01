@@ -23,6 +23,7 @@ import { Product } from 'src/app/Interfaces/Product';
 
 
 import { ProductService } from 'src/app/Services/EntitiesServices/product.service';
+import { FileService } from 'src/app/Services/FilesService/File.service';
 
 
 
@@ -32,6 +33,42 @@ import { ProductService } from 'src/app/Services/EntitiesServices/product.servic
   styleUrls: ['./add-edit-bioproduct.component.css']
 })
 export class AddEditBioproductComponent {
+  onFileSelected(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length) {
+      const file = target.files[0];
+      const imagename = file.name;
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.imagePreview = reader.result as string;
+      };
+    }
+  }
+  onFileChange(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length) {
+      const file = target.files[0];
+      this._fotoservice.uploadPhoto(file).subscribe((response) => {
+        // Maneja la respuesta del servidor aquí
+        this.imagePreview = response;
+        this.getPhoto(this.imagePreview);
+      });
+    }
+  }
+
+  getPhoto(photoName: string) {
+    this._fotoservice.getPhoto(photoName).subscribe((photo) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.image = reader.result as string;
+      };
+      reader.readAsDataURL(photo);
+    });
+  }
+
+  image?: string;
+  imagePreview?: string;
   loading = false;
   id: string;
   operacion = 'Agregar';
@@ -51,7 +88,8 @@ export class AddEditBioproductComponent {
     private snackBar: MatSnackBar,
     private _productservice: ProductService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private _fotoservice: FileService
   ) {
     this.id = String(this.route.snapshot.paramMap.get('id'));
   }
@@ -90,6 +128,9 @@ export class AddEditBioproductComponent {
         specifications: data.specifications,
 
       });
+      if (data.image) {
+        this.getPhoto(data.image);
+      }
       this.loading = false;
     });
   }
@@ -116,12 +157,13 @@ export class AddEditBioproductComponent {
     });
   }
   newProduct(): Product {
+    const imagePath = this.imagePreview!;
     return {
-
       name: this.form.value.name!,
       type: this.form.value.type!,
       summary: this.form.value.summary!,
       specifications: this.form.value.specifications!,
+      image: imagePath,
     }
   }
 }

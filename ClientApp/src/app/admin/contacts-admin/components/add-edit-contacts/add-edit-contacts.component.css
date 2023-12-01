@@ -107,3 +107,48 @@ section {
   width: 100%;
   object-fit: cover;
 }
+
+.button-container {
+  position: relative;
+}
+
+.custom-button {
+  width: 15vw; /* Cambia esto al ancho que desees */
+  position: absolute;
+  bottom: 0; /* Esto posiciona el botón en la parte inferior del div */
+  left: 50%; /* Esto posiciona el botón en el centro horizontalmente */
+  transform: translateX(
+    -50%
+  ); /* Esto corrige la posición para que el centro del botón esté alineado con el centro del div */
+  margin-bottom: 3%;
+}
+
+.file-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.row {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card-top {
+  width: 100%;
+  height: 95%;
+  object-fit: cover;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 7px;
+}

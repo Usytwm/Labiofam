@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Contact } from '../../../../Interfaces/Contact';
 import { ContactService } from '../../../../Services/EntitiesServices/contact.service';
+import { FileService } from 'src/app/Services/FilesService/File.service';
 
 
 @Component({
@@ -21,7 +22,42 @@ export class AddEditContactsComponent {
   id: string;
   operacion = 'Agregar';
   contacto?: Contact;
-  private foto?: File;
+
+  onFileSelected(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length) {
+      const file = target.files[0];
+      const imagename = file.name;
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.imagePreview = reader.result as string;
+      };
+    }
+  }
+  onFileChange(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length) {
+      const file = target.files[0];
+      this._fotoservice.uploadPhoto(file).subscribe((response) => {
+        // Maneja la respuesta del servidor aquí
+        this.imagePreview = response;
+        this.getPhoto(this.imagePreview);
+      });
+    }
+  }
+
+  getPhoto(photoName: string) {
+    this._fotoservice.getPhoto(photoName).subscribe((photo) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.image = reader.result as string;
+      };
+      reader.readAsDataURL(photo);
+    });
+  }
+
+  image?: string;
   imagePreview?: string;
 
   form = this.fb.group({
@@ -37,21 +73,11 @@ export class AddEditContactsComponent {
     private snackBar: MatSnackBar,
     private router: Router,
     private route: ActivatedRoute,
-    private sanitizer: DomSanitizer
+    private _fotoservice: FileService
   ) {
     this.id = String(this.route.snapshot.paramMap.get('id'));
   }
-  onFileSelected(event: Event) {
-    const target = event.target as HTMLInputElement;
-    if (target.files && target.files.length) {
-      const file = target.files[0];
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.imagePreview = reader.result as string;
-      };
-    }
-  }
+
   ngOnInit(): void {
     if (this.id !== 'null') {
       this.operacion = 'Editar';
@@ -70,6 +96,9 @@ export class AddEditContactsComponent {
         info: data.contact_Info,
         //image: data.image,
       });
+      if (data.image) {
+        this.getPhoto(data.image);
+      }
       this.loading = false;
     });
   }
@@ -102,11 +131,12 @@ export class AddEditContactsComponent {
 
 
   newContact(): Contact {
+    const imagePath = this.imagePreview!;
     return {
       name: this.form.value.name!,
       occupation: this.form.value.occupation!,
       contact_Info: this.form.value.info!,
-      image: this.imagePreview || 'https://picsum.photos/200/300', // Use a default image if no image is selected
+      image: imagePath,
     };
   }
 

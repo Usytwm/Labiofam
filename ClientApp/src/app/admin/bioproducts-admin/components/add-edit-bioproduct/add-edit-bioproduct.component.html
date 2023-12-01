@@ -189,6 +189,53 @@
             </mat-form-field>
           </mat-grid-tile>
 
+          <mat-grid-tile >
+
+          </mat-grid-tile>
+
+          <mat-grid-tile >
+
+          </mat-grid-tile>
+
+          <mat-grid-tile colspan="1" rowspan="3" >
+            <div class="row">
+              <div class="col" >
+              <div class="card" style="height: 35rem">
+                <img lass="card-img-top"
+                *ngIf="image"
+                [src]="image"
+                alt="Preview" />
+              </div>
+              </div>
+            </div>
+          </mat-grid-tile>
+
+
+
+          <mat-grid-tile >
+
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <div class="button-container">
+              <button
+                *ngIf="!image"
+                type="button"
+                color="primary"
+                class="btn btn-primary custom-button"
+              >
+                <input
+                  (change)="onFileChange($event)"
+                  type="file"
+                  id="fileInput"
+                  class="file-input"
+                />
+                Agregar Foto
+              </button>
+            </div>
+          </mat-grid-tile>
+
+
           <mat-grid-tile colspan="2" style="text-align: center; color: #0000008A;">
             <h2>Campos adicionales</h2>
           </mat-grid-tile>

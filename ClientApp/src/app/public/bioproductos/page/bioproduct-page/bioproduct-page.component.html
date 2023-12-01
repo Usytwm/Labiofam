@@ -29,7 +29,7 @@
 	        	<div class="col-md-6">
 	        		<div class="card" style="height: 35rem">
                 <div class ="cont">
-                  <img src="assets/11.jpg"  />
+                  <img [src]="imageUrls[bioproducto?.id!] || 'assets/11.jpg'" alt="foto del  {{ bioproducto?.name }} " />
                 </div>
 
           </div>

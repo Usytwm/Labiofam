@@ -1,6 +1,6 @@
 <div *ngIf="product" class="card" style="height: 25rem">
   <div class="cont">
-    <img src="10.jpg" class="card-img-top" alt="..." />
+    <img [src]="imageUrls[product?.id!] || 'assets/12.jpg'" alt="foto del  {{ product?.name }} " />
   </div>
   <div class="card-body">
     <h2 class="card-title">{{ product.name }}</h2>
