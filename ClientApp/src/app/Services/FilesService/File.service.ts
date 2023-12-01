@@ -11,6 +11,10 @@ export class FileService {
   private apiUrl: string = 'api/File';
   constructor(private _http: HttpClient) {}
 
+  getPhotoUrl(photoName: string): string {
+    return `${this.baseUrl}${this.apiUrl}/${photoName}`;
+  }
+
   uploadPhoto(photo: File): Observable<string> {
     const formData = new FormData();
     formData.append('photo', photo);
@@ -20,7 +24,7 @@ export class FileService {
   }
 
   getPhoto(photoName: string): Observable<Blob> {
-    return this._http.get(`${this.baseUrl}${this.apiUrl}/${photoName}`, {
+    return this._http.get(`${this.getPhotoUrl(photoName)}`, {
       responseType: 'blob',
     });
   }

@@ -160,7 +160,6 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
     this.loading = true;
     this._point_of_sales_service.get(id).subscribe((data) => {
       this.point = data;
-      console.log(data);
       this.form.patchValue({
         name: data.name,
         address: data.address,
@@ -216,7 +215,7 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
   }
 
   newPoint(): Point_of_Sales {
-    const imagePath = this.imagePreview;
+    const imagePath = this.imagePreview!;
     return {
       name: this.form.value.name!,
       address: this.form.value.address!,
