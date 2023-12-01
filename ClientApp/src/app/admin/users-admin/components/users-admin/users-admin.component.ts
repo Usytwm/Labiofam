@@ -22,7 +22,7 @@ export class UsersAdminComponent implements OnInit {
   constructor(
     private _snackBar: MatSnackBar,
     private _registrationervice: RegistrationService,
-    private _filter:UserRoleFilterService
+    private _filter: UserRoleFilterService
   ) {}
 
   ngOnInit() {
@@ -37,11 +37,11 @@ export class UsersAdminComponent implements OnInit {
         this._filter.getType1byType2(user.id!).pipe(
           map((roles) => ({
             ...user,
-            roles: roles.map(x=>x.name).join(', '), // Aquí se agregan los roles al usuario
+            roles: roles.map((x) => x.name).join(', '), // Aquí se agregan los roles al usuario
           }))
         )
       );
-    
+
       // Utilizar forkJoin para esperar a que todos los observables se completen
       forkJoin(observables).subscribe((data) => {
         this._dataColumns = {
@@ -53,18 +53,24 @@ export class UsersAdminComponent implements OnInit {
         this.loading = false;
       });
     });
-    
   }
 
   Delete(id: string) {
     this.loading = true;
-    this._registrationervice.remove(id).subscribe(() => {
-      this._snackBar.open('Eliminado con éxito', 'cerrar', {
+    if (this._data.length == 1) {
+      this._snackBar.open('Al menos debe haber un usuario', 'cerrar', {
         duration: 3000,
-        horizontalPosition: 'right',
+        horizontalPosition: 'center',
       });
-      this.loading = false;
-      this.getAll();
-    });
+    } else {
+      this._registrationervice.remove(id).subscribe(() => {
+        this._snackBar.open('Eliminado con éxito', 'cerrar', {
+          duration: 3000,
+          horizontalPosition: 'right',
+        });
+        this.loading = false;
+        this.getAll();
+      });
+    }
   }
 }
