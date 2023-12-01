@@ -4,6 +4,7 @@ import { PublicComponent } from './public.component';
 import { HomeComponent } from './home/components/home/home.component';
 import { MapaComponent } from './establecimientos/components/mapa/mapa.component';
 import { ServicesComponent } from './servicios/components/servicios/servicios.component';
+import { TestimoniosComponent } from './testimonios/components/home.testimonios/testimonios.component';
 import { ContactosComponent } from './contactos/components/contactos/contactos.component';
 import { InfoPOSComponent } from './establecimientos/components/info-point-of-sale/info.component';
 import { BioproductosComponent } from './bioproductos/components/bioproductos/bioproductos.component';
@@ -31,6 +32,10 @@ const routes: Routes = [
       {
         path: 'Services',
         component: ServicesComponent,
+      },
+      {
+        path: 'Testimonios',
+        component: TestimoniosComponent,
       },
       {
         path: 'Bioproducts',
