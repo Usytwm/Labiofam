@@ -12,6 +12,7 @@ import { BioproductadminModule } from './bioproducts-admin/bioproduct-admin.modu
 //material
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { SharedModule } from '../Shared/shared.module';
+
 //componentes
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 
