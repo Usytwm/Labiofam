@@ -143,6 +143,9 @@ builder.Services.AddScoped<IMailService, MailService>();
 // Servicio de files
 builder.Services.AddScoped<IFileService, FileService>();
 
+//Servicio de autenticacion
+builder.Services.AddScoped<IAuthService, AuthService>();
+
 var app = builder.Build();
 
 // Configurar el pipeline de solicitudes HTTP.

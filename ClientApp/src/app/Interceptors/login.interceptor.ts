@@ -18,7 +18,7 @@ export class LoginInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     let token = this._auhtservice.getToken();
 
-    if (token) {
+    if (1) {
       request = request.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`,
