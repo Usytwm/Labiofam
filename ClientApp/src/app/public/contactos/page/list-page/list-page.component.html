@@ -14,7 +14,7 @@
           <div class="row people">
                 <div class="col-md-6 col-lg-4 item" *ngFor="let contacto of contactos">
 
-                    <div class="box"><img  class="rounded-circle"src="assets/1.jpg">
+                    <div class="box"><img  class="rounded-circle" [src]="imageUrls[contacto?.id!] || 'assets/1.jpg'" alt="foto del  {{ contacto?.name }} ">
                         <h3 class="name">{{contacto.name}}</h3>
                         <p class="title">{{contacto.occupation}}</p>
                         <p class="description"> </p>

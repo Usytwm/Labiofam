@@ -394,6 +394,34 @@ Barra de información
   width: 100%;
 }
 .cont {
+  margin: 0;
+
   object-fit: cover;
   height: 100%;
 }
+
+.card .p-accordion-button {
+  background-color: #0000ff;
+}
+
+accordion-button.first {
+  background-color: red;
+  color: white;
+}
+.accordion-button {
+  background-color: #2f4E9B;
+  color: white;
+}
+accordion-item .accordion-collapse {
+  margin-top: 0 !important;
+}
+.accordion-item {
+  margin-bottom: 0;
+}
+.accordion-accordion-item.collapsed {
+  margin-top: 0;
+}
+
+
+
+

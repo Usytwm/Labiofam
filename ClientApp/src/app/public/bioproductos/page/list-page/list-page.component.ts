@@ -49,8 +49,11 @@ export class ListPageComponent {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.filteredProducts = this.bioproductos.filter((product) => {
-      return product.name?.toLowerCase().includes(filterValue.toLowerCase());
+    this.filteredProducts = this.bioproductos.filter((product: Product) => {
+      return (
+        product.name?.toLowerCase().includes(filterValue.toLowerCase()) ||
+        product.specifications?.toLowerCase().includes(filterValue.toLowerCase())
+      );
     });
 
     if (this.dataSource.paginator) {

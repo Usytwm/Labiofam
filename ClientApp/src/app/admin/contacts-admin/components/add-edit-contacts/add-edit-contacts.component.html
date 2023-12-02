@@ -53,7 +53,7 @@
           </mat-grid-tile>
 
           <mat-grid-tile colspan="1">
-            <mat-form-field class="mat-form-field" appearance="outline" >
+            <mat-form-field class="mat-form-field" appearance="outline" cols="1" style="position: absolute; width: 96%">
               <mat-label>Correo</mat-label>
               <input
                 formControlName="info"
@@ -63,25 +63,20 @@
               <mat-error
 
               >
-                Por favor introduzca información de interes del contacto
+                Por favor introduzca el correo del contacto
               </mat-error>
             </mat-form-field>
           </mat-grid-tile>
 
-
-
-          <mat-grid-tile colspan="1">
-            <mat-form-field class="mat-form-field" appearance="outline" >
+          <mat-grid-tile>
+            <mat-form-field class="mat-form-field" appearance="outline">
               <mat-label>Teléfono</mat-label>
               <input
-                formControlName="teléfono"
                 matInput
                 autocomplete="off"
               />
-              <mat-error
-
-              >
-                Por favor introduzca información de interes del contacto
+              <mat-error>
+                Por favor introduzca el número de teléfono
               </mat-error>
             </mat-form-field>
           </mat-grid-tile>
@@ -90,7 +85,10 @@
             <div class="row">
               <div class="col" >
               <div class="card" style="height: 35rem">
-                <img src="assets/11.jpg" class="card-img-top" />
+                <img class="card-img-top"
+                *ngIf="image"
+                [src]="image"
+                alt="Preview" />
               </div>
               </div>
             </div>
@@ -109,12 +107,22 @@
           </mat-grid-tile>
 
           <mat-grid-tile>
-            <button
-
-              mat-raised-button style="margin-bottom: 2cm;" style="margin-left: 4cm;"
-              color="primary">
-              Agregar Foto
-            </button>
+            <div class="button-container">
+              <button
+                *ngIf="!image"
+                type="button"
+                color="primary"
+                class="btn btn-primary custom-button"
+              >
+                <input
+                  (change)="onFileChange($event)"
+                  type="file"
+                  id="fileInput"
+                  class="file-input"
+                />
+                Agregar Foto
+              </button>
+            </div>
           </mat-grid-tile>
           <mat-grid-tile colspan="2">
             <form style="position: absolute; width: 96%">
