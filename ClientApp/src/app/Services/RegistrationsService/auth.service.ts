@@ -4,6 +4,7 @@ import { Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LoginModel } from '../../Interfaces/Loginmodel';
 import { RegistrationRequestModel } from '../../Interfaces/Registration-Request';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,24 +13,29 @@ export class AuthService {
   private appUrl: string = environment.endpoint;
   private apiUrl = 'api/Registration';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private _coockieservice: CookieService
+  ) {}
 
-  login(data: LoginModel): Observable<{ accessToken: string }> {
-    return this.http
-      .post<{ accessToken: string }>(`${this.appUrl}${this.apiUrl}/login`, data)
-      .pipe(
-        tap((res) => {
-          localStorage.setItem('AccessToken', res.accessToken);
-        })
-      );
+  login(data: LoginModel): Observable<string> {
+    return this.http.post<string>(`${this.appUrl}${this.apiUrl}/login`, data);
   }
 
   logout() {
-    localStorage.removeItem('AccessToken');
+    this._coockieservice.delete(environment.token_name);
   }
 
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('AccessToken');
+    return this._coockieservice.check(environment.token_name);
+  }
+
+  getToken() {
+    return this._coockieservice.get(environment.token_name);
+  }
+
+  getData(token: string): Observable<any> {
+    return this.http.get(`${this.appUrl}${this.apiUrl}/${token}`);
   }
 
   register(

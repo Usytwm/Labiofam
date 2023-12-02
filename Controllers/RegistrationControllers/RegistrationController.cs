@@ -105,7 +105,7 @@ namespace Labiofam.Controllers
 
             var user = await _userService.GetAsync(login.Name!);
             var roles = await _relationFilter.GetType2ByType1Async(user.Id);
-            
+
             // Crea una lista de claims.
             var claims = new List<Claim>
             {
@@ -135,6 +135,16 @@ namespace Labiofam.Controllers
                 signingCredentials: credentials
                 );
             var jwt = new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
+            // Configura la cookie HTTPOnly.
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true, // Hace que la cookie sea accesible solo a través del protocolo HTTP
+                //Secure = true, // Hace que la cookie se envíe solo a través de HTTPS
+                SameSite = SameSiteMode.Strict, // Previene los ataques de tipo CSRF
+                Expires = DateTime.Now.AddSeconds(15) // Establece la fecha de expiración de la cookie
+            };
+
+            Response.Cookies.Append("access_token", jwt, cookieOptions);
 
             return Ok(new { AccessToken = jwt });
         }

@@ -6,16 +6,17 @@ import {
   HttpInterceptor,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { AuthService } from '../Services/RegistrationsService/auth.service';
 
 @Injectable()
 export class LoginInterceptor implements HttpInterceptor {
-  constructor() {}
+  constructor(private _auhtservice: AuthService) {}
 
   intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    let token = localStorage.getItem('access_token');
+    let token = this._auhtservice.getToken();
 
     if (token) {
       request = request.clone({
