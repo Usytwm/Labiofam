@@ -14,10 +14,7 @@
   <div class="row g-5 mor">
     <div data-aos="fade-right" class="col-md-8">
       <div class="imag">
-        <img
-          src="assets/{{ point?.image }}"
-          alt="foto del  {{ point?.name }} "
-        />
+        <img [src]="imageUrls[point?.id!]" alt="foto del  {{ point?.name }} " />
       </div>
       <br />
       <mat-card class="card-param">
@@ -63,7 +60,7 @@
             >
               <div class="conti">
                 <img
-                  src="assets/{{ establecimiento.image }}"
+                  [src]="imageUrls[establecimiento.id!]"
                   class="bd-placeholder-img"
                   width="100%"
                   height="96"
