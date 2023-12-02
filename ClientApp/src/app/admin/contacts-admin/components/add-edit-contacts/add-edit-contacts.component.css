@@ -146,12 +146,7 @@ section {
   object-fit: cover;
 }
 
-.card-img-top {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 7px;
-}
+
 .card {
   max-width: 65%;
   margin-right: auto;
@@ -160,6 +155,12 @@ section {
   height: 100%;
   overflow: auto; /* Asegura que el contenido pueda desplazarse si excede la altura máxima */
 }
-.card {
-  margin-top: 10px;
+
+.card-img-top {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  border-radius: 7px;
+  margin: 0;
+  margin-left: 0;
 }
