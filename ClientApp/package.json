@@ -36,6 +36,7 @@
     "fs": "^0.0.1-security",
     "jquery": "^3.7.1",
     "maplibre-gl": "^3.4.0",
+    "ngx-cookie-service": "^17.0.0",
     "ngx-pagination": "^6.0.3",
     "primeicons": "^6.0.1",
     "primeng": "^16.4.2",

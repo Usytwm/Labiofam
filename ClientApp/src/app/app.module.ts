@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 //modulos
 import { AuthModule } from './auth/auth.module';
@@ -19,9 +20,10 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 //interceptos
 import { LoginInterceptor } from './Interceptors/login.interceptor';
 
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
-  declarations: [AppComponent, FeedbackComponent,NavComponent],
+  declarations: [AppComponent, FeedbackComponent, NavComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -30,10 +32,10 @@ import { LoginInterceptor } from './Interceptors/login.interceptor';
     AuthModule,
     PublicModule,
     SeccionAdminModule,
-
-
+    FontAwesomeModule,
   ],
   providers: [
+    CookieService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoginInterceptor,

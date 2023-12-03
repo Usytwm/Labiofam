@@ -14,7 +14,6 @@ import { TestimoniosModule } from './testimonios/testimonios.module';
 import { FooterComponent } from './components/footer/footer.component';
 import { PublicComponent } from './public.component';
 
-
 @NgModule({
   declarations: [FooterComponent, PublicComponent],
   imports: [

@@ -1,24 +1,60 @@
-import { Component,OnInit } from '@angular/core';
-import { ServicesComponent } from '../../public/servicios/components/servicios/servicios.component'
-import {ServicesService} from '../../Services/EntitiesServices/services.service'
-import {Service} from '../../Interfaces/Service'
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ServicesService } from '../../Services/EntitiesServices/services.service';
+import { Service } from '../../Interfaces/Service';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from 'src/app/Services/RegistrationsService/auth.service';
+import { OverlayPanel } from 'primeng/overlaypanel';
+import { RegistrationRequestModel } from 'src/app/Interfaces/Registration-Request';
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.css']
+  styleUrls: ['./nav.component.css'],
 })
-export class NavComponent implements OnInit{
- servicios: Service[] = [];
+export class NavComponent implements OnInit {
+  user = faUser;
+  data?: RegistrationRequestModel;
+  @ViewChild('op') op?: OverlayPanel;
+  isLogged = false;
+  servicios: Service[] = [];
 
-  constructor(private _servicesservices: ServicesService) {}
+  constructor(
+    private _servicesservices: ServicesService,
+    private _auhtservice: AuthService
+  ) {}
   ngOnInit(): void {
+    this.islogged();
     this.obtenerServicios();
   }
 
+  islogged() {
+    this._auhtservice.isLoggedIn().subscribe((isLoggedIn) => {
+      this.isLogged = isLoggedIn;
+      if (this.isLogged) {
+        this.getData();
+      }
+    });
+  }
+  getData() {
+    const token = this._auhtservice.getToken();
+    console.log(token);
+
+    this._auhtservice.getData(token).subscribe((datos) => {
+      this.data = datos;
+    });
+  }
   obtenerServicios() {
     this._servicesservices.getAll().subscribe((data) => {
       this.servicios = data;
-      console.log(data);
     });
+  }
+  // Cambia esto según el estado de inicio de sesión de tu usuario
+
+  logout() {
+    this._auhtservice.logout();
+    this.isLogged = false;
+  }
+  logoutAndHide() {
+    this.logout();
+    if (this.op) this.op.hide();
   }
 }

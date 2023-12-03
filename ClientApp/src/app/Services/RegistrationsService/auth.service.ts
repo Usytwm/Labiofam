@@ -1,38 +1,81 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LoginModel } from '../../Interfaces/Loginmodel';
 import { RegistrationRequestModel } from '../../Interfaces/Registration-Request';
+import { CookieService } from 'ngx-cookie-service';
+interface LoginResponse {
+  accessToken: string;
+  // otras propiedades si las hay
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private loggedIn = new BehaviorSubject<boolean>(
+    this._coockieservice.check(environment.token_name)
+  );
   private appUrl: string = environment.endpoint;
   private apiUrl = 'api/Registration';
 
-  constructor(private http: HttpClient) //private _coockieservice: CookieService
-  {}
+  constructor(
+    private http: HttpClient,
+    private _coockieservice: CookieService
+  ) {}
 
-  login(data: LoginModel): Observable<string> {
-    return this.http.post<string>(`${this.appUrl}${this.apiUrl}/login`, data);
+  login(data: LoginModel): Observable<LoginResponse> {
+    return this.http
+      .post<LoginResponse>(`${this.appUrl}${this.apiUrl}/login`, data)
+      .pipe(
+        tap((response) => {
+          if (response && response.accessToken) {
+            this.loggedIn.next(true);
+          }
+        })
+      );
   }
 
   logout() {
+<<<<<<< HEAD
     //this._coockieservice.delete(environment.token_name);
   }
 
   isLoggedIn() {
     //return this._coockieservice.check(environment.token_name);
   };
-
-  getToken() {
-    //return this._coockieservice.get(environment.token_name);
+=======
+    this._coockieservice.delete(environment.token_name);
+    this.loggedIn.next(false);
+    console.log(environment.token_name);
+    console.log(this.getToken());
   }
 
-  getData(token: string): Observable<any> {
-    return this.http.get(`${this.appUrl}${this.apiUrl}/${token}`);
+  isLoggedIn() {
+    return this.loggedIn.asObservable();
+  }
+>>>>>>> 2ee5564088eacf90008dfd8f6d3cc0265edf6897
+
+  getToken() {
+    const token = this._coockieservice.get(environment.token_name);
+
+    return token;
+  }
+
+  getData(token: string): Observable<RegistrationRequestModel> {
+    console.log(token);
+
+    return this.http.get<RegistrationRequestModel>(
+      `${this.appUrl}${this.apiUrl}/${token}`,
+      {
+        withCredentials: true,
+      }
+    );
+  }
+
+  saveCookie(token: string) {
+    this._coockieservice.set(environment.token_name, token);
   }
 
   register(

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
-import { faPlus, faBars ,faHamburger} from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faBars, faHamburger } from '@fortawesome/free-solid-svg-icons';
+
 import { navbarData } from './nav-data';
 import { AuthService } from 'src/app/Services/RegistrationsService/auth.service';
 import { User } from 'src/app/Interfaces/User';
