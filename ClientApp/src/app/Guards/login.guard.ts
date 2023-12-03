@@ -10,7 +10,7 @@ export const loginGuard: CanActivateFn = (route, state) => {
     let isAdmin = false;
     const jwt = auhtservice.getToken();
     auhtservice.getData(jwt).subscribe((data) => {
-      if (data.roles && data.roles.includes('admin')) {
+      if (data.role && data.role.name == 'admin') {
         isAdmin = true;
       }
       return isAdmin ? isAdmin : (_router.navigate(['/login']), false);

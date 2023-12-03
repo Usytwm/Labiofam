@@ -94,9 +94,10 @@ builder.Services.AddAuthorization();
 
 // Cors
 builder.Services.AddCors(options => options.AddPolicy("AllowWebApp", builder => builder
-    .AllowAnyOrigin()
+    .WithOrigins(new[] { "http://localhost:4200", "http://localhost:5263", "https://localhost:7136", "http://localhost:46423" })
     .AllowAnyHeader()
     .AllowAnyMethod()
+    .AllowCredentials()
     ));
 
 // Servicios de entidades

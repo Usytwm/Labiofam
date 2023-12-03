@@ -21,7 +21,6 @@ namespace Labiofam.Controllers
         private readonly IRelationFilter<User_Role, User, Role> _relationFilter;
         private readonly IConfiguration _configuration;
         private readonly SignInManager<User> _signInManager;
-
         private readonly IAuthService _authService;
 
         public RegistrationController(
@@ -124,21 +123,8 @@ namespace Labiofam.Controllers
             }
 
             // Crear un nuevo token.
-            var securityKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!)
-                );
-            var credentials = new SigningCredentials(
-                securityKey,
-                SecurityAlgorithms.HmacSha256Signature
-                );
-            var tokenDescriptor = new JwtSecurityToken(
-                issuer: _configuration["Jwt:Issuer"],
-                audience: _configuration["Jwt:Audience"],
-                claims: claims,
-                expires: DateTime.Now.AddMinutes(5),
-                signingCredentials: credentials
-                );
-            var jwt = new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
+            var jwt = _authService.GenerateToken(claims, DateTime.Now.AddMinutes(5));
+
             // Configura la cookie HTTPOnly.
             var cookieOptions = new CookieOptions
             {
@@ -148,23 +134,40 @@ namespace Labiofam.Controllers
                 Expires = DateTime.Now.AddMinutes(5) // Establece la fecha de expiración de la cookie
             };
 
-            Response.Cookies.Append("access_token", jwt, cookieOptions);
+            Response.Cookies.Append(_configuration["Jwt:CookieName"]!, jwt, cookieOptions);
 
             return Ok(new { AccessToken = jwt });
         }
 
+        /// <summary>
+        /// Obtiene los datos del usuario a partir de un token.
+        /// </summary>
+        /// <param name="token">El token del usuario.</param>
+        /// <returns>Un IActionResult que representa el resultado de la operación.</returns>
         [HttpGet("{token}")]
         public async Task<IActionResult> GetData(string token)
         {
             try
             {
-                var user = await _authService.GetUserByToken(token);
-                return Ok(user);
+                var data = await _authService.GetDataByToken(token);
+                return Ok(data);
             }
             catch (ArgumentException)
             {
                 return BadRequest("Token inválido o expirado");
             }
         }
+
+        /// <summary>
+        /// Cierra la sesión del usuario actual.
+        /// </summary>
+        /// <returns>Un IActionResult que representa el resultado de la operación.</returns>
+        [HttpPost("logout")]
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete(_configuration["Jwt:CookieName"]!);
+            return Ok(new { message = "succes" });
+        }
+
     }
 }

@@ -27,8 +27,6 @@ export class LoginComponent {
       name: this.loginForm.value.username!,
       password: this.loginForm.value.password!,
     };
-    console.log(loginmodel);
-
     this.rememberMe = Boolean(this.rememberMe);
     this._authnservice
       .login(loginmodel)
@@ -47,9 +45,9 @@ export class LoginComponent {
         })
       )
       .subscribe((res) => {
-        console.log(res);
+        console.log(res.accessToken);
+        this._authnservice.saveCookie(res.accessToken);
         this._route.navigate(['/home']);
       });
-    // aquí puedes enviar los datos al backend
   }
 }

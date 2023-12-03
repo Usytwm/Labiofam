@@ -10,13 +10,12 @@ import { BioproductosModule } from './bioproductos/bioproductos.module';
 import { TestimoniosModule } from './testimonios/testimonios.module';
 
 //componentes
-import { NavComponent } from './components/nav/nav.component';
+//import { NavComponent } from '../Components/nav/nav.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PublicComponent } from './public.component';
 
-
 @NgModule({
-  declarations: [NavComponent, FooterComponent, PublicComponent],
+  declarations: [FooterComponent, PublicComponent],
   imports: [
     CommonModule,
     PublicRoutingModule,
