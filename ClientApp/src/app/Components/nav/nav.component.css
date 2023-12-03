@@ -77,3 +77,16 @@
     --color-yellow
   ); /* Este es el color al que cambiará el borde, puedes cambiarlo por el que prefieras */
 }
+
+.icon {
+  color: var(--color-yellow);
+}
+.icon1 {
+  color: var(--color-tory-blue);
+}
+.info1 {
+  background-color: var(--color-yellow);
+}
+.btn-light {
+  background-color: var(--color-blue-white);
+}
