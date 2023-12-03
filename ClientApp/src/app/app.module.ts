@@ -20,6 +20,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 //interceptos
 import { LoginInterceptor } from './Interceptors/login.interceptor';
 
+import { CookieService } from 'ngx-cookie-service';
+
 @NgModule({
   declarations: [AppComponent, FeedbackComponent, NavComponent],
   imports: [
@@ -33,6 +35,7 @@ import { LoginInterceptor } from './Interceptors/login.interceptor';
     FontAwesomeModule,
   ],
   providers: [
+    CookieService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoginInterceptor,
