@@ -4,7 +4,6 @@ import { Contact } from '../../Interfaces/Contact';
 import { EntityAbstractService } from '../BaseServices/entity-abstract.service';
 import { Observable, of, catchError, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
-import Swal from 'sweetalert2'; // Import Swal module
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +25,6 @@ export class ContactService extends EntityAbstractService<Contact> {
         console.error(e.error.mensaje);
 
         // Access Swal function from the imported module
-        Swal.fire(e.error.mensaje, e.error.error, 'error');
 
         return throwError(e);
       })

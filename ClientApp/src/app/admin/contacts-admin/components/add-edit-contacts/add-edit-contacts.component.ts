@@ -4,9 +4,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 
 
-import { Observable } from 'rxjs';
-import Swal from 'sweetalert2';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Contact } from '../../../../Interfaces/Contact';
 import { ContactService } from '../../../../Services/EntitiesServices/contact.service';
 import { FileService } from 'src/app/Services/FilesService/File.service';

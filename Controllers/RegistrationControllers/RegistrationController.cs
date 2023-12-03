@@ -22,6 +22,8 @@ namespace Labiofam.Controllers
         private readonly IConfiguration _configuration;
         private readonly SignInManager<User> _signInManager;
 
+        private readonly IAuthService _authService;
+
         public RegistrationController(
             IEntityService<User> userService,
             IEntityService<Role> roleService,
@@ -30,7 +32,8 @@ namespace Labiofam.Controllers
             IRelationService<User_Role> relationService,
             IRelationFilter<User_Role, User, Role> relationFilter,
             IConfiguration configuration,
-            SignInManager<User> signInManager)
+            SignInManager<User> signInManager,
+            IAuthService authService)
         {
             _userService = userService;
             _userModelService = userModelService;
@@ -40,6 +43,7 @@ namespace Labiofam.Controllers
             _relationFilter = relationFilter;
             _configuration = configuration;
             _signInManager = signInManager;
+            _authService = authService;
         }
 
         /// <summary>
@@ -105,7 +109,7 @@ namespace Labiofam.Controllers
 
             var user = await _userService.GetAsync(login.Name!);
             var roles = await _relationFilter.GetType2ByType1Async(user.Id);
-            
+
             // Crea una lista de claims.
             var claims = new List<Claim>
             {
@@ -131,12 +135,36 @@ namespace Labiofam.Controllers
                 issuer: _configuration["Jwt:Issuer"],
                 audience: _configuration["Jwt:Audience"],
                 claims: claims,
-                expires: DateTime.Now.AddSeconds(15),
+                expires: DateTime.Now.AddMinutes(5),
                 signingCredentials: credentials
                 );
             var jwt = new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
+            // Configura la cookie HTTPOnly.
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true, // Hace que la cookie sea accesible solo a través del protocolo HTTP
+                //Secure = true, // Hace que la cookie se envíe solo a través de HTTPS
+                SameSite = SameSiteMode.Strict, // Previene los ataques de tipo CSRF
+                Expires = DateTime.Now.AddMinutes(5) // Establece la fecha de expiración de la cookie
+            };
+
+            Response.Cookies.Append("access_token", jwt, cookieOptions);
 
             return Ok(new { AccessToken = jwt });
+        }
+
+        [HttpGet("{token}")]
+        public async Task<IActionResult> GetData(string token)
+        {
+            try
+            {
+                var user = await _authService.GetUserByToken(token);
+                return Ok(user);
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest("Token inválido o expirado");
+            }
         }
     }
 }
