@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 //modulos
 import { AuthModule } from './auth/auth.module';
@@ -29,6 +30,7 @@ import { LoginInterceptor } from './Interceptors/login.interceptor';
     AuthModule,
     PublicModule,
     SeccionAdminModule,
+    FontAwesomeModule,
   ],
   providers: [
     {

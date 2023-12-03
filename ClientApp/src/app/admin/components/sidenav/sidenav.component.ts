@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
-import { faPlus, faBars ,faHamburger} from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faBars, faHamburger } from '@fortawesome/free-solid-svg-icons';
+
 import { navbarData } from './nav-data';
 
 @Component({

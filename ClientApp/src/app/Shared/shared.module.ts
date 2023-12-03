@@ -27,6 +27,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 //componentes
 import { SpinnerComponent } from '../Components/spinner/spinner.component';
 //PrimENG
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { AccordionModule } from 'primeng/accordion';
 import { AvatarModule } from 'primeng/avatar';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
@@ -40,13 +41,13 @@ import { MenubarModule } from 'primeng/menubar';
 import { SidebarModule } from 'primeng/sidebar';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { TieredMenuModule } from 'primeng/tieredmenu';
-
+import { ButtonModule } from 'primeng/button';
 import { FieldsetModule } from 'primeng/fieldset';
 import { PanelModule } from 'primeng/panel';
-import { RatingModule } from 'primeng/rating'
+import { RatingModule } from 'primeng/rating';
 import { TableModule } from 'primeng/table';
 import { DataViewModule } from 'primeng/dataview';
-import { ChipModule } from 'primeng/chip'
+import { ChipModule } from 'primeng/chip';
 import { ScrollerModule } from 'primeng/scroller';
 import { PaginatorModule } from 'primeng/paginator';
 import { DropdownModule } from 'primeng/dropdown';
@@ -54,7 +55,6 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
 import { DialogModule } from 'primeng/dialog';
 import { TagModule } from 'primeng/tag';
-import { ButtonModule } from 'primeng/button';
 
 @NgModule({
   declarations: [SpinnerComponent],
@@ -84,6 +84,7 @@ import { ButtonModule } from 'primeng/button';
     MatAutocompleteModule,
     MatTabsModule,
     //PrimENG
+    OverlayPanelModule,
     PanelModule,
     AccordionModule,
     AvatarModule,
@@ -138,7 +139,9 @@ import { ButtonModule } from 'primeng/button';
     MatAutocompleteModule,
     MatTabsModule,
     SpinnerComponent,
-
+    AvatarModule,
+    OverlayPanelModule,
+    ButtonModule,
   ],
 })
 export class SharedModule {}
