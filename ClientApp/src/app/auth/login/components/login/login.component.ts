@@ -47,7 +47,7 @@ export class LoginComponent {
         })
       )
       .subscribe((res) => {
-        console.log(res.accessToken);
+        console.log(res);
         this._route.navigate(['/home']);
       });
     // aquí puedes enviar los datos al backend
