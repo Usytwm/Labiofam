@@ -87,3 +87,6 @@
 .info1 {
   background-color: var(--color-yellow);
 }
+.btn-light {
+  background-color: var(--color-blue-white);
+}

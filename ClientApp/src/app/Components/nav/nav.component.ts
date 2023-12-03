@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ServicesService } from '../../Services/EntitiesServices/services.service';
 import { Service } from '../../Interfaces/Service';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/Services/RegistrationsService/auth.service';
+import { OverlayPanel } from 'primeng/overlaypanel';
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -10,6 +11,7 @@ import { AuthService } from 'src/app/Services/RegistrationsService/auth.service'
 })
 export class NavComponent implements OnInit {
   user = faUser;
+  @ViewChild('op') op?: OverlayPanel;
   isLogged = false;
   servicios: Service[] = [];
 
@@ -38,5 +40,9 @@ export class NavComponent implements OnInit {
   logout() {
     this._auhtservice.logout();
     this.isLogged = false;
+  }
+  logoutAndHide() {
+    this.logout();
+    if (this.op) this.op.hide();
   }
 }

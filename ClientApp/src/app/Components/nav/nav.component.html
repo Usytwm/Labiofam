@@ -50,7 +50,7 @@
           <p-overlayPanel #op [style]="{ width: '250px' }">
             <ng-template pTemplate="content">
               <div *ngIf="isLogged; else notLoggedIn">
-                <!-- Aquí va tu tarjeta con los datos del usuario -->
+                <!-- Aquí va tu tarjeta con los datos del usuario si esta loggeado -->
                 <div
                   class="card"
                   style="width: 100%; background-color: var(--color-blue-white)"
@@ -63,9 +63,26 @@
                     <!-- Aquí van más datos del usuario -->
                   </div>
                 </div>
-                <button (click)="logout()" class="btn btn-primary">
-                  Logout
-                </button>
+                <div style="display: flex; justify-content: space-between">
+                  <div class="mb-3">
+                    <button
+                      [routerLink]="['/dashboard/home']"
+                      (click)="op.hide()"
+                      class="btn btn-primary"
+                    >
+                      administrar
+                    </button>
+                  </div>
+                  <div class="mb-3">
+                    <button
+                      (click)="logoutAndHide()"
+                      class="btn btn-light"
+                      type="button"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                </div>
               </div>
               <ng-template #notLoggedIn>
                 <div class="d-flex align-items-start">
