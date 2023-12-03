@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LoginModel } from '../../Interfaces/Loginmodel';
 import { RegistrationRequestModel } from '../../Interfaces/Registration-Request';
@@ -9,10 +9,14 @@ interface LoginResponse {
   accessToken: string;
   // otras propiedades si las hay
 }
+
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private loggedIn = new BehaviorSubject<boolean>(
+    this._coockieservice.check(environment.token_name)
+  );
   private appUrl: string = environment.endpoint;
   private apiUrl = 'api/Registration';
 
@@ -22,18 +26,26 @@ export class AuthService {
   ) {}
 
   login(data: LoginModel): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(
-      `${this.appUrl}${this.apiUrl}/login`,
-      data
-    );
+    return this.http
+      .post<LoginResponse>(`${this.appUrl}${this.apiUrl}/login`, data)
+      .pipe(
+        tap((response) => {
+          if (response && response.accessToken) {
+            this.loggedIn.next(true);
+          }
+        })
+      );
   }
 
   logout() {
-    this.http.post(`${this.appUrl}${this.apiUrl}/logout`, null);
+    this._coockieservice.delete(environment.token_name);
+    this.loggedIn.next(false);
+    console.log(environment.token_name);
+    console.log(this.getToken());
   }
 
   isLoggedIn() {
-    return this._coockieservice.check(environment.token_name);
+    return this.loggedIn.asObservable();
   }
 
   getToken() {

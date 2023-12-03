@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ServicesComponent } from '../../public/servicios/components/servicios/servicios.component';
 import { ServicesService } from '../../Services/EntitiesServices/services.service';
 import { Service } from '../../Interfaces/Service';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
@@ -24,12 +23,14 @@ export class NavComponent implements OnInit {
   }
 
   islogged() {
-    this.isLogged = this._auhtservice.isLoggedIn();
+    this._auhtservice.isLoggedIn().subscribe((isLoggedIn) => {
+      this.isLogged = isLoggedIn;
+    });
   }
+
   obtenerServicios() {
     this._servicesservices.getAll().subscribe((data) => {
       this.servicios = data;
-      console.log(data);
     });
   }
   // Cambia esto según el estado de inicio de sesión de tu usuario
