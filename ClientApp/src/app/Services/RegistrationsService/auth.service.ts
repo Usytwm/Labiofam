@@ -49,13 +49,20 @@ export class AuthService {
   }
 
   getToken() {
-    return this._coockieservice.get(environment.token_name);
+    const token = this._coockieservice.get(environment.token_name);
+
+    return token;
   }
 
-  getData(token: string): Observable<any> {
-    return this.http.get(`${this.appUrl}${this.apiUrl}/${token}`, {
-      withCredentials: true,
-    });
+  getData(token: string): Observable<RegistrationRequestModel> {
+    console.log(token);
+
+    return this.http.get<RegistrationRequestModel>(
+      `${this.appUrl}${this.apiUrl}/${token}`,
+      {
+        withCredentials: true,
+      }
+    );
   }
 
   saveCookie(token: string) {

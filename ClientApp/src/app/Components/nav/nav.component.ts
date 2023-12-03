@@ -4,6 +4,7 @@ import { Service } from '../../Interfaces/Service';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/Services/RegistrationsService/auth.service';
 import { OverlayPanel } from 'primeng/overlaypanel';
+import { RegistrationRequestModel } from 'src/app/Interfaces/Registration-Request';
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -11,6 +12,7 @@ import { OverlayPanel } from 'primeng/overlaypanel';
 })
 export class NavComponent implements OnInit {
   user = faUser;
+  data?: RegistrationRequestModel;
   @ViewChild('op') op?: OverlayPanel;
   isLogged = false;
   servicios: Service[] = [];
@@ -27,9 +29,19 @@ export class NavComponent implements OnInit {
   islogged() {
     this._auhtservice.isLoggedIn().subscribe((isLoggedIn) => {
       this.isLogged = isLoggedIn;
+      if (this.isLogged) {
+        this.getData();
+      }
     });
   }
+  getData() {
+    const token = this._auhtservice.getToken();
+    console.log(token);
 
+    this._auhtservice.getData(token).subscribe((datos) => {
+      this.data = datos;
+    });
+  }
   obtenerServicios() {
     this._servicesservices.getAll().subscribe((data) => {
       this.servicios = data;
