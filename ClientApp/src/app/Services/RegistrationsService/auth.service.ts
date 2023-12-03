@@ -20,11 +20,11 @@ export class AuthService {
   }
 
   logout() {
-    // this._coockieservice.delete(environment.token_name);
+    //this._coockieservice.delete(environment.token_name);
   }
 
   isLoggedIn() {
-    // return this._coockieservice.check(environment.token_name);
+    //return this._coockieservice.check(environment.token_name);
   };
 
   getToken() {

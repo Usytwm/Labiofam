@@ -8,6 +8,13 @@
   height: 100vh; /* Altura completa de la vista */
   width: 25%; /* Ancho completo */
 }
+.rounded-circle {
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+  overflow: hidden;
+}
+
 
 .sidenav-content {
   position: absolute;
