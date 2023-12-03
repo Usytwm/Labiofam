@@ -131,6 +131,8 @@ namespace Labiofam.Controllers
                 securityKey,
                 SecurityAlgorithms.HmacSha256Signature
                 );
+            var header = new JwtHeader(credentials);
+
             var tokenDescriptor = new JwtSecurityToken(
                 issuer: _configuration["Jwt:Issuer"],
                 audience: _configuration["Jwt:Audience"],

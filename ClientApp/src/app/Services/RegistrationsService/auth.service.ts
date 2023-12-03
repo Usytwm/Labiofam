@@ -12,8 +12,9 @@ export class AuthService {
   private appUrl: string = environment.endpoint;
   private apiUrl = 'api/Registration';
 
-  constructor(private http: HttpClient) //private _coockieservice: CookieService
-  {}
+  constructor(
+    private http: HttpClient //private _coockieservice: CookieService
+  ) {}
 
   login(data: LoginModel): Observable<string> {
     return this.http.post<string>(`${this.appUrl}${this.apiUrl}/login`, data);
@@ -25,14 +26,16 @@ export class AuthService {
 
   isLoggedIn() {
     // return this._coockieservice.check(environment.token_name);
-  };
+  }
 
   getToken() {
     //return this._coockieservice.get(environment.token_name);
   }
 
   getData(token: string): Observable<any> {
-    return this.http.get(`${this.appUrl}${this.apiUrl}/${token}`);
+    return this.http.get(`${this.appUrl}${this.apiUrl}/${token}`, {
+      withCredentials: true,
+    });
   }
 
   register(

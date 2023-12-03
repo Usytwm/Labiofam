@@ -19,9 +19,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 //interceptos
 import { LoginInterceptor } from './Interceptors/login.interceptor';
 
-
 @NgModule({
-  declarations: [AppComponent, FeedbackComponent,NavComponent],
+  declarations: [AppComponent, FeedbackComponent, NavComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -30,8 +29,6 @@ import { LoginInterceptor } from './Interceptors/login.interceptor';
     AuthModule,
     PublicModule,
     SeccionAdminModule,
-
-
   ],
   providers: [
     {
