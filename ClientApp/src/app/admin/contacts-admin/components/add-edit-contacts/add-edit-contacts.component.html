@@ -1,5 +1,3 @@
-
-
 <div data-aos="fade-left">
   <div class="mat-primary titulo">{{ operacion }} Contactos</div>
 
@@ -23,13 +21,9 @@
           <mat-grid-tile>
             <mat-form-field class="mat-form-field" appearance="outline">
               <mat-label>Nombre</mat-label>
-              <input
-                formControlName="name"
-                matInput
-                autocomplete="off"
-              />
+              <input formControlName="name" matInput autocomplete="off" />
               <mat-error
-              *ngIf="form.controls.name.invalid && form.controls.name.touched"
+                *ngIf="form.controls.name.invalid && form.controls.name.touched"
               >
                 nombre inválido
               </mat-error>
@@ -40,9 +34,11 @@
             <div class="row">
               <div class="col">
                 <div class="card" style="height: 20rem">
-                  <img class="card-img-top"
-                    [src]="image ? image : 'assets/no-image.jpg'"
-                    alt="Preview" />
+                  <img
+                    class="card-img-top"
+                    [src]="image ? image : 'assets/no-image-contact.png'"
+                    alt="Preview"
+                  />
                 </div>
               </div>
             </div>
@@ -51,30 +47,23 @@
           <mat-grid-tile>
             <mat-form-field class="mat-form-field" appearance="outline">
               <mat-label>Ocupación</mat-label>
-              <input
-                formControlName="occupation"
-                matInput
-                autocomplete="off"
-              />
-              <mat-error
-
-              >
+              <input formControlName="occupation" matInput autocomplete="off" />
+              <mat-error>
                 Por favor introduzca la ocupación del contacto
               </mat-error>
             </mat-form-field>
           </mat-grid-tile>
 
           <mat-grid-tile colspan="1">
-            <mat-form-field class="mat-form-field" appearance="outline" cols="1" style="position: absolute; width: 96%">
+            <mat-form-field
+              class="mat-form-field"
+              appearance="outline"
+              cols="1"
+              style="position: absolute; width: 96%"
+            >
               <mat-label>Correo</mat-label>
-              <input
-                formControlName="info"
-                matInput
-                autocomplete="off"
-              />
-              <mat-error
-
-              >
+              <input formControlName="info" matInput autocomplete="off" />
+              <mat-error>
                 Por favor introduzca el correo del contacto
               </mat-error>
             </mat-form-field>
@@ -83,24 +72,18 @@
           <mat-grid-tile>
             <mat-form-field class="mat-form-field" appearance="outline">
               <mat-label>Teléfono</mat-label>
-              <input
-                matInput
-                autocomplete="off"
-              />
+              <input matInput autocomplete="off" />
               <mat-error>
                 Por favor introduzca el número de teléfono
               </mat-error>
             </mat-form-field>
           </mat-grid-tile>
 
-          <mat-grid-tile>
-          </mat-grid-tile>
-
+          <mat-grid-tile> </mat-grid-tile>
 
           <mat-grid-tile>
             <div class="button-container">
               <button
-
                 type="button"
                 color="primary"
                 class="btn btn-primary custom-button"
@@ -116,10 +99,7 @@
             </div>
           </mat-grid-tile>
           <mat-grid-tile colspan="2">
-            <form style="position: absolute; width: 96%">
-
-            </form>
-
+            <form style="position: absolute; width: 96%"></form>
           </mat-grid-tile>
 
           <mat-grid-tile colspan="2">
@@ -142,7 +122,6 @@
             </button>
           </mat-grid-tile>
         </mat-grid-list>
-
       </form>
     </mat-card>
   </div>
