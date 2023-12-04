@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 //componentes
 import { FeedbackComponent } from './Components/feedback/feedback.component';
+import { loginGuard } from './Guards/dashboard.guard';
 
 const routes: Routes = [
   {
@@ -25,13 +26,13 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
+    canActivate: [loginGuard],
     loadChildren: () =>
       import('./admin/admin.module').then((m) => m.SeccionAdminModule),
   },
   {
     path: '**',
     redirectTo: 'home',
-
   },
 ];
 
