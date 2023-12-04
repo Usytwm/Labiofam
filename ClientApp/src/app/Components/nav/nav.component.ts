@@ -5,6 +5,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/Services/RegistrationsService/auth.service';
 import { OverlayPanel } from 'primeng/overlaypanel';
 import { RegistrationRequestModel } from 'src/app/Interfaces/Registration-Request';
+import { User } from '../../Interfaces/User';
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -20,10 +21,12 @@ export class NavComponent implements OnInit {
   constructor(
     private _servicesservices: ServicesService,
     private _auhtservice: AuthService
-  ) {}
-  ngOnInit(): void {
-    this.islogged();
-    this.obtenerServicios();
+    ) {}
+
+    ngOnInit(): void {
+      this.islogged();
+      this.obtenerServicios();
+      console.log("UserLog: "+this.data?.user);
   }
 
   islogged() {
@@ -40,7 +43,7 @@ export class NavComponent implements OnInit {
 
     this._auhtservice.getData(token).subscribe((datos) => {
       this.data = datos;
-    });
+    })
   }
   obtenerServicios() {
     this._servicesservices.getAll().subscribe((data) => {

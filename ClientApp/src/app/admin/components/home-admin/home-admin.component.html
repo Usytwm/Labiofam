@@ -8,7 +8,7 @@
           </div>
           <div class="card-body pt-0">
             <h2 class="card-title">{{user}}</h2>
-            <p class="card-text">{{roles}}</p>
+            <p class="card-text">{{role}}</p>
           </div>
         </div>
       </div>
@@ -18,7 +18,7 @@
 <section>
   <div class="container">
     <div class="row">
-      <div class="col-md-4" *ngIf="roles && roles.includes('servicero')">
+      <div class="col-md-4" *ngIf="role?.name == 'servicero'">
         <div class="card">
           <div class="fcard">
             <div class="border-warning text-center">

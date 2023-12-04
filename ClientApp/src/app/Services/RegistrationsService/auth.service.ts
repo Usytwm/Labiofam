@@ -38,14 +38,6 @@ export class AuthService {
   }
 
   logout() {
-<<<<<<< HEAD
-    //this._coockieservice.delete(environment.token_name);
-  }
-
-  isLoggedIn() {
-    //return this._coockieservice.check(environment.token_name);
-  };
-=======
     this._coockieservice.delete(environment.token_name);
     this.loggedIn.next(false);
     console.log(environment.token_name);
@@ -55,7 +47,6 @@ export class AuthService {
   isLoggedIn() {
     return this.loggedIn.asObservable();
   }
->>>>>>> 2ee5564088eacf90008dfd8f6d3cc0265edf6897
 
   getToken() {
     const token = this._coockieservice.get(environment.token_name);
