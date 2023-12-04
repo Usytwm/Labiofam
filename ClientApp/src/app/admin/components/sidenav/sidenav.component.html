@@ -9,12 +9,12 @@
           height="64"
         >
       </div>
-      <p>{{user}}</p>
+      <h3><strong>{{datos!.user.name}}</strong></h3>
       <!-- Aquí puedes poner los datos del usuario -->
     </div>
     <hr />
     <div class="section">
-      <div *ngIf="1 != 1">
+      <div style="display: flex; justify-content: center;" *ngIf="datos!.role.name == 'admin'">
         <button
           mat-button
           [routerLink]="['users-admin']"
@@ -23,7 +23,7 @@
           Usuarios
         </button>
       </div>
-      <div *ngIf="1 != 1">
+      <div style="display: flex; justify-content: center;" *ngIf="datos!.role.name == 'admin'">
         <button
           mat-button
           [routerLink]="['points-of-sales-admin']"
@@ -32,8 +32,9 @@
           Puntos de Venta
         </button>
       </div>
-      <div *ngIf="role?.name == 'servicero'">
+      <div style="display: flex; justify-content: center;" *ngIf="datos!.role.name == 'servicero'||'admin'">
         <button
+
           mat-button
           [routerLink]="['services-admin']"
           (click)="drawer.toggle()"
@@ -42,7 +43,7 @@
         </button>
       </div>
 
-          <div *ngIf="1 != 1">
+          <div style="display: flex; justify-content: center;" *ngIf="datos!.role.name == 'admin'">
             <button
               mat-button
               [routerLink]="['testimonios-admin']"
@@ -52,7 +53,7 @@
             </button>
           </div>
 
-      <div *ngIf="1 != 1">
+      <div style="display: flex; justify-content: center;" *ngIf="datos!.role.name == 'admin'">
         <button
           mat-button
           [routerLink]="['bioproducts-admin']"
@@ -61,7 +62,7 @@
           Bioproductos
         </button>
       </div>
-      <div *ngIf="1 != 1">
+      <div style="display: flex; justify-content: center;" *ngIf="datos!.role.name == 'admin'">
         <button
           mat-button
           [routerLink]="['contacts-admin']"
@@ -74,7 +75,7 @@
       <!-- Añade aquí más botones según sea necesario -->
     </div>
 
-    <div class="logout">
+    <div style="display: flex; justify-content: center;" class="logout">
       <hr />
       <button mat-button (click)="logout()" [routerLink]="['/home']">
         Cerrar Sesión

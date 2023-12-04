@@ -7,8 +7,8 @@
             <img class="card-img-top" src="https://picsum.photos/1000/1000" alt="Foto de contacto">
           </div>
           <div class="card-body pt-0">
-            <h2 class="card-title">{{user}}</h2>
-            <p class="card-text">{{role}}</p>
+            <h2 class="card-title">{{datos!.user.name}}</h2>
+            <p class="card-text" style="display: flex; justify-content: center;" center>{{datos!.role.name}}</p>
           </div>
         </div>
       </div>
@@ -18,7 +18,7 @@
 <section>
   <div class="container">
     <div class="row">
-      <div class="col-md-4" *ngIf="role?.name == 'servicero'">
+      <div class="col-md-4" *ngIf="datos!.role.name == 'servicero'||'admin'">
         <div class="card">
           <div class="fcard">
             <div class="border-warning text-center">
@@ -30,7 +30,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4" *ngIf="1 != 1">
+      <div class="col-md-4" *ngIf="datos!.role.name == 'admin'">
         <div class="card">
           <div class="fcard">
             <div class="border-warning text-center">
@@ -42,7 +42,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4" *ngIf="1 != 1">
+      <div class="col-md-4" *ngIf="datos!.role.name == 'admin'">
         <div class="card">
           <div class="fcard">
             <div class="border-warning text-center">
@@ -54,7 +54,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4" *ngIf="1 != 1">
+      <div class="col-md-4" *ngIf="datos!.role.name == 'admin'">
         <div class="card">
           <div class="fcard">
             <div class="border-warning text-center">
@@ -66,7 +66,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4" *ngIf="1 != 1">
+      <div class="col-md-4" *ngIf="datos!.role.name == 'admin'">
         <div class="card">
           <div class="fcard">
             <div class="border-warning text-center">
@@ -78,7 +78,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4" *ngIf="1 != 1">
+      <div class="col-md-4" *ngIf="datos!.role.name == 'admin'">
         <div class="card">
           <div class="fcard">
             <div class="border-warning text-center">

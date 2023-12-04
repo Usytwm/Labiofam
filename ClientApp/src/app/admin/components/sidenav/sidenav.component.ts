@@ -29,6 +29,8 @@ ngOnInit(){
   console.log(token);
   this.authService.getData(token).subscribe(data => {
     this.datos = data;
+    this.datos.role.name
+    this.datos.user.name
   });
   this.role = this.datos?.role;
   this.user = this.datos?.user;
