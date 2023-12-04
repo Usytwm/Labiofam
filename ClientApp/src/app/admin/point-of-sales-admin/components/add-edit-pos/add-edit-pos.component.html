@@ -20,17 +20,15 @@
         <mat-grid-list cols="2" rowHeight="80px">
           <mat-grid-tile colspan="2" rowspan="3">
             <div class="row">
-                <div class="card-top">
-                  <img
-                    class="card-img-top"
-                    *ngIf="image"
-                    [src]="image"
-                    alt="Preview"
-                  />
+              <div class="card-top">
+                <img
+                  class="card-img-top"
+                  [src]="image ? image : 'assets/no-image.jpg'"
+                  alt="Preview"
+                />
               </div>
               <div class="button-container">
                 <button
-                  *ngIf="!image"
                   type="button"
                   color="primary"
                   class="btn btn-primary custom-button"

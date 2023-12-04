@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/Interfaces/Product';
 import { ProductService } from 'src/app/Services/EntitiesServices/product.service';
@@ -19,8 +17,7 @@ export class BioproductPageComponent {
   bioproducto?: Product;
   imageUrls: { [key: string]: string } = {};
   constructor(
-    private fb: FormBuilder,
-    private snackBar: MatSnackBar,
+
     private _bioproductsservices: ProductService,
     private router: Router,
     private route: ActivatedRoute,

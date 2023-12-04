@@ -28,6 +28,19 @@
               </mat-error>
             </mat-form-field>
           </mat-grid-tile>
+
+          <mat-grid-tile colspan="1" rowspan="4">
+            <div class="row">
+              <div class="col">
+                <div class="card" style="height: 20rem">
+                  <img class="card-img-top"
+                    [src]="image ? image : 'assets/no-image.jpg'"
+                    alt="Preview" />
+                </div>
+              </div>
+            </div>
+          </mat-grid-tile>
+
           <mat-grid-tile>
             <mat-form-field class="mat-form-field" appearance="outline">
               <mat-label>Tipo</mat-label>
@@ -71,6 +84,8 @@
             </mat-form-field>
           </mat-grid-tile>
 
+
+
           <mat-grid-tile>
             <mat-form-field class="mat-form-field" appearance="outline">
               <mat-label>Ventajas</mat-label>
@@ -82,6 +97,25 @@
                 Por favor introduzca la información del bioproducto
               </mat-error>
             </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <div class="button-container">
+              <button
+                *ngIf="!image"
+                type="button"
+                color="primary"
+                class="btn btn-primary custom-button"
+              >
+                <input
+                  (change)="onFileChange($event)"
+                  type="file"
+                  id="fileInput"
+                  class="file-input"
+                />
+                Agregar Foto
+              </button>
+            </div>
           </mat-grid-tile>
 
           <mat-grid-tile>
@@ -189,59 +223,11 @@
             </mat-form-field>
           </mat-grid-tile>
 
-          <mat-grid-tile >
-
-          </mat-grid-tile>
-
-          <mat-grid-tile >
-
-          </mat-grid-tile>
-
-          <mat-grid-tile colspan="1" rowspan="3" >
-            <div class="row">
-              <div class="col" >
-              <div class="card" style="height: 35rem">
-                <img lass="card-img-top"
-                *ngIf="image"
-                [src]="image"
-                alt="Preview" />
-              </div>
-              </div>
-            </div>
-          </mat-grid-tile>
 
 
 
-          <mat-grid-tile >
 
-          </mat-grid-tile>
 
-          <mat-grid-tile >
-
-          </mat-grid-tile>
-
-          <mat-grid-tile >
-
-          </mat-grid-tile>
-
-          <mat-grid-tile>
-            <div class="button-container">
-              <button
-                *ngIf="!image"
-                type="button"
-                color="primary"
-                class="btn btn-primary custom-button"
-              >
-                <input
-                  (change)="onFileChange($event)"
-                  type="file"
-                  id="fileInput"
-                  class="file-input"
-                />
-                Agregar Foto
-              </button>
-            </div>
-          </mat-grid-tile>
 
 
           <mat-grid-tile colspan="2" style="text-align: center; color: #0000008A;">
