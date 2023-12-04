@@ -39,11 +39,10 @@ export class NavComponent implements OnInit {
   }
   getData() {
     const token = this._auhtservice.getToken();
-    console.log(token);
-
     this._auhtservice.getData(token).subscribe((datos) => {
       this.data = datos;
-    })
+      datos.role.name
+    });
   }
   obtenerServicios() {
     this._servicesservices.getAll().subscribe((data) => {
@@ -55,6 +54,7 @@ export class NavComponent implements OnInit {
   logout() {
     this._auhtservice.logout();
     this.isLogged = false;
+    window.location.reload();
   }
   logoutAndHide() {
     this.logout();

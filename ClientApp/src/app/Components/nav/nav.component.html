@@ -59,7 +59,12 @@
                     <button mat-icon-button class="info">
                       <fa-icon [icon]="user" class="icon"></fa-icon>
                     </button>
-                    <h4 class="card-title">{{data?.user}}</h4>
+                    <h3 class="card-title">
+                      Hola <strong>{{ data!.user.name }}</strong>
+                    </h3>
+                    <h3 class="card-title">
+                      Tu rol actual es: <strong>{{ data!.role.name }}</strong>
+                    </h3>
                     <!-- Aquí van más datos del usuario -->
                   </div>
                 </div>
@@ -76,7 +81,6 @@
                   <div class="mb-3">
                     <button
                       (click)="logoutAndHide()"
-                      [routerLink]="['/']"
                       class="btn btn-light"
                       type="button"
                     >
