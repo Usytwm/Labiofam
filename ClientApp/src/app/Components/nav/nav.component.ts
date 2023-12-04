@@ -5,6 +5,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/Services/RegistrationsService/auth.service';
 import { OverlayPanel } from 'primeng/overlaypanel';
 import { RegistrationRequestModel } from 'src/app/Interfaces/Registration-Request';
+import { User } from '../../Interfaces/User';
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
