@@ -36,6 +36,18 @@
             </mat-form-field>
           </mat-grid-tile>
 
+          <mat-grid-tile colspan="1" rowspan="4">
+            <div class="row">
+              <div class="col">
+                <div class="card" style="height: 20rem">
+                  <img class="card-img-top"
+                    [src]="image ? image : 'assets/no-image.jpg'"
+                    alt="Preview" />
+                </div>
+              </div>
+            </div>
+          </mat-grid-tile>
+
           <mat-grid-tile>
             <mat-form-field class="mat-form-field" appearance="outline">
               <mat-label>Ocupación</mat-label>
@@ -81,30 +93,9 @@
             </mat-form-field>
           </mat-grid-tile>
 
-          <mat-grid-tile colspan="1" rowspan="3" >
-            <div class="row">
-              <div class="col" >
-              <div class="card" style="height: 35rem">
-                <img class="card-img-top"
-                *ngIf="image"
-                [src]="image"
-                alt="Preview" />
-              </div>
-              </div>
-            </div>
+          <mat-grid-tile>
           </mat-grid-tile>
 
-          <mat-grid-tile >
-
-          </mat-grid-tile>
-
-          <mat-grid-tile >
-
-          </mat-grid-tile>
-
-          <mat-grid-tile >
-
-          </mat-grid-tile>
 
           <mat-grid-tile>
             <div class="button-container">

@@ -29,7 +29,7 @@
 	        	<div class="col-md-6">
 	        		<div class="card" style="height: 35rem">
                 <div class ="cont">
-                  <img [src]="imageUrls[bioproducto?.id!] || 'assets/11.jpg'" alt="foto del  {{ bioproducto?.name }} " />
+                  <img [src]="imageUrls[bioproducto.id!] || 'assets/11.jpg'" alt="foto del  {{ bioproducto.name }} " />
                 </div>
 
           </div>
@@ -44,29 +44,6 @@
                   <div class="reviews-counter">
 
 							</div>
-              <!--
-              <div class="card flex justify-content-center" style="margin-top: 1cm;">
-                <p-accordion [multiple]="true"  [activeIndex]="0"  >
-
-                    <p-accordionTab  header="Descripción" >
-                        <p>
-                            {{bioproducto.summary}}</p>
-                    </p-accordionTab>
-                    <p-accordionTab header="Enfermedades que controla">
-                        <mat-chip-listbox>
-                          <mat-chip *ngFor="let enfermedad of bioproducto?.specifications?.split(',') || []">
-                            {{enfermedad}}
-                          </mat-chip>
-                        </mat-chip-listbox>
-                    </p-accordionTab>
-                    <p-accordionTab header="Ventajas">
-                        <p>
-                            Ventaja
-                        </p>
-                    </p-accordionTab>
-                </p-accordion>
-              </div>
-              -->
               <div class="accordion" id="accordionPanelsStayOpenExample" style="margin-top: 1cm;">
                 <div class="accordion-item">
                   <h2 class="accordion-header">
