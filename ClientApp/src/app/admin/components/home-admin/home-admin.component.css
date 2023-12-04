@@ -18,7 +18,7 @@
 
 .profile-card-5 .card-img-block img {
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.63);
+  box-shadow: 0 0 10px rgb(255, 255, 255);
 }
 
 .profile-card-5 h2 {
@@ -32,12 +32,9 @@
   font-weight: 300;
 }
 
-.profile-card-5 .btn-primary {
-  background-color: #4E5E30;
-  border-color: #4E5E30;
-}
+
 body {
-  background: #232321;
+  background: rgb(255, 255, 255);
 }
 h1 {
   color: var(--color-blue);
@@ -46,11 +43,11 @@ h1 {
 .fcard {
   color: var(--color-blue);
   font: var(--color-blue) !important;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 8px 0 rgb(255, 255, 255);
   transition: 0.3s;
   border: none;
   &:hover {
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
+    box-shadow: 0 8px 16px 0 rgb(255, 255, 255);
   }
   a {
     color: initial;

@@ -123,7 +123,7 @@ namespace Labiofam.Controllers
             }
 
             // Crear un nuevo token.
-            var jwt = _authService.GenerateToken(claims, DateTime.Now.AddMinutes(5));
+            var jwt = _authService.GenerateToken(claims, DateTime.Now.AddDays(10));
 
             // Configura la cookie HTTPOnly.
             var cookieOptions = new CookieOptions
@@ -131,7 +131,7 @@ namespace Labiofam.Controllers
                 HttpOnly = true, // Hace que la cookie sea accesible solo a través del protocolo HTTP
                 //Secure = true, // Hace que la cookie se envíe solo a través de HTTPS
                 SameSite = SameSiteMode.Strict, // Previene los ataques de tipo CSRF
-                Expires = DateTime.Now.AddMinutes(5) // Establece la fecha de expiración de la cookie
+                Expires = DateTime.Now.AddDays(10) // Establece la fecha de expiración de la cookie
             };
 
             Response.Cookies.Append(_configuration["Jwt:CookieName"]!, jwt, cookieOptions);

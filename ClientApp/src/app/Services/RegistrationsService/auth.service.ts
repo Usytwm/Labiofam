@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LoginModel } from '../../Interfaces/Loginmodel';
 import { RegistrationRequestModel } from '../../Interfaces/Registration-Request';
@@ -31,6 +31,7 @@ export class AuthService {
       .pipe(
         tap((response) => {
           if (response && response.accessToken) {
+            this.saveCookie(response.accessToken);
             this.loggedIn.next(true);
           }
         })
@@ -40,8 +41,7 @@ export class AuthService {
   logout() {
     this._coockieservice.delete(environment.token_name);
     this.loggedIn.next(false);
-    console.log(environment.token_name);
-    console.log(this.getToken());
+    return this.http.post(`${this.appUrl}${this.apiUrl}/logout`, null);
   }
 
   isLoggedIn() {
@@ -50,13 +50,10 @@ export class AuthService {
 
   getToken() {
     const token = this._coockieservice.get(environment.token_name);
-
     return token;
   }
 
   getData(token: string): Observable<RegistrationRequestModel> {
-    console.log(token);
-
     return this.http.get<RegistrationRequestModel>(
       `${this.appUrl}${this.apiUrl}/${token}`,
       {
@@ -66,7 +63,9 @@ export class AuthService {
   }
 
   saveCookie(token: string) {
-    this._coockieservice.set(environment.token_name, token);
+    var fechaExpiracion = new Date();
+    fechaExpiracion.setDate(fechaExpiracion.getDate() + 10);
+    this._coockieservice.set(environment.token_name, token, fechaExpiracion);
   }
 
   register(

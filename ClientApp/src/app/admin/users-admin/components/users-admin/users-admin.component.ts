@@ -3,8 +3,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { forkJoin, map } from 'rxjs';
+import { RegistrationRequestModel } from 'src/app/Interfaces/Registration-Request';
 import { RegistrationModel } from 'src/app/Interfaces/registration-model';
 import { UserRoleFilterService } from 'src/app/Services/FilterServices/user-roles-filter.service';
+import { AuthService } from 'src/app/Services/RegistrationsService/auth.service';
 import { RegistrationService } from 'src/app/Services/RegistrationsService/registration.service';
 @Component({
   selector: 'app-users-admin',
@@ -15,6 +17,7 @@ export class UsersAdminComponent implements OnInit {
   _data: RegistrationModel[] = [];
   _dataColumns: Record<string, string> = {};
   loading: Boolean = false;
+  data!: RegistrationRequestModel;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -22,11 +25,19 @@ export class UsersAdminComponent implements OnInit {
   constructor(
     private _snackBar: MatSnackBar,
     private _registrationervice: RegistrationService,
-    private _filter: UserRoleFilterService
+    private _filter: UserRoleFilterService,
+    private _auhtservice: AuthService
   ) {}
 
   ngOnInit() {
     this.getAll();
+  }
+
+  getData() {
+    const token = this._auhtservice.getToken();
+    this._auhtservice.getData(token).subscribe((datos) => {
+      this.data = datos;
+    });
   }
 
   getAll(): void {
@@ -62,7 +73,18 @@ export class UsersAdminComponent implements OnInit {
         duration: 3000,
         horizontalPosition: 'center',
       });
-    } else {
+    }
+    // else if (id == this.data.user.id) {
+    //   this._snackBar.open(
+    //     'No es posible eliminar al usuario actual',
+    //     'cerrar',
+    //     {
+    //       duration: 3000,
+    //       horizontalPosition: 'center',
+    //     }
+    //   );
+    // }
+    else {
       this._registrationervice.remove(id).subscribe(() => {
         this._snackBar.open('Eliminado con éxito', 'cerrar', {
           duration: 3000,

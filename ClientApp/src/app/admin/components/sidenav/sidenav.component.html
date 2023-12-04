@@ -1,101 +1,115 @@
 <section class="public-section">
-<mat-drawer-container class="container-sidenav" autosize>
-  <mat-drawer #drawer class="sidenav" mode="side">
-    <div class="user-details">
-      <div class="containersvg">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="64"
-          height="64"
-          fill="currentColor"
-          class="bi bi-person-circle account"
-          viewBox="0 0 16 16"
-        >
-          <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-          <path
-            fill-rule="evenodd"
-            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+  <mat-drawer-container class="container-sidenav" autosize>
+    <mat-drawer #drawer class="sidenav" mode="side">
+      <div class="user-details">
+        <div class="container">
+          <img
+            class="rounded-circle"
+            src="https://picsum.photos/1000/1000"
+            width="64"
+            height="64"
           />
-        </svg>
+        </div>
+        <h3>
+          <strong>{{ datos!.user.name }}</strong>
+        </h3>
+        <!-- Aquí puedes poner los datos del usuario -->
       </div>
-      <p>Datos del usuario</p>
-      <!-- Aquí puedes poner los datos del usuario -->
-    </div>
-    <hr />
-    <div class="section">
-      <div>
-        <button
-          mat-button
-          [routerLink]="['users-admin']"
-          (click)="drawer.toggle()"
-        >
-          Usuarios
-        </button>
-      </div>
-      <div>
-        <button
-          mat-button
-          [routerLink]="['points-of-sales-admin']"
-          (click)="drawer.toggle()"
-        >
-          Puntos de Venta
-        </button>
-      </div>
-      <div>
-        <button
-          mat-button
-          [routerLink]="['services-admin']"
-          (click)="drawer.toggle()"
-        >
-          Servicios
-        </button>
-      </div>
-
-          <div>
-            <button
-              mat-button
-              [routerLink]="['testimonios-admin']"
-              (click)="drawer.toggle()"
-            >
-              Testimonios
-            </button>
-          </div>
-
-      <div>
-        <button
-          mat-button
-          [routerLink]="['bioproducts-admin']"
-          (click)="drawer.toggle()"
-        >
-          Bioproductos
-        </button>
-      </div>
-      <div>
-        <button
-          mat-button
-          [routerLink]="['contacts-admin']"
-          (click)="drawer.toggle()"
-        >
-          Contactos
-        </button>
-      </div>
-
-      <!-- Añade aquí más botones según sea necesario -->
-    </div>
-
-    <div class="logout">
       <hr />
-      <button mat-button (click)="logout()" [routerLink]="['/home']">
-        Cerrar Sesión
-      </button>
-    </div>
-  </mat-drawer>
+      <div class="section">
+        <div
+          style="display: flex; justify-content: center"
+          *ngIf="datos!.role.name == 'Administrador'"
+        >
+          <button
+            mat-button
+            [routerLink]="['users-admin']"
+            (click)="drawer.toggle()"
+          >
+            Usuarios
+          </button>
+        </div>
+        <div
+          style="display: flex; justify-content: center"
+          *ngIf="
+            datos!.role.name == 'Gestor de Puntos de Venta' || 'Administrador'
+          "
+        >
+          <button
+            mat-button
+            [routerLink]="['points-of-sales-admin']"
+            (click)="drawer.toggle()"
+          >
+            Puntos de Venta
+          </button>
+        </div>
+        <div
+          style="display: flex; justify-content: center"
+          *ngIf="datos!.role.name == 'Coordinador de Servicios' || 'Administrador'"
+        >
+          <button
+            mat-button
+            [routerLink]="['services-admin']"
+            (click)="drawer.toggle()"
+          >
+            Servicios
+          </button>
+        </div>
 
-  <div class="sidenav-content">
-    <button type="button" mat-icon-button (click)="drawer.toggle()">
-      <fa-icon [icon]="barra" class="icon"></fa-icon>
-    </button>
-    <router-outlet></router-outlet>
-  </div>
-</mat-drawer-container>
+        <div
+          style="display: flex; justify-content: center"
+          *ngIf="datos!.role.name == 'Administrador'"
+        >
+          <button
+            mat-button
+            [routerLink]="['testimonios-admin']"
+            (click)="drawer.toggle()"
+          >
+            Testimonios
+          </button>
+        </div>
+
+        <div
+          style="display: flex; justify-content: center"
+          *ngIf="datos!.role.name == 'Administrador'"
+        >
+          <button
+            mat-button
+            [routerLink]="['bioproducts-admin']"
+            (click)="drawer.toggle()"
+          >
+            Bioproductos
+          </button>
+        </div>
+        <div
+          style="display: flex; justify-content: center"
+          *ngIf="datos!.role.name == 'Administrador'"
+        >
+          <button
+            mat-button
+            [routerLink]="['contacts-admin']"
+            (click)="drawer.toggle()"
+          >
+            Contactos
+          </button>
+        </div>
+
+        <!-- Añade aquí más botones según sea necesario -->
+      </div>
+
+      <div style="display: flex; justify-content: center" class="logout">
+        <hr />
+        <button mat-button (click)="logout()" [routerLink]="['/home']">
+          Cerrar Sesión
+        </button>
+      </div>
+    </mat-drawer>
+
+    <div class="sidenav-content">
+      <button type="button" mat-icon-button (click)="drawer.toggle()">
+        <fa-icon [icon]="barra" class="icon"></fa-icon>
+      </button>
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-container>
 </section>
