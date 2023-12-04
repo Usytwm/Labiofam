@@ -18,7 +18,7 @@ export const loginGuard: CanActivateFn = (
         const jwt = authService.getToken();
         return authService.getData(jwt).pipe(
           map((data: any) => {
-            if (data.role && data.role.name == 'Administrador') {
+            if (isLoggedIn) {
               // El usuario está autenticado y es administrador
               return true;
             } else {

@@ -4,11 +4,21 @@
       <div class="col-md-4 mt-4">
         <div class="card profile-card-5">
           <div class="card-img-block">
-            <img class="card-img-top" src="https://picsum.photos/1000/1000" alt="Foto de contacto">
+            <img
+              class="card-img-top"
+              src="https://picsum.photos/1000/1000"
+              alt="Foto de contacto"
+            />
           </div>
           <div class="card-body pt-0">
-            <h2 class="card-title">{{datos!.user.name}}</h2>
-            <p class="card-text" style="display: flex; justify-content: center;" center>{{datos!.role.name}}</p>
+            <h2 class="card-title">{{ datos!.user.name }}</h2>
+            <p
+              class="card-text"
+              style="display: flex; justify-content: center"
+              center
+            >
+              {{ datos!.role.name }}
+            </p>
           </div>
         </div>
       </div>
@@ -18,73 +28,107 @@
 <section>
   <div class="container">
     <div class="row">
-      <div class="col-md-4" *ngIf="datos!.role.name == 'servicero'||'admin'">
+      <div
+        class="col-md-4"
+        *ngIf="
+          datos!.role.name == 'Coordinador de Servicios' || 'Administrador'
+        "
+      >
         <div class="card">
           <div class="fcard">
             <div class="border-warning text-center">
               <div class="card-body">
                 <h2 class="card-title">Servicios</h2>
-                <a class="btn btn-primary" [routerLink]="['/dashboard/services-admin']">Administrar</a>
+                <a
+                  class="btn btn-primary"
+                  [routerLink]="['/dashboard/services-admin']"
+                  >Administrar</a
+                >
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-md-4" *ngIf="datos!.role.name == 'admin'">
+      <div class="col-md-4" *ngIf="datos!.role.name == 'Administrador'">
         <div class="card">
           <div class="fcard">
             <div class="border-warning text-center">
               <div class="card-body">
                 <h2 class="card-title">Usuario</h2>
-                <a class="btn btn-primary" [routerLink]="['/dashboard/users-admin']">Administrar</a>
+                <a
+                  class="btn btn-primary"
+                  [routerLink]="['/dashboard/users-admin']"
+                  >Administrar</a
+                >
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-md-4" *ngIf="datos!.role.name == 'admin'">
+      <div class="col-md-4" *ngIf="datos!.role.name == 'Administrador'">
         <div class="card">
           <div class="fcard">
             <div class="border-warning text-center">
               <div class="card-body">
                 <h2 class="card-title">Testimonios</h2>
-                <a class="btn btn-primary" [routerLink]="['/dashboard/testimonios-admin']">Administrar</a>
+                <a
+                  class="btn btn-primary"
+                  [routerLink]="['/dashboard/testimonios-admin']"
+                  >Administrar</a
+                >
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-md-4" *ngIf="datos!.role.name == 'admin'">
+      <div class="col-md-4" *ngIf="datos!.role.name == 'Administrador'">
         <div class="card">
           <div class="fcard">
             <div class="border-warning text-center">
               <div class="card-body">
                 <h2 class="card-title">BioProductos</h2>
-                <a class="btn btn-primary" [routerLink]="['/dashboard/bioproducts-admin']">Administrar</a>
+                <a
+                  class="btn btn-primary"
+                  [routerLink]="['/dashboard/bioproducts-admin']"
+                  >Administrar</a
+                >
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-md-4" *ngIf="datos!.role.name == 'admin'">
+      <div class="col-md-4" *ngIf="datos!.role.name == 'Administrador'">
         <div class="card">
           <div class="fcard">
             <div class="border-warning text-center">
               <div class="card-body">
                 <h2 class="card-title">Contactos</h2>
-                <a class="btn btn-primary" [routerLink]="['/dashboard/contacts-admin']">Administrar</a>
+                <a
+                  class="btn btn-primary"
+                  [routerLink]="['/dashboard/contacts-admin']"
+                  >Administrar</a
+                >
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-md-4" *ngIf="datos!.role.name == 'admin'">
+      <div
+        class="col-md-4"
+        *ngIf="
+          datos!.role.name == 'Gestor de Puntos de Venta' || 'Administrador'
+        "
+      >
         <div class="card">
           <div class="fcard">
             <div class="border-warning text-center">
               <div class="card-body">
                 <h2 class="card-title">Puntos de Venta</h2>
-                <a class="btn btn-primary" [routerLink]="['/dashboard/points-of-sales-admin']">Administrar</a>
+                <a
+                  class="btn btn-primary"
+                  [routerLink]="['/dashboard/points-of-sales-admin']"
+                  >Administrar</a
+                >
               </div>
             </div>
           </div>
