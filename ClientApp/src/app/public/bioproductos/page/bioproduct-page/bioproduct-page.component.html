@@ -1,10 +1,12 @@
 <!--Important link from https://bootsnipp.com/snippets/XqvZr-->
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link
+  href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+  rel="stylesheet"
+  id="bootstrap-css"
+/>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
-
-
 
 <ng-template #divLoading>
   <mat-grid-list cols="1">
@@ -14,84 +16,138 @@
   </mat-grid-list>
 </ng-template>
 
-
-
 <div *ngIf="bioproducto; else divLoading">
-<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800&display=swap" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"><div class="pd-wrap">
-		<div class="container">
-	        <div class="heading-section">
-	            <h2></h2>
-	        </div>
-	        <div class="row">
-	        	<div class="col-md-6">
-	        		<div class="card" style="height: 35rem">
-                <div class ="cont">
-                  <img [src]="imageUrls[bioproducto.id!] || 'assets/11.jpg'" alt="foto del  {{ bioproducto.name }} " />
-                </div>
-
+  <link
+    href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+  />
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+  />
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+  />
+  <div class="pd-wrap">
+    <div class="container">
+      <div class="heading-section">
+        <h2></h2>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card" style="height: 35rem">
+            <div class="cont">
+              <img
+                [src]="imageUrls[bioproducto.id!] || 'assets/no-image.jpg'"
+                alt="foto del  {{ bioproducto.name }} "
+              />
+            </div>
           </div>
-
-	        	</div>
-	        	<div class="col-md-5">
-	        		<div class="product-dtl">
-        				<div class="product-info">
-		        			<div class="product-name">{{bioproducto.name}}</div>
-		        			<div class="product-type" style="margin-top: 1cm;" >
-                    <span style="color:#0000008a;">Tipo:</span> {{bioproducto.type}}</div>
-                  <div class="reviews-counter">
-
-							</div>
-              <div class="accordion" id="accordionPanelsStayOpenExample" style="margin-top: 1cm;">
+        </div>
+        <div class="col-md-5">
+          <div class="product-dtl">
+            <div class="product-info">
+              <div class="product-name">{{ bioproducto.name }}</div>
+              <div class="product-type" style="margin-top: 1cm">
+                <span style="color: #0000008a">Tipo:</span>
+                {{ bioproducto.type }}
+              </div>
+              <div class="reviews-counter"></div>
+              <div
+                class="accordion"
+                id="accordionPanelsStayOpenExample"
+                style="margin-top: 1cm"
+              >
                 <div class="accordion-item">
                   <h2 class="accordion-header">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                    <button
+                      class="accordion-button"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#panelsStayOpen-collapseOne"
+                      aria-expanded="true"
+                      aria-controls="panelsStayOpen-collapseOne"
+                    >
                       Descripción
                     </button>
                   </h2>
-                  <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                  <div
+                    id="panelsStayOpen-collapseOne"
+                    class="accordion-collapse collapse show"
+                  >
                     <div class="accordion-body">
-                      <p>{{bioproducto.summary}}</p>
+                      <p>{{ bioproducto.summary }}</p>
                     </div>
                   </div>
                 </div>
                 <div class="accordion-item">
                   <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                    <button
+                      class="accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#panelsStayOpen-collapseTwo"
+                      aria-expanded="false"
+                      aria-controls="panelsStayOpen-collapseTwo"
+                    >
                       Enfermedades que controla
                     </button>
                   </h2>
-                  <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
-                    <mat-chip-listbox >
-                      <mat-chip *ngFor="let enfermedad of bioproducto?.specifications?.split(',') || []">
-                        {{enfermedad}}
+                  <div
+                    id="panelsStayOpen-collapseTwo"
+                    class="accordion-collapse collapse"
+                  >
+                    <mat-chip-listbox>
+                      <mat-chip
+                        *ngFor="
+                          let enfermedad of bioproducto?.specifications?.split(
+                            ','
+                          ) || []
+                        "
+                      >
+                        {{ enfermedad }}
                       </mat-chip>
                     </mat-chip-listbox>
                   </div>
                 </div>
                 <div class="accordion-item">
-                  <h2 class="accordion-header ">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                  <h2 class="accordion-header">
+                    <button
+                      class="accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#panelsStayOpen-collapseThree"
+                      aria-expanded="false"
+                      aria-controls="panelsStayOpen-collapseThree"
+                    >
                       Ventajas
                     </button>
                   </h2>
-                  <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
-                    <p>
-                      Ventaja
-                  </p>
+                  <div
+                    id="panelsStayOpen-collapseThree"
+                    class="accordion-collapse collapse"
+                  >
+                    <p>Ventaja</p>
                   </div>
                 </div>
               </div>
-
-              </div>
-              <section style="left: 2cm;" style="margin-top: 1cm;" >
-                <button class ="btn btn-primary card-btn" (click)="goBack()">Regresar</button>
-              </section>
-	        	</div>
-	        </div>
-
+            </div>
+            <section style="left: 2cm" style="margin-top: 1cm">
+              <button class="btn btn-primary card-btn" (click)="goBack()">
+                Regresar
+              </button>
+            </section>
+          </div>
+        </div>
+      </div>
     </div>
-	</div>
+  </div>
 </div>
