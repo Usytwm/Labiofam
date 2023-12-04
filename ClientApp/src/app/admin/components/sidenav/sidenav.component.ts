@@ -14,27 +14,26 @@ import { RegistrationModel } from 'src/app/Interfaces/registration-model';
   styleUrls: ['./sidenav.component.css'],
 })
 export class SidenavComponent implements OnInit {
-    constructor(private authService: AuthService) {
-      }
+  constructor(private authService: AuthService) {}
   showFiller = false;
   barra = faBars;
   navData = navbarData;
   logout() {}
   datos?: RegistrationRequestModel;
-  role?: Role
+  role?: Role;
   user?: RegistrationModel;
 
-ngOnInit(){
-  const token = this.authService.getToken();
-  console.log(token);
-  this.authService.getData(token).subscribe(data => {
-    this.datos = data;
-    this.datos.role.name
-    this.datos.user.name
-  });
-  this.role = this.datos?.role;
-  this.user = this.datos?.user;
-  console.log("User:" + this.user);
-  console.log("Role:" + this.role);
-}
+  ngOnInit() {
+    const token = this.authService.getToken();
+    console.log(token);
+    this.authService.getData(token).subscribe((data) => {
+      this.datos = data;
+      this.datos.role.name;
+      this.datos.user.name;
+      this.role = this.datos?.role;
+      this.user = this.datos?.user;
+      console.log('User:' + this.user);
+      console.log('Role:' + this.role);
+    });
+  }
 }
