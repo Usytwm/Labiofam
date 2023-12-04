@@ -29,8 +29,6 @@ const routes: Routes = [
       {
         path: 'users-admin',
         component: UsersAdminComponent,
-        canActivate: [roleGuard],
-        data: { expectedRoles: ['manager', 'user'] },
       },
       { path: 'users-admin/edit/:id', component: AddEditUserComponent },
       { path: 'users-admin/add', component: AddEditUserComponent },
@@ -64,15 +62,8 @@ const routes: Routes = [
         component: AddEditPosComponent,
       },
       { path: 'points-of-sales-admin/add', component: AddEditPosComponent },
-      
-      // otras rutas que deben mostrarse dentro de PublicComponent
     ],
   },
-
-  {
-    path: '**',
-    redirectTo: '',
-  }, // otras rutas que deben mostrarse dentro de PublicComponent
 ];
 
 @NgModule({

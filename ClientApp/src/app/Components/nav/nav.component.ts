@@ -22,6 +22,7 @@ export class NavComponent implements OnInit {
     private _auhtservice: AuthService
   ) {}
   ngOnInit(): void {
+    this.getData();
     this.islogged();
     this.obtenerServicios();
   }
@@ -36,10 +37,11 @@ export class NavComponent implements OnInit {
   }
   getData() {
     const token = this._auhtservice.getToken();
-    this._auhtservice.getData(token).subscribe((datos) => {
-      this.data = datos;
-      datos.role.name
-    });
+    if (token)
+      this._auhtservice.getData(token).subscribe((datos) => {
+        this.data = datos;
+        datos.role.name;
+      });
   }
   obtenerServicios() {
     this._servicesservices.getAll().subscribe((data) => {
