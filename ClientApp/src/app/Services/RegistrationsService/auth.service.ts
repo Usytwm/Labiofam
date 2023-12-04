@@ -63,7 +63,7 @@ export class AuthService {
 
   saveCookie(token: string) {
     var fechaExpiracion = new Date();
-    fechaExpiracion.setMonth(fechaExpiracion.getMonth() + 1);
+    fechaExpiracion.setDate(fechaExpiracion.getDate() + 10);
     this._coockieservice.set(environment.token_name, token, fechaExpiracion);
   }
 

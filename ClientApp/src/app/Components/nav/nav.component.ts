@@ -21,12 +21,11 @@ export class NavComponent implements OnInit {
   constructor(
     private _servicesservices: ServicesService,
     private _auhtservice: AuthService
-    ) {}
-
-    ngOnInit(): void {
-      this.islogged();
-      this.obtenerServicios();
-      console.log("UserLog: "+this.data?.user);
+  ) {}
+  ngOnInit(): void {
+    this.getData();
+    this.islogged();
+    this.obtenerServicios();
   }
 
   islogged() {
@@ -39,10 +38,11 @@ export class NavComponent implements OnInit {
   }
   getData() {
     const token = this._auhtservice.getToken();
-    this._auhtservice.getData(token).subscribe((datos) => {
-      this.data = datos;
-      datos.role.name
-    });
+    if (token)
+      this._auhtservice.getData(token).subscribe((datos) => {
+        this.data = datos;
+        datos.role.name;
+      });
   }
   obtenerServicios() {
     this._servicesservices.getAll().subscribe((data) => {

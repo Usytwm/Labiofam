@@ -15,13 +15,21 @@ import { BioproductsAdminComponent } from './bioproducts-admin/components/biopro
 import { AddEditBioproductComponent } from './bioproducts-admin/components/add-edit-bioproduct/add-edit-bioproduct.component';
 import { ContactsAdminComponent } from './contacts-admin/components/contacts-admin/contacts-admin.component';
 import { AddEditContactsComponent } from './contacts-admin/components/add-edit-contacts/add-edit-contacts.component';
+import { roleGuard } from '../Guards/administrations.guard';
+
 const routes: Routes = [
   {
     path: '',
     component: SidenavComponent,
     children: [
-      { path: 'home', component: HomeAdminComponent },
-      { path: 'users-admin', component: UsersAdminComponent },
+      {
+        path: 'home',
+        component: HomeAdminComponent,
+      },
+      {
+        path: 'users-admin',
+        component: UsersAdminComponent,
+      },
       { path: 'users-admin/edit/:id', component: AddEditUserComponent },
       { path: 'users-admin/add', component: AddEditUserComponent },
       { path: 'services-admin', component: ServicesAdminComponent },
@@ -54,11 +62,8 @@ const routes: Routes = [
         component: AddEditPosComponent,
       },
       { path: 'points-of-sales-admin/add', component: AddEditPosComponent },
-
-      // otras rutas que deben mostrarse dentro de PublicComponent
     ],
   },
-  // otras rutas que deben mostrarse dentro de PublicComponent
 ];
 
 @NgModule({
