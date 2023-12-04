@@ -51,7 +51,9 @@ export class NavComponent implements OnInit {
   // Cambia esto según el estado de inicio de sesión de tu usuario
 
   logout() {
-    this._auhtservice.logout();
+    this._auhtservice.logout().subscribe((res) => {
+      console.log(res);
+    });
     this.isLogged = false;
     window.location.reload();
   }

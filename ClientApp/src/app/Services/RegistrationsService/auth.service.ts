@@ -41,6 +41,7 @@ export class AuthService {
   logout() {
     this._coockieservice.delete(environment.token_name);
     this.loggedIn.next(false);
+    return this.http.post(`${this.appUrl}${this.apiUrl}/logout`, null);
   }
 
   isLoggedIn() {
