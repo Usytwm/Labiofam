@@ -94,7 +94,7 @@ public class AuthService : IAuthService
             var principal = tokenHandler.ValidateToken(token, validationParameters, out var validatedToken);
             return principal;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             return null;
         }
