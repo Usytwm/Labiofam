@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Labiofam.Models
 {
@@ -70,6 +72,10 @@ namespace Labiofam.Models
 
             modelBuilder.Entity<IdentityUserToken<Guid>>()
                 .HasKey(key => key.UserId);
+
+            modelBuilder.Entity<Product>()
+                .Property(p => p.ExtraField!)
+                .HasField("_extraField");
 
             // Definición de nombres de tablas personalizados
             modelBuilder.Entity<Client>().ToTable("Clientes");
