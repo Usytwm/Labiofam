@@ -135,8 +135,6 @@ builder.Services.AddScoped<IRelationFilter<User_Role, User, Role>, UserRoleFilte
 builder.Services.AddScoped<IRelationFilter<User_Product, User, Product>, UserProductFilterService>();
 builder.Services.AddScoped<IRelationFilter<Product_POS, Product, Point_of_Sales>, ProductPOSFilterService>();
 builder.Services.AddScoped<IProductPOSFilter, ProductPOSFilterService>();
-// builder.Services.AddScoped<ISearchFilter, SearchFilterService>();
-// builder.Services.AddScoped<IRelationSearchFilter, RelationSearchFilterService>();
 
 // Servicio de correo
 builder.Services.AddScoped<IMailService, MailService>();

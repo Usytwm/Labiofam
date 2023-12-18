@@ -12,10 +12,10 @@ public class Product : IEntityModel
     [StringLength(64)]
     public string? Name { get; set; }
     public string? Image { get; set; }
-    [StringLength(32)]
-    public string? Type { get; set; }
-    public string? Summary { get; set; }
-    public string? Specifications { get; set; }
+    public string? Description { get; set; }
+    public string? Diseases { get; set; }
+    public string? Advantages { get; set; }
+    public string? Summary { get; set; } /////////////////////////////
 
     private string? _extraField;
 
