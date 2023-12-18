@@ -8,7 +8,11 @@ import {
   EventEmitter,
   SimpleChanges,
 } from '@angular/core';
-
+import {
+  faPlus,
+  faEdit,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -19,6 +23,9 @@ import { MatTableDataSource } from '@angular/material/table';
   providers: [MatPaginator, MatSort],
 })
 export class GenericTableComponent<T> implements OnInit, AfterViewInit {
+  eliminar = faTrash;
+  agregar = faPlus;
+  editar = faEdit;
   @Input() data!: T[];
 
   /**

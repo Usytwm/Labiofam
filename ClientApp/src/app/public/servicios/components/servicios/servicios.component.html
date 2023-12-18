@@ -1,36 +1,23 @@
-<div class="mat-primary titulo">Servicios</div>
-<div class="container">
-  <div class="filter">
-    <mat-form-field>
-      <mat-label>Filtrar</mat-label>
-      <input
-        matInput
-        (keyup)="applyFilter($event)"
-        placeholder="Ej. Servicio 1"
-        #input
-        autocomplete="off"
-      />
-    </mat-form-field>
+<div data-aos="fade-down">
+  <div class="p-md-5 mb-4 text-body-emphasis bg-body-secondary">
+    <h1 class="display-4 fst-italic titulo">Nuestros Servicios</h1>
+    <p class="lead my-3 container">
+      El texto de los servicios (Aqui decimos que somos los mejores y que no hay mas ná)
+    </p>
   </div>
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
-    <!-- Columna de Nombre -->
-    <ng-container matColumnDef="Nombre">
-      <th mat-header-cell *matHeaderCellDef>Nombre del Servicio</th>
-      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-    </ng-container>
-    <!-- Columna de Descripción -->
-    <ng-container matColumnDef="Descripción">
-      <th mat-header-cell *matHeaderCellDef>Descripción</th>
-      <td mat-cell *matCellDef="let element">{{ element.info }}</td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-  <mat-paginator
-    [pageSizeOptions]="[5, 10, 20]"
-    aria-label="Selecciona página de elementos periódicos"
-  >
-  </mat-paginator>
-
 </div>
+<section class="light">
+	<div class="container py-2">
+		<article class="postcard light blue" *ngFor="let servicio of servicios">
+			<a class="postcard__img_link" >
+				<img class="postcard__img" src="https://picsum.photos/1000/1000" alt="Image Title" />
+			</a>
+			<div class="postcard__text t-dark">
+				<h1 class="postcard__title blue">{{ servicio.name }}</h1>
+				<div class="postcard__bar"></div>
+				<div class="postcard__preview-txt">{{ servicio.info }}</div>
+			</div>
+		</article>
+		</div>
+</section>
+

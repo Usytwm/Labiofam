@@ -5,7 +5,7 @@ import {
   ViewChild,
   inject,
 } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Form, FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
@@ -14,7 +14,7 @@ import { Observable, map, startWith } from 'rxjs';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
-
+import { FormArray } from '@angular/forms';
 //Interfaces
 
 import { Product } from 'src/app/Interfaces/Product';
@@ -23,6 +23,7 @@ import { Product } from 'src/app/Interfaces/Product';
 
 
 import { ProductService } from 'src/app/Services/EntitiesServices/product.service';
+import { FileService } from 'src/app/Services/FilesService/File.service';
 
 
 
@@ -32,17 +33,53 @@ import { ProductService } from 'src/app/Services/EntitiesServices/product.servic
   styleUrls: ['./add-edit-bioproduct.component.css']
 })
 export class AddEditBioproductComponent {
+  onFileSelected(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length) {
+      const file = target.files[0];
+      const imagename = file.name;
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.imagePreview = reader.result as string;
+      };
+    }
+  }
+  onFileChange(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length) {
+      const file = target.files[0];
+      this._fotoservice.uploadPhoto(file).subscribe((response) => {
+        // Maneja la respuesta del servidor aquí
+        this.imagePreview = response;
+        this.getPhoto(this.imagePreview);
+      });
+    }
+  }
+
+  getPhoto(photoName: string) {
+    this._fotoservice.getPhoto(photoName).subscribe((photo) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.image = reader.result as string;
+      };
+      reader.readAsDataURL(photo);
+    });
+  }
+
+  image?: string;
+  imagePreview?: string;
   loading = false;
   id: string;
   operacion = 'Agregar';
   product?: Product;
-
+  extrasForm?: FormGroup;
   form = this.fb.group({
     name: ['', Validators.required],
     type: ['', Validators.required],
     summary: ['', Validators.required],
     specifications: ['', Validators.required],
-
+    extras: this.fb.array([])
   });
 
 
@@ -51,7 +88,8 @@ export class AddEditBioproductComponent {
     private snackBar: MatSnackBar,
     private _productservice: ProductService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private _fotoservice: FileService
   ) {
     this.id = String(this.route.snapshot.paramMap.get('id'));
   }
@@ -61,6 +99,23 @@ export class AddEditBioproductComponent {
       this.getProduct(this.id);
     }
   }
+
+  get extras() {
+    return this.form.controls["extras"] as FormArray;
+  }
+  addExtras() {
+    this.extrasForm = this.fb.group({
+      nameC: ['',Validators.required],
+      InfoC: ['',Validators.required]
+    });
+    this.extras.push(this.extrasForm);
+  }
+  deleteExtras(extraIndex: number){
+    this.extras.removeAt(extraIndex);
+  }
+
+
+
   getProduct(id: string) {
     this.loading = true;
     this._productservice.get(id).subscribe((data) => {
@@ -73,9 +128,13 @@ export class AddEditBioproductComponent {
         specifications: data.specifications,
 
       });
+      if (data.image) {
+        this.getPhoto(data.image);
+      }
       this.loading = false;
     });
   }
+  /*
   addProduct() {
     this._productservice.add(this.newProduct()).subscribe((data) => {
       this.snackBar.open('Agregado con éxito', 'cerrar', {
@@ -84,6 +143,28 @@ export class AddEditBioproductComponent {
       });
       //console.log(this.newUser());
       this.router.navigate(['/dashboard/bioproducts-admin']);
+    });
+  }*/
+  addProduct() {
+    this._productservice.add(this.newProduct()).subscribe((data) => {
+      this.snackBar.open('Agregado con éxito', 'cerrar', {
+        duration: 3000,
+        horizontalPosition: 'right',
+      });
+      this.router.navigate(['/dashboard/bioproducts-admin']);
+    }, (error) => {
+      if (error.error.code === 'DUPLICATE_PRODUCT_NAME') {
+        this.snackBar.open('El nombre del producto ya existe', 'cerrar', {
+          duration: 3000,
+          horizontalPosition: 'right',
+        });
+      } else {
+        console.error(error);
+        this.snackBar.open('Ha ocurrido un error al agregar el producto', 'cerrar', {
+          duration: 3000,
+          horizontalPosition: 'right',
+        });
+      }
     });
   }
   editProduct() {
@@ -99,12 +180,13 @@ export class AddEditBioproductComponent {
     });
   }
   newProduct(): Product {
+    const imagePath = this.imagePreview!;
     return {
-
       name: this.form.value.name!,
       type: this.form.value.type!,
       summary: this.form.value.summary!,
       specifications: this.form.value.specifications!,
+      image: imagePath,
     }
   }
 }

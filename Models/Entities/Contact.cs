@@ -10,7 +10,11 @@ public class Contact : IEntityModel
     public string? Name { get; set; }
     public string? Image { get; set; }
     [StringLength(256)]
-    public string? Contact_Info { get; set; }
+
+    public string? Phone { get; set; }
+
+    public string? Email { get; set; }
+
     [StringLength(64)]
     public string? Occupation { get; set; }
 }

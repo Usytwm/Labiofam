@@ -12,8 +12,9 @@ export class HomeComponent {
   products: Product[] = [];
   constructor(private _productService: ProductService) {}
   ngOnInit(): void {
-    this.loading = true
+    this.loading = true;
     this._productService.take(3).subscribe((data) => {
+      console.log(data);
       this.products = data;
       if (data.length > 0) this.loading = false;
     });

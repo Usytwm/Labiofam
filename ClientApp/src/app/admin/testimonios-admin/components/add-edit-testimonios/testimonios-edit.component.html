@@ -1,0 +1,80 @@
+<div data-aos="fade-left">
+  <div class="mat-primary titulo">{{ operacion }} Testimonios</div>
+
+  <div
+    class="container1"
+    fxLayout="row"
+    fxLayout.lt-sm="column"
+    fxLayoutAlign="center center"
+    fxLayoutGap="10px"
+  >
+    <mat-card class="card" fxFlex="80%" fxFlex.lt-md="100%">
+      <mat-card-subtitle style="text-align: center">
+        <h2>Datos</h2>
+      </mat-card-subtitle>
+      <form
+        [formGroup]="form"
+        style="margin-top: 10px"
+        (ngSubmit)="operacion === 'Agregar' ? addTestimonio() : editTestimonio()"
+      >
+        <mat-grid-list cols="2" rowHeight="80px">
+          <mat-grid-tile>
+            <mat-form-field class="mat-form-field" appearance="outline">
+              <mat-label>Enlace</mat-label>
+              <input formControlName="enlace" matInput autocomplete="off" />
+              <mat-error
+                *ngIf="form.controls.enlace.invalid && form.controls.enlace.touched"
+              >
+                Enlace inválido
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+
+
+          <mat-grid-tile>
+            <mat-form-field class="mat-form-field" appearance="outline">
+              <mat-label>Título</mat-label>
+              <input
+                formControlName="titulo"
+                matInput
+                autocomplete="off"
+              />
+              <mat-error
+
+              >
+                Introduzca el título del testimonio
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+
+
+          <mat-grid-tile colspan="2">
+            <form style="position: absolute; width: 96%">
+
+            </form>
+          </mat-grid-tile>
+
+          <mat-grid-tile colspan="2">
+            <button
+              [disabled]="form.invalid"
+              y
+              type="submit"
+              class="btnacept"
+              mat-raised-button
+              color="primary"
+            >
+              Aceptar
+            </button>
+            <button
+              type="button"
+              mat-raised-button
+              routerLink="/dashboard/testimonios-admin"
+            >
+              Volver
+            </button>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </form>
+    </mat-card>
+  </div>
+</div>

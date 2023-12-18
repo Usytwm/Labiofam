@@ -25,7 +25,8 @@ namespace Labiofam.Services
             current_contact.Name = edited_contact.Name;
             current_contact.Image = edited_contact.Image;
             current_contact.Occupation = edited_contact.Occupation;
-            current_contact.Contact_Info = edited_contact.Contact_Info;
+            current_contact.Email = edited_contact.Email;
+            current_contact.Phone = edited_contact.Phone;
             _webDbContext.Entry(current_contact).State = EntityState.Modified;
             await _webDbContext.SaveChangesAsync();
         }

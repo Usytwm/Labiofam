@@ -9,6 +9,6 @@ import { EntityAbstractService } from '../BaseServices/entity-abstract.service';
 export class ServicesService extends EntityAbstractService<Service> {
   constructor(_http: HttpClient) {
     super(_http);
-    this.apiUrl = 'api/Services/';
+    this.apiUrl = 'api/Service/';
   }
 }

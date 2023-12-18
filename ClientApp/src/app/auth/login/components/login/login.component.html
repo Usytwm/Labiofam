@@ -10,7 +10,11 @@
     </mat-card-subtitle>
 
     <div class="form-container">
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <form
+        [formGroup]="loginForm"
+        formControlName="firstName"
+        (ngSubmit)="onSubmit()"
+      >
         <div class="containersvg">
           <svg
             xmlns="http://www.w3.org/2000/svg"

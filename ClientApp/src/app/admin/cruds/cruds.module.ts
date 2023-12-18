@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 //componentes
 import { GenericTableComponent } from './table/generic-table.component';
@@ -11,7 +12,7 @@ import { AddEditGenericComponent } from './add-edit/add-edit-generic.component';
 
 @NgModule({
   declarations: [GenericTableComponent, AddEditGenericComponent],
-  imports: [CommonModule, RouterModule, SharedModule],
+  imports: [CommonModule, RouterModule, SharedModule, FontAwesomeModule],
   exports: [GenericTableComponent],
 })
 export class CrudsModule {}

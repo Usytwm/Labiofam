@@ -1,4 +1,20 @@
 <section class="container">
+  <nav class="navbar" style="background-color: #ffffff;">
+    <a></a>
+    <div class="filter">
+      <mat-form-field>
+        <mat-label>Filtrar</mat-label>
+        <input
+          matInput
+          (keyup)="applyFilter($event)"
+          placeholder="producto o enfermedad que controla"
+          #input
+          autocomplete="off"
+        />
+      </mat-form-field>
+    </div>
+  </nav>
+
   <div
     data-aos="zoom-out-up"
     data-aos-duration="1000"
@@ -9,16 +25,16 @@
       [cantidad]="3"
     ></app-bioprduct-cards-placeholder>
     <app-bioproduct-list
-      [products]="
-        bioproductos | paginate : { itemsPerPage: pageSize, currentPage: page }
-      "
+      [products]="filteredProducts | paginate : { itemsPerPage: pageSize, currentPage: page }"
     ></app-bioproduct-list>
   </div>
   <div *ngIf="!loading" style="margin-bottom: 2cm">
-    <pagination-controls
-      (pageChange)="handlePageChange($event)"
-      previousLabel="Anterior"
-      nextLabel="Siguiente"
-    ></pagination-controls>
+    <div style="display: flex; justify-content: center;">
+      <pagination-controls
+        (pageChange)="handlePageChange($event)"
+        previousLabel="Anterior"
+        nextLabel="Siguiente"
+      ></pagination-controls>
+    </div>
   </div>
 </section>

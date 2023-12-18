@@ -9,4 +9,6 @@ public class Service : IEntityModel
     [StringLength(64)]
     public string? Name { get; set; }
     public string? Info { get; set; }
+
+    public string? image { get; set; }
 }

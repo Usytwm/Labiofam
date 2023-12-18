@@ -3,8 +3,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { forkJoin, map } from 'rxjs';
+import { RegistrationRequestModel } from 'src/app/Interfaces/Registration-Request';
 import { RegistrationModel } from 'src/app/Interfaces/registration-model';
 import { UserRoleFilterService } from 'src/app/Services/FilterServices/user-roles-filter.service';
+import { AuthService } from 'src/app/Services/RegistrationsService/auth.service';
 import { RegistrationService } from 'src/app/Services/RegistrationsService/registration.service';
 @Component({
   selector: 'app-users-admin',
@@ -15,6 +17,7 @@ export class UsersAdminComponent implements OnInit {
   _data: RegistrationModel[] = [];
   _dataColumns: Record<string, string> = {};
   loading: Boolean = false;
+  data!: RegistrationRequestModel;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -22,11 +25,19 @@ export class UsersAdminComponent implements OnInit {
   constructor(
     private _snackBar: MatSnackBar,
     private _registrationervice: RegistrationService,
-    private _filter:UserRoleFilterService
+    private _filter: UserRoleFilterService,
+    private _auhtservice: AuthService
   ) {}
 
   ngOnInit() {
     this.getAll();
+  }
+
+  getData() {
+    const token = this._auhtservice.getToken();
+    this._auhtservice.getData(token).subscribe((datos) => {
+      this.data = datos;
+    });
   }
 
   getAll(): void {
@@ -37,11 +48,11 @@ export class UsersAdminComponent implements OnInit {
         this._filter.getType1byType2(user.id!).pipe(
           map((roles) => ({
             ...user,
-            roles: roles.map(x=>x.name).join(', '), // Aquí se agregan los roles al usuario
+            roles: roles.map((x) => x.name).join(', '), // Aquí se agregan los roles al usuario
           }))
         )
       );
-    
+
       // Utilizar forkJoin para esperar a que todos los observables se completen
       forkJoin(observables).subscribe((data) => {
         this._dataColumns = {
@@ -53,18 +64,35 @@ export class UsersAdminComponent implements OnInit {
         this.loading = false;
       });
     });
-    
   }
 
   Delete(id: string) {
     this.loading = true;
-    this._registrationervice.remove(id).subscribe(() => {
-      this._snackBar.open('Eliminado con éxito', '', {
+    if (this._data.length == 1) {
+      this._snackBar.open('Al menos debe haber un usuario', 'cerrar', {
         duration: 3000,
-        horizontalPosition: 'right',
+        horizontalPosition: 'center',
       });
-      this.loading = false;
-      this.getAll();
-    });
+    }
+    // else if (id == this.data.user.id) {
+    //   this._snackBar.open(
+    //     'No es posible eliminar al usuario actual',
+    //     'cerrar',
+    //     {
+    //       duration: 3000,
+    //       horizontalPosition: 'center',
+    //     }
+    //   );
+    // }
+    else {
+      this._registrationervice.remove(id).subscribe(() => {
+        this._snackBar.open('Eliminado con éxito', 'cerrar', {
+          duration: 3000,
+          horizontalPosition: 'right',
+        });
+        this.loading = false;
+        this.getAll();
+      });
+    }
   }
 }

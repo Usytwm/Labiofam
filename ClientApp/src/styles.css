@@ -20,7 +20,6 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
-
 .public-section {
   margin-top: 3.7rem;
 }
@@ -96,7 +95,7 @@ a.text {
 .cont img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: fill;
 }
 
 .card {

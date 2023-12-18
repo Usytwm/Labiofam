@@ -1,29 +1,67 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormControl, Validators } from '@angular/forms';
-import { Contact } from 'src/app/Interfaces/Contact';
-import { ContactService } from 'src/app/Services/EntitiesServices/contact.service';
-import { Observable } from 'rxjs';
+
+
+import { Contact } from '../../../../Interfaces/Contact';
+import { ContactService } from '../../../../Services/EntitiesServices/contact.service';
+import { FileService } from 'src/app/Services/FilesService/File.service';
 
 
 @Component({
   selector: 'app-add-edit-contacts',
   templateUrl: './add-edit-contacts.component.html',
-  styleUrls: ['./add-edit-contacts.component.css']
+  styleUrls: ['./add-edit-contacts.component.css'],
 })
 export class AddEditContactsComponent {
   loading = false;
   id: string;
   operacion = 'Agregar';
   contacto?: Contact;
-  private foto?: File;
+
+  onFileSelected(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length) {
+      const file = target.files[0];
+      const imagename = file.name;
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.imagePreview = reader.result as string;
+      };
+    }
+  }
+  onFileChange(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length) {
+      const file = target.files[0];
+      this._fotoservice.uploadPhoto(file).subscribe((response) => {
+        // Maneja la respuesta del servidor aquí
+        this.imagePreview = response;
+        this.getPhoto(this.imagePreview);
+      });
+    }
+  }
+
+  getPhoto(photoName: string) {
+    this._fotoservice.getPhoto(photoName).subscribe((photo) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.image = reader.result as string;
+      };
+      reader.readAsDataURL(photo);
+    });
+  }
+
+  image?: string;
+  imagePreview?: string;
+
   form = this.fb.group({
     name: ['', Validators.required],
     occupation: ['', Validators.required],
     info: ['', Validators.required],
-    image: ['',Validators.required],
+
   });
 
   constructor(
@@ -31,7 +69,8 @@ export class AddEditContactsComponent {
     private contactService: ContactService,
     private snackBar: MatSnackBar,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private _fotoservice: FileService
   ) {
     this.id = String(this.route.snapshot.paramMap.get('id'));
   }
@@ -50,10 +89,13 @@ export class AddEditContactsComponent {
       console.log(data);
       this.form.patchValue({
         name: data.name,
-        occupation : data.occupation,
+        occupation: data.occupation,
         info: data.contact_Info,
-        image: data.image,
+        //image: data.image,
       });
+      if (data.image) {
+        this.getPhoto(data.image);
+      }
       this.loading = false;
     });
   }
@@ -84,13 +126,18 @@ export class AddEditContactsComponent {
     });
   }
 
+
   newContact(): Contact {
+    const imagePath = this.imagePreview!;
     return {
       name: this.form.value.name!,
       occupation: this.form.value.occupation!,
       contact_Info: this.form.value.info!,
-      image: this.form.value.image!,
+      image: imagePath,
     };
   }
+
+
+
 
 }

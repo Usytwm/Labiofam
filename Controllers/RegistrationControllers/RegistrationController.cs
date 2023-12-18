@@ -21,6 +21,7 @@ namespace Labiofam.Controllers
         private readonly IRelationFilter<User_Role, User, Role> _relationFilter;
         private readonly IConfiguration _configuration;
         private readonly SignInManager<User> _signInManager;
+        private readonly IAuthService _authService;
 
         public RegistrationController(
             IEntityService<User> userService,
@@ -30,7 +31,8 @@ namespace Labiofam.Controllers
             IRelationService<User_Role> relationService,
             IRelationFilter<User_Role, User, Role> relationFilter,
             IConfiguration configuration,
-            SignInManager<User> signInManager)
+            SignInManager<User> signInManager,
+            IAuthService authService)
         {
             _userService = userService;
             _userModelService = userModelService;
@@ -40,6 +42,7 @@ namespace Labiofam.Controllers
             _relationFilter = relationFilter;
             _configuration = configuration;
             _signInManager = signInManager;
+            _authService = authService;
         }
 
         /// <summary>
@@ -105,7 +108,7 @@ namespace Labiofam.Controllers
 
             var user = await _userService.GetAsync(login.Name!);
             var roles = await _relationFilter.GetType2ByType1Async(user.Id);
-            
+
             // Crea una lista de claims.
             var claims = new List<Claim>
             {
@@ -120,23 +123,51 @@ namespace Labiofam.Controllers
             }
 
             // Crear un nuevo token.
-            var securityKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!)
-                );
-            var credentials = new SigningCredentials(
-                securityKey,
-                SecurityAlgorithms.HmacSha256Signature
-                );
-            var tokenDescriptor = new JwtSecurityToken(
-                issuer: _configuration["Jwt:Issuer"],
-                audience: _configuration["Jwt:Audience"],
-                claims: claims,
-                expires: DateTime.Now.AddSeconds(15),
-                signingCredentials: credentials
-                );
-            var jwt = new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
+            var jwt = _authService.GenerateToken(claims, DateTime.Now.AddDays(10));
+
+            // Configura la cookie HTTPOnly.
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true, // Hace que la cookie sea accesible solo a través del protocolo HTTP
+                //Secure = true, // Hace que la cookie se envíe solo a través de HTTPS
+                SameSite = SameSiteMode.Strict, // Previene los ataques de tipo CSRF
+                Expires = DateTime.Now.AddDays(10) // Establece la fecha de expiración de la cookie
+            };
+
+            Response.Cookies.Append(_configuration["Jwt:CookieName"]!, jwt, cookieOptions);
 
             return Ok(new { AccessToken = jwt });
         }
+
+        /// <summary>
+        /// Obtiene los datos del usuario a partir de un token.
+        /// </summary>
+        /// <param name="token">El token del usuario.</param>
+        /// <returns>Un IActionResult que representa el resultado de la operación.</returns>
+        [HttpGet("{token}")]
+        public async Task<IActionResult> GetData(string token)
+        {
+            try
+            {
+                var data = await _authService.GetDataByToken(token);
+                return Ok(data);
+            }
+            catch (ArgumentException)
+            {
+                return BadRequest("Token inválido o expirado");
+            }
+        }
+
+        /// <summary>
+        /// Cierra la sesión del usuario actual.
+        /// </summary>
+        /// <returns>Un IActionResult que representa el resultado de la operación.</returns>
+        [HttpPost("logout")]
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete(_configuration["Jwt:CookieName"]!);
+            return Ok(new { message = "succes" });
+        }
+
     }
 }

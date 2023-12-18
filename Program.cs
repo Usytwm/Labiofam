@@ -21,7 +21,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
     {
         options.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
-        
+
         // Configurar autenticación JWT en Swagger
         var securityScheme = new OpenApiSecurityScheme
         {
@@ -77,26 +77,27 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
-                ValidIssuer = builder.Configuration["Jwt:Issuer"],
-                ValidAudience = builder.Configuration["Jwt:Audience"],
-                IssuerSigningKey = new SymmetricSecurityKey(
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(
                     Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)
                     )
-            };
+        };
     });
 
 builder.Services.AddAuthorization();
 
 // Cors
 builder.Services.AddCors(options => options.AddPolicy("AllowWebApp", builder => builder
-    .AllowAnyOrigin()
+    .WithOrigins(new[] { "http://localhost:4200", "http://localhost:5263", "https://localhost:7136", "http://localhost:46423" })
     .AllowAnyHeader()
     .AllowAnyMethod()
+    .AllowCredentials()
     ));
 
 // Servicios de entidades
@@ -137,6 +138,12 @@ builder.Services.AddScoped<IProductPOSFilter, ProductPOSFilterService>();
 
 // Servicio de correo
 builder.Services.AddScoped<IMailService, MailService>();
+
+// Servicio de files
+builder.Services.AddScoped<IFileService, FileService>();
+
+//Servicio de autenticacion
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();
 

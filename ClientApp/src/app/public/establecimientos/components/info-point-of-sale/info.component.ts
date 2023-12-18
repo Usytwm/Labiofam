@@ -5,6 +5,7 @@ import { PointsOfSalesService } from 'src/app/Services/EntitiesServices/points-o
 import { Location } from '@angular/common';
 import { Product } from 'src/app/Interfaces/Product';
 import { ProductPosFilterService } from 'src/app/Services/FilterServices/product-pos-filter.service';
+import { FileService } from 'src/app/Services/FilesService/File.service';
 
 @Component({
   selector: 'app-info',
@@ -14,6 +15,7 @@ import { ProductPosFilterService } from 'src/app/Services/FilterServices/product
 export class InfoPOSComponent implements OnInit {
   id: string;
   point?: Point_of_Sales;
+  imageUrls: { [key: string]: string } = {};
 
   products: Product[] = [];
 
@@ -23,7 +25,8 @@ export class InfoPOSComponent implements OnInit {
   constructor(
     private pointService: PointsOfSalesService,
     private aRoute: ActivatedRoute,
-    private _filter: ProductPosFilterService
+    private _filter: ProductPosFilterService,
+    private _photoservice: FileService
   ) {
     this.id = String(this.aRoute.snapshot.paramMap.get('id'));
     this.previousId = this.id;
@@ -45,12 +48,22 @@ export class InfoPOSComponent implements OnInit {
   getPoint() {
     this.pointService.get(this.id).subscribe((data) => {
       this.point = data;
+      if (this.point.image)
+        this.imageUrls[this.point.id!] = this._photoservice.getPhotoUrl(
+          this.point.image
+        );
     });
     this._filter.getType2byType1(this.id).subscribe((data) => {
       this.products = data;
     });
     this.pointService.take(3).subscribe((data) => {
       this.establecimientos = data;
+      this.establecimientos.forEach((establecimiento) => {
+        if (establecimiento.image)
+          this.imageUrls[establecimiento.id!] = this._photoservice.getPhotoUrl(
+            establecimiento.image
+          );
+      });
     });
   }
 }
