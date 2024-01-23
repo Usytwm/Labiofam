@@ -45,7 +45,9 @@ export class LoginComponent {
         })
       )
       .subscribe((res) => {
-        this._authnservice.saveCookie(res.accessToken);
+        //this._authnservice.saveCookie(res.accessToken);
+        console.log(res);
+
         this._route.navigate(['/home']);
       });
   }
