@@ -237,6 +237,6 @@ _Pvt_Extensions
 
 # Ignora todos los archivos de la carpeta
 **/Migrations/*
-
+**/ImagesRepository/*
 
 
