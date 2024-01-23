@@ -8,8 +8,6 @@
 *.userosscache
 *.sln.docstates
 
-wwwroot
-
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -233,14 +231,12 @@ _Pvt_Extensions
 # FAKE - F# Make
 .fake/
 
-ClientApp/.angular/cache
-ClientApp/src/assets
-# Ignora todos los archivos de la carpeta
+# Ignora la carpeta
 **/bin/
 **/obj/
 
 # Ignora todos los archivos de la carpeta
-**/Migrations/*
-
-
-
+ServerApp/Migrations/*
+ServerApp/ImagesRepository/*
+!ServerApp/Migrations/.gitkeep
+!ServerApp/ImagesRepository/.gitkeep
