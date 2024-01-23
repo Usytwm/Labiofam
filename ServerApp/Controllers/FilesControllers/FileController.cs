@@ -32,9 +32,16 @@ namespace Labiofam.Controllers
         [HttpGet("{photoUrl}")]
         public async Task<IActionResult> GetPhoto(string photoUrl)
         {
-            var photo = await _imageService.GetImageAsync(photoUrl);
-            var file = File(photo, "image/jpeg");
-            return Ok(file);
+            try
+            {
+                var photo = await _imageService.GetImageAsync(photoUrl);
+                var file = File(photo, "image/jpeg");
+                return Ok(file);
+            }
+            catch
+            {
+                return BadRequest("Fatal error");
+            }
         }
     }
 }
