@@ -231,12 +231,14 @@ _Pvt_Extensions
 # FAKE - F# Make
 .fake/
 
-# Ignora todos los archivos de la carpeta
+# Ignora la carpeta
 **/bin/
 **/obj/
 
 # Ignora todos los archivos de la carpeta
-**/Migrations/*
-**/ImagesRepository/*
+**/Migrations/**
+!Migrations/
+**/ImagesRepository/**
+!ImagesRepository/
 
 
