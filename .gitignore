@@ -236,5 +236,7 @@ _Pvt_Extensions
 **/obj/
 
 # Ignora todos los archivos de la carpeta
-ServerApp/Migrations
-ServerApp/ImagesRepository
+ServerApp/Migrations/*
+ServerApp/ImagesRepository/*
+!ServerApp/Migrations/.gitkeep
+!ServerApp/ImagesRepository/.gitkeep
