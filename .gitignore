@@ -240,10 +240,7 @@ ClientApp/src/assets
 **/obj/
 
 # Ignora todos los archivos de la carpeta
-Migrations/*
-
-# no ignorar el contexto 
-!Migrations/DbContext.cs
+**/Migrations/*
 
 
 
