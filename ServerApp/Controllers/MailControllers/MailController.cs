@@ -28,7 +28,7 @@ namespace Labiofam.Controllers
             try
             {
                 await _mailService.SendMailAsync(subject, message);
-                return Ok();
+                return Ok("Success");
             }
             catch
             {

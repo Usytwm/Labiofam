@@ -65,10 +65,6 @@ namespace Labiofam.Models
                 .WithMany(u => u.Users)
                 .HasForeignKey(ur => ur.RoleId);
 
-            /*modelBuilder.Entity<Product>()
-                .Property(p => p.ExtraField!)
-                .HasField("_extraField");*/
-
             // Definición de nombres de tablas personalizados
             modelBuilder.Entity<Contact>().ToTable("Contactos");
             modelBuilder.Entity<Point_of_Sales>().ToTable("PuntosDeVenta");

@@ -26,7 +26,7 @@ namespace Labiofam.Controllers
             try
             {
                 await _entityNoDTOService.AddAsync(new_entity);
-                return Ok();
+                return Ok("Success");
             }
             catch (Exception ex)
             {
@@ -45,7 +45,7 @@ namespace Labiofam.Controllers
             try
             {
                 await _entityNoDTOService.EditAsync(id, edited_entity);
-                return Ok();
+                return Ok("Success");
             }
             catch (Exception ex)
             {

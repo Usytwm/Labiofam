@@ -22,7 +22,7 @@ namespace Labiofam.Services
         public async Task<T> GetAsync(Guid id)
         {
             var current_entity = await _webDbContext.FindAsync<T>(id)
-                ?? throw new InvalidOperationException("Entidad no encontrada");
+                ?? throw new InvalidOperationException("Entity not found");
             return current_entity;
         }
 
@@ -35,7 +35,7 @@ namespace Labiofam.Services
         {
             var current_entity = await _webDbContext.Set<T>().FirstOrDefaultAsync(
                 x => x.Name!.Equals(name)
-            ) ?? throw new InvalidOperationException("Entidad no encontrada");
+            ) ?? throw new InvalidOperationException("Entity not found");
             return current_entity;
         }
 

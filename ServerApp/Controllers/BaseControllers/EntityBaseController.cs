@@ -1,6 +1,7 @@
 using Labiofam.Models;
 using Labiofam.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Labiofam.Controllers
 {
@@ -28,7 +29,7 @@ namespace Labiofam.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
         /// <summary>
@@ -46,7 +47,7 @@ namespace Labiofam.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
         /// <summary>
@@ -64,7 +65,7 @@ namespace Labiofam.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
         /// <summary>
@@ -83,7 +84,7 @@ namespace Labiofam.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
         /// <summary>
@@ -97,11 +98,11 @@ namespace Labiofam.Controllers
             try
             {
                 await _entityService.RemoveAsync(id);
-                return Ok();
+                return Ok("Success");
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
         /// <summary>
@@ -118,7 +119,7 @@ namespace Labiofam.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
         /// <summary>
@@ -131,11 +132,11 @@ namespace Labiofam.Controllers
             try
             {
                 await _entityService.RemoveAllAsync();
-                return Ok();
+                return Ok("Success");
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
         /// <summary>
@@ -153,7 +154,7 @@ namespace Labiofam.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
         /// <summary>
@@ -165,17 +166,17 @@ namespace Labiofam.Controllers
         [HttpPost("filterbyproperties")]
         public async Task<IActionResult> FilterByProperties(PropertiesFilterDTO model)
         {
-            if (model.Names is null || model.Values is null)
-                throw new ArgumentNullException("All parameters must be not null");
+            if (model.Names.IsNullOrEmpty() || model.Values.IsNullOrEmpty())
+                return BadRequest("All parameters must be not null");
 
             try
             {
-                var result = await _entityService.PropertiesFilterAsync(model.Names, model.Values);
+                var result = await _entityService.PropertiesFilterAsync(model.Names!, model.Values!);
                 return Ok(result);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
     }

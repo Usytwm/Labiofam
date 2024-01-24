@@ -28,7 +28,7 @@ namespace Labiofam.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
         /// <summary>
@@ -46,7 +46,7 @@ namespace Labiofam.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
         /// <summary>
@@ -61,11 +61,11 @@ namespace Labiofam.Controllers
             try
             {
                 await _relationService.AddAsync(id1, id2);
-                return Ok();
+                return Ok("Success");
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
         /// <summary>
@@ -80,11 +80,11 @@ namespace Labiofam.Controllers
             try
             {
                 await _relationService.RemoveAsync(id1, id2);
-                return Ok();
+                return Ok("Success");
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
         /// <summary>
@@ -101,7 +101,7 @@ namespace Labiofam.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
         /// <summary>
@@ -114,11 +114,11 @@ namespace Labiofam.Controllers
             try
             {
                 await _relationService.RemoveAllAsync();
-                return Ok();
+                return Ok("Success");
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
     }

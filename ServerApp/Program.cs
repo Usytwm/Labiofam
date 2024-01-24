@@ -34,9 +34,6 @@ builder.Services.AddIdentity<User, Role>(options =>
         options.Password.RequireDigit = false;
         options.Password.RequiredUniqueChars = 2;
 
-        options.Lockout.MaxFailedAccessAttempts = 5;
-        options.Lockout.AllowedForNewUsers = true;
-
         options.User.RequireUniqueEmail = true;
     })
     .AddEntityFrameworkStores<WebDbContext>()
@@ -104,8 +101,11 @@ builder.Services.AddScoped<IProductPOSFilter, ProductPOSFilterService>();
 // Servicio de correo
 builder.Services.AddScoped<IMailService, MailService>();
 
-// Servicio de files
+// Servicio de imagenes
 builder.Services.AddScoped<IImageService, ImageService>();
+
+// Servicio de autenticacion
+builder.Services.AddSingleton<IJWTService, JWTService>(); /////////////////////////////////////////
 
 var app = builder.Build();
 
@@ -121,8 +121,8 @@ if (app.Environment.IsDevelopment())
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
     });
 }
-app.UseCors("AllowWebApp");
 app.UseRouting();
+app.UseCors("AllowWebApp");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
