@@ -64,7 +64,7 @@ namespace Labiofam.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            
+
             try
             {
                 current_role = await _roleService.GetAsync(new_user.Role!.Name!);
@@ -94,7 +94,7 @@ namespace Labiofam.Controllers
         /// <returns>Token de inicio de sesión.</returns>
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDTO login)
-        { 
+        {
             if (login.Name.IsNullOrEmpty() && login.Email.IsNullOrEmpty())
                 return BadRequest("Name and Email can't be null at the same time");
             else if (!login.Name.IsNullOrEmpty() && !login.Email.IsNullOrEmpty())

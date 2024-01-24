@@ -6,7 +6,8 @@ import { LoginModel } from '../../Interfaces/Loginmodel';
 import { RegistrationRequestModel } from '../../Interfaces/Registration-Request';
 import { CookieService } from 'ngx-cookie-service';
 interface LoginResponse {
-  accessToken: string;
+  token: string;
+  expirationDate: string;
   // otras propiedades si las hay
 }
 
@@ -30,8 +31,8 @@ export class AuthService {
       .post<LoginResponse>(`${this.appUrl}${this.apiUrl}/login`, data)
       .pipe(
         tap((response) => {
-          if (response && response.accessToken) {
-            this.saveCookie(response.accessToken);
+          if (response && response.token) {
+            this.saveCookie(response.token, response.expirationDate);
             this.loggedIn.next(true);
           }
         })
@@ -61,12 +62,22 @@ export class AuthService {
       }
     );
   }
-
-  saveCookie(token: string) {
+  saveCookie(token: string, expired: string) {
+    // Convierte la cadena de texto 'expired' a un objeto Date de JavaScript.
     var fechaExpiracion = new Date();
-    fechaExpiracion.setDate(fechaExpiracion.getDate() + 10);
+    fechaExpiracion.setMinutes(fechaExpiracion.getMinutes() + 10);
+    console.log(fechaExpiracion);
+
+    // Usa 'fechaExpiracion' para establecer la fecha de expiración de la cookie.
     this._coockieservice.set(environment.token_name, token, fechaExpiracion);
   }
+
+  // saveCookie(token: string, expired: string) {
+  //   //!!Ki me falta poner para que expire
+  //   var fechaExpiracion = new Date();
+  //   fechaExpiracion.setDate(fechaExpiracion.getDate() + 10);
+  //   this._coockieservice.set(environment.token_name, token, fechaExpiracion);
+  // }
 
   register(
     data: RegistrationRequestModel

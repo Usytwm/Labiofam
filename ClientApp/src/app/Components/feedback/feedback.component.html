@@ -1,95 +1,87 @@
-<main>
-  <br class="espacio" />
-  <div class="container marketing">
-    <!-- Three columns of text below the carousel -->
-    <div class="row">
-      <h1 class="centrado">Nos importa tu opinión!</h1>
-      <hr class="featurette-divider" />
-      <div class="row featurette" style="margin-top: 35px">
-        <div class="col-md-7">
-          <h1 class="featurette-heading fw-normal lh-1">Hazte oír!</h1>
-          <p class="lead">
-            Nos encantaría conocer tu opinión. Tu feedback es muy importante
-            para nosotros, ya que nos ayuda a mejorar y a ofrecerte un mejor
-            servicio. Por favor, introduce tu correo electrónico y comparte tus
-            comentarios, sugerencias o cualquier aspecto que creas que podríamos
-            mejorar. Agradecemos tu tiempo y tu contribución.
-          </p>
-          <br />
-          <div class="container">
-            <form
-              class="form"
-              [formGroup]="formfedback"
-              (ngSubmit)="onSubmit()"
-            >
-              <mat-form-field class="email-width">
-                <mat-label>Correo electrónico</mat-label>
-                <input
-                  type="email"
-                  matInput
-                  placeholder="Ej. ejemplo@dominio.com"
-                  formControlName="email"
-                  required
-                />
-                <mat-error
-                  *ngIf="
-                    formfedback.get('email')!.hasError('email') &&
-                    !formfedback.get('email')!.hasError('required')
-                  "
-                >
-                  Por favor introduzca un email válido
-                </mat-error>
+<br class="espacio" />
+<div class="container marketing">
+  <!-- Three columns of text below the carousel -->
+  <div class="row">
+    <h1 class="centrado">Nos importa tu opinión!</h1>
+    <hr class="featurette-divider" />
+    <div class="row featurette" style="margin-top: 35px">
+      <div class="col-md-7">
+        <h1 class="featurette-heading fw-normal lh-1">Hazte oír!</h1>
+        <p class="lead">
+          Nos encantaría conocer tu opinión. Tu feedback es muy importante para
+          nosotros, ya que nos ayuda a mejorar y a ofrecerte un mejor servicio.
+          Por favor, introduce tu correo electrónico y comparte tus comentarios,
+          sugerencias o cualquier aspecto que creas que podríamos mejorar.
+          Agradecemos tu tiempo y tu contribución.
+        </p>
+        <br />
+        <div class="container">
+          <form class="form" [formGroup]="formfedback" (ngSubmit)="onSubmit()">
+            <mat-form-field class="email-width">
+              <mat-label>Correo electrónico</mat-label>
+              <input
+                type="email"
+                matInput
+                placeholder="Ej. ejemplo@dominio.com"
+                formControlName="email"
+                required
+              />
+              <mat-error
+                *ngIf="
+                  formfedback.get('email')!.hasError('email') &&
+                  !formfedback.get('email')!.hasError('required')
+                "
+              >
+                Por favor introduzca un email válido
+              </mat-error>
 
-                <mat-error
-                  *ngIf="formfedback.get('email')!.hasError('required')"
-                >
-                  Email <strong>requerido</strong>
-                </mat-error>
-              </mat-form-field>
+              <mat-error *ngIf="formfedback.get('email')!.hasError('required')">
+                Email <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
 
-              <mat-form-field class="textarea">
-                <mat-label>Comentarios</mat-label>
-                <textarea
-                  matInput
-                  placeholder="Ej. Esto me hace sentir..."
-                  formControlName="comments"
-                  required
-                ></textarea>
-                <mat-error
-                  *ngIf="formfedback.get('comments')!.hasError('required')"
-                >
-                  Comentarios <strong>requeridos</strong>
-                </mat-error>
-              </mat-form-field>
-              <div style="display: flex; justify-content: space-between">
-                <div class="mb-3">
-                  <button class="btn btn-primary" type="submit">Enviar</button>
-                </div>
-                <div class="mb-3">
-                  <button
-                    [routerLink]="['/home']"
-                    class="btn btn-light"
-                    type="button"
-                  >
-                    Volver
-                  </button>
-                </div>
+            <mat-form-field class="textarea">
+              <mat-label>Comentarios</mat-label>
+              <textarea
+                matInput
+                placeholder="Ej. Esto me hace sentir..."
+                formControlName="comments"
+                required
+              ></textarea>
+              <mat-error
+                *ngIf="formfedback.get('comments')!.hasError('required')"
+              >
+                Comentarios <strong>requeridos</strong>
+              </mat-error>
+            </mat-form-field>
+            <div style="display: flex; justify-content: space-between">
+              <div class="mb-3">
+                <button class="btn btn-primary" type="submit">Enviar</button>
               </div>
-            </form>
-          </div>
+              <div class="mb-3">
+                <button
+                  [routerLink]="['/home']"
+                  class="btn btn-light"
+                  type="button"
+                >
+                  Volver
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
-        <div class="col-md-5">
-          <div class="card" style="height: 90%">
-            <img
-              src="../../../assets/13.jpg"
-              class="card-img-top mi-imagen"
-              alt="..."
-            />
-          </div>
+      </div>
+      <div class="col-md-5">
+        <div class="card" style="height: 90%">
+          <img
+            src="../../../assets/13.jpg"
+            class="card-img-top mi-imagen"
+            alt="..."
+          />
         </div>
       </div>
     </div>
-    <hr class="featurette-divider" />
-    <!-- /.container -->
   </div>
-</main>
+  <hr class="featurette-divider" />
+  <!-- /.container -->
+</div>
