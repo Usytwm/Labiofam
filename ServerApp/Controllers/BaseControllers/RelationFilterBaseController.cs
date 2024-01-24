@@ -27,7 +27,7 @@ namespace Labiofam.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
         /// <summary>
@@ -45,7 +45,7 @@ namespace Labiofam.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
         /// <summary>
@@ -63,7 +63,7 @@ namespace Labiofam.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
         /// <summary>
@@ -81,7 +81,7 @@ namespace Labiofam.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
         /// <summary>
@@ -96,11 +96,11 @@ namespace Labiofam.Controllers
             try
             {
                 await _relationFilter.AddType2ByType1Async(type1_id, entities);
-                return Ok();
+                return Ok("Success");
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
         /// <summary>
@@ -115,11 +115,11 @@ namespace Labiofam.Controllers
             try
             {
                 await _relationFilter.AddType1ByType2Async(type1_id, entities);
-                return Ok();
+                return Ok("Success");
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
     }

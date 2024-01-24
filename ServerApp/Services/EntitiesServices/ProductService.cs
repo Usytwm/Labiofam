@@ -25,9 +25,9 @@ namespace Labiofam.Services
             current_product.Name = edited_Product.Name;
             current_product.Description = edited_Product.Description;
             current_product.Image = edited_Product.Image;
-            current_product.Summary = edited_Product.Summary;
             current_product.Advantages = edited_Product.Advantages;
             current_product.Diseases = edited_Product.Diseases;
+            current_product.Summary = edited_Product.Summary;
             _webDbContext.Entry(current_product).State = EntityState.Modified;
             await _webDbContext.SaveChangesAsync();
         }

@@ -27,19 +27,12 @@ namespace Labiofam.Services
         public async Task AddType1ByType2Async(Guid id, ICollection<Product> entities, ICollection<int> sizes)
         {
             if (entities.Count != sizes.Count)
-                throw new InvalidDataException();
+                throw new InvalidDataException("Data error");
             int index = 0;
             foreach (var product in entities)
             {
-                try
-                {
-                    await _relationService.AddAsync(product.Id, id, sizes.ElementAt(index));
-                    index++;
-                }
-                catch (IndexOutOfRangeException)
-                {
-                    throw new IndexOutOfRangeException();
-                }
+                await _relationService.AddAsync(product.Id, id, sizes.ElementAt(index));
+                index++;
             }
         }
     }

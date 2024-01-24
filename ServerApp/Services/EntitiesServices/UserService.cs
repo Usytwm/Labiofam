@@ -26,7 +26,10 @@ namespace Labiofam.Services
             new_user.Name ??= new_user.Email;
 
             if (await _userManager.FindByNameAsync(new_user.Name!) is not null)
-                throw new InvalidOperationException("The user already exists");
+                throw new ArgumentException("The user already exists");
+
+            if (await _userManager.FindByEmailAsync(new_user.Email!) is not null)
+                throw new ArgumentException("The email already exists");
 
             static bool IsValid(string email)
             {
@@ -37,17 +40,17 @@ namespace Labiofam.Services
             var user = new User()
             {
                 UserName = new_user.Name,
-                Email = IsValid(new_user.Email ?? throw new NullReferenceException("Email can't be null"))
-                    ? new_user.Email : throw new ArgumentException("Email required"),
+                Email = IsValid(new_user.Email ?? throw new ArgumentNullException("Email required"))
+                    ? new_user.Email : throw new ArgumentException("Email is not valid"),
                 Image = new_user.Image
             };
 
             var result = await _userManager.CreateAsync(user,
-                new_user.Password ?? throw new PasswordException("Password required")
+                new_user.Password ?? throw new ArgumentNullException("Password required")
             );
 
             if (!result.Succeeded)
-                throw new ArgumentException("Password error");
+                throw new PasswordException("Password error");
 
             return user;
         }

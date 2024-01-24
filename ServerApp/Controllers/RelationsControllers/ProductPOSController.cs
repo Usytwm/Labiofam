@@ -31,11 +31,11 @@ namespace Labiofam.Controllers
             try
             {
                 await _productPOSService.AddAsync(product_id, pos_id, size);
-                return Ok();
+                return Ok("Success");
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
     }

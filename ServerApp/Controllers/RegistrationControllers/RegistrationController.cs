@@ -3,6 +3,7 @@ using Labiofam.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Org.BouncyCastle.Security;
 
 namespace Labiofam.Controllers
@@ -13,23 +14,29 @@ namespace Labiofam.Controllers
     public class RegistrationController : Controller
     {
         private readonly IEntityService<Role> _roleService;
+        private readonly UserManager<User> _userService;
         private readonly IEntityDTOService<User, RegistrationDTO> _userDTOService;
         private readonly IEntityDTOService<Role, RoleDTO> _roleDTOService;
         private readonly IRelationService<User_Role> _relationService;
         private readonly SignInManager<User> _signInManager;
+        private readonly IJWTService _jwtService;
 
         public RegistrationController(
             IEntityService<Role> roleService,
+            UserManager<User> userService,
             IEntityDTOService<User, RegistrationDTO> userDTOService,
             IEntityDTOService<Role, RoleDTO> roleDTOService,
             IRelationService<User_Role> relationService,
-            SignInManager<User> signInManager)
+            SignInManager<User> signInManager,
+            IJWTService jwtService)
         {
             _roleService = roleService;
+            _userService = userService;
             _userDTOService = userDTOService;
             _roleDTOService = roleDTOService;
             _relationService = relationService;
             _signInManager = signInManager;
+            _jwtService = jwtService;
         }
 
         /// <summary>
@@ -47,50 +54,37 @@ namespace Labiofam.Controllers
             {
                 current_user = await _userDTOService.AddAsync(new_user.User!);
             }
-            catch (InvalidOperationException)
-            {
-                return Problem(detail: "The user name is already in use",
-                    statusCode: 404, title: "User problem");
-            }
-            catch (NullReferenceException)
-            {
-                return Problem(detail: "The email value can't be null",
-                    statusCode: 404, title: "Email problem");
-            }
-            catch (ArgumentException)
-            {
-                return Problem(detail: "The email is in an invalid format",
-                    statusCode: 404, title: "Email problem");
-            }
             catch (PasswordException)
             {
-                return Problem(detail: "The password must contain at least 8 "
+                return BadRequest("The password must contain at least 8 "
                     + "characters, a lower-case alphanumeric character, an "
-                    + "upper-case alphanumeric character and two unique characters",
-                    statusCode: 404, title: "Password problem");
+                    + "upper-case alphanumeric character and two unique characters");
             }
-            catch
+            catch (Exception ex)
             {
-                return BadRequest("Fatal error");
+                return BadRequest(ex.Message);
             }
             
             try
             {
-                current_role = await _roleDTOService.AddAsync(new_user.Role!);
+                current_role = await _roleService.GetAsync(new_user.Role!.Name!);
             }
             catch (InvalidOperationException)
             {
-                current_role = await _roleService.GetAsync(new_user.Role!.Name!);
+                current_role = await _roleDTOService.AddAsync(new_user.Role!);
             }
-            catch
+            catch (Exception ex) /////////////////////////////////////
             {
-                await _roleService.RemoveAsync(current_user.Id);
-                return BadRequest("Fatal error");
+                await _userService.DeleteAsync(current_user);
+                return BadRequest(ex.Message);
             }
 
             await _relationService.AddAsync(current_user.Id, current_role.Id);
+
             await _signInManager.SignInAsync(current_user, isPersistent: false);
-            return Ok();
+            var token = _jwtService.CreateJsonWebToken(current_user);
+
+            return Ok(token);
         }
 
         /// <summary>
@@ -100,15 +94,38 @@ namespace Labiofam.Controllers
         /// <returns>Token de inicio de sesión.</returns>
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDTO login)
-        {
+        { 
+            if (login.Name.IsNullOrEmpty() && login.Email.IsNullOrEmpty())
+                return BadRequest("Name and Email can't be null at the same time");
+            else if (!login.Name.IsNullOrEmpty() && !login.Email.IsNullOrEmpty())
+                return BadRequest("Only one value can be provided for Name or Email");
+
+            User? user;
+
+            if (!login.Name.IsNullOrEmpty())
+            {
+                user = await _userService.FindByNameAsync(login.Name!);
+                if (user is null)
+                    return BadRequest("Wrong Name");
+            }
+            else
+            {
+                user = await _userService.FindByEmailAsync(login.Email!);
+                if (user is null)
+                    return BadRequest("Wrong Email");
+            }
+
             var result = await _signInManager.PasswordSignInAsync(
-                login.Name!,
-                login.Password!,
-                isPersistent: false,
-                lockoutOnFailure: false);
+                    user.Name!,
+                    login.Password!,
+                    isPersistent: false,
+                    lockoutOnFailure: false);
             if (!result.Succeeded)
-                return BadRequest("Wrong name or password");
-            return Ok();
+                return BadRequest("Wrong Password");
+
+            var token = _jwtService.CreateJsonWebToken(user);
+
+            return Ok(token);
         }
 
         /// <summary>
@@ -119,7 +136,7 @@ namespace Labiofam.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return Ok(new { Message = "Success" });
+            return Ok("Success");
         }
     }
 }

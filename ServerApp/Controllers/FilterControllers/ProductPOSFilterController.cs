@@ -32,11 +32,11 @@ namespace Labiofam.Controllers
             try
             {
                 await _productPOSFilter.AddType1ByType2Async(type2_id, model.Products!, model.Sizes!);
-                return Ok();
+                return Ok("Success");
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
     }

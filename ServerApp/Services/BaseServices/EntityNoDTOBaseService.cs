@@ -20,7 +20,7 @@ namespace Labiofam.Services
         public async Task AddAsync(T new_entity)
         {
             if (await _webDbContext.Set<T>().AnyAsync(entity => entity.Name!.Equals(new_entity.Name)))
-                throw new InvalidOperationException("La entidad ya existe");
+                throw new InvalidOperationException("The entity already exists");
 
             await _webDbContext.AddAsync(new_entity);
             await _webDbContext.SaveChangesAsync();

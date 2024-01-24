@@ -6,6 +6,7 @@ namespace Labiofam.Models;
 public class Point_of_Sales : IEntityDTO
 {
     [Key]
+    [JsonIgnore]
     public Guid Id { get; set; }
     [StringLength(128)]
     public string? Name { get; set; }

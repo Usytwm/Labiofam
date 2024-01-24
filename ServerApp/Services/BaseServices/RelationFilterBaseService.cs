@@ -37,7 +37,7 @@ namespace Labiofam.Services
             foreach (var item in type1_id)
             {
                 result.Add(await _webDbContext.FindAsync<T2>(item.Id2)
-                    ?? throw new NullReferenceException());
+                    ?? throw new NullReferenceException("Entity not found"));
             }
             return result;
         }
@@ -56,7 +56,7 @@ namespace Labiofam.Services
             foreach (var item in type1_id)
             {
                 result.Add(await _webDbContext.FindAsync<T1>(item.Id1)
-                    ?? throw new NullReferenceException());
+                    ?? throw new NullReferenceException("Entidad no encotrada"));
             }
             return result;
         }
@@ -84,7 +84,7 @@ namespace Labiofam.Services
                         continue;
                     
                     result.Add(await _webDbContext.FindAsync<T2>(item.Id2)
-                        ?? throw new NullReferenceException());
+                        ?? throw new NullReferenceException("Entity not found"));
                 }
             }
             return result;
@@ -113,7 +113,7 @@ namespace Labiofam.Services
                         continue;
                     
                     result.Add(await _webDbContext.FindAsync<T1>(item.Id1)
-                        ?? throw new NullReferenceException());
+                        ?? throw new NullReferenceException("Entity not found"));
                 }
             }
             return result;

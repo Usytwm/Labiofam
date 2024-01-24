@@ -26,11 +26,11 @@ namespace Labiofam.Controllers
             try
             {
                 await _entityDTOService.AddAsync(new_entity);
-                return Ok();
+                return Ok("Success");
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
         /// <summary>
@@ -45,11 +45,11 @@ namespace Labiofam.Controllers
             try
             {
                 await _entityDTOService.EditAsync(id, edited_entity);
-                return Ok();
+                return Ok("Success");
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
     }

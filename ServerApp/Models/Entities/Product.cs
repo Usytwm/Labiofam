@@ -1,12 +1,13 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace Labiofam.Models;
 
 public class Product : IEntityDTO
 {
     [Key]
+    [JsonIgnore]
     public Guid Id { get; set; }
     [StringLength(128)]
     public string? Name { get; set; }
@@ -18,30 +19,30 @@ public class Product : IEntityDTO
     public string? Diseases { get; set; }
     [StringLength(2048)]
     public string? Advantages { get; set; }
-    [StringLength(8192)]
-    public string? Summary { get { return _summary; } set { _summary = value; } }
 
-    private string? _summary;
+    // Propiedad para almacenar datos en formato JSON
+    [JsonIgnore]
+    public string? DatosJson { get; set; }
+    // Método para deserializar el JSON a un diccionario u otro tipo necesario
     [NotMapped]
-    public Dictionary<string, string> ExtendedData
+    public Dictionary<string, string> Summary
     {
         get
         {
-            if (string.IsNullOrEmpty(_summary))
+            if (string.IsNullOrEmpty(DatosJson))
                 return new Dictionary<string, string>();
-            else try
+            try
             {
-                return JsonConvert.DeserializeObject<Dictionary<string, string>>(_summary)!;
+                return Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(DatosJson)!;
             }
-            catch (JsonReaderException)
+            catch (Newtonsoft.Json.JsonReaderException)
             {
-                // Log the error or handle it as appropriate for your application.
                 return new Dictionary<string, string>();
             }
         }
         set
         {
-            _summary = JsonConvert.SerializeObject(value);
+            DatosJson = Newtonsoft.Json.JsonConvert.SerializeObject(value);
         }
     }
 
