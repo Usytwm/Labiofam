@@ -11,6 +11,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  align-items: center; /* Añade esto para alinear los elementos verticalmente */
 }
 .footer .col-md {
   flex: 1 1 200px;
@@ -19,7 +20,26 @@
 }
 @media (max-width: 600px) {
   .footer .row {
-    flex-direction: column;
+    flex-direction: row;
+  }
+  .col-3.col-md {
+    text-align: left; /* Alinea el texto a la izquierda */
+  }
+}
+
+@media (max-width: 480px) {
+  /* Añade este media query para cambiar la dirección de los elementos de la fila a columna */
+  .footer .row {
+    flex-direction: row;
+  }
+  .social {
+    flex-direction: row; /* Cambia la dirección de los elementos a fila */
+  }
+  .info {
+    border-bottom: 1px solid var(--color-yellow); /* Añade una línea debajo de la información */
+  }
+  .col-3.col-md {
+    text-align: left !important; /* Alinea el texto a la izquierda */
   }
 }
 
@@ -29,7 +49,8 @@
 }
 
 footer img {
-  width: 100px;
+  max-width: 100%; /* Cambia esto para que el logo se ajuste al tamaño de la pantalla */
+  height: auto; /* Añade esto para mantener la relación de aspecto del logo */
 }
 
 footer h5 {
@@ -44,6 +65,7 @@ footer .fab {
   color: var(--color-yellow);
   transition: transform 0.3s ease-in-out;
   display: inline-block;
+  flex: 1 1 50px; /* Añade esto para que los iconos tengan un tamaño flexible */
 }
 .icon:hover {
   transform: scale(1.2);
@@ -52,9 +74,24 @@ footer .fab {
 .first-column {
   margin-left: 20px;
 }
+
 .ajust {
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  text-align: left;
 }
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 0.8rem;
+  color: var(--color-yellow);
+  margin-top: 2em; /* Añade esto para crear un espacio entre el logo y el texto */
+}
+
 /* Primero, define la fuente y el color de tus enlaces */
 .nav-link {
   font-family: "Roboto", sans-serif; /* Reemplaza 'Tu Fuente Bonita' con el nombre de la fuente que quieras usar */
