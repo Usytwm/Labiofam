@@ -1,78 +1,58 @@
-.form-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: auto;
-  margin: auto; /* Centra el contenedor horizontalmente */
+.background-radial-gradient {
+  background-color: var(--color-blue);
+  background-image: radial-gradient(
+      650px circle at 0% 0%,
+      hsl(218, 41%, 35%) 15%,
+      hsl(218, 41%, 30%) 35%,
+      hsl(218, 41%, 20%) 75%,
+      hsl(218, 41%, 19%) 80%,
+      transparent 100%
+    ),
+    radial-gradient(
+      1250px circle at 100% 100%,
+      hsl(218, 41%, 45%) 15%,
+      hsl(218, 41%, 30%) 35%,
+      hsl(218, 41%, 20%) 75%,
+      hsl(218, 41%, 19%) 80%,
+      transparent 100%
+    );
 }
-.invalid {
-  border-color: red;
+
+#radius-shape-1 {
+  height: 220px;
+  width: 220px;
+  top: -60px;
+  left: -130px;
+  background: radial-gradient(var(--color-tory-blue), var(--color-yellow));
+  overflow: hidden;
+}
+
+#radius-shape-2 {
+  border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
+  bottom: -60px;
+  right: -110px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(var(--color-tory-blue), var(--color-yellow));
+  overflow: hidden;
+}
+
+.bg-glass {
+  background-color: hsla(0, 0%, 100%, 0.9) !important;
+  backdrop-filter: saturate(200%) blur(25px);
 }
 
 .card {
-  position: relative;
-  max-width: 90%; /* Ajusta este valor a lo que necesites */
-  height: auto; /* Ajusta este valor a lo que necesites */
-  margin: 5% auto; /* Centra el contenedor horizontalmente y verticalmente */
-  justify-content: center;
-  overflow: auto; /* Asegura que el contenido pueda desplazarse si excede la altura máxima */
-  box-shadow: 0 8px 16px 0 rgba(48, 46, 46, 0.5);
-  border-radius: 10px;
+  box-shadow: none;
 }
-
-.form-control {
-  width: 350px; /* Ajusta este valor a lo que necesites */
+/**/
+.wrong .fa-check {
+  display: none;
 }
-.account {
-  color: #3f3db8;
-  margin: 10px; /* Añade un poco de margen alrededor del icono */
+.good .fa-times {
+  display: none;
 }
-.containersvg {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-/* Estilos para pantallas grandes */
-@media (min-width: 1200px) {
-  .form-control {
-    width: 350px;
-  }
-  .card {
-    max-width: 35%;
-  }
-}
-
-/* Estilos para pantallas medianas */
-@media (max-width: 1199px) {
-  .form-control {
-    width: 320px;
-  }
-  .card {
-    max-width: 50%;
-  }
-}
-
-/* Estilos para pantallas pequeñas */
-@media (max-width: 700px) {
-  .form-control {
-    width: 310px;
-  }
-
-  .card {
-    max-width: 100%;
-  }
-}
-
-.body {
-  position: absolute;
-  background: radial-gradient(
-    circle,
-    #ffffff,
-    #94d7ee
-  ); /* Ajusta los colores según tus preferencias */
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  height: auto;
-  width: 100%;
+.valid-feedback,
+.invalid-feedback {
+  margin-left: calc(2em + 0.25rem + 1.5rem);
 }

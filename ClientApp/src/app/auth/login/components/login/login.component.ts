@@ -24,14 +24,18 @@ export class LoginComponent implements OnInit {
     private _route: Router,
     private navbarService: NavbarService
   ) {}
+
   ngOnInit(): void {
     this.navbarService.setShowNavbar(false);
+    window.scrollTo(0, 0);
   }
   onSubmit() {
     const loginmodel: LoginModel = {
       name: this.loginForm.value.username!,
       password: this.loginForm.value.password!,
     };
+    console.log(loginmodel);
+
     this.rememberMe = Boolean(this.rememberMe);
     this._authnservice
       .login(loginmodel)
