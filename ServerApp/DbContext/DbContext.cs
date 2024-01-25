@@ -16,6 +16,7 @@ namespace Labiofam.Models
         public DbSet<Product_POS>? Product_POS { get; set; }
         public DbSet<User_Product>? User_Product { get; set; }
         public DbSet<User_Role>? User_Role { get; set; }
+        //public DbSet<Prize_Type> Prize_Types { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -65,6 +66,12 @@ namespace Labiofam.Models
                 .WithMany(u => u.Users)
                 .HasForeignKey(ur => ur.RoleId);
 
+            /*modelBuilder.Entity<Prize_Type>()
+                .HasOne(e => e.Product)
+                .WithMany(e => e.Prizes)
+                .HasForeignKey(e => new { e.ProductId, e.Type })
+                .IsRequired();*/
+
             // Definición de nombres de tablas personalizados
             modelBuilder.Entity<Contact>().ToTable("Contactos");
             modelBuilder.Entity<Point_of_Sales>().ToTable("PuntosDeVenta");
@@ -75,6 +82,7 @@ namespace Labiofam.Models
             modelBuilder.Entity<Product_POS>().ToTable("Producto_PuntoDeVenta");
             modelBuilder.Entity<User_Product>().ToTable("Usuario_Producto");
             modelBuilder.Entity<User_Role>().ToTable("Usuario_Rol");
+            //modelBuilder.Entity<Prize_Type>().ToTable("Precios");
         }
     }
 }

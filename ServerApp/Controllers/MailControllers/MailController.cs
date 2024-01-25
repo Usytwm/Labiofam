@@ -7,7 +7,7 @@ namespace Labiofam.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Authorize(Roles = "superadmin")]
-    public class MailController : Controller
+    public class MailController : ControllerBase
     {
         private readonly IMailService _mailService;
 
