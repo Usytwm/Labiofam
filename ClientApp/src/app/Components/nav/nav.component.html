@@ -23,28 +23,47 @@
     <div class="collapse navbar-collapse text-end" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item" [routerLinkActive]="['link-active']">
-          <a class="nav-link active" aria-current="page" [routerLink]="['/']"
+          <a
+            class="nav-link active"
+            aria-current="page"
+            [routerLink]="['/']"
+            (click)="hideNavbar()"
             >Inicio</a
           >
         </li>
         <li class="nav-item" [routerLinkActive]="['link-active']">
-          <a class="nav-link" [routerLink]="['/point-of-sales']"
+          <a
+            class="nav-link"
+            [routerLink]="['/point-of-sales']"
+            (click)="hideNavbar()"
             >Establecimientos</a
           >
         </li>
         <li class="nav-item" [routerLinkActive]="['link-active']">
-          <a class="nav-link" [routerLink]="['/Bioproducts']">Bioproductos</a>
+          <a
+            class="nav-link"
+            [routerLink]="['/Bioproducts']"
+            (click)="hideNavbar()"
+            >Bioproductos</a
+          >
         </li>
         <li class="nav-item" [routerLinkActive]="['link-active']">
-          <span *ngIf="servicios.length > 0">
+          <span *ngIf="servicios.length > 0" (click)="hideNavbar()">
             <a class="nav-link" [routerLink]="['/Services']"> Servicios </a>
           </span>
         </li>
         <li class="nav-item" [routerLinkActive]="['link-active']">
-          <a class="nav-link" [routerLink]="['/Contact']">Contactos</a>
+          <a class="nav-link" [routerLink]="['/Contact']" (click)="hideNavbar()"
+            >Contactos</a
+          >
         </li>
         <li class="nav-item" [routerLinkActive]="['link-active']">
-          <a class="nav-link" [routerLink]="['/Testimonios']">Testimonios</a>
+          <a
+            class="nav-link"
+            [routerLink]="['/Testimonios']"
+            (click)="hideNavbar()"
+            >Testimonios</a
+          >
         </li>
         <li class="nav-item" [routerLinkActive]="['link-active']">
           <p-overlayPanel #op [style]="{ width: '250px' }">
