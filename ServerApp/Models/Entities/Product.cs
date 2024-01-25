@@ -46,8 +46,22 @@ public class Product : IEntityDTO
         }
     }
 
+    //public ICollection<string>? Types { get; set; }/////////////////
+
     [JsonIgnore]
     public virtual ICollection<Product_POS>? Points_Of_Sales { get; set; }
     [JsonIgnore]
     public virtual ICollection<User_Product>? Users { get; set; }
+    //[JsonIgnore]
+    //public virtual ICollection<Prize_Type>? Prizes { get; set; }
 }
+
+/*public class Prize_Type
+{
+    public Guid ProductId { get; set; }
+    public string? Type { get; set; }
+    public double Prize {get; set; }
+
+    [JsonIgnore]
+    public virtual Product? Product { get; set; }
+}*/

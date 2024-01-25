@@ -32,7 +32,7 @@ namespace Labiofam.Services
 
             var protected_key = _configuration.GetSection("JWT")["Key"];
             var securityKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(protected_key));
+                Encoding.UTF8.GetBytes(protected_key!));
 
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 

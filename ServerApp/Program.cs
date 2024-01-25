@@ -31,8 +31,7 @@ builder.Services.AddIdentity<User, Role>(options =>
         options.Password.RequireNonAlphanumeric = false;
         options.Password.RequireLowercase = true;
         options.Password.RequireUppercase = true;
-        options.Password.RequireDigit = false;
-        options.Password.RequiredUniqueChars = 2;
+        options.Password.RequireDigit = true;
 
         options.User.RequireUniqueEmail = true;
     })
@@ -106,6 +105,9 @@ builder.Services.AddScoped<IImageService, ImageService>();
 
 // Servicio de autenticacion
 builder.Services.AddSingleton<IJWTService, JWTService>(); /////////////////////////////////////////
+
+// Servicio de json
+builder.Services.AddScoped<IJsonService, JsonService>();
 
 var app = builder.Build();
 

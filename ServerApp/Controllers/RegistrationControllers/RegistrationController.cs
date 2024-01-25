@@ -11,7 +11,7 @@ namespace Labiofam.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [AllowAnonymous]
-    public class RegistrationController : Controller
+    public class RegistrationController : ControllerBase
     {
         private readonly IEntityService<Role> _roleService;
         private readonly UserManager<User> _userService;
