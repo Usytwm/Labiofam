@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter, map } from 'rxjs';
 import AOS from 'aos';
+import { NavbarService } from './Services/async/navbar.service';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,7 @@ export class AppComponent implements OnInit {
     map(() => !this.routesWithoutMenu.includes(this.router.url))
   );
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, public navbarService: NavbarService) {}
   ngOnInit(): void {
     AOS.init();
   }

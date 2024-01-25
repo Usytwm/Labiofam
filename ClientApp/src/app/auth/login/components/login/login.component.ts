@@ -1,17 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, throwError } from 'rxjs';
 import { LoginModel } from 'src/app/Interfaces/Loginmodel';
 import { AuthService } from 'src/app/Services/RegistrationsService/auth.service';
 import { Router } from '@angular/router';
+import { NavbarService } from 'src/app/Services/async/navbar.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm = new FormGroup({
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
@@ -20,8 +21,12 @@ export class LoginComponent {
   constructor(
     private _authnservice: AuthService,
     private _snackBar: MatSnackBar,
-    private _route: Router
+    private _route: Router,
+    private navbarService: NavbarService
   ) {}
+  ngOnInit(): void {
+    this.navbarService.setShowNavbar(false);
+  }
   onSubmit() {
     const loginmodel: LoginModel = {
       name: this.loginForm.value.username!,

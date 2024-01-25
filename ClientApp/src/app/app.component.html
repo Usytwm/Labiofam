@@ -1,4 +1,6 @@
-<section><div><app-nav></app-nav></div></section>
+<section *ngIf="navbarService.showNavbar$ | async">
+  <div><app-nav></app-nav></div>
+</section>
 
 <body>
   <main>
