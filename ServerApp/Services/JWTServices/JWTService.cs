@@ -18,27 +18,26 @@ namespace Labiofam.Services
         public AuthenticationDTO CreateJsonWebToken(User user)
         {
             var expiration = DateTime.UtcNow.AddMinutes(
-                Convert.ToDouble(_configuration["JWT: EXPIRATION_MINUTES"])
+                Convert.ToDouble(_configuration.GetSection("JWT")["EXPIRATION_MINUTES"])
                 );
 
             var claims = new Claim[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()), // Subject (user_id)
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()), // JWT_id
-                new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()), // Issued at (time of token generation)
-                new Claim(ClaimTypes.NameIdentifier, user.Name!), // Unique name identifier of the user
-                new Claim(ClaimTypes.Email, user.Email!) // Email of the user
+                new(JwtRegisteredClaimNames.Sub, user.Id.ToString()), // Subject (user_id)
+                new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()), // JWT_id
+                new(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()), // Issued at (time of token generation)
+                new(ClaimTypes.NameIdentifier, user.Name!), // Unique name identifier of the user
+                new(ClaimTypes.Email, user.Email!) // Email of the user
             };
 
-            var protected_key = _configuration.GetSection("JWT")["Key"];
             var securityKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(protected_key!));
+                Encoding.UTF8.GetBytes(_configuration.GetSection("JWT")["Key"]!));
 
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var tokenGenerator = new JwtSecurityToken(
-                _configuration["JWT: Issuer"],
-                _configuration["JWT: Audience"],
+                _configuration.GetSection("JWT")["Issuer"],
+                _configuration.GetSection("JWT")["Audience"],
                 claims,
                 expires: expiration,
                 signingCredentials: credentials);
