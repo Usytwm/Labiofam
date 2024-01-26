@@ -16,7 +16,7 @@ namespace Labiofam.Controllers
             _jsonService = jsonService;
         }
 
-        [HttpPost("jsonreader")]
+        [HttpGet("jsonreader")]
         public IActionResult JsonReader()
         {
             try

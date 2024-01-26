@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Labiofam.Models;
 using Labiofam.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -83,6 +84,9 @@ namespace Labiofam.Controllers
 
             await _signInManager.SignInAsync(current_user, isPersistent: false);
             var token = _jwtService.CreateJsonWebToken(current_user);
+            current_user.RefreshToken = token.RefreshToken;
+            current_user.RefreshTokenExpirationDate = token.RefreshTokenExpirationDate;
+            await _userService.UpdateAsync(current_user);
 
             return Ok(token);
         }
@@ -123,7 +127,12 @@ namespace Labiofam.Controllers
             if (!result.Succeeded)
                 return BadRequest("Wrong Password");
 
+            await _signInManager.SignInAsync(user, isPersistent: false);
+
             var token = _jwtService.CreateJsonWebToken(user);
+            user.RefreshToken = token.RefreshToken;
+            user.RefreshTokenExpirationDate = token.RefreshTokenExpirationDate;
+            await _userService.UpdateAsync(user);
 
             return Ok(token);
         }
@@ -137,6 +146,36 @@ namespace Labiofam.Controllers
         {
             await _signInManager.SignOutAsync();
             return Ok("Success");
+        }
+
+        [HttpPost("getnewaccesstoken")]
+        public async Task<IActionResult> GenerateNewAccessToken(TokenDTO model)
+        {
+            try
+            {
+                var principal = _jwtService.GetPrincipalFromJWT(model.Token!);
+                if (principal is null)
+                    return BadRequest("Invalid token");
+
+                var email = principal.FindFirstValue(ClaimTypes.Email);
+                var user = await _userService.FindByEmailAsync(email!);
+                if (user is null || !user.RefreshToken!.Equals(model.RefreshToken)
+                    || user.RefreshTokenExpirationDate <= DateTime.Now)
+                {
+                    return BadRequest("Invalid refresh token");
+                }
+
+                var result = _jwtService.CreateJsonWebToken(user);
+                user.RefreshToken = result.RefreshToken;
+                user.RefreshTokenExpirationDate = result.RefreshTokenExpirationDate;
+                await _userService.UpdateAsync(user);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
