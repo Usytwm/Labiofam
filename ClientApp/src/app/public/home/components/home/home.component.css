@@ -46,3 +46,47 @@
     url("friz-quadrata-std-bold-italic-587033d6d4298.woff") format("woff");
 }
 /*mooroor*/
+
+@media (min-width: 992px) {
+  /* Estilos para pantallas grandes (más de 992px) */
+  .shape {
+    background: radial-gradient(#e4d790, var(--color-yellow));
+    overflow: hidden;
+  }
+
+  #shape-1 {
+    height: 220px;
+    width: 220px;
+    top: 800px;
+    left: -100px;
+    border-radius: 50%;
+    z-index: -1;
+  }
+
+  #shape-2 {
+    border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
+    bottom: -800px;
+    right: 110px;
+    width: 300px;
+    height: 300px;
+    z-index: -1;
+  }
+
+  #shape-3 {
+    border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
+    bottom: -1500px;
+    right: 910px;
+    width: 300px;
+    height: 300px;
+    z-index: -1;
+  }
+
+  #shape-4 {
+    border-radius: 50% 50% 45% 55% / 60% 40% 60% 40%;
+    top: 2450px;
+    left: 1000px;
+    width: 250px;
+    height: 250px;
+    z-index: -1;
+  }
+}

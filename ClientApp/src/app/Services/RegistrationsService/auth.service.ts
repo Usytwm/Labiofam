@@ -32,7 +32,7 @@ export class AuthService {
       .pipe(
         tap((response) => {
           if (response && response.token) {
-            this.saveCookie(response.token, response.expirationDate);
+            //this.saveCookie(response.token, response.expirationDate);
             this.loggedIn.next(true);
           }
         })

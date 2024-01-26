@@ -1,134 +1,141 @@
-  <!--carrucel-->
-  <div data-aos="zoom-out-up" data-aos-duration="1000">
-    <app-carousel></app-carousel>
-  </div>
+<!--carrucel-->
+<div data-aos="zoom-out-up" data-aos-duration="1000">
+  <app-carousel></app-carousel>
+</div>
 
-  <!--Productos-->
-  <section class="container">
+<!--Productos-->
+<section class="container">
+  <div
+    class="my-5"
+    data-aos="zoom-out-up"
+    data-aos-duration="1000"
+    class="px-4 pt-5 my-5 text-center"
+    style="background-color: var(--color-blue-white); width: 100%"
+  >
+    <h1 class="display-4 fw-bold text-body-emphasis titulo">
+      Nuestros Productos Exclusivos
+    </h1>
     <div
-      class="my-5"
       data-aos="zoom-out-up"
       data-aos-duration="1000"
-      class="px-4 pt-5 my-5 text-center"
-      style="background-color: var(--color-blue-white); width: 100%"
+      class="col-lg-9 mx-auto"
     >
-      <h1 class="display-4 fw-bold text-body-emphasis titulo">
-        Nuestros Productos Exclusivos
-      </h1>
-      <div
-        data-aos="zoom-out-up"
-        data-aos-duration="1000"
-        class="col-lg-9 mx-auto"
-      >
-        <p class="lead mb-4">
-          Explora nuestra amplia gama de productos innovadores, diseñados con la
-          más alta calidad para satisfacer tus necesidades. ¡Empieza tu viaje de
-          compras con nosotros hoy!
+      <p class="lead mb-4">
+        Explora nuestra amplia gama de productos innovadores, diseñados con la
+        más alta calidad para satisfacer tus necesidades. ¡Empieza tu viaje de
+        compras con nosotros hoy!
+      </p>
+    </div>
+    <app-bioprduct-cards-placeholder
+      *ngIf="loading"
+      [cantidad]="3"
+    ></app-bioprduct-cards-placeholder>
+    <app-bioproduct-list [products]="products"></app-bioproduct-list>
+  </div>
+</section>
+
+<hr class="container featurette-divider" />
+
+<section>
+  <div
+    class="container col-xxl-8 px-4 py-5"
+    style="background-color: var(--color-blue-white); width: 100%"
+  >
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+      <div id="shape-1" class="position-absolute shape"></div>
+      <div id="shape-2" class="position-absolute shape"></div>
+
+      <!-- Agrega más divs según lo necesites -->
+
+      <div data-aos="fade-left" data-aos-duration="1000" class="col-lg-6">
+        <h1
+          class="display-5 fw-bold text-body-emphasis lh-1 mb-3"
+          _msttexthash="1740570"
+          _msthash="52"
+        >
+          Conócenos
+        </h1>
+        <p class="lead" _msttexthash="52402467" _msthash="53">
+          LABIOFAM es más que una empresa, es un compromiso con tu bienestar y
+          el de tu entorno. Nos dedicamos a crear productos que mejoran la vida
+          de las personas y cuidan nuestro planeta. Nuestra pasión por la
+          calidad y la innovación nos ha llevado a ser líderes en nuestro campo.
+          Cada día, trabajamos para ofrecerte lo mejor, porque creemos que
+          mereces productos y servicios que realmente marquen la diferencia. En
+          LABIOFAM, no solo somos los mejores en lo que hacemos, sino que nos
+          esforzamos por ser mejores para usted
         </p>
       </div>
-      <app-bioprduct-cards-placeholder
-        *ngIf="loading"
-        [cantidad]="3"
-      ></app-bioprduct-cards-placeholder>
-      <app-bioproduct-list [products]="products"></app-bioproduct-list>
+      <div
+        data-aos="fade-right"
+        data-aos-duration="1000"
+        class="col-10 col-sm-8 col-lg-6"
+        style="width: 500px; height: 500px"
+      >
+        <img
+          src="assets/7.jpg"
+          class="d-block mx-lg-auto img-fluid"
+          style="width: 100%; height: 100%; object-fit: cover"
+        />
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <hr class="container featurette-divider" />
+<hr class="container featurette-divider" />
 
-  <section>
+<section>
+  <div id="shape-3" class="position-absolute shape"></div>
+  <div class="container my-5">
     <div
-      class="container col-xxl-8 px-4 py-5"
-      style="background-color: var(--color-blue-white); width: 100%"
+      class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg"
     >
-      <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-        <div data-aos="fade-left" data-aos-duration="1000" class="col-lg-6">
-          <h1
-            class="display-5 fw-bold text-body-emphasis lh-1 mb-3"
-            _msttexthash="1740570"
-            _msthash="52"
-          >
-            Conócenos
-          </h1>
-          <p class="lead" _msttexthash="52402467" _msthash="53">
-            LABIOFAM es más que una empresa, es un compromiso con tu bienestar y
-            el de tu entorno. Nos dedicamos a crear productos que mejoran la
-            vida de las personas y cuidan nuestro planeta. Nuestra pasión por la
-            calidad y la innovación nos ha llevado a ser líderes en nuestro
-            campo. Cada día, trabajamos para ofrecerte lo mejor, porque creemos
-            que mereces productos y servicios que realmente marquen la
-            diferencia. En LABIOFAM, no solo somos los mejores en lo que
-            hacemos, sino que nos esforzamos por ser mejores para usted
-          </p>
-        </div>
-        <div
+      <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
+        <h1
           data-aos="fade-right"
           data-aos-duration="1000"
-          class="col-10 col-sm-8 col-lg-6"
-          style="width: 500px; height: 500px"
+          class="display-4 fw-bold lh-1 text-body-emphasis"
         >
-          <img
-            src="assets/7.jpg"
-            class="d-block mx-lg-auto img-fluid"
-            style="width: 100%; height: 100%; object-fit: cover"
-          />
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <hr class="container featurette-divider" />
-
-  <section>
-    <div class="container my-5">
-      <div
-        class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg"
-      >
-        <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
-          <h1
-            data-aos="fade-right"
-            data-aos-duration="1000"
-            class="display-4 fw-bold lh-1 text-body-emphasis"
-          >
-            Contáctanos
-          </h1>
-          <p
-            data-aos="fade-right"
-            data-aos-duration="950"
-            class="lead"
-            _msttexthash="52402467"
-            _msthash="64"
-          >
-            ¿Tienes alguna pregunta o necesitas más información? No dudes en
-            ponerte en contacto con nosotros. Estamos aquí para ayudarte y
-            estamos ansiosos por escuchar de ti.
-          </p>
-          <div
-            class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3"
-          >
-            <div data-aos="fade-right" data-aos-duration="1000">
-              <button
-                class="btn btn-primary btn-lg px-4 me-md-2"
-                [routerLink]="['/feedback']"
-              >
-                Contactar
-              </button>
-            </div>
+          Contáctanos
+        </h1>
+        <p
+          data-aos="fade-right"
+          data-aos-duration="950"
+          class="lead"
+          _msttexthash="52402467"
+          _msthash="64"
+        >
+          ¿Tienes alguna pregunta o necesitas más información? No dudes en
+          ponerte en contacto con nosotros. Estamos aquí para ayudarte y estamos
+          ansiosos por escuchar de ti.
+        </p>
+        <div
+          class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3"
+        >
+          <div data-aos="fade-right" data-aos-duration="1000">
+            <button
+              class="btn btn-primary btn-lg px-4 me-md-2"
+              [routerLink]="['/feedback']"
+            >
+              Contactar
+            </button>
           </div>
         </div>
-        <div
-          class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg"
-          style="width: 525; height: 500px"
-        >
-          <img
-            class="rounded-lg-3"
-            src="assets/1.jpg"
-            alt=""
-            style="object-fit: cover; width: 100%"
-          />
-        </div>
+      </div>
+      <div
+        class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg"
+        style="width: 525; height: 500px"
+      >
+        <img
+          class="rounded-lg-3"
+          src="assets/1.jpg"
+          alt=""
+          style="object-fit: cover; width: 100%"
+        />
       </div>
     </div>
-  </section>
+  </div>
+  <div id="shape-4" class="position-absolute shape"></div>
+</section>
 
 <hr class="featurette-divider" />
