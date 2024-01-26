@@ -1,9 +1,11 @@
 using Labiofam.Models;
 using Labiofam.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +41,25 @@ builder.Services.AddIdentity<User, Role>(options =>
     .AddDefaultTokenProviders()
     .AddUserStore<UserStore<User, Role, WebDbContext, Guid>>()
     .AddRoleStore<RoleStore<Role, WebDbContext, Guid>>();
+
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    }).AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters()
+        {
+            ValidateIssuer = true,
+            ValidIssuer = config.GetSection("JWT")["Issuer"],
+            ValidateAudience = true,
+            ValidAudience = config.GetSection("JWT")["Audience"],
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(
+                System.Text.Encoding.UTF8.GetBytes(config.GetSection("JWT")["Key"]!))
+        };
+    });
 
 builder.Services.AddAuthorization(options =>
     {
