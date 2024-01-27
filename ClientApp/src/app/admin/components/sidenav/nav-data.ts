@@ -1,26 +1,42 @@
 export const navbarData = [
   {
-    ruta :'users-admin',
-    nombre: "Usuarios"
+    ruta: 'home',
+    nombre: 'Dashboard',
+    icon: 'fas fa-tachometer-alt',
   },
   {
-    ruta :'points-of-sales-admin',
-    nombre: "Puntos de Venta"
+    ruta: 'users-admin',
+    nombre: 'Usuarios',
+    icon: 'fas fa-users',
   },
   {
-    ruta :'services-admin',
-    nombre: "Servicios"
+    ruta: 'points-of-sales-admin',
+    nombre: 'Puntos de Venta',
+    icon: 'fas fa-store',
   },
   {
-    ruta :'testimonios-admin',
-    nombre: "Testimonios"
+    ruta: 'services-admin',
+    nombre: 'Servicios',
+    icon: 'fas fa-concierge-bell',
   },
   {
-    ruta :'bioproducts-admin',
-    nombre: "Bioproductos"
+    ruta: 'testimonios-admin',
+    nombre: 'Testimonios',
+    icon: 'fas fa-comments',
   },
   {
-    ruta :'contacts-admin',
-    nombre: "Contactos"
-  }
+    ruta: 'bioproducts-admin',
+    nombre: 'Bioproductos',
+    icon: 'fas fa-seedling',
+  },
+  {
+    ruta: 'contacts-admin',
+    nombre: 'Contactos',
+    icon: 'fas fa-address-book',
+  },
+  {
+    ruta: '/home',
+    nombre: 'Salir',
+    icon: 'fas fa-sign-out-alt',
+  },
 ];
