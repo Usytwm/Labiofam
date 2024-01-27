@@ -204,7 +204,7 @@ export class AddEditUserComponent implements OnInit {
         this.operacion === 'Agregar'
           ? this.form.value.Newpassword!
           : this.form.value.Oldpassword!,
-      old_Password:
+      Confirm_Password:
         this.operacion === 'Agregar'
           ? this.form.value.Oldpassword!
           : this.form.value.Newpassword!,
@@ -212,13 +212,13 @@ export class AddEditUserComponent implements OnInit {
       email_Token: '',
     };
   }
-  
+
   private newRole(): RoleModel {
     console.log(this._roles_name[0]);
-    
+
     return {
       name: this._roles_name[0],
-      Description: '',
+      description: '',
     };
   }
   private newRegistrationRequest(): RegistrationRequestModel {

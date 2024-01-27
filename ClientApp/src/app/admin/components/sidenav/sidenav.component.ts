@@ -25,7 +25,6 @@ export class SidenavComponent implements OnInit {
 
   ngOnInit() {
     const token = this.authService.getToken();
-    console.log(token);
     if (token != null)
       this.authService.getData(token).subscribe((data) => {
         this.datos = data;

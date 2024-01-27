@@ -19,7 +19,8 @@ interface LoginResponse {
 })
 export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(
-    this._coockieservice.check(environment.token_name)
+    // this._coockieservice.check(environment.token_name)
+    !!localStorage.getItem(environment.token_name)
   );
   private appUrl: string = environment.endpoint;
   private apiUrl = 'api/Registration';
@@ -53,8 +54,7 @@ export class AuthService {
   }
 
   getToken() {
-    const token = localStorage.getItem(environment.token_name); //this._coockieservice.get(environment.token_name);
-    return token;
+    return localStorage.getItem(environment.token_name); //this._coockieservice.get(environment.token_name);
   }
 
   getData(token: string): Observable<RegistrationRequestModel> {
@@ -65,10 +65,10 @@ export class AuthService {
       }
     );
   }
-  saveCookie(token: string, expired: string) {
+  storeToken(token: string, expired: string) {
     // Convierte la cadena de texto 'expired' a un objeto Date de JavaScript.
-    var fechaExpiracion = new Date();
-    fechaExpiracion.setMinutes(fechaExpiracion.getMinutes() + 10);
+    // var fechaExpiracion = new Date();
+    // fechaExpiracion.setMinutes(fechaExpiracion.getMinutes() + 10);
     // Usa 'fechaExpiracion' para establecer la fecha de expiración de la cookie.
     //this._coockieservice.set(environment.token_name, token, fechaExpiracion);
     localStorage.setItem(environment.token_name, token);

@@ -1,4 +1,4 @@
 export interface RoleModel {
   name: string;
-  Description: string;
+  description: string;
 }

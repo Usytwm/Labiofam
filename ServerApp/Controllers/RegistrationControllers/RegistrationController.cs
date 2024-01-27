@@ -1,3 +1,4 @@
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Labiofam.Models;
 using Labiofam.Services;
@@ -177,5 +178,46 @@ namespace Labiofam.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("{token}")]
+        public async Task<IActionResult> DataByToken(string token)
+        {
+            try
+            {
+                var principal = _jwtService.GetPrincipalFromJWT(token);
+                if (principal is null)
+                    return BadRequest("Invalid token");
+
+                // var userId = userData[JwtRegisteredClaimNames.Sub];
+                var useremail = principal.FindFirstValue(ClaimTypes.Email);
+                var user = await _userService.FindByEmailAsync(useremail!);
+                // Ahora puedes usar userId, userName y userEmail como desees
+                RegistrationRequestDTO data = new RegistrationRequestDTO()
+                {
+                    User = new RegistrationDTO()
+                    {
+                        Name = user!.Name,
+                        Email = user.Email,
+                        Phone = user.PhoneNumber,
+                        Image = user.Image
+
+                    },
+                    Role = new RoleDTO()
+                    {
+                        Name = "superadmin",
+                        Description = "todos los permisos"
+                    }
+                };
+
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+        }
+
+
     }
 }

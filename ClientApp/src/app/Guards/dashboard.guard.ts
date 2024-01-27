@@ -16,18 +16,9 @@ export const loginGuard: CanActivateFn = (
     switchMap((isLoggedIn: boolean) => {
       if (isLoggedIn) {
         const jwt = authService.getToken()!;
-        return authService.getData(jwt).pipe(
-          map((data: any) => {
-            if (isLoggedIn) {
-              // El usuario está autenticado y es administrador
-              return true;
-            } else {
-              // El usuario está autenticado pero no es administrador
-              _router.navigate([`/login`]);
-              return false;
-            }
-          })
-        );
+        console.log(isLoggedIn);
+        //
+        return of(true);
       } else {
         // El usuario no está autenticado
         _router.navigate([`/login`]);
