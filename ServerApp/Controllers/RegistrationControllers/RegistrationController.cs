@@ -179,7 +179,7 @@ namespace Labiofam.Controllers
             }
         }
 
-        [HttpGet("{token}")]
+        [HttpGet("token/{token}")]
         public async Task<IActionResult> DataByToken(string token)
         {
             try

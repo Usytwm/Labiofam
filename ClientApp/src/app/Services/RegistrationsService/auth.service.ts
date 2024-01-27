@@ -27,7 +27,7 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private _coockieservice: CookieService
+    // private _coockieservice: CookieService
   ) {}
 
   login(data: LoginModel): Observable<LoginResponse> {
@@ -59,7 +59,7 @@ export class AuthService {
 
   getData(token: string): Observable<RegistrationRequestModel> {
     return this.http.get<RegistrationRequestModel>(
-      `${this.appUrl}${this.apiUrl}/${token}`,
+      `${this.appUrl}${this.apiUrl}/token/${token}`,
       {
         withCredentials: true,
       }
