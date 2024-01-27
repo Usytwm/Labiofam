@@ -21,12 +21,14 @@ import { PointsOfSalesService } from 'src/app/Services/EntitiesServices/points-o
 import { Point_of_Sales } from 'src/app/Interfaces/Point_of_sales';
 import { environment } from 'src/environments/environment';
 import { FileService } from 'src/app/Services/FilesService/File.service';
+import { JsonService } from 'src/app/Services/FilesService/Json.service';
 @Component({
   selector: 'app-add-edit-pos',
   templateUrl: './add-edit-pos.component.html',
   styleUrls: ['./add-edit-pos.component.css'],
 })
 export class AddEditPosComponent implements OnInit, AfterViewInit {
+  provinces: any;
   onFileSelected(event: Event) {
     const target = event.target as HTMLInputElement;
     if (target.files && target.files.length) {
@@ -107,7 +109,8 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
     private _point_of_sales_service: PointsOfSalesService,
     private router: Router,
     private route: ActivatedRoute,
-    private _fotoservice: FileService
+    private _fotoservice: FileService,
+    private _jsonservice: JsonService
   ) {
     this.id = String(this.route.snapshot.paramMap.get('id'));
   }
@@ -117,6 +120,15 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
       this.operacion = 'Editar';
       this.getPoint(this.id);
     }
+    this.get_Json_Provinces();
+  }
+
+  get_Json_Provinces(): void {
+    this._jsonservice.getPJson().subscribe((data) => {
+      console.log(data);
+
+      // this.provinces = data;
+    });
   }
 
   ngAfterViewInit() {

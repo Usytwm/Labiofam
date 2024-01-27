@@ -32,8 +32,6 @@ export class SidenavComponent implements OnInit {
         this.datos.user.name;
         this.role = this.datos?.role;
         this.user = this.datos?.user;
-        console.log('User:' + this.user);
-        console.log('Role:' + this.role);
       });
   }
 }
