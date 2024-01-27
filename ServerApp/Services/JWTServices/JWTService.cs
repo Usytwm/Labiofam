@@ -84,7 +84,7 @@ namespace Labiofam.Services
             var tokenHandler = new JwtSecurityTokenHandler();
             var principal = tokenHandler.ValidateToken(
                 token, validation, out SecurityToken securityToken);
-            
+
             if (securityToken is not JwtSecurityToken jwtSecurityToken
                 || !jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256,
                     StringComparison.CurrentCultureIgnoreCase))

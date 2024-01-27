@@ -35,9 +35,10 @@ export class UsersAdminComponent implements OnInit {
 
   getData() {
     const token = this._auhtservice.getToken();
-    this._auhtservice.getData(token).subscribe((datos) => {
-      this.data = datos;
-    });
+    if (token != null)
+      this._auhtservice.getData(token).subscribe((datos) => {
+        this.data = datos;
+      });
   }
 
   getAll(): void {

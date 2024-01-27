@@ -15,7 +15,7 @@ export const roleGuard: CanActivateFn = (
   return authService.isLoggedIn().pipe(
     switchMap((isLoggedIn: boolean) => {
       if (isLoggedIn) {
-        const jwt = authService.getToken();
+        const jwt = authService.getToken()!;
         return authService.getData(jwt).pipe(
           map((data: any) => {
             if (expectedRoles.includes(data.role.name)) {

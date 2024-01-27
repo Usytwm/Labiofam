@@ -41,7 +41,7 @@ a.btn-primary:hover {
   color: var(
     --color-tory-blue
   ); /* Este será el color del texto del botón cuando pases el dedo por encima */
-  font-family: "Roboto", Courier, monospace; /* Esta será la fuente del texto del botón cuando pases el dedo por encima */
+  /* font-family: "Roboto", Courier, monospace; Esta será la fuente del texto del botón cuando pases el dedo por encima */
   font-weight: 600;
 }
 

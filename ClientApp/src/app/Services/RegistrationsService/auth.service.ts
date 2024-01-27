@@ -6,9 +6,12 @@ import { LoginModel } from '../../Interfaces/Loginmodel';
 import { RegistrationRequestModel } from '../../Interfaces/Registration-Request';
 import { CookieService } from 'ngx-cookie-service';
 interface LoginResponse {
+  name: string;
   token: string;
+  refreshToken: string;
   expirationDate: string;
-  // otras propiedades si las hay
+  refreshTokenExpirationDate: string;
+  email: string;
 }
 
 @Injectable({
@@ -32,7 +35,6 @@ export class AuthService {
       .pipe(
         tap((response) => {
           if (response && response.token) {
-            //this.saveCookie(response.token, response.expirationDate);
             this.loggedIn.next(true);
           }
         })
@@ -40,7 +42,8 @@ export class AuthService {
   }
 
   logout() {
-    this._coockieservice.delete(environment.token_name);
+    localStorage.removeItem(environment.token_name);
+    //this._coockieservice.delete(environment.token_name);
     this.loggedIn.next(false);
     return this.http.post(`${this.appUrl}${this.apiUrl}/logout`, null);
   }
@@ -50,7 +53,7 @@ export class AuthService {
   }
 
   getToken() {
-    const token = this._coockieservice.get(environment.token_name);
+    const token = localStorage.getItem(environment.token_name); //this._coockieservice.get(environment.token_name);
     return token;
   }
 
@@ -66,18 +69,10 @@ export class AuthService {
     // Convierte la cadena de texto 'expired' a un objeto Date de JavaScript.
     var fechaExpiracion = new Date();
     fechaExpiracion.setMinutes(fechaExpiracion.getMinutes() + 10);
-    console.log(fechaExpiracion);
-
     // Usa 'fechaExpiracion' para establecer la fecha de expiración de la cookie.
-    this._coockieservice.set(environment.token_name, token, fechaExpiracion);
+    //this._coockieservice.set(environment.token_name, token, fechaExpiracion);
+    localStorage.setItem(environment.token_name, token);
   }
-
-  // saveCookie(token: string, expired: string) {
-  //   //!!Ki me falta poner para que expire
-  //   var fechaExpiracion = new Date();
-  //   fechaExpiracion.setDate(fechaExpiracion.getDate() + 10);
-  //   this._coockieservice.set(environment.token_name, token, fechaExpiracion);
-  // }
 
   register(
     data: RegistrationRequestModel
