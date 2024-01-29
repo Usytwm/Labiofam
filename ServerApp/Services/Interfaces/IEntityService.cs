@@ -75,6 +75,13 @@ public interface IEntityDTOService<Entity, DTO>
     Task<Entity> AddAsync(DTO new_model);
 
     /// <summary>
+    /// Agrega un ICollection de nuevos modelos de forma asincrónica y devuelve las entidades asociadas.
+    /// </summary>
+    /// <param name="new_models">Los nuevos modelos a agregar</param>
+    /// <returns>Las entidades asociadas a los nuevos modelos</returns>
+    Task<ICollection<Entity>> AddAsync(ICollection<DTO> new_models);
+
+    /// <summary>
     /// Edita un modelo de forma asincrónica por su ID de modelo.
     /// </summary>
     /// <param name="model_id">ID del modelo</param>
@@ -91,10 +98,16 @@ public interface IEntityNoDTOService<Entity>
     Task AddAsync(Entity new_model);
 
     /// <summary>
+    /// Agrega un ICollection de nuevos modelos de forma asincrónica y devuelve las entidades asociadas.
+    /// </summary>
+    /// <param name="new_models">Los nuevos modelos a agregar</param>
+    /// <returns>Las entidades asociadas a los nuevos modelos</returns>
+    Task AddAsync(ICollection<Entity> new_model);
+
+    /// <summary>
     /// Edita una entidad de forma asincrónica por su ID de modelo.
     /// </summary>
     /// <param name="model_id">ID del modelo</param>
     /// <param name="edited_model">La entidad editada</param>
     Task EditAsync(Guid model_id, Entity edited_model);
 }
-

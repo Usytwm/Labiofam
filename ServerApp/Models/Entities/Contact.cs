@@ -1,12 +1,10 @@
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
 
 namespace Labiofam.Models;
 
 public class Contact : IEntityDTO
 {
     [Key]
-    [JsonIgnore]
     public Guid Id { get; set; }
     [StringLength(64)]
     public string? Name { get; set; }
