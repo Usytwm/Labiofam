@@ -25,19 +25,21 @@ namespace Labiofam.Services
         /// </summary>
         /// <param name="subject">Asunto del correo electrónico.</param>
         /// <param name="message">Mensaje del correo electrónico.</param>
-        public async Task SendMailAsync(string subject, string message)
+        public async Task SendMailAsync(
+            string sender_name, string sender_email, string subject, string message)
         {
-            string user = _configuration["MailSender"]!;
-            string password = _configuration["PasswordSender"]!;
+            string email = _configuration.GetSection("EmailConfig")["MailSender"]!;
+            string password = _configuration.GetSection("EmailConfig")["PasswordSender"]!;
             var smtpClient = new SmtpClient();
             smtpClient.Connect("smtp.office365.com", 587, SecureSocketOptions.StartTls);
-            smtpClient.Authenticate(user, password);
+            smtpClient.Authenticate(email, password);
             MimeMessage mail = new();
-            mail.From.Add(new MailboxAddress(user, user));
+            mail.From.Add(new MailboxAddress(sender_name, email));
             mail.To.Add(new MailboxAddress(
-                _configuration["MailRecipient"],
-                _configuration["MailRecipient"]
+                _configuration.GetSection("EmailConfig")["ServerName"],
+                _configuration.GetSection("EmailConfig")["MailRecipient"]
             ));
+            mail.ReplyTo.Add(new MailboxAddress(sender_name, sender_email));
             mail.Subject = subject;
             mail.Body = new TextPart("plain") { Text = message };
             await smtpClient.SendAsync(mail);

@@ -22,12 +22,14 @@ namespace Labiofam.Controllers
         /// <param name="subject">Asunto del correo electrónico.</param>
         /// <param name="message">Mensaje del correo electrónico.</param>
         /// <returns>Respuesta HTTP 200 OK si se envía correctamente.</returns>
-        [HttpPost("{subject}/{message}")]
-        public async Task<IActionResult> SendMail(string subject, string message)
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> SendMail(
+            string sender_name, string sender_email, string subject, string message)
         {
             try
             {
-                await _mailService.SendMailAsync(subject, message);
+                await _mailService.SendMailAsync(sender_name, sender_email, subject, message);
                 return Ok("Success");
             }
             catch

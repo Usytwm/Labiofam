@@ -16,13 +16,13 @@ namespace Labiofam.Services
             _configuration = configuration;
         }
 
-        public AuthenticationDTO CreateJsonWebToken(User user)
+        public AuthenticationDTO CreateJsonWebToken(User user, ICollection<Role> roles)
         {
             var expiration = DateTime.UtcNow.AddMinutes(
                 Convert.ToDouble(_configuration.GetSection("JWT")["EXPIRATION_MINUTES"])
                 );
 
-            var claims = new Claim[]
+            var claims = new List<Claim>
             {
                 new(JwtRegisteredClaimNames.Sub, user.Id.ToString()), // Subject (user_id)
                 new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()), // JWT_id
@@ -30,6 +30,11 @@ namespace Labiofam.Services
                 new(ClaimTypes.NameIdentifier, user.Name!), // Unique name identifier of the user
                 new(ClaimTypes.Email, user.Email!) // Email of the user
             };
+
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role.Name!));
+            }
 
             var securityKey = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(_configuration.GetSection("JWT")["Key"]!));

@@ -22,6 +22,7 @@ namespace Labiofam.Controllers
         private readonly IRelationService<User_Role> _relationService;
         private readonly SignInManager<User> _signInManager;
         private readonly IJWTService _jwtService;
+        private readonly IRelationFilter<User_Role, User, Role> _relationFilter;
 
         public RegistrationController(
             IEntityService<Role> roleService,
@@ -30,7 +31,8 @@ namespace Labiofam.Controllers
             IEntityDTOService<Role, RoleDTO> roleDTOService,
             IRelationService<User_Role> relationService,
             SignInManager<User> signInManager,
-            IJWTService jwtService)
+            IJWTService jwtService,
+            IRelationFilter<User_Role, User, Role> relationFilter)
         {
             _roleService = roleService;
             _userService = userService;
@@ -39,6 +41,7 @@ namespace Labiofam.Controllers
             _relationService = relationService;
             _signInManager = signInManager;
             _jwtService = jwtService;
+            _relationFilter = relationFilter;
         }
 
         /// <summary>
@@ -84,7 +87,10 @@ namespace Labiofam.Controllers
             await _relationService.AddAsync(current_user.Id, current_role.Id);
 
             await _signInManager.SignInAsync(current_user, isPersistent: false);
-            var token = _jwtService.CreateJsonWebToken(current_user);
+
+            var roles = await _relationFilter.GetType2ByType1Async(current_user.Id);
+
+            var token = _jwtService.CreateJsonWebToken(current_user, roles);
             current_user.RefreshToken = token.RefreshToken;
             current_user.RefreshTokenExpirationDate = token.RefreshTokenExpirationDate;
             await _userService.UpdateAsync(current_user);
@@ -130,7 +136,9 @@ namespace Labiofam.Controllers
 
             await _signInManager.SignInAsync(user, isPersistent: false);
 
-            var token = _jwtService.CreateJsonWebToken(user);
+            var roles = await _relationFilter.GetType2ByType1Async(user.Id);
+
+            var token = _jwtService.CreateJsonWebToken(user, roles);
             user.RefreshToken = token.RefreshToken;
             user.RefreshTokenExpirationDate = token.RefreshTokenExpirationDate;
             await _userService.UpdateAsync(user);
@@ -166,7 +174,9 @@ namespace Labiofam.Controllers
                     return BadRequest("Invalid refresh token");
                 }
 
-                var result = _jwtService.CreateJsonWebToken(user);
+                var roles = await _relationFilter.GetType2ByType1Async(user.Id);
+
+                var result = _jwtService.CreateJsonWebToken(user, roles);
                 user.RefreshToken = result.RefreshToken;
                 user.RefreshTokenExpirationDate = result.RefreshTokenExpirationDate;
                 await _userService.UpdateAsync(user);

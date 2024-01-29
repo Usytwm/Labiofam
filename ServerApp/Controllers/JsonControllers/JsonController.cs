@@ -17,6 +17,7 @@ namespace Labiofam.Controllers
         }
 
         [HttpGet("jsonreader")]
+        [AllowAnonymous]
         public IActionResult JsonReader()
         {
             try
