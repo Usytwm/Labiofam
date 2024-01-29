@@ -1,25 +1,22 @@
 <!--carrucel-->
-<div data-aos="zoom-out-up" data-aos-duration="1000">
-  <app-carousel></app-carousel>
+<div>
+  <app-carousel data-aos="zoom-out-up" data-aos-duration="800"></app-carousel>
 </div>
 
 <!--Productos-->
-<section class="container">
+<section class="container my-5">
   <div
-    class="my-5"
-    data-aos="zoom-out-up"
-    data-aos-duration="1000"
-    class="px-4 pt-5 my-5 text-center"
-    style="background-color: var(--color-blue-white); width: 100%"
+    class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg"
+    style="background-color: var(--color-blue-white)"
   >
-    <h1 class="display-4 fw-bold text-body-emphasis titulo">
+    <h1
+      data-aos="fade-right"
+      data-aos-duration="800"
+      class="display-4 fw-bold text-body-emphasis titulo"
+    >
       Nuestros Productos Exclusivos
     </h1>
-    <div
-      data-aos="zoom-out-up"
-      data-aos-duration="1000"
-      class="col-lg-9 mx-auto"
-    >
+    <div data-aos="fade-right" data-aos-duration="800" class="col-lg-9 mx-auto">
       <p class="lead mb-4">
         Explora nuestra amplia gama de productos innovadores, diseñados con la
         más alta calidad para satisfacer tus necesidades. ¡Empieza tu viaje de
@@ -35,49 +32,42 @@
 </section>
 
 <hr class="container featurette-divider" />
-
-<section>
+<!-- align-items-center g-5 py-5 -->
+<section class="container py-5">
   <div
-    class="container col-xxl-8 px-4 py-5"
-    style="background-color: var(--color-blue-white); width: 100%"
+    class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center border rounded-3 shadow-lg flex-lg-row-reverse"
+    style="background-color: var(--color-blue-white)"
   >
-    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-      <div id="shape-1" class="position-absolute shape"></div>
-      <div id="shape-2" class="position-absolute shape"></div>
+    <div id="shape-1" class="position-absolute shape"></div>
+    <div id="shape-2" class="position-absolute shape"></div>
 
-      <!-- Agrega más divs según lo necesites -->
+    <!-- Agrega más divs según lo necesites -->
 
-      <div data-aos="fade-left" data-aos-duration="1000" class="col-lg-6">
-        <h1
-          class="display-5 fw-bold text-body-emphasis lh-1 mb-3"
-          _msttexthash="1740570"
-          _msthash="52"
-        >
-          Conócenos
-        </h1>
-        <p class="lead" _msttexthash="52402467" _msthash="53">
-          LABIOFAM es más que una empresa, es un compromiso con tu bienestar y
-          el de tu entorno. Nos dedicamos a crear productos que mejoran la vida
-          de las personas y cuidan nuestro planeta. Nuestra pasión por la
-          calidad y la innovación nos ha llevado a ser líderes en nuestro campo.
-          Cada día, trabajamos para ofrecerte lo mejor, porque creemos que
-          mereces productos y servicios que realmente marquen la diferencia. En
-          LABIOFAM, no solo somos los mejores en lo que hacemos, sino que nos
-          esforzamos por ser mejores para usted
-        </p>
-      </div>
-      <div
+    <div class="col-lg-6">
+      <h1
         data-aos="fade-right"
-        data-aos-duration="1000"
-        class="col-10 col-sm-8 col-lg-6"
-        style="width: 500px; height: 500px"
+        data-aos-duration="800"
+        class="display-5 fw-bold text-body-emphasis lh-1 mb-3"
       >
-        <img
-          src="assets/7.jpg"
-          class="d-block mx-lg-auto img-fluid"
-          style="width: 100%; height: 100%; object-fit: cover"
-        />
-      </div>
+        Conócenos
+      </h1>
+      <p data-aos="fade-right" data-aos-duration="1000" class="lead">
+        LABIOFAM es más que una empresa, es un compromiso con tu bienestar y el
+        de tu entorno. Nos dedicamos a crear productos que mejoran la vida de
+        las personas y cuidan nuestro planeta. Nuestra pasión por la calidad y
+        la innovación nos ha llevado a ser líderes en nuestro campo. Cada día,
+        trabajamos para ofrecerte lo mejor, porque creemos que mereces productos
+        y servicios que realmente marquen la diferencia. En LABIOFAM, no solo
+        somos los mejores en lo que hacemos, sino que nos esforzamos por ser
+        mejores para usted
+      </p>
+    </div>
+    <div class="col-10 col-sm-8 col-lg-6" style="width: 500px; height: 500px">
+      <img
+        src="assets/7.jpg"
+        class="d-block mx-lg-auto img-fluid"
+        style="width: 100%; height: 100%; object-fit: cover"
+      />
     </div>
   </div>
 </section>

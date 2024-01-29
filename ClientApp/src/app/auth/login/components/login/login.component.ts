@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
         })
       )
       .subscribe((res) => {
-        this._authnservice.storeToken(res.token, res.expirationDate);
+        this._authnservice.storeToken(res.token, res.refreshToken);
         this._route.navigate(['/home']);
       });
   }

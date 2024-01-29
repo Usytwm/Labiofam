@@ -29,7 +29,8 @@ export class MapaComponent implements AfterViewInit, OnDestroy {
   productos_disponibles: { id: string; name: string }[] = [];
   all_productos_disponibles: string = '';
 
-  private initialState = environment.initialState;
+  private initialState =
+    window.innerWidth > 768 ? environment.desktopView : environment.mobileView;
   private apiKey = environment.apiKey;
   private mapStyle = `${environment.mapStyle}${this.apiKey}`;
   private map?: Map;
