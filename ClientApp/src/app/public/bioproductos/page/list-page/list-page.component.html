@@ -1,6 +1,5 @@
 <section class="container">
-  <nav class="navbar" style="background-color: #ffffff;">
-    <a></a>
+  <nav class="navbar">
     <div class="filter">
       <mat-form-field>
         <mat-label>Filtrar</mat-label>
@@ -15,21 +14,20 @@
     </div>
   </nav>
 
-  <div
-    data-aos="zoom-out-up"
-    data-aos-duration="1000"
-    class="px-4 pt-5 my-5 text-center"
-  >
+  <div class="px-4 pt-5 my-5 text-center">
     <app-bioprduct-cards-placeholder
       *ngIf="loading"
       [cantidad]="3"
     ></app-bioprduct-cards-placeholder>
     <app-bioproduct-list
-      [products]="filteredProducts | paginate : { itemsPerPage: pageSize, currentPage: page }"
+      [products]="
+        filteredProducts
+          | paginate : { itemsPerPage: pageSize, currentPage: page }
+      "
     ></app-bioproduct-list>
   </div>
   <div *ngIf="!loading" style="margin-bottom: 2cm">
-    <div style="display: flex; justify-content: center;">
+    <div style="display: flex; justify-content: center">
       <pagination-controls
         (pageChange)="handlePageChange($event)"
         previousLabel="Anterior"

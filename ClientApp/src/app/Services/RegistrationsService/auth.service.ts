@@ -12,7 +12,6 @@ import { LoginResponse } from 'src/app/Interfaces/LoginResponse';
 })
 export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(
-    // this._coockieservice.check(environment.token_name)
     !!localStorage.getItem(environment.token_name)
   );
   private appUrl: string = environment.endpoint;
@@ -53,6 +52,13 @@ export class AuthService {
     return localStorage.getItem(environment.refresh_token_name); //this._coockieservice.get(environment.token_name);
   }
 
+  generateNewToken(): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(
+      `${this.appUrl}${this.apiUrl}/getnewaccesstoken`,
+      { token: this.getToken(), refreshToken: this.getRefreshToken() }
+    );
+  }
+
   getData(token: string): Observable<RegistrationRequestModel> {
     return this.http.get<RegistrationRequestModel>(
       `${this.appUrl}${this.apiUrl}/token/${token}`,
@@ -61,6 +67,7 @@ export class AuthService {
       }
     );
   }
+
   storeToken(token: string, refresh_token_name: string) {
     localStorage.setItem(environment.token_name, token);
     localStorage.setItem(environment.refresh_token_name, refresh_token_name);

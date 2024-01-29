@@ -67,7 +67,9 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
   imagePreview?: string;
   markerLngLat?: LngLat;
   marker?: Marker;
-  private initialState = environment.initialState;
+  private initialState =
+    window.innerWidth > 768 ? environment.desktopView : environment.mobileView;
+
   private apiKey = environment.apiKey;
   private mapStyle = `${environment.mapStyle}${this.apiKey}`;
   private map?: Map;
