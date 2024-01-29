@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class FileService {
   private baseUrl: string = environment.endpoint;
-  private apiUrl: string = 'api/File';
+  private apiUrl: string = 'api/Image';
   constructor(private _http: HttpClient) {}
 
   getPhotoUrl(photoName: string): string {

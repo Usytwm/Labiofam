@@ -201,6 +201,8 @@ namespace Labiofam.Controllers
                 // var userId = userData[JwtRegisteredClaimNames.Sub];
                 var useremail = principal.FindFirstValue(ClaimTypes.Email);
                 var user = await _userService.FindByEmailAsync(useremail!);
+                var roles = await _relationFilter.GetType2ByType1Async(user!.Id);
+                var rol = roles.FirstOrDefault()!;
                 // Ahora puedes usar userId, userName y userEmail como desees
                 RegistrationRequestDTO data = new RegistrationRequestDTO()
                 {
@@ -214,8 +216,8 @@ namespace Labiofam.Controllers
                     },
                     Role = new RoleDTO()
                     {
-                        Name = "superadmin",
-                        Description = "todos los permisos"
+                        Name = rol.Name,
+                        Description = rol.Description
                     }
                 };
 
