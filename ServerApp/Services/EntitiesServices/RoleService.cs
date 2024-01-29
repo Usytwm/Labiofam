@@ -35,6 +35,28 @@ namespace Labiofam.Services
         }
 
         /// <summary>
+        /// Agrega un nuevo ICollection de roles.
+        /// </summary>
+        /// <param name="new_roles">Los nuevos roles a agregar.</param>
+        /// <returns>Los roles agregados.</returns>
+        public override async Task<ICollection<Role>> AddAsync(ICollection<RoleDTO> new_roles)
+        {
+            var result = new List<Role>();
+            foreach (var role in new_roles)
+            {
+                try
+                {
+                    result.Add(await AddAsync(role));
+                }
+                catch
+                {
+                    continue;
+                }
+            }
+            return result;
+        }
+
+        /// <summary>
         /// Edita un rol por su identificador único.
         /// </summary>
         /// <param name="role_id">Identificador único del rol a editar.</param>

@@ -1,3 +1,4 @@
+using System.Collections;
 using Labiofam.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,6 +27,24 @@ namespace Labiofam.Controllers
             try
             {
                 await _entityNoDTOService.AddAsync(new_entity);
+                return Ok("Success");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+        /// <summary>
+        /// Agrega un nuevo ICollection de entidades sin utilizar DTOs.
+        /// </summary>
+        /// <param name="new_entities">Nuevas entidades.</param>
+        /// <returns>Respuesta HTTP 200 OK si se agrega correctamente.</returns>
+        [HttpPost("addmany")]
+        public async Task<IActionResult> Add(ICollection<T> new_entities)
+        {
+            try
+            {
+                await _entityNoDTOService.AddAsync(new_entities);
                 return Ok("Success");
             }
             catch (Exception ex)

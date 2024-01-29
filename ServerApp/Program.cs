@@ -128,6 +128,9 @@ builder.Services.AddScoped<IEntityDTOService<Role, RoleDTO>, RoleService>();
 builder.Services.AddScoped<IEntityService<Service>, ServiceService>();
 builder.Services.AddScoped<IEntityNoDTOService<Service>, ServiceService>();
 
+builder.Services.AddScoped<IEntityService<Type_Price>, TypePriceService>();
+builder.Services.AddScoped<IEntityNoDTOService<Type_Price>, TypePriceService>();
+
 // Servicios de relaciones
 builder.Services.AddScoped<IRelationService<User_Role>, UserRoleService>();
 
@@ -136,11 +139,14 @@ builder.Services.AddScoped<IRelationService<User_Product>, UserProductService>()
 builder.Services.AddScoped<IRelationService<Product_POS>, ProductPOSService>();
 builder.Services.AddScoped<IProductPOSService, ProductPOSService>();
 
+builder.Services.AddScoped<IRelationService<Type_Product>, TypeProductService>();
+
 // Servicios de filtrado
 builder.Services.AddScoped<IRelationFilter<User_Role, User, Role>, UserRoleFilterService>();
 builder.Services.AddScoped<IRelationFilter<User_Product, User, Product>, UserProductFilterService>();
 builder.Services.AddScoped<IRelationFilter<Product_POS, Product, Point_of_Sales>, ProductPOSFilterService>();
 builder.Services.AddScoped<IProductPOSFilter, ProductPOSFilterService>();
+builder.Services.AddScoped<IRelationFilter<Type_Product, Type_Price, Product>, TypeProductFilterService>();
 
 // Servicio de correo
 builder.Services.AddScoped<IMailService, MailService>();

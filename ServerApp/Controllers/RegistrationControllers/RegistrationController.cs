@@ -212,9 +212,6 @@ namespace Labiofam.Controllers
             {
                 return BadRequest(e.Message);
             }
-
         }
-
-
     }
 }
