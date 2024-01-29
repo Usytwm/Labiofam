@@ -19,10 +19,12 @@ namespace Labiofam.Services
                 await file.CopyToAsync(stream);
             }
 
-            return filePath;
+            return fileName;
         }
-        public async Task<byte[]> GetImageAsync(string filePath)
+        public async Task<byte[]> GetImageAsync(string fileName)
         {
+            var filePath = Path.Combine(_environment.ContentRootPath, "ImagesRepository", fileName);
+            
             return await File.ReadAllBytesAsync(filePath);
         }
     }
