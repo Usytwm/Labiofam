@@ -5,14 +5,7 @@ import { environment } from 'src/environments/environment';
 import { LoginModel } from '../../Interfaces/Loginmodel';
 import { RegistrationRequestModel } from '../../Interfaces/Registration-Request';
 import { CookieService } from 'ngx-cookie-service';
-interface LoginResponse {
-  name: string;
-  token: string;
-  refreshToken: string;
-  expirationDate: string;
-  refreshTokenExpirationDate: string;
-  email: string;
-}
+import { LoginResponse } from 'src/app/Interfaces/LoginResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -26,8 +19,7 @@ export class AuthService {
   private apiUrl = 'api/Registration';
 
   constructor(
-    private http: HttpClient,
-    // private _coockieservice: CookieService
+    private http: HttpClient // private _coockieservice: CookieService
   ) {}
 
   login(data: LoginModel): Observable<LoginResponse> {
@@ -57,6 +49,10 @@ export class AuthService {
     return localStorage.getItem(environment.token_name); //this._coockieservice.get(environment.token_name);
   }
 
+  getRefreshToken() {
+    return localStorage.getItem(environment.refresh_token_name); //this._coockieservice.get(environment.token_name);
+  }
+
   getData(token: string): Observable<RegistrationRequestModel> {
     return this.http.get<RegistrationRequestModel>(
       `${this.appUrl}${this.apiUrl}/token/${token}`,
@@ -65,13 +61,9 @@ export class AuthService {
       }
     );
   }
-  storeToken(token: string, expired: string) {
-    // Convierte la cadena de texto 'expired' a un objeto Date de JavaScript.
-    // var fechaExpiracion = new Date();
-    // fechaExpiracion.setMinutes(fechaExpiracion.getMinutes() + 10);
-    // Usa 'fechaExpiracion' para establecer la fecha de expiración de la cookie.
-    //this._coockieservice.set(environment.token_name, token, fechaExpiracion);
+  storeToken(token: string, refresh_token_name: string) {
     localStorage.setItem(environment.token_name, token);
+    localStorage.setItem(environment.refresh_token_name, refresh_token_name);
   }
 
   register(

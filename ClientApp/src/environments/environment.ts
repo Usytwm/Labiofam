@@ -5,4 +5,5 @@ export const environment = {
   apiKey: 'tbjXu9R4kQGNcVpje2Yg',
   mapStyle: `https://api.maptiler.com/maps/streets-v2/style.json?key=`,
   token_name: 'token',
+  refresh_token_name: 'refreshToken',
 };
