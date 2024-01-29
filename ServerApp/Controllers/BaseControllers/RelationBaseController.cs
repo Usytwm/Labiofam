@@ -1,4 +1,5 @@
 using Labiofam.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Labiofam.Controllers
@@ -19,6 +20,7 @@ namespace Labiofam.Controllers
         /// <param name="id2">Segundo identificador.</param>
         /// <returns>Respuesta HTTP 200 OK con la relación.</returns>
         [HttpGet("{id1}/{id2}")]
+        [AllowAnonymous]
         public async Task<IActionResult> Get(Guid id1, Guid id2)
         {
             try
@@ -37,6 +39,7 @@ namespace Labiofam.Controllers
         /// <param name="size">Tamaño de la colección.</param>
         /// <returns>Colección de relaciones.</returns>
         [HttpGet("take/{size}")]
+        [AllowAnonymous]
         public async Task<IActionResult> Take(int size)
         {
             try
@@ -92,6 +95,7 @@ namespace Labiofam.Controllers
         /// </summary>
         /// <returns>Respuesta HTTP 200 OK con todas las relaciones.</returns>
         [HttpGet("all")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
             try

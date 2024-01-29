@@ -7,5 +7,5 @@ namespace Labiofam.Services;
         /// </summary>
         /// <param name="subject">Asunto del correo electrónico.</param>
         /// <param name="message">Mensaje del correo electrónico.</param>
-        Task SendMailAsync(string subject, string message);
+        Task SendMailAsync(string sender_name, string sender_email, string subject, string message);
     }
