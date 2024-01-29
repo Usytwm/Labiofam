@@ -94,6 +94,7 @@ namespace Labiofam.Controllers
             await _signInManager.SignInAsync(current_user, isPersistent: false);
 
             var token = _jwtService.CreateJsonWebToken(current_user, current_roles);
+            
             current_user.RefreshToken = token.RefreshToken;
             current_user.RefreshTokenExpirationDate = token.RefreshTokenExpirationDate;
             await _userService.UpdateAsync(current_user);
