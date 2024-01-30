@@ -21,16 +21,13 @@ import { Product } from 'src/app/Interfaces/Product';
 
 //Servicios
 
-
 import { ProductService } from 'src/app/Services/EntitiesServices/product.service';
 import { FileService } from 'src/app/Services/FilesService/File.service';
-
-
 
 @Component({
   selector: 'app-add-edit-bioproduct',
   templateUrl: './add-edit-bioproduct.component.html',
-  styleUrls: ['./add-edit-bioproduct.component.css']
+  styleUrls: ['./add-edit-bioproduct.component.css'],
 })
 export class AddEditBioproductComponent {
   onFileSelected(event: Event) {
@@ -59,11 +56,10 @@ export class AddEditBioproductComponent {
 
   getPhoto(photoName: string) {
     this._fotoservice.getPhoto(photoName).subscribe((photo) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.image = reader.result as string;
-      };
-      reader.readAsDataURL(photo);
+      console.log(photo);
+      photo.text().then((text) => {
+        this.image = 'data:image/jpeg;base64,' + JSON.parse(text).fileContents;
+      });
     });
   }
 
@@ -79,9 +75,8 @@ export class AddEditBioproductComponent {
     type: ['', Validators.required],
     summary: ['', Validators.required],
     specifications: ['', Validators.required],
-    extras: this.fb.array([])
+    extras: this.fb.array([]),
   });
-
 
   constructor(
     private fb: FormBuilder,
@@ -101,20 +96,18 @@ export class AddEditBioproductComponent {
   }
 
   get extras() {
-    return this.form.controls["extras"] as FormArray;
+    return this.form.controls['extras'] as FormArray;
   }
   addExtras() {
     this.extrasForm = this.fb.group({
-      nameC: ['',Validators.required],
-      InfoC: ['',Validators.required]
+      nameC: ['', Validators.required],
+      InfoC: ['', Validators.required],
     });
     this.extras.push(this.extrasForm);
   }
-  deleteExtras(extraIndex: number){
+  deleteExtras(extraIndex: number) {
     this.extras.removeAt(extraIndex);
   }
-
-
 
   getProduct(id: string) {
     this.loading = true;
@@ -126,7 +119,6 @@ export class AddEditBioproductComponent {
         summary: data.summary,
         type: data.type,
         specifications: data.specifications,
-
       });
       if (data.image) {
         this.getPhoto(data.image);
@@ -146,26 +138,33 @@ export class AddEditBioproductComponent {
     });
   }*/
   addProduct() {
-    this._productservice.add(this.newProduct()).subscribe((data) => {
-      this.snackBar.open('Agregado con éxito', 'cerrar', {
-        duration: 3000,
-        horizontalPosition: 'right',
-      });
-      this.router.navigate(['/dashboard/bioproducts-admin']);
-    }, (error) => {
-      if (error.error.code === 'DUPLICATE_PRODUCT_NAME') {
-        this.snackBar.open('El nombre del producto ya existe', 'cerrar', {
+    this._productservice.add(this.newProduct()).subscribe(
+      (data) => {
+        this.snackBar.open('Agregado con éxito', 'cerrar', {
           duration: 3000,
           horizontalPosition: 'right',
         });
-      } else {
-        console.error(error);
-        this.snackBar.open('Ha ocurrido un error al agregar el producto', 'cerrar', {
-          duration: 3000,
-          horizontalPosition: 'right',
-        });
+        this.router.navigate(['/dashboard/bioproducts-admin']);
+      },
+      (error) => {
+        if (error.error.code === 'DUPLICATE_PRODUCT_NAME') {
+          this.snackBar.open('El nombre del producto ya existe', 'cerrar', {
+            duration: 3000,
+            horizontalPosition: 'right',
+          });
+        } else {
+          console.error(error);
+          this.snackBar.open(
+            'Ha ocurrido un error al agregar el producto',
+            'cerrar',
+            {
+              duration: 3000,
+              horizontalPosition: 'right',
+            }
+          );
+        }
       }
-    });
+    );
   }
   editProduct() {
     this.loading = true;
@@ -187,6 +186,6 @@ export class AddEditBioproductComponent {
       summary: this.form.value.summary!,
       specifications: this.form.value.specifications!,
       image: imagePath,
-    }
+    };
   }
 }

@@ -94,7 +94,7 @@ namespace Labiofam.Controllers
             await _signInManager.SignInAsync(current_user, isPersistent: false);
 
             var token = _jwtService.CreateJsonWebToken(current_user, current_roles);
-            
+
             current_user.RefreshToken = token.RefreshToken;
             current_user.RefreshTokenExpirationDate = token.RefreshTokenExpirationDate;
             await _userService.UpdateAsync(current_user);
@@ -206,7 +206,7 @@ namespace Labiofam.Controllers
                 var user = await _userService.FindByEmailAsync(email!);
                 var roles = await _relationFilter.GetType2ByType1Async(user!.Id);
 
-                return Ok(new {user, roles});
+                return Ok(new { user, roles });
             }
             catch (Exception e)
             {

@@ -49,6 +49,13 @@ export class AddEditUserComponent implements OnInit {
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z]).{8,}$'),
       ],
     ],
+    Email: [
+      '',
+      [
+        Validators.required,
+        Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+      ],
+    ],
     Oldpassword: ['', [Validators.pattern('^[^\\s]*$')]],
   });
 
@@ -204,27 +211,27 @@ export class AddEditUserComponent implements OnInit {
         this.operacion === 'Agregar'
           ? this.form.value.Newpassword!
           : this.form.value.Oldpassword!,
-      Confirm_Password:
-        this.operacion === 'Agregar'
-          ? this.form.value.Oldpassword!
-          : this.form.value.Newpassword!,
-      email: '',
+      confirm_Password: this.form.value.Newpassword!,
+      email: this.form.value.Email!,
       email_Token: '',
     };
   }
 
-  private newRole(): RoleModel {
-    console.log(this._roles_name[0]);
-
-    return {
-      name: this._roles_name[0],
-      description: '',
-    };
+  private newRole(): RoleModel[] {
+    const roles: RoleModel[] = [];
+    this._roles_name.forEach((role) => {
+      const roleModel: RoleModel = {
+        name: role,
+        description: '',
+      };
+      roles.push(roleModel);
+    });
+    return roles;
   }
   private newRegistrationRequest(): RegistrationRequestModel {
     return {
       user: this.newUser(),
-      role: this.newRole(),
+      roles: this.newRole(),
     };
   }
 }

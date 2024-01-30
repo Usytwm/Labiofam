@@ -17,6 +17,7 @@ namespace Labiofam.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> UploadPhoto(IFormFile photo)
         {
             try
@@ -30,6 +31,7 @@ namespace Labiofam.Controllers
             }
         }
         [HttpGet("{photoUrl}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetPhoto(string photoUrl)
         {
             try

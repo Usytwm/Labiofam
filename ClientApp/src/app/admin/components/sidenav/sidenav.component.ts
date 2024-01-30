@@ -54,7 +54,7 @@ export class SidenavComponent implements OnInit {
   collapsed = false;
 
   datos?: RegistrationRequestModel;
-  role?: Role;
+  role!: Role[];
   user?: RegistrationModel;
 
   ngOnInit() {
@@ -64,10 +64,11 @@ export class SidenavComponent implements OnInit {
     if (token != null)
       this.authService.getData(token).subscribe((data) => {
         this.datos = data;
-        this.datos.role.name;
-        this.datos.user.name;
-        this.role = this.datos?.role;
+        this.role = this.datos?.roles;
         this.user = this.datos?.user;
+        this.navData.forEach((data) => {
+          data.pas = this.role.some((r) => data.permisos.includes(r.name!));
+        });
       });
   }
 

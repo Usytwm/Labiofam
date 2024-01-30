@@ -13,10 +13,12 @@ import { RegistrationRequestModel } from 'src/app/Interfaces/Registration-Reques
 })
 export class NavComponent implements OnInit {
   user = faUser;
+
   data?: RegistrationRequestModel;
   @ViewChild('op') op?: OverlayPanel;
   isLogged = false;
   servicios: Service[] = [];
+  rol?: string;
 
   constructor(
     private _servicesservices: ServicesService,
@@ -41,7 +43,8 @@ export class NavComponent implements OnInit {
     if (token)
       this._auhtservice.getData(token).subscribe((datos) => {
         this.data = datos;
-        datos.role.name;
+        this.rol = this.data!.roles!.map((role) => role!.name).join(', ');
+        // console.log(this.data);
       });
   }
   obtenerServicios() {

@@ -55,11 +55,10 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
 
   getPhoto(photoName: string) {
     this._fotoservice.getPhoto(photoName).subscribe((photo) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.image = reader.result as string;
-      };
-      reader.readAsDataURL(photo);
+      console.log(photo);
+      photo.text().then((text) => {
+        this.image = 'data:image/jpeg;base64,' + JSON.parse(text).fileContents;
+      });
     });
   }
 
@@ -223,7 +222,6 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
         duration: 3000,
         horizontalPosition: 'right',
       });
-      //console.log(this.newUser());
       this.router.navigate(['/dashboard/points-of-sales-admin']);
     });
   }
