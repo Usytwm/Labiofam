@@ -56,6 +56,28 @@ namespace Labiofam.Services
         }
 
         /// <summary>
+        /// Agrega un nuevo ICollection de usuarios.
+        /// </summary>
+        /// <param name="new_users">Los nuevos usuarios a agregar.</param>
+        /// <returns>Los usuarios agregados.</returns>
+        public override async Task<ICollection<User>> AddAsync(ICollection<RegistrationDTO> new_users)
+        {
+            var result = new List<User>();
+            foreach (var user in new_users)
+            {
+                try
+                {
+                    result.Add(await AddAsync(user));
+                }
+                catch
+                {
+                    continue;
+                }
+            }
+            return result;
+        }
+
+        /// <summary>
         /// Edita un usuario por su identificador único.
         /// </summary>
         /// <param name="user_id">Identificador único del usuario a editar.</param>

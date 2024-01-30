@@ -34,6 +34,24 @@ namespace Labiofam.Controllers
             }
         }
         /// <summary>
+        /// Agrega un nuevo ICollection de entidades utilizando un ICollection de DTOs.
+        /// </summary>
+        /// <param name="new_entities">Nuevos DTOs de entidad.</param>
+        /// <returns>Respuesta HTTP 200 OK si se agrega correctamente.</returns>
+        [HttpPost("addmany")]
+        public async Task<IActionResult> Add(ICollection<DTO> new_entities)
+        {
+            try
+            {
+                await _entityDTOService.AddAsync(new_entities);
+                return Ok("Success");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        /// <summary>
         /// Edita una entidad existente utilizando un DTO.
         /// </summary>
         /// <param name="id">ID de la entidad a editar.</param>

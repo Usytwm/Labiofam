@@ -12,15 +12,33 @@ namespace Labiofam.Models
         public DbSet<Contact>? Contacts { get; set; }
         public DbSet<Point_of_Sales>? Points_Of_Sales { get; set; }
         public DbSet<Product>? Products { get; set; }
+        public DbSet<Type_Price> Type_Prices { get; set; }
         public DbSet<Service>? Services { get; set; }
         public DbSet<Product_POS>? Product_POS { get; set; }
         public DbSet<User_Product>? User_Product { get; set; }
         public DbSet<User_Role>? User_Role { get; set; }
-        //public DbSet<Prize_Type> Prize_Types { get; set; }
+        public DbSet<Type_Product>? Type_Product { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Type_Price>()
+                .Property(t => t.Name)
+                .HasColumnName("Name");
+
             // Definición de las relaciones y claves primarias compuestas
+            modelBuilder.Entity<Type_Product>()
+                .HasKey(tp => new { tp.Id1, tp.Id2 });
+
+            modelBuilder.Entity<Type_Product>()
+                .HasOne(p => p.Product)
+                .WithMany(tp => tp.Types)
+                .HasForeignKey(tp => tp.Id2);
+
+            modelBuilder.Entity<Type_Product>()
+                .HasOne(t => t.Type_Price)
+                .WithOne(tp => tp.Product)
+                .HasForeignKey<Type_Product>(tp => tp.Id1);
+
             modelBuilder.Entity<Product_POS>()
                 .HasKey(ppv => new { ppv.Id1, ppv.Id2 });
 
@@ -66,23 +84,18 @@ namespace Labiofam.Models
                 .WithMany(u => u.Users)
                 .HasForeignKey(ur => ur.RoleId);
 
-            /*modelBuilder.Entity<Prize_Type>()
-                .HasOne(e => e.Product)
-                .WithMany(e => e.Prizes)
-                .HasForeignKey(e => new { e.ProductId, e.Type })
-                .IsRequired();*/
-
             // Definición de nombres de tablas personalizados
             modelBuilder.Entity<Contact>().ToTable("Contactos");
             modelBuilder.Entity<Point_of_Sales>().ToTable("PuntosDeVenta");
             modelBuilder.Entity<Product>().ToTable("Productos");
+            modelBuilder.Entity<Type_Price>().ToTable("TiposDeProducto");
             modelBuilder.Entity<Role>().ToTable("Roles");
             modelBuilder.Entity<Service>().ToTable("Servicios");
             modelBuilder.Entity<User>().ToTable("Usuarios");
             modelBuilder.Entity<Product_POS>().ToTable("Producto_PuntoDeVenta");
             modelBuilder.Entity<User_Product>().ToTable("Usuario_Producto");
             modelBuilder.Entity<User_Role>().ToTable("Usuario_Rol");
-            //modelBuilder.Entity<Prize_Type>().ToTable("Precios");
+            modelBuilder.Entity<Type_Product>().ToTable("Tipo_Producto");
         }
     }
 }

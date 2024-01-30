@@ -19,11 +19,31 @@ namespace Labiofam.Services
         /// <param name="new_entity">La entidad a agregar.</param>
         public async Task AddAsync(T new_entity)
         {
-            if (await _webDbContext.Set<T>().AnyAsync(entity => entity.Name!.Equals(new_entity.Name)))
-                throw new InvalidOperationException("The entity already exists");
+            if (await _webDbContext.Set<T>().AnyAsync(
+                entity => entity.Name!.Equals(new_entity.Name)))
+                    throw new InvalidOperationException("The entity already exists");
 
             await _webDbContext.AddAsync(new_entity);
             await _webDbContext.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Agrega un nuevo ICollection de entidades.
+        /// </summary>
+        /// <param name="new_entities">Las entidades a agregar.</param>
+        public async Task AddAsync(ICollection<T> new_entities)
+        {
+            foreach (var entity in new_entities)
+            {
+                try
+                {
+                    await AddAsync(entity);
+                }
+                catch
+                {
+                    continue;
+                }
+            }
         }
         
         /// <summary>
