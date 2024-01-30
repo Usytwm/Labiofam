@@ -55,7 +55,7 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
 
   getPhoto(photoName: string) {
     this._fotoservice.getPhoto(photoName).subscribe((photo) => {
-      console.log(photo);
+      // console.log(photo);
       photo.text().then((text) => {
         this.image = 'data:image/jpeg;base64,' + JSON.parse(text).fileContents;
       });
@@ -228,6 +228,8 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
 
   newPoint(): Point_of_Sales {
     const imagePath = this.imagePreview!;
+    console.log(imagePath);
+
     return {
       name: this.form.value.name!,
       address: this.form.value.address!,

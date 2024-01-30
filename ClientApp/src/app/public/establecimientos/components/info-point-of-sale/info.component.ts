@@ -49,9 +49,15 @@ export class InfoPOSComponent implements OnInit {
     this.pointService.get(this.id).subscribe((data) => {
       this.point = data;
       if (this.point.image)
-        this.imageUrls[this.point.id!] = this._photoservice.getPhotoUrl(
-          this.point.image
-        );
+        this._photoservice.getPhoto(this.point.image).subscribe((photo) => {
+          photo.text().then((text) => {
+            this.imageUrls[this.point!.id!] =
+              'data:image/jpeg;base64,' + JSON.parse(text).fileContents;
+          });
+        });
+      // this.imageUrls[this.point.id!] = this._photoservice.getPhotoUrl(
+      //   this.point.image
+      // );
     });
     this._filter.getType2byType1(this.id).subscribe((data) => {
       this.products = data;
@@ -60,9 +66,17 @@ export class InfoPOSComponent implements OnInit {
       this.establecimientos = data;
       this.establecimientos.forEach((establecimiento) => {
         if (establecimiento.image)
-          this.imageUrls[establecimiento.id!] = this._photoservice.getPhotoUrl(
-            establecimiento.image
-          );
+          this._photoservice
+            .getPhoto(establecimiento.image)
+            .subscribe((photo) => {
+              photo.text().then((text) => {
+                this.imageUrls[establecimiento.id!] =
+                  'data:image/jpeg;base64,' + JSON.parse(text).fileContents;
+              });
+            });
+        // this.imageUrls[establecimiento.id!] = this._photoservice.getPhotoUrl(
+        //   establecimiento.image
+        // );
       });
     });
   }
