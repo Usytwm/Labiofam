@@ -8,11 +8,11 @@ namespace Labiofam.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Authorize(Roles = "superadmin")]
-    public class ProductController : EntityNoDTOController<Product>
+    public class ProductController : EntityDTOController<Product, ProductDTO>
     {
         public ProductController(
             IEntityService<Product> entityService,
-            IEntityNoDTOService<Product> entityNoDTOService
+            IEntityDTOService<Product, ProductDTO> entityNoDTOService
             ) : base(entityService, entityNoDTOService) { }
     }
 }

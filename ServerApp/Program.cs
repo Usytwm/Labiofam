@@ -114,7 +114,7 @@ builder.Services.AddScoped<IEntityService<User>, UserService>();
 builder.Services.AddScoped<IEntityDTOService<User, RegistrationDTO>, UserService>();
 
 builder.Services.AddScoped<IEntityService<Product>, ProductService>();
-builder.Services.AddScoped<IEntityNoDTOService<Product>, ProductService>();
+builder.Services.AddScoped<IEntityDTOService<Product, ProductDTO>, ProductService>();
 
 builder.Services.AddScoped<IEntityService<Contact>, ContactService>();
 builder.Services.AddScoped<IEntityNoDTOService<Contact>, ContactService>();
