@@ -5,6 +5,7 @@ export interface User {
   id?: string;
   userName: string;
   passwordHash: string;
+  email: string;
   roles: User_Role[];
   products: User_Product[];
 }

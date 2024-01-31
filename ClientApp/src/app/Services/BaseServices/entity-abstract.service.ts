@@ -12,7 +12,10 @@ export abstract class EntityAbstractService<T> extends RelationService<T> {
   edit(id: string, editedEntity: T): Observable<void> {
     return this._http.put<void>(
       `${this.appUrl}${this.apiUrl}${id}`,
-      editedEntity
+      editedEntity,
+      {
+        responseType: 'text' as 'json',
+      }
     );
   }
 

@@ -18,6 +18,28 @@
         <div class="container">
           <form class="form" [formGroup]="formfedback" (ngSubmit)="onSubmit()">
             <mat-form-field class="email-width">
+              <mat-label>Nombre</mat-label>
+              <input
+                matInput
+                placeholder="Sahsa"
+                formControlName="sendername"
+                required
+              />
+              <mat-error
+                *ngIf="
+                  formfedback.get('sendername')!.hasError('email') &&
+                  !formfedback.get('sendername')!.hasError('required')
+                "
+              >
+                Por favor introduzca un nombre válido
+              </mat-error>
+
+              <mat-error *ngIf="formfedback.get('email')!.hasError('required')">
+                Nombre <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="email-width">
               <mat-label>Correo electrónico</mat-label>
               <input
                 type="email"
@@ -37,6 +59,28 @@
 
               <mat-error *ngIf="formfedback.get('email')!.hasError('required')">
                 Email <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="email-width">
+              <mat-label>Asunto</mat-label>
+              <input
+                matInput
+                placeholder="Hola"
+                formControlName="subject"
+                required
+              />
+              <mat-error
+                *ngIf="
+                  formfedback.get('subject')!.hasError('email') &&
+                  !formfedback.get('subject')!.hasError('required')
+                "
+              >
+                Por favor introduzca un asunto válido
+              </mat-error>
+
+              <mat-error *ngIf="formfedback.get('email')!.hasError('required')">
+                Asunto <strong>requerido</strong>
               </mat-error>
             </mat-form-field>
 

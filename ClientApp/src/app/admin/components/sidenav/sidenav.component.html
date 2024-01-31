@@ -27,6 +27,7 @@
         [routerLink]="data.ruta"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
+        *ngIf="data.pas"
       >
         <i class="sidenav-link-icon" [class]="data.icon"></i>
         <span class="sidenav-link-text" @fadeInOut *ngIf="collapsed">{{
