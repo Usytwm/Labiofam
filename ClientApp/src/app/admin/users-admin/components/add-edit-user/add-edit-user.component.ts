@@ -165,6 +165,7 @@ export class AddEditUserComponent implements OnInit {
     this.userservice.get(id).subscribe((data) => {
       this.user = data;
       this.form.patchValue({ Username: data.userName });
+      this.form.patchValue({ Email: data.email });
       this.loading = false;
     });
     this.filter.getType1byType2(id).subscribe((data) => {
@@ -189,6 +190,20 @@ export class AddEditUserComponent implements OnInit {
         this.loading = false;
         this.router.navigate(['/dashboard/users-admin']);
       });
+    const roles: RoleModel[] = [];
+    this._roles_name.forEach((role) => {
+      this.roles.getByName(role).subscribe((data) => {
+        const roleModel: RoleModel = {
+          name: data.name!,
+          description: data.description!,
+        };
+        roles.push(roleModel);
+        this.filter.addType2ByType1(this.id, [roleModel]).subscribe((data) => {
+          console.log(data);
+        });
+        console.log(roleModel);
+      });
+    });
   }
 
   addUser() {
@@ -198,6 +213,7 @@ export class AddEditUserComponent implements OnInit {
         this.snackBar.open('Agregado con éxito', 'cerrar', {
           duration: 3000,
           horizontalPosition: 'right',
+          panelClass: ['custom-snackbar'],
         });
 
         this.router.navigate(['/dashboard/users-admin']);
@@ -211,7 +227,10 @@ export class AddEditUserComponent implements OnInit {
         this.operacion === 'Agregar'
           ? this.form.value.Newpassword!
           : this.form.value.Oldpassword!,
-      confirm_Password: this.form.value.Newpassword!,
+      confirm_Password:
+        this.operacion === 'Agregar'
+          ? this.form.value.Newpassword!
+          : this.form.value.Oldpassword!,
       email: this.form.value.Email!,
       email_Token: '',
     };

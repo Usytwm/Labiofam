@@ -5,7 +5,7 @@ import {
   ViewChild,
   AfterViewInit,
 } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Validators } from '@angular/forms';
@@ -29,6 +29,7 @@ import { JsonService } from 'src/app/Services/FilesService/Json.service';
 })
 export class AddEditPosComponent implements OnInit, AfterViewInit {
   provinces: any;
+  municipiosDisponibles: string[] = [];
   onFileSelected(event: Event) {
     const target = event.target as HTMLInputElement;
     if (target.files && target.files.length) {
@@ -78,12 +79,12 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
   point?: Point_of_Sales;
   @ViewChild('map')
   private mapContainerElement!: ElementRef<HTMLElement>;
+  provincias: { [key: string]: string[] } = {};
 
   form = this.fb.group({
     name: ['', Validators.required],
     address: ['', Validators.required],
-    municipality: ['', Validators.required],
-    province: ['', Validators.required],
+
     latitude: [
       0,
       [
@@ -103,7 +104,8 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
       ],
     ],
   });
-
+  ProvinceControl = new FormControl<string | null>(null, Validators.required);
+  MunicipioControl = new FormControl<string | null>(null, Validators.required);
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
@@ -122,11 +124,33 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
       this.getPoint(this.id);
     }
     this.get_Json_Provinces();
+
+    this.MunicipioControl.valueChanges.subscribe((municipio) => {
+      for (let provincia in this.provincias) {
+        if (this.provincias[provincia].includes(municipio!)) {
+          this.ProvinceControl.setValue(provincia);
+          break;
+        }
+      }
+    });
+
+    this.ProvinceControl.valueChanges.subscribe((provincia) => {
+      if (provincia) {
+        this.municipiosDisponibles = this.getvalues(provincia);
+      } else {
+        this.municipiosDisponibles = this.getvalues('');
+        this.MunicipioControl.setValue(null);
+      }
+    });
   }
 
   get_Json_Provinces(): void {
     this._jsonservice.getPJson().subscribe((data) => {
-      console.log(data);
+      data.forEach((provincia) => {
+        this.provincias[provincia.nombre] = provincia.municipios;
+      });
+      this.municipiosDisponibles = Object.values(this.provincias).flat();
+      console.log(this.provincias);
 
       // this.provinces = data;
     });
@@ -176,13 +200,16 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
       this.form.patchValue({
         name: data.name,
         address: data.address,
-        municipality: data.municipality,
-        province: data.province,
+        // municipality: data.municipality,
+        // province: data.province,
         latitude: data.latitude,
         longitude: data.longitude,
       });
+      this.ProvinceControl.setValue(data.province!);
+      this.MunicipioControl.setValue(data.municipality!);
       if (data.image) {
         this.getPhoto(data.image);
+        this.imagePreview = data.image;
       }
       this.marker = new Marker({
         draggable: true,
@@ -202,6 +229,7 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
 
   editPoint() {
     this.loading = true;
+    console.log(this.newPoint());
     this._point_of_sales_service
       .edit(this.id, this.newPoint())
       .subscribe(() => {
@@ -215,8 +243,6 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
   }
 
   addPoint() {
-    console.log(this.newPoint());
-
     this._point_of_sales_service.add(this.newPoint()).subscribe((data) => {
       this.snackBar.open('Agregado con éxito', 'cerrar', {
         duration: 3000,
@@ -233,11 +259,21 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
     return {
       name: this.form.value.name!,
       address: this.form.value.address!,
-      municipality: this.form.value.municipality!,
-      province: this.form.value.province!,
+      municipality: this.MunicipioControl.value!,
+      province: this.ProvinceControl.value!,
       latitude: this.form.value.latitude!,
       longitude: this.form.value.longitude!,
       image: imagePath,
     };
+  }
+
+  getkeys(): string[] {
+    return Object.keys(this.provincias);
+  }
+  getvalues(province: string): string[] {
+    if (province === '') {
+      return Object.values(this.provincias).flat();
+    }
+    return this.provincias[province];
   }
 }

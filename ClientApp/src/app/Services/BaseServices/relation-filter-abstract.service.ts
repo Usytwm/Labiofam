@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Role } from '../../Interfaces/Role';
@@ -38,16 +38,24 @@ export abstract class RelationFilterService<T1, T2> {
   }
 
   addType2ByType1(type1_id: string, collection: T2[]): Observable<void> {
+    let params = new HttpParams().set('type1_id', type1_id);
     return this._http.post<void>(
-      `${this.baseUrl}${this.apiUrl}addtype2bytype1/${type1_id}`,
-      collection
+      `${this.baseUrl}${this.apiUrl}addtype2bytype1`,
+      collection,
+      {
+        params: params,
+        responseType: 'text' as 'json',
+      }
     );
   }
 
   addType1ByType2(type2_id: string, collection: T1[]): Observable<void> {
     return this._http.post<void>(
       `${this.baseUrl}${this.apiUrl}addtype1bytype2/${type2_id}`,
-      collection
+      collection,
+      {
+        responseType: 'text' as 'json',
+      }
     );
   }
 }
