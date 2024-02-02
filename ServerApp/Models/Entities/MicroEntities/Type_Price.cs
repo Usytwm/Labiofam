@@ -8,6 +8,7 @@ public class Type_Price : IEntityDTO
     [Key]
     public Guid Id { get; set; }
     public string? Type { get; set; }
+    public string? Capacity { get; set; }
     public double Price { get; set; }
     
     [JsonIgnore]

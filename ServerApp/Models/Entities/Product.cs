@@ -11,42 +11,23 @@ public class Product : IEntityDTO
     [Required]
     [StringLength(128)]
     public string? Name { get; set; }
-    [Required]
+    [StringLength(128)]
+    public string? Type_of_Product { get; set; }
     [StringLength(1024)]
     public string? Image { get; set; }
-    [Required]
     [StringLength(2048)]
     public string? Description { get; set; }
-    [Required]
     [StringLength(2048)]
     public string? Diseases { get; set; }
     [StringLength(2048)]
     public string? Advantages { get; set; }
-    [StringLength(2048)]
-    public string? ModeOfAction { get; set; }
-    [StringLength(2048)]
-    public string? ApplicationMode { get; set; }
-    [StringLength(256)]
-    public string? Stability { get; set; }
-    [StringLength(2048)]
-    public string? StorageStabilityConditions { get; set; }
-    [StringLength(256)]
-    public string? Presentation { get; set; }
-    [StringLength(256)]
-    public string? Dosage { get; set; }
-    [StringLength(256)]
-    public string? Compatibility { get; set; }
-    [StringLength(256)]
-    public string? Phytotoxicity { get; set; }
-    [StringLength(256)]
-    public string? Ph { get; set; }
 
     // Propiedad para almacenar datos en formato JSON
     [JsonIgnore]
     public string? DatosJson { get; set; }
     // Método para deserializar el JSON a un diccionario u otro tipo necesario
     [NotMapped]
-    public Dictionary<string, string> Summary
+    public Dictionary<string, string>? Summary
     {
         get
         {

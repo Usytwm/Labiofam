@@ -240,3 +240,4 @@ ServerApp/Migrations/*
 ServerApp/ImagesRepository/*
 !ServerApp/Migrations/.gitkeep
 !ServerApp/ImagesRepository/.gitkeep
+!ServerApp/ImagesRepository/photo*
