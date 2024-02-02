@@ -102,57 +102,7 @@ namespace Labiofam.Models
             modelBuilder.Entity<Product_POS>().ToTable("Producto_PuntoDeVenta");
             modelBuilder.Entity<User_Product>().ToTable("Usuario_Producto");
             modelBuilder.Entity<User_Role>().ToTable("Usuario_Rol");
-            modelBuilder.Entity<Type_Product>().ToTable("Tipo_Producto");
-
-            var filePath = Path.Combine(_enviroment.ContentRootPath, "Properties/data.json");
-            string json = File.ReadAllText(filePath);            
-            dynamic data = Newtonsoft.Json.JsonConvert.DeserializeObject(json)!;
-
-            var products = new List<Product>();
-
-            foreach (var item in data.productos)
-            {
-                var product = new Product
-                {
-                    Id = (Guid)item["Id"],
-                    Name = item["Nombre"] ?? default,
-                    Type_of_Product = item["Tipo"] ?? default,
-                    Image = item["Imagen"] ?? default,
-                    Description = item["Descripción"] ?? default,
-                    Diseases = item["Enfermedades que controla"] ?? default,
-                    Advantages = item["Ventajas"] ?? default,
-                    DatosJson = Newtonsoft.Json.JsonConvert.SerializeObject(item["Otros"]) ?? default
-                };
-                products.Add(product);
-
-                modelBuilder.Entity<Product>().HasData(product);
-            }
-            foreach (var item in data.precios)
-            {
-                foreach (var relation in item.relacion)
-                {
-                    var type_price = new Type_Price
-                    {
-                        Id = Guid.NewGuid(),
-                        Type = item["tipo"] ?? default,
-                        Capacity = relation["capacidad"] ?? default,
-                        Price = relation["costo"] ?? default
-                    };
-                    
-                    modelBuilder.Entity<Type_Price>().HasData(type_price);
-
-                    if (item["Id_producto"] is not null)
-                    {
-                        string aux = item["Id_producto"];
-                        var product = products.Find(x => x.Id.ToString().Equals(aux));
-                        modelBuilder.Entity<Type_Product>().HasData(new Type_Product
-                        {
-                            Id1 = type_price.Id,
-                            Id2 = product!.Id
-                        });
-                    }
-                }
-            }
+            //modelBuilder.Entity<Prize_Type>().ToTable("Precios");
         }
     }
 }
