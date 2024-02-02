@@ -53,8 +53,6 @@ export class MapaComponent implements AfterViewInit, OnDestroy {
     this._puntos_de_ventaService.getAll().subscribe((data) => {
       this.puntosDeVenta = data;
       this.puntosDeVenta.forEach((punto) => {
-        console.log(punto);
-        
         this._filter.getType2byType1(punto.id!).subscribe((data) => {
           this.all_productos_disponibles = data.map((p) => p.name!).join(', ');
           let name = data

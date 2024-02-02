@@ -30,7 +30,6 @@ export class InfoPOSComponent implements OnInit {
   ) {
     this.id = String(this.aRoute.snapshot.paramMap.get('id'));
     this.previousId = this.id;
-    console.log(this.id);
   }
 
   ngOnInit(): void {
