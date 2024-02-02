@@ -1,5 +1,9 @@
 namespace Labiofam.Services;
 
+/// <summary>
+/// Interfaz del servicio de entidades simples.
+/// </summary>
+/// <typeparam name="Entity"></typeparam>
 public interface IEntityService<Entity>
 {
     /// <summary>
@@ -57,14 +61,20 @@ public interface IEntityService<Entity>
     Task RemoveAllAsync();
 
     /// <summary>
-    /// Filtra las entidades de acuerdo a una expresión lambda.
+    /// Filtra las entidades de acuerdo a dos colecciones de atributos/valores.
     /// </summary>
-    /// <param name="lambda_exp">Expresión con los atributos según los cuales se filtra.</param>
+    /// <param name="properties_names">Nombres de los atributos a filtrar.</param>
+    /// <param name="properties_values">Valores de los atributos.</param>
     /// <returns>La lista de entidades filtrada.</returns>
     Task<IEnumerable<Entity>> PropertiesFilterAsync(ICollection<string> properties_names,
         ICollection<string> properties_values);
 }
 
+/// <summary>
+/// Interfaz del servicio de entidades que usan DTO.
+/// </summary>
+/// <typeparam name="Entity">Nombre de la entidad.</typeparam>
+/// <typeparam name="DTO">Nombre del DTO.</typeparam>
 public interface IEntityDTOService<Entity, DTO>
 {
     /// <summary>
@@ -89,6 +99,10 @@ public interface IEntityDTOService<Entity, DTO>
     Task EditAsync(Guid model_id, DTO edited_model);
 }
 
+/// <summary>
+/// Interfaz del servicio de entidades que no usan DTO.
+/// </summary>
+/// <typeparam name="Entity">Nombre de la entidad.</typeparam>
 public interface IEntityNoDTOService<Entity>
 {
     /// <summary>
@@ -102,7 +116,7 @@ public interface IEntityNoDTOService<Entity>
     /// </summary>
     /// <param name="new_models">Los nuevos modelos a agregar</param>
     /// <returns>Las entidades asociadas a los nuevos modelos</returns>
-    Task AddAsync(ICollection<Entity> new_model);
+    Task AddAsync(ICollection<Entity> new_models);
 
     /// <summary>
     /// Edita una entidad de forma asincrónica por su ID de modelo.

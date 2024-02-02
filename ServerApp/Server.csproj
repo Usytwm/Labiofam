@@ -3,6 +3,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <DocumentationFile>bin\Debug\net7.0\Labiofam.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="MailKit" Version="4.2.0" />

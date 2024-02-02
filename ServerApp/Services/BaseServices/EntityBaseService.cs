@@ -4,11 +4,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Labiofam.Services
 {
+    /// <summary>
+    /// Servicio de entidades simples.
+    /// </summary>
+    /// <typeparam name="T">Entidad utilizada.</typeparam>
     public abstract class EntityService<T> : IEntityService<T>
         where T : class, IEntityDTO
     {
         private readonly WebDbContext _webDbContext;
 
+        /// <summary>
+        /// Constructor del servicio.
+        /// </summary>
+        /// <param name="webDbContext">Contexto de la base de datos.</param>
         public EntityService(WebDbContext webDbContext)
         {
             _webDbContext = webDbContext;
@@ -103,7 +111,8 @@ namespace Labiofam.Services
         /// Filtra las entidades de acuerdo a una expresión lambda.
         /// No acepta atributos que no sean strings en la entidad dada.
         /// </summary>
-        /// <param name="lambda_exp">Expresión con los atributos según los cuales se filtra.</param>
+        /// <param name="properties_names">Colección con los atributos según los cuales se filtra.</param>
+        /// <param name="properties_values">Colección con los valores de los atributos a ser filtrados.</param>
         /// <returns>La lista de entidades filtrada.</returns>
         public async Task<IEnumerable<T>> PropertiesFilterAsync(ICollection<string> properties_names,
             ICollection<string> properties_values)

@@ -2,12 +2,19 @@ using Labiofam.Models;
 
 namespace Labiofam.Services
 {
+    /// <summary>
+    /// Servicio de relaciones Producto/Punto de venta.
+    /// </summary>
     public class ProductPOSService : RelationService<Product_POS>,
         IRelationService<Product_POS>,
         IProductPOSService
     {
         private readonly WebDbContext _webDbContext;
 
+        /// <summary>
+        /// Constructor del servicio.
+        /// </summary>
+        /// <param name="webDbContext">Contexto de la base de datos.</param>
         public ProductPOSService(WebDbContext webDbContext)
             : base(webDbContext)
         {
@@ -19,7 +26,6 @@ namespace Labiofam.Services
         /// </summary>
         /// <param name="product_id">ID del producto.</param>
         /// <param name="pos_id">ID del punto de venta.</param>
-        /// <param name="relation">Nuevo objeto que representa la relación vacía.</param>
         public override async Task AddAsync(Guid product_id, Guid pos_id)
         {
             try
@@ -46,7 +52,6 @@ namespace Labiofam.Services
         /// <param name="product_id">ID del producto.</param>
         /// <param name="pos_id">ID del punto de venta.</param>
         /// <param name="size">Tamaño/cantidad a agregar.</param>
-        /// <param name="new_relation">Nuevo objeto que representa la relación vacía.</param>
         public async Task AddAsync(Guid product_id, Guid pos_id, int size)
         {
             try

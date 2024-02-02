@@ -5,11 +5,19 @@ using Org.BouncyCastle.Security;
 
 namespace Labiofam.Services
 {
+    /// <summary>
+    /// Servicio de Usuarios.
+    /// </summary>
     public class UserService : EntityDTOService<User, RegistrationDTO>,
         IEntityService<User>, IEntityDTOService<User, RegistrationDTO>
     {
         private readonly UserManager<User> _userManager;
 
+        /// <summary>
+        /// Constructor del servicio.
+        /// </summary>
+        /// <param name="webDbContext">Contexto de la base de datos.</param>
+        /// <param name="userManager">Servicio de Identity para manejar usuarios.</param>
         public UserService(WebDbContext webDbContext, UserManager<User> userManager)
             : base(webDbContext)
         {

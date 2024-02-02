@@ -2,6 +2,12 @@ using Labiofam.Models;
 
 namespace Labiofam.Services;
 
+/// <summary>
+/// Interfaz del servicio de filtrado de relaciones.
+/// </summary>
+/// <typeparam name="T">Nombre de la relación.</typeparam>
+/// <typeparam name="T1">Nombre de la primera entidad de la relación.</typeparam>
+/// <typeparam name="T2">Nombre de la segunda entidad de la relación.</typeparam>
 public interface IRelationFilter<T, T1, T2>
 {
     /// <summary>
@@ -51,6 +57,9 @@ public interface IRelationFilter<T, T1, T2>
     Task AddType1ByType2Async(Guid id, ICollection<T1> entities);
 }
 
+/// <summary>
+/// Interfaz extensora del servicio de filtrado para Productos/Puntos de venta.
+/// </summary>
 public interface IProductPOSFilter
 {
     /// <summary>
@@ -58,6 +67,6 @@ public interface IProductPOSFilter
     /// </summary>
     /// <param name="pos_id">El identificador del punto de venta.</param>
     /// <param name="entities">La colección de productos a agregar.</param>
-    /// <param name="size">Cantidad de productos de cada tipo a agregar.</param>
+    /// <param name="sizes">Cantidad de productos de cada tipo a agregar.</param>
     Task AddType1ByType2Async(Guid pos_id, ICollection<Product> entities, ICollection<int> sizes);
 }

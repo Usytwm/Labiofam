@@ -2,11 +2,22 @@ using Labiofam.Models;
 
 namespace Labiofam.Services
 {
+    /// <summary>
+    /// Servicio de filtrado de Productos con Puntos de Venta.
+    /// </summary>
     public class ProductPOSFilterService : RelationFilterService<Product_POS, Product, Point_of_Sales>,
         IRelationFilter<Product_POS, Product, Point_of_Sales>, IProductPOSFilter
     {
         private readonly IProductPOSService _relationService;
 
+        /// <summary>
+        /// Constructor del servicio.
+        /// </summary>
+        /// <param name="webDbContext">Contexto de la base de datos.</param>
+        /// <param name="relationService">Servicio de la relación.</param>
+        /// <param name="entityService1">Servicio de productos.</param>
+        /// <param name="entityService2">Servicio de puntos de venta.</param>
+        /// <param name="productPOSService">Extensión del servicio de la relación.</param>
         public ProductPOSFilterService(
             WebDbContext webDbContext,
             IRelationService<Product_POS> relationService,

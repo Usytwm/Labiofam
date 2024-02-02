@@ -41,6 +41,10 @@ builder.Services.AddSwaggerGen(c =>
                 Array.Empty<string>()
             }
         });
+        c.IncludeXmlComments(Path.Combine(
+            Directory.GetCurrentDirectory(),
+            "bin/Debug/net7.0/Labiofam.xml"
+            ));
     });
 
 // Agregar el contexto de base de datos como servicio.
