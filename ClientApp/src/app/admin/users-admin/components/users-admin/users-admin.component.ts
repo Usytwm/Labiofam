@@ -31,6 +31,7 @@ export class UsersAdminComponent implements OnInit {
 
   ngOnInit() {
     this.getAll();
+    this.getData();
   }
 
   getData() {
@@ -73,23 +74,22 @@ export class UsersAdminComponent implements OnInit {
       this._snackBar.open('Al menos debe haber un usuario', 'cerrar', {
         duration: 3000,
         horizontalPosition: 'center',
+        panelClass: ['custom-snackbar'],
       });
-    }
-    // else if (id == this.data.user.id) {
-    //   this._snackBar.open(
-    //     'No es posible eliminar al usuario actual',
-    //     'cerrar',
-    //     {
-    //       duration: 3000,
-    //       horizontalPosition: 'center',
-    //     }
-    //   );
-    // }
-    else {
+    } else if (this.data.user!.id == id) {
+      this._snackBar.open('No puedes eliminar tu propio usuario', 'cerrar', {
+        duration: 3000,
+        horizontalPosition: 'center',
+        panelClass: ['custom-snackbar'],
+      });
+    } else {
+      console.log(id);
+      
       this._registrationervice.remove(id).subscribe(() => {
         this._snackBar.open('Eliminado con éxito', 'cerrar', {
           duration: 3000,
           horizontalPosition: 'right',
+          panelClass: ['custom-snackbar'],
         });
         this.loading = false;
         this.getAll();

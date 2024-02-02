@@ -7,10 +7,12 @@ namespace Labiofam.Models;
 public class Product : IEntityDTO
 {
     [Key]
-    [JsonIgnore]
     public Guid Id { get; set; }
+    [Required]
     [StringLength(128)]
     public string? Name { get; set; }
+    [StringLength(128)]
+    public string? Type_of_Product { get; set; }
     [StringLength(1024)]
     public string? Image { get; set; }
     [StringLength(2048)]
@@ -25,7 +27,7 @@ public class Product : IEntityDTO
     public string? DatosJson { get; set; }
     // Método para deserializar el JSON a un diccionario u otro tipo necesario
     [NotMapped]
-    public Dictionary<string, string> Summary
+    public Dictionary<string, string>? Summary
     {
         get
         {
@@ -46,22 +48,10 @@ public class Product : IEntityDTO
         }
     }
 
-    //public ICollection<string>? Types { get; set; }/////////////////
-
+    [JsonIgnore]
+    public virtual ICollection<Type_Product>? Types { get; set; }
     [JsonIgnore]
     public virtual ICollection<Product_POS>? Points_Of_Sales { get; set; }
     [JsonIgnore]
     public virtual ICollection<User_Product>? Users { get; set; }
-    //[JsonIgnore]
-    //public virtual ICollection<Prize_Type>? Prizes { get; set; }
 }
-
-/*public class Prize_Type
-{
-    public Guid ProductId { get; set; }
-    public string? Type { get; set; }
-    public double Prize {get; set; }
-
-    [JsonIgnore]
-    public virtual Product? Product { get; set; }
-}*/

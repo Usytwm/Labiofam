@@ -31,3 +31,7 @@
 .formulario {
   width: 100%;
 }
+.custom-snackbar {
+  background-color: var(--color-blue) !important;
+  color: var(--color-yellow) !important;
+}

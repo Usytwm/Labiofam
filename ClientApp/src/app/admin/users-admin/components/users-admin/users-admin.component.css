@@ -38,3 +38,7 @@ th {
   margin-bottom: 20px;
   padding: 10px;
 }
+.custom-snackbar {
+  background-color: var(--color-blue);
+  color: var(--color-yellow);
+}

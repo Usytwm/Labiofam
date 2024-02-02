@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Province } from 'src/app/Interfaces/provinces';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -11,7 +12,7 @@ export class JsonService {
   private apiUrl: string = 'api/Json';
   constructor(private _http: HttpClient) {}
 
-  getPJson(): Observable<any> {
+  getPJson(): Observable<Province[]> {
     return this._http.get<any>(`${this.baseUrl}${this.apiUrl}/jsonreader`);
   }
 }

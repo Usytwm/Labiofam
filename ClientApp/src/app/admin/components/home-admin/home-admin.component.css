@@ -1,6 +1,14 @@
 .profile-card-5 {
   margin-top: 20px;
 }
+/* Estilo CSS */
+.background-image {
+  background-image: url('./../../../../assets/labiofam.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain; /* Ajusta el tamaño de la imagen al contenedor */
+  opacity: 1; /* Ajusta la transparencia (0.5 significa 50% transparente) */
+ }
 
 .profile-card-5 .btn {
   border-radius: 2px;

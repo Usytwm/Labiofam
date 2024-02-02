@@ -1,4 +1,4 @@
-<section>
+ <section class="background-image">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-4 mt-4">
@@ -17,7 +17,7 @@
               style="display: flex; justify-content: center"
               center
             >
-              {{ datos!.role.name }}
+              {{ this.rol! }}
             </p>
           </div>
         </div>
@@ -30,9 +30,7 @@
     <div class="row">
       <div
         class="col-md-4"
-        *ngIf="
-          datos!.role.name == 'Coordinador de Servicios' || 'superadmin'
-        "
+        *ngIf="this.superadmin || this.superadminandServices"
       >
         <div class="card">
           <div class="fcard">
@@ -49,7 +47,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4" *ngIf="datos!.role.name == 'superadmin'">
+      <div class="col-md-4" *ngIf="this.superadmin">
         <div class="card">
           <div class="fcard">
             <div class="border-warning text-center">
@@ -65,7 +63,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4" *ngIf="datos!.role.name == 'superadmin'">
+      <div class="col-md-4" *ngIf="this.superadmin">
         <div class="card">
           <div class="fcard">
             <div class="border-warning text-center">
@@ -81,7 +79,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4" *ngIf="datos!.role.name == 'superadmin'">
+      <div class="col-md-4" *ngIf="this.superadmin">
         <div class="card">
           <div class="fcard">
             <div class="border-warning text-center">
@@ -97,7 +95,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4" *ngIf="datos!.role.name == 'superadmin'">
+      <div class="col-md-4" *ngIf="this.superadmin">
         <div class="card">
           <div class="fcard">
             <div class="border-warning text-center">
@@ -113,12 +111,7 @@
           </div>
         </div>
       </div>
-      <div
-        class="col-md-4"
-        *ngIf="
-          datos!.role.name == 'Gestor de Puntos de Venta' || 'superadmin'
-        "
-      >
+      <div class="col-md-4" *ngIf="this.superadmin || this.superadminandpos">
         <div class="card">
           <div class="fcard">
             <div class="border-warning text-center">

@@ -1,4 +1,5 @@
 using Labiofam.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Labiofam.Controllers
@@ -18,6 +19,7 @@ namespace Labiofam.Controllers
         /// <param name="type1_id">ID de la entidad de tipo 1.</param>
         /// <returns>Respuesta HTTP 200 OK con las entidades de tipo 2.</returns>
         [HttpGet("gettype2bytype1")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetType2ByType1(Guid type1_id)
         {
             try
@@ -36,6 +38,7 @@ namespace Labiofam.Controllers
         /// <param name="type2_id">ID de la entidad de tipo 2.</param>
         /// <returns>Respuesta HTTP 200 OK con las entidades de tipo 1.</returns>
         [HttpGet("gettype1bytype2")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetType1ByType2(Guid type2_id)
         {
             try
@@ -54,6 +57,7 @@ namespace Labiofam.Controllers
         /// <param name="substring">Subcadena a buscar en las entidades de tipo 1.</param>
         /// <returns>Respuesta HTTP 200 OK con las entidades de tipo 2.</returns>
         [HttpGet("gettype2bytype1/{substring}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetType2ByType1Substring(string substring)
         {
             try
@@ -72,6 +76,7 @@ namespace Labiofam.Controllers
         /// <param name="substring">Subcadena a buscar en las entidades de tipo 2.</param>
         /// <returns>Respuesta HTTP 200 OK con las entidades de tipo 1.</returns>
         [HttpGet("gettype1bytype2/{substring}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetType1ByType2Substring(string substring)
         {
             try

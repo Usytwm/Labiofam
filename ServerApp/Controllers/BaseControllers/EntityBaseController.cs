@@ -1,5 +1,6 @@
 using Labiofam.Models;
 using Labiofam.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
@@ -20,6 +21,7 @@ namespace Labiofam.Controllers
         /// <param name="id">ID de la entidad.</param>
         /// <returns>La entidad correspondiente al ID proporcionado.</returns>
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById(Guid id)
         {
             try
@@ -38,6 +40,7 @@ namespace Labiofam.Controllers
         /// <param name="name">Nombre de la entidad.</param>
         /// <returns>La entidad correspondiente al nombre proporcionado.</returns>
         [HttpGet("name/{name}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetByName(string name)
         {
             try
@@ -56,6 +59,7 @@ namespace Labiofam.Controllers
         /// <param name="size">Tamaño de la colección de entidades.</param>
         /// <returns>Una colección de entidades de tamaño especificado.</returns>
         [HttpGet("take/{size}")]
+        [AllowAnonymous]
         public async Task<IActionResult> Take(int size)
         {
             try
@@ -75,6 +79,7 @@ namespace Labiofam.Controllers
         /// <param name="page_number">Número de la página.</param>
         /// <returns>Una colección de entidades correspondiente a la página y tamaño especificados.</returns>
         [HttpGet("take/{size}/{page_number}")]
+        [AllowAnonymous]
         public async Task<IActionResult> TakeRange(int size, int page_number)
         {
             try
@@ -110,6 +115,7 @@ namespace Labiofam.Controllers
         /// </summary>
         /// <returns>Todas las entidades.</returns>
         [HttpGet("all")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
             try
@@ -145,6 +151,7 @@ namespace Labiofam.Controllers
         /// <param name="substring">Subcadena a buscar en las entidades.</param>
         /// <returns>Entidades que contienen la subcadena especificada.</returns>
         [HttpGet("getbysubstring/{substring}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetBySubstring(string substring)
         {
             try
@@ -164,6 +171,7 @@ namespace Labiofam.Controllers
         /// <param name="lambda_exp">Expresión con los atributos según los cuales se filtra.</param>
         /// <returns>La lista de entidades filtrada.</returns>
         [HttpPost("filterbyproperties")]
+        [AllowAnonymous]
         public async Task<IActionResult> FilterByProperties(PropertiesFilterDTO model)
         {
             if (model.Names.IsNullOrEmpty() || model.Values.IsNullOrEmpty())

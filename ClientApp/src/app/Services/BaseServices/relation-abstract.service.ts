@@ -16,7 +16,9 @@ export abstract class RelationService<T> implements IBaseService<T> {
   }
 
   add(newEntity: T): Observable<T> {
-    return this._http.post<T>(`${this.appUrl}${this.apiUrl}`, newEntity);
+    return this._http.post<T>(`${this.appUrl}${this.apiUrl}`, newEntity, {
+      responseType: 'text' as 'json',
+    });
   }
 
   getAll(): Observable<T[]> {
@@ -24,11 +26,15 @@ export abstract class RelationService<T> implements IBaseService<T> {
   }
 
   remove(id: string): Observable<void> {
-    return this._http.delete<void>(`${this.appUrl}${this.apiUrl}${id}`);
+    return this._http.delete<void>(`${this.appUrl}${this.apiUrl}${id}`, {
+      responseType: 'text' as 'json',
+    });
   }
 
   removeAll(): Observable<void> {
-    return this._http.delete<void>(`${this.appUrl}${this.apiUrl}all`);
+    return this._http.delete<void>(`${this.appUrl}${this.apiUrl}all`, {
+      responseType: 'text' as 'json',
+    });
   }
 
   take(size: number): Observable<T[]> {

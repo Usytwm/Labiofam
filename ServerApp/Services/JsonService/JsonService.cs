@@ -23,7 +23,6 @@ namespace Labiofam.Services
             var result = new List<Province>();
             foreach (var node in jsonObject["Provincias"]!)
                 result.Add(JsonConvert.DeserializeObject<Province>(node.ToString())!);
-
             try
             {
                 return result;

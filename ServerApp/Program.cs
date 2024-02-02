@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +18,30 @@ var config = new ConfigurationBuilder()
 // Agregar servicios al contenedor.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+    {
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+        c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+        {
+            Description = "JWT Authorization header using the Bearer scheme",
+            Type = SecuritySchemeType.Http,
+            Scheme = "bearer"
+        });
+        c.AddSecurityRequirement(new OpenApiSecurityRequirement
+        {
+            {
+                new OpenApiSecurityScheme
+                {
+                    Reference = new OpenApiReference
+                    {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                    }
+                },
+                Array.Empty<string>()
+            }
+        });
+    });
 
 // Agregar el contexto de base de datos como servicio.
 builder.Services.AddDbContext<WebDbContext>(options =>
@@ -50,10 +74,10 @@ builder.Services.AddAuthentication(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters()
         {
-            ValidateIssuer = true,
-            ValidIssuer = config.GetSection("JWT")["Issuer"],
             ValidateAudience = true,
             ValidAudience = config.GetSection("JWT")["Audience"],
+            ValidateIssuer = true,
+            ValidIssuer = config.GetSection("JWT")["Issuer"],
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(
@@ -90,7 +114,7 @@ builder.Services.AddScoped<IEntityService<User>, UserService>();
 builder.Services.AddScoped<IEntityDTOService<User, RegistrationDTO>, UserService>();
 
 builder.Services.AddScoped<IEntityService<Product>, ProductService>();
-builder.Services.AddScoped<IEntityNoDTOService<Product>, ProductService>();
+builder.Services.AddScoped<IEntityDTOService<Product, ProductDTO>, ProductService>();
 
 builder.Services.AddScoped<IEntityService<Contact>, ContactService>();
 builder.Services.AddScoped<IEntityNoDTOService<Contact>, ContactService>();
@@ -104,6 +128,9 @@ builder.Services.AddScoped<IEntityDTOService<Role, RoleDTO>, RoleService>();
 builder.Services.AddScoped<IEntityService<Service>, ServiceService>();
 builder.Services.AddScoped<IEntityNoDTOService<Service>, ServiceService>();
 
+builder.Services.AddScoped<IEntityService<Type_Price>, TypePriceService>();
+builder.Services.AddScoped<IEntityNoDTOService<Type_Price>, TypePriceService>();
+
 // Servicios de relaciones
 builder.Services.AddScoped<IRelationService<User_Role>, UserRoleService>();
 
@@ -112,11 +139,14 @@ builder.Services.AddScoped<IRelationService<User_Product>, UserProductService>()
 builder.Services.AddScoped<IRelationService<Product_POS>, ProductPOSService>();
 builder.Services.AddScoped<IProductPOSService, ProductPOSService>();
 
+builder.Services.AddScoped<IRelationService<Type_Product>, TypeProductService>();
+
 // Servicios de filtrado
 builder.Services.AddScoped<IRelationFilter<User_Role, User, Role>, UserRoleFilterService>();
 builder.Services.AddScoped<IRelationFilter<User_Product, User, Product>, UserProductFilterService>();
 builder.Services.AddScoped<IRelationFilter<Product_POS, Product, Point_of_Sales>, ProductPOSFilterService>();
 builder.Services.AddScoped<IProductPOSFilter, ProductPOSFilterService>();
+builder.Services.AddScoped<IRelationFilter<Type_Product, Type_Price, Product>, TypeProductFilterService>();
 
 // Servicio de correo
 builder.Services.AddScoped<IMailService, MailService>();

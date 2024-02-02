@@ -1,4 +1,3 @@
-using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Labiofam.Models;
 using Labiofam.Services;
@@ -22,6 +21,7 @@ namespace Labiofam.Controllers
         private readonly IRelationService<User_Role> _relationService;
         private readonly SignInManager<User> _signInManager;
         private readonly IJWTService _jwtService;
+        private readonly IRelationFilter<User_Role, User, Role> _relationFilter;
 
         public RegistrationController(
             IEntityService<Role> roleService,
@@ -30,7 +30,8 @@ namespace Labiofam.Controllers
             IEntityDTOService<Role, RoleDTO> roleDTOService,
             IRelationService<User_Role> relationService,
             SignInManager<User> signInManager,
-            IJWTService jwtService)
+            IJWTService jwtService,
+            IRelationFilter<User_Role, User, Role> relationFilter)
         {
             _roleService = roleService;
             _userService = userService;
@@ -39,6 +40,7 @@ namespace Labiofam.Controllers
             _relationService = relationService;
             _signInManager = signInManager;
             _jwtService = jwtService;
+            _relationFilter = relationFilter;
         }
 
         /// <summary>
@@ -50,7 +52,7 @@ namespace Labiofam.Controllers
         public async Task<IActionResult> Register([FromBody] RegistrationRequestDTO new_user)
         {
             User current_user;
-            Role current_role;
+            var current_roles = new List<Role>();
 
             try
             {
@@ -67,24 +69,32 @@ namespace Labiofam.Controllers
                 return BadRequest(ex.Message);
             }
 
-            try
+            foreach (var role in new_user.Roles!)
             {
-                current_role = await _roleService.GetAsync(new_user.Role!.Name!);
-            }
-            catch (InvalidOperationException)
-            {
-                current_role = await _roleDTOService.AddAsync(new_user.Role!);
-            }
-            catch (Exception ex) /////////////////////////////////////
-            {
-                await _userService.DeleteAsync(current_user);
-                return BadRequest(ex.Message);
+                try
+                {
+                    current_roles.Add(await _roleService.GetAsync(role.Name!));
+                }
+                catch (InvalidOperationException)
+                {
+                    current_roles.Add(await _roleDTOService.AddAsync(role));
+                }
+                catch (Exception ex) /////////////////////////////////////
+                {
+                    await _userService.DeleteAsync(current_user);
+                    return BadRequest(ex.Message);
+                }
             }
 
-            await _relationService.AddAsync(current_user.Id, current_role.Id);
+            foreach (var role in current_roles)
+            {
+                await _relationService.AddAsync(current_user.Id, role.Id);
+            }
 
             await _signInManager.SignInAsync(current_user, isPersistent: false);
-            var token = _jwtService.CreateJsonWebToken(current_user);
+
+            var token = _jwtService.CreateJsonWebToken(current_user, current_roles);
+
             current_user.RefreshToken = token.RefreshToken;
             current_user.RefreshTokenExpirationDate = token.RefreshTokenExpirationDate;
             await _userService.UpdateAsync(current_user);
@@ -130,7 +140,9 @@ namespace Labiofam.Controllers
 
             await _signInManager.SignInAsync(user, isPersistent: false);
 
-            var token = _jwtService.CreateJsonWebToken(user);
+            var roles = await _relationFilter.GetType2ByType1Async(user.Id);
+
+            var token = _jwtService.CreateJsonWebToken(user, roles);
             user.RefreshToken = token.RefreshToken;
             user.RefreshTokenExpirationDate = token.RefreshTokenExpirationDate;
             await _userService.UpdateAsync(user);
@@ -166,7 +178,9 @@ namespace Labiofam.Controllers
                     return BadRequest("Invalid refresh token");
                 }
 
-                var result = _jwtService.CreateJsonWebToken(user);
+                var roles = await _relationFilter.GetType2ByType1Async(user.Id);
+
+                var result = _jwtService.CreateJsonWebToken(user, roles);
                 user.RefreshToken = result.RefreshToken;
                 user.RefreshTokenExpirationDate = result.RefreshTokenExpirationDate;
                 await _userService.UpdateAsync(user);
@@ -188,36 +202,16 @@ namespace Labiofam.Controllers
                 if (principal is null)
                     return BadRequest("Invalid token");
 
-                // var userId = userData[JwtRegisteredClaimNames.Sub];
-                var useremail = principal.FindFirstValue(ClaimTypes.Email);
-                var user = await _userService.FindByEmailAsync(useremail!);
-                // Ahora puedes usar userId, userName y userEmail como desees
-                RegistrationRequestDTO data = new RegistrationRequestDTO()
-                {
-                    User = new RegistrationDTO()
-                    {
-                        Name = user!.Name,
-                        Email = user.Email,
-                        Phone = user.PhoneNumber,
-                        Image = user.Image
+                var email = principal.FindFirstValue(ClaimTypes.Email);
+                var user = await _userService.FindByEmailAsync(email!);
+                var roles = await _relationFilter.GetType2ByType1Async(user!.Id);
 
-                    },
-                    Role = new RoleDTO()
-                    {
-                        Name = "superadmin",
-                        Description = "todos los permisos"
-                    }
-                };
-
-                return Ok(data);
+                return Ok(new { user, roles });
             }
             catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
-
         }
-
-
     }
 }
