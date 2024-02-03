@@ -15,9 +15,15 @@ export class BioproductCardComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.product && this.product.image) {
-      this.imageUrls[this.product.id!] = this._photoservice.getPhotoUrl(
-        this.product.image
-      );
+      this._photoservice.getPhoto(this.product.image).subscribe((photo) => {
+        photo.text().then((text) => {
+          this.imageUrls[this.product!.id!] =
+            'data:image/jpeg;base64,' + JSON.parse(text).fileContents;
+        });
+      });
+      // this.imageUrls[this.product.id!] = this._photoservice.getPhotoUrl(
+      //   this.product.image
+      // );
     }
   }
 }

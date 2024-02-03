@@ -116,7 +116,7 @@ export class AddEditBioproductComponent {
       console.log(data);
       this.form.patchValue({
         name: data.name,
-        summary: data.summary,
+        // summary: data.summary,
         type: data.type,
         specifications: data.specifications,
       });
@@ -183,7 +183,7 @@ export class AddEditBioproductComponent {
     return {
       name: this.form.value.name!,
       type: this.form.value.type!,
-      summary: this.form.value.summary!,
+      // summary: this.form.value.summary!,
       specifications: this.form.value.specifications!,
       image: imagePath,
     };

@@ -37,11 +37,7 @@
 
         <div class="card bg-glass">
           <div class="card-body px-4 py-5 px-md-5">
-            <form
-              [formGroup]="loginForm"
-              formControlName="firstName"
-              (ngSubmit)="onSubmit()"
-            >
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
               <!-- 2 column grid layout with text inputs for the first and last names -->
               <div class="containersvg">
                 <svg
@@ -99,8 +95,7 @@
                   type="checkbox"
                   value=""
                   id="flexCheckDefault"
-                  [(ngModel)]="rememberMe"
-                  checked
+                  formControlName="rememberMe"
                 />
                 <label class="form-check-label" for="flexCheckDefault">
                   Recuerdame

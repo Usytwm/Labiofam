@@ -14,6 +14,5 @@ export class BioprductCardsPlaceholderComponent {
     if (changes['cantidad']) {
       this._cantidad = Array.from({ length: this.cantidad }, (v, k) => k + 1);
     }
-    console.log(this.cantidad);
   }
 }
