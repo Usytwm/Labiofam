@@ -3,17 +3,29 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Labiofam.Services
 {
+    /// <summary>
+    /// Servicio de Productos.
+    /// </summary>
     public class ProductService : EntityDTOService<Product, ProductDTO>,
         IEntityService<Product>, IEntityDTOService<Product, ProductDTO>
     {
         private readonly WebDbContext _webDbContext;
 
+        /// <summary>
+        /// Constructor del servicio.
+        /// </summary>
+        /// <param name="webDbContext">Contexto de la base de datos.</param>
         public ProductService(WebDbContext webDbContext)
             : base(webDbContext)
         {
             _webDbContext = webDbContext;
         }
 
+        /// <summary>
+        /// Agrega un nuevo producto.
+        /// </summary>
+        /// <param name="new_model">Modelo del producto a agregar.</param>
+        /// <returns>El producto ya agregado.</returns>
         public override async Task<Product> AddAsync(ProductDTO new_model)
         {
             try
@@ -51,10 +63,15 @@ namespace Labiofam.Services
             }
         }
 
-        public override async Task<ICollection<Product>> AddAsync(ICollection<ProductDTO> new_model)
+        /// <summary>
+        /// Agrega una nueva colección de productos.
+        /// </summary>
+        /// <param name="new_models">Modelos de los productos a agregar.</param>
+        /// <returns>Colección de los productos ya agregados.</returns>
+        public override async Task<ICollection<Product>> AddAsync(ICollection<ProductDTO> new_models)
         {
             var products = new List<Product>();
-            foreach (var product in new_model)
+            foreach (var product in new_models)
             {
                 await AddAsync(product);
                 products.Add(product.Product!);

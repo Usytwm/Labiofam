@@ -23,6 +23,8 @@ namespace Labiofam.Services
         /// <summary>
         /// Envía un correo electrónico asincrónicamente.
         /// </summary>
+        /// <param name="sender_name">Nombre del remitente.</param>
+        /// <param name="sender_email">Correo del remitente.</param>
         /// <param name="subject">Asunto del correo electrónico.</param>
         /// <param name="message">Mensaje del correo electrónico.</param>
         public async Task SendMailAsync(

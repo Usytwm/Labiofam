@@ -1,13 +1,21 @@
-using System.Collections;
 using Labiofam.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Labiofam.Controllers
 {
+    /// <summary>
+    /// Controlador de las entidades que no utilizan DTO.
+    /// </summary>
+    /// <typeparam name="T">Nombre de la entidad.</typeparam>
     public abstract class EntityNoDTOController<T> : EntityController<T>
     {
         private readonly IEntityNoDTOService<T> _entityNoDTOService;
 
+        /// <summary>
+        /// Constructor del controlador.
+        /// </summary>
+        /// <param name="entityService">Servicio de la entidad.</param>
+        /// <param name="entityNoDTOService">Servicio No-DTO de la entidad</param>
         protected EntityNoDTOController(
             IEntityService<T> entityService,
             IEntityNoDTOService<T> entityNoDTOService

@@ -4,10 +4,18 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Labiofam.Controllers
 {
+    /// <summary>
+    /// Controlador de las relaciones.
+    /// </summary>
+    /// <typeparam name="T">Nombre de la relación.</typeparam>
     public abstract class RelationController<T> : ControllerBase
     {
         private readonly IRelationService<T> _relationService;
 
+        /// <summary>
+        /// Constructor del controlador.
+        /// </summary>
+        /// <param name="relationService">Servicio de la relación.</param>
         public RelationController(IRelationService<T> relationService)
         {
             _relationService = relationService;

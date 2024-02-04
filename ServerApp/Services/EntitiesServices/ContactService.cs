@@ -3,11 +3,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Labiofam.Services
 {
+    /// <summary>
+    /// Servicio de Contactos.
+    /// </summary>
     public class ContactService : EntityNoDTOService<Contact>,
         IEntityService<Contact>, IEntityNoDTOService<Contact>
     {
         private readonly WebDbContext _webDbContext;
 
+        /// <summary>
+        /// Constructor del servicio.
+        /// </summary>
+        /// <param name="webDbContext">Contexto de la base de datos.</param>
         public ContactService(WebDbContext webDbContext)
             : base(webDbContext)
         {

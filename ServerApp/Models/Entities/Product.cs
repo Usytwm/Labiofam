@@ -4,28 +4,56 @@ using System.Text.Json.Serialization;
 
 namespace Labiofam.Models;
 
+/// <summary>
+/// Entidad de los productos.
+/// </summary>
 public class Product : IEntityDTO
 {
+    /// <summary>
+    /// Id de la entidad.
+    /// </summary>
     [Key]
     public Guid Id { get; set; }
+    /// <summary>
+    /// Nombre del producto.
+    /// </summary>
     [Required]
     [StringLength(128)]
     public string? Name { get; set; }
+    /// <summary>
+    /// Tipo dentro del que se agrupa el producto.
+    /// </summary>
     [StringLength(128)]
     public string? Type_of_Product { get; set; }
+    /// <summary>
+    /// Foto del producto.
+    /// </summary>
     [StringLength(1024)]
     public string? Image { get; set; }
+    /// <summary>
+    /// Descripción del producto.
+    /// </summary>
     [StringLength(2048)]
     public string? Description { get; set; }
+    /// <summary>
+    /// Enfermedades que controla el producto.
+    /// </summary>
     [StringLength(2048)]
     public string? Diseases { get; set; }
+    /// <summary>
+    /// Ventajas del producto.
+    /// </summary>
     [StringLength(2048)]
     public string? Advantages { get; set; }
 
-    // Propiedad para almacenar datos en formato JSON
+    /// <summary>
+    /// Propiedad para almacenar los datos extra del producto en forma de string.
+    /// </summary>
     [JsonIgnore]
     public string? DatosJson { get; set; }
-    // Método para deserializar el JSON a un diccionario u otro tipo necesario
+    /// <summary>
+    /// Resumen de otras informaciones sobre el producto.
+    /// </summary>
     [NotMapped]
     public Dictionary<string, string>? Summary
     {
@@ -48,10 +76,20 @@ public class Product : IEntityDTO
         }
     }
 
+    /// <summary>
+    /// Propiedad de navegación con los tipos y precios disponibles.
+    /// </summary>
     [JsonIgnore]
     public virtual ICollection<Type_Product>? Types { get; set; }
+    /// <summary>
+    /// Propiedad de navegación con los puntos de venta
+    /// que tienen el producto disponible.
+    /// </summary>
     [JsonIgnore]
     public virtual ICollection<Product_POS>? Points_Of_Sales { get; set; }
+    /// <summary>
+    /// Propiedad de navegación hacia los usuarios relacionados con el producto.
+    /// </summary>
     [JsonIgnore]
     public virtual ICollection<User_Product>? Users { get; set; }
 }

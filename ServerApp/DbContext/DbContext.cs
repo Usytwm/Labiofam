@@ -4,9 +4,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Labiofam.Models
 {
+    /// <summary>
+    /// Contexto de la base de datos.
+    /// </summary>
     public class WebDbContext : IdentityDbContext<User, Role, Guid>
     {
         private readonly IWebHostEnvironment _enviroment;
+
+        /// <summary>
+        /// Constructor del contexto.
+        /// </summary>
+        /// <param name="options">Opciones del contexto.</param>
+        /// <param name="environment">Entorno de desarrollo actual.</param>
         public WebDbContext(
             DbContextOptions options,
             IWebHostEnvironment environment
@@ -15,17 +24,47 @@ namespace Labiofam.Models
             _enviroment = environment;
         }
 
-        // Definición de las entidades DbSet
+        /// <summary>
+        /// Tabla de Contactos.
+        /// </summary>
         public DbSet<Contact>? Contacts { get; set; }
+        /// <summary>
+        /// Tabla de Puntos de venta.
+        /// </summary>
         public DbSet<Point_of_Sales>? Points_Of_Sales { get; set; }
+        /// <summary>
+        /// Tabla de Productos.
+        /// </summary>
         public DbSet<Product>? Products { get; set; }
+        /// <summary>
+        /// Tabla de Tipos y Precios.
+        /// </summary>
         public DbSet<Type_Price> Type_Prices { get; set; }
+        /// <summary>
+        /// Tabla de Servicios.
+        /// </summary>
         public DbSet<Service>? Services { get; set; }
+        /// <summary>
+        /// Tabla de Relaciones Producto/Punto de venta.
+        /// </summary>
         public DbSet<Product_POS>? Product_POS { get; set; }
+        /// <summary>
+        /// Tabla de Relaciones Usuario/Producto.
+        /// </summary>
         public DbSet<User_Product>? User_Product { get; set; }
+        /// <summary>
+        /// Tabla de Relaciones Usuario/Rol.
+        /// </summary>
         public DbSet<User_Role>? User_Role { get; set; }
+        /// <summary>
+        /// Tabla de Relaciones Tipo_Precio/Producto.
+        /// </summary>
         public DbSet<Type_Product>? Type_Product { get; set; }
 
+        /// <summary>
+        /// Propiedades de inicialización de la base de datos.
+        /// </summary>
+        /// <param name="modelBuilder">Modelo de creación de la base de datos.</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Type_Price>()
@@ -106,7 +145,7 @@ namespace Labiofam.Models
             modelBuilder.Entity<Type_Product>().ToTable("Tipo_Producto");
 
             var filePath = Path.Combine(_enviroment.ContentRootPath, "Properties/data.json");
-            string json = File.ReadAllText(filePath);            
+            string json = File.ReadAllText(filePath);
             dynamic data = Newtonsoft.Json.JsonConvert.DeserializeObject(json)!;
 
             var products = new List<Product>();
@@ -139,7 +178,7 @@ namespace Labiofam.Models
                         Capacity = relation["capacidad"] ?? default,
                         Price = relation["costo"] ?? default
                     };
-                    
+
                     modelBuilder.Entity<Type_Price>().HasData(type_price);
 
                     if (item["Id_producto"] is not null)

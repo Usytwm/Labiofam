@@ -6,10 +6,18 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Labiofam.Controllers
 {
+    /// <summary>
+    /// Controlador de entidades base.
+    /// </summary>
+    /// <typeparam name="T">Nombre de la entidad.</typeparam>
     public abstract class EntityController<T> : ControllerBase
     {
         private readonly IEntityService<T> _entityService;
 
+        /// <summary>
+        /// Constructor del controlador
+        /// </summary>
+        /// <param name="entityService">Servicio de la entidad.</param>
         public EntityController(IEntityService<T> entityService)
         {
             _entityService = entityService;
@@ -64,7 +72,7 @@ namespace Labiofam.Controllers
         {
             try
             {
-                var result = await _entityService.TakeAsync(size);;
+                var result = await _entityService.TakeAsync(size); ;
                 return Ok(result);
             }
             catch (Exception ex)
@@ -165,10 +173,10 @@ namespace Labiofam.Controllers
             }
         }
         /// <summary>
-        /// Filtra las entidades de acuerdo a una expresión lambda.
-        /// No acepta atributos que no sean strings en la entidad dada.
+        /// Filtra las entidades del modelo dado de acuerdo a una colección
+        /// de atributos con sus respectivos valores.
         /// </summary>
-        /// <param name="lambda_exp">Expresión con los atributos según los cuales se filtra.</param>
+        /// <param name="model">Colecciones de atributo/valor.</param>
         /// <returns>La lista de entidades filtrada.</returns>
         [HttpPost("filterbyproperties")]
         [AllowAnonymous]

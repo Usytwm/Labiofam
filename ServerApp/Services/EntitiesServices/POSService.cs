@@ -3,11 +3,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Labiofam.Services
 {
+    /// <summary>
+    /// Servicio de Puntos de venta.
+    /// </summary>
     public class POSService : EntityNoDTOService<Point_of_Sales>,
         IEntityService<Point_of_Sales>, IEntityNoDTOService<Point_of_Sales>
     {
         private readonly WebDbContext _webDbContext;
 
+        /// <summary>
+        /// Constructor del servicio.
+        /// </summary>
+        /// <param name="webDbContext">Contexto de la base de datos.</param>
         public POSService(WebDbContext webDbContext)
             : base(webDbContext)
         {

@@ -9,6 +9,9 @@ using Org.BouncyCastle.Security;
 
 namespace Labiofam.Controllers
 {
+    /// <summary>
+    /// Controlador de registro y autenticación de usuarios
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     [AllowAnonymous]
@@ -23,6 +26,17 @@ namespace Labiofam.Controllers
         private readonly IJWTService _jwtService;
         private readonly IRelationFilter<User_Role, User, Role> _relationFilter;
 
+        /// <summary>
+        /// Constructor del controlador.
+        /// </summary>
+        /// <param name="roleService">Servicio de roles.</param>
+        /// <param name="userService">Servicio de usuarios.</param>
+        /// <param name="userDTOService">Servicio con DTO de usuarios.</param>
+        /// <param name="roleDTOService">Servicio con DTO de roles.</param>
+        /// <param name="relationService">Servicio de usuarios/roles.</param>
+        /// <param name="signInManager">Administrador de inicio de sesión.</param>
+        /// <param name="jwtService">Servicio de autenticación con JWT.</param>
+        /// <param name="relationFilter">Servicio de filtrado de usuarios/roles.</param>
         public RegistrationController(
             IEntityService<Role> roleService,
             UserManager<User> userService,
@@ -47,7 +61,7 @@ namespace Labiofam.Controllers
         /// Método para registrar un nuevo usuario.
         /// </summary>
         /// <param name="new_user">Datos del nuevo usuario a registrar.</param>
-        /// <returns>Estado de la operación de registro.</returns>
+        /// <returns>Token de inicio de sesión.</returns>
         [HttpPost]
         public async Task<IActionResult> Register([FromBody] RegistrationRequestDTO new_user)
         {
@@ -101,7 +115,6 @@ namespace Labiofam.Controllers
 
             return Ok(token);
         }
-
         /// <summary>
         /// Método para realizar el inicio de sesión de un usuario.
         /// </summary>
@@ -149,7 +162,6 @@ namespace Labiofam.Controllers
 
             return Ok(token);
         }
-
         /// <summary>
         /// Cierra la sesión del usuario actual.
         /// </summary>
@@ -160,7 +172,11 @@ namespace Labiofam.Controllers
             await _signInManager.SignOutAsync();
             return Ok("Success");
         }
-
+        /// <summary>
+        /// Genera un nuevo token de acceso para el usuario dado.
+        /// </summary>
+        /// <param name="model">Token de acceso anterior y refresh token.</param>
+        /// <returns>Nuevo token de sesión del usuario.</returns>
         [HttpPost("getnewaccesstoken")]
         public async Task<IActionResult> GenerateNewAccessToken(TokenDTO model)
         {
@@ -192,7 +208,11 @@ namespace Labiofam.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+        /// <summary>
+        /// Obtiene los datos del usuario según su token.
+        /// </summary>
+        /// <param name="token">Token de sesión.</param>
+        /// <returns>Objeto con el usuario y sus roles.</returns>
         [HttpGet("token/{token}")]
         public async Task<IActionResult> DataByToken(string token)
         {
