@@ -1,6 +1,13 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
+import {
+  BehaviorSubject,
+  Observable,
+  Subject,
+  catchError,
+  tap,
+  throwError,
+} from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LoginModel } from '../../Interfaces/Loginmodel';
 import { RegistrationRequestModel } from '../../Interfaces/Registration-Request';
@@ -35,6 +42,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem(environment.token_name);
+    localStorage.removeItem(environment.refresh_token_name);
     //this._coockieservice.delete(environment.token_name);
     this.loggedIn.next(false);
     return this.http.post(`${this.appUrl}${this.apiUrl}/logout`, null);
@@ -53,10 +61,20 @@ export class AuthService {
   }
 
   generateNewToken(): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(
-      `${this.appUrl}${this.apiUrl}/getnewaccesstoken`,
-      { token: this.getToken(), refreshToken: this.getRefreshToken() }
-    );
+    return this.http
+      .post<LoginResponse>(`${this.appUrl}${this.apiUrl}/getnewaccesstoken`, {
+        token: this.getToken(),
+        refreshToken: this.getRefreshToken(),
+      })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          if (error.status === 401) {
+            // El refreshToken ha expirado, el usuario debe iniciar sesión nuevamente
+            this.logout();
+          }
+          return throwError(error);
+        })
+      );
   }
 
   getData(token: string): Observable<RegistrationRequestModel> {
