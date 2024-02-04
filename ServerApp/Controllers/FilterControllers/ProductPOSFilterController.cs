@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Labiofam.Controllers
 {
+    /// <summary>
+    /// Controlador de filtros de los productos/puntos de venta.
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     [Authorize(Roles = "superadmin")]
@@ -12,6 +15,11 @@ namespace Labiofam.Controllers
     {
         private readonly IProductPOSFilter _productPOSFilter;
 
+        /// <summary>
+        /// Constructor del controlador.
+        /// </summary>
+        /// <param name="relationFilter">Servicio de filtros de los productos/puntos de venta.</param>
+        /// <param name="productPOSFilter">Extensión del servicio de filtros de los productos/puntos de venta</param>
         public ProductPOSFilterController(
             IRelationFilter<Product_POS, Product, Point_of_Sales> relationFilter,
             IProductPOSFilter productPOSFilter)
