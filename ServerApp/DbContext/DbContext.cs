@@ -60,6 +60,10 @@ namespace Labiofam.Models
         /// Tabla de Relaciones Tipo_Precio/Producto.
         /// </summary>
         public DbSet<Type_Product>? Type_Product { get; set; }
+        /// <summary>
+        /// Tabla de Relaciones Tipo_Precio/Producto.
+        /// </summary>
+        public DbSet<Testimonie>? Testimonies { get; set; }
 
         /// <summary>
         /// Propiedades de inicialización de la base de datos.
@@ -134,7 +138,7 @@ namespace Labiofam.Models
             modelBuilder.Entity<Contact>().ToTable("Contactos");
             modelBuilder.Entity<Point_of_Sales>().ToTable("PuntosDeVenta");
             modelBuilder.Entity<Product>().ToTable("Productos");
-            modelBuilder.Entity<Type_Price>().ToTable("TiposDeProducto");
+            modelBuilder.Entity<Type_Price>().ToTable("TiposPrecios");
             modelBuilder.Entity<Role>().ToTable("Roles");
             modelBuilder.Entity<Service>().ToTable("Servicios");
             modelBuilder.Entity<User>().ToTable("Usuarios");
@@ -143,6 +147,7 @@ namespace Labiofam.Models
             modelBuilder.Entity<User_Role>().ToTable("Usuario_Rol");
 
             modelBuilder.Entity<Type_Product>().ToTable("Tipo_Producto");
+            modelBuilder.Entity<Testimonie>().ToTable("Testimonios");
 
             var filePath = Path.Combine(_enviroment.ContentRootPath, "Properties/data.json");
             string json = File.ReadAllText(filePath);
@@ -192,6 +197,44 @@ namespace Labiofam.Models
                         });
                     }
                 }
+            }
+
+            var roles = new List<Role>(){
+                new()
+                {
+                    Name = "superadmin",
+                    Description = "Puede hacer todas las operaciones CRUD."
+                },
+                new()
+                {
+                    Name = "bioproductos",
+                    Description = "Puede hacer las operaciones CUD (create, update, delete)"
+                        + "sobre las tablas Productos y TiposPrecios."
+                },
+                new()
+                {
+                    Name = "establecimientos",
+                    Description = "Puede hacer las operaciones CUD (create, update, delete)"
+                        + "sobre la tabla PuntosDeVenta."
+                },
+                new()
+                {
+                    Name = "ventas",
+                    Description = "Puede hacer las operaciones CUD (create, update, delete)"
+                        + "sobre la tabla Productos_PuntosDeVenta."
+                },
+                new()
+                {
+                    Name = "testimonios",
+                    Description = "Puede hacer las operaciones CUD (create, update, delete)"
+                        + "sobre la tabla Testimonios."
+                }
+            };
+
+            foreach (var role in roles)
+            {
+                role.Id = Guid.NewGuid();
+                modelBuilder.Entity<Role>().HasData(role);
             }
         }
     }
