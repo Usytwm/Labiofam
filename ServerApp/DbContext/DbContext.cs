@@ -145,6 +145,7 @@ namespace Labiofam.Models
             modelBuilder.Entity<Product_POS>().ToTable("Producto_PuntoDeVenta");
             modelBuilder.Entity<User_Product>().ToTable("Usuario_Producto");
             modelBuilder.Entity<User_Role>().ToTable("Usuario_Rol");
+
             modelBuilder.Entity<Type_Product>().ToTable("Tipo_Producto");
             modelBuilder.Entity<Testimonie>().ToTable("Testimonios");
 

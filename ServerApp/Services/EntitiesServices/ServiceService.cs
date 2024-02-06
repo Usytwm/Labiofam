@@ -31,6 +31,7 @@ namespace Labiofam.Services
             var current_service = await GetAsync(service_id);
             current_service.Name = edited_service.Name;
             current_service.Info = edited_service.Info;
+            current_service.Image = edited_service.Image;
             _webDbContext.Entry(current_service).State = EntityState.Modified;
             await _webDbContext.SaveChangesAsync();
         }
