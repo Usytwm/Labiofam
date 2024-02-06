@@ -117,8 +117,6 @@ form {
   position: relative;
 }
 
-
-
 .file-input {
   position: absolute;
   top: 0;
@@ -149,3 +147,12 @@ form {
   border-radius: 7px;
 }
 
+.delete-btn,
+.add-course-btn {
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.mat-form-field {
+  width: 200px; /* Ajusta según tu diseño */
+}

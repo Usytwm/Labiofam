@@ -16,6 +16,7 @@ export abstract class RelationService<T> implements IBaseService<T> {
   }
 
   add(newEntity: T): Observable<T> {
+    console.log(newEntity);
     return this._http.post<T>(`${this.appUrl}${this.apiUrl}`, newEntity, {
       responseType: 'text' as 'json',
     });

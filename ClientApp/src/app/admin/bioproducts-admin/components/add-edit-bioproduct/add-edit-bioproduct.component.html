@@ -33,9 +33,11 @@
             <div class="row">
               <div class="col">
                 <div class="card" style="height: 20rem">
-                  <img class="card-img-top"
+                  <img
+                    class="card-img-top"
                     [src]="image ? image : 'assets/no-image.jpg'"
-                    alt="Preview" />
+                    alt="Preview"
+                  />
                 </div>
               </div>
             </div>
@@ -45,54 +47,44 @@
             <mat-form-field class="mat-form-field" appearance="outline">
               <mat-label>Tipo</mat-label>
               <input
-                formControlName="type"
+                formControlName="type_of_Product"
                 matInput
                 autocomplete="off"
               />
-              <mat-error
-              >
+              <mat-error>
                 Por favor introduzca el tipo del bioproducto
               </mat-error>
             </mat-form-field>
           </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-form-field class="mat-form-field" appearance="outline">
+              <mat-label>Enfermedades que controla</mat-label>
+              <input formControlName="diseases" matInput autocomplete="off" />
+              <mat-error>
+                Por favor introduzca la información del bioproducto
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+
           <mat-grid-tile>
             <mat-form-field class="mat-form-field" appearance="outline">
               <mat-label>Descripción</mat-label>
               <input
-                formControlName="summary"
+                formControlName="description"
                 matInput
                 autocomplete="off"
               />
-              <mat-error
-              >
+              <mat-error>
                 Por favor introduzca la información del bioproducto
               </mat-error>
             </mat-form-field>
           </mat-grid-tile>
-          <mat-grid-tile>
-            <mat-form-field class="mat-form-field" appearance="outline">
-              <mat-label>Enfermedades que controla</mat-label>
-              <input
-                formControlName="specifications"
-                matInput
-                autocomplete="off"
-              />
-              <mat-error
-              >
-                Por favor introduzca la información del bioproducto
-              </mat-error>
-            </mat-form-field>
-          </mat-grid-tile>
-
-
 
           <mat-grid-tile>
             <mat-form-field class="mat-form-field" appearance="outline">
               <mat-label>Ventajas</mat-label>
-              <input
-                matInput
-                autocomplete="off"
-              />
+              <input formControlName="advantages" matInput autocomplete="off" />
               <mat-error>
                 Por favor introduzca la información del bioproducto
               </mat-error>
@@ -117,149 +109,79 @@
             </div>
           </mat-grid-tile>
 
-          <mat-grid-tile>
-            <mat-form-field class="mat-form-field" appearance="outline">
-              <mat-label>Estabilidad/Almacenaje</mat-label>
-              <input
-                matInput
-                autocomplete="off"
-              />
-              <mat-error>
-                Por favor introduzca la información del bioproducto
-              </mat-error>
-            </mat-form-field>
-          </mat-grid-tile>
+          <mat-grid-tile
+            [rowspan]="objectKeys(summary).length + 1"
+            colspan="2"
+            style="display: flex; flex-direction: column; overflow-y: auto"
+          >
+            <div style="display: flex; flex-direction: column">
+              <!-- Iterar sobre los pares clave-valor existentes -->
+              <div
+                *ngFor="let key of objectKeys(summary)"
+                style="margin-bottom: 10px"
+              >
+                <mat-form-field class="mat-form-field" appearance="outline">
+                  <mat-label>{{ key }}</mat-label>
+                  <input matInput [value]="summary[key]" autocomplete="off" />
+                  <mat-error>
+                    Por favor introduzca la información del bioproducto
+                  </mat-error>
+                </mat-form-field>
+                <mat-icon class="delete-btn" (click)="deletePair(key)"
+                  >delete_forever</mat-icon
+                >
+              </div>
 
+              <!-- Botón para mostrar el formulario de agregar -->
+              <mat-icon
+                mat-mini-fab
+                class="custom-button"
+                (click)="toggleForm()"
+                >add</mat-icon
+              >
 
-          <mat-grid-tile>
-            <mat-form-field class="mat-form-field" appearance="outline">
-              <mat-label>Modo de acción</mat-label>
-              <input
-                matInput
-                autocomplete="off"
-              />
-              <mat-error>
-                Por favor introduzca la información del bioproducto
-              </mat-error>
-            </mat-form-field>
-          </mat-grid-tile>
+              <!-- Formulario para agregar nuevo par clave-valor -->
+              <div
+                *ngIf="showForm"
+                style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+                  margin-top: 10px;
+                "
+              >
+                <mat-form-field class="mat-form-field" appearance="outline">
+                  <mat-label>Llave</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    [(ngModel)]="newKey"
+                    placeholder="Llave"
+                    [ngModelOptions]="{ standalone: true }"
+                    autocomplete="off"
+                  />
+                  <mat-error>Por favor introduzca la llave</mat-error>
+                </mat-form-field>
 
-          <mat-grid-tile>
-            <mat-form-field class="mat-form-field" appearance="outline">
-              <mat-label>Modo de aplicación</mat-label>
-              <input
-                matInput
-                autocomplete="off"
-              />
-              <mat-error>
-                Por favor introduzca la información del bioproducto
-              </mat-error>
-            </mat-form-field>
-          </mat-grid-tile>
+                <mat-form-field class="mat-form-field" appearance="outline">
+                  <mat-label>Valor</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    [(ngModel)]="newValue"
+                    placeholder="Valor"
+                    [ngModelOptions]="{ standalone: true }"
+                    autocomplete="off"
+                  />
+                  <mat-error>Por favor introduzca el valor</mat-error>
+                </mat-form-field>
 
-          <mat-grid-tile>
-            <mat-form-field class="mat-form-field" appearance="outline">
-              <mat-label>Presentación</mat-label>
-              <input
-                matInput
-                autocomplete="off"
-              />
-              <mat-error>
-                Por favor introduzca la información del bioproducto
-              </mat-error>
-            </mat-form-field>
-          </mat-grid-tile>
-
-          <mat-grid-tile>
-            <mat-form-field class="mat-form-field" appearance="outline">
-              <mat-label>Dosis</mat-label>
-              <input
-                matInput
-                autocomplete="off"
-              />
-              <mat-error>
-                Por favor introduzca la información del bioproducto
-              </mat-error>
-            </mat-form-field>
-          </mat-grid-tile>
-
-          <mat-grid-tile>
-            <mat-form-field class="mat-form-field" appearance="outline">
-              <mat-label>Compatibilidad</mat-label>
-              <input
-                matInput
-                autocomplete="off"
-              />
-              <mat-error>
-                Por favor introduzca la información del bioproducto
-              </mat-error>
-            </mat-form-field>
-          </mat-grid-tile>
-
-          <mat-grid-tile>
-            <mat-form-field class="mat-form-field" appearance="outline">
-              <mat-label>Fitotoxicidad</mat-label>
-              <input
-                matInput
-                autocomplete="off"
-              />
-              <mat-error>
-                Por favor introduzca la información del bioproducto
-              </mat-error>
-            </mat-form-field>
-          </mat-grid-tile>
-
-          <mat-grid-tile>
-            <mat-form-field class="mat-form-field" appearance="outline">
-              <mat-label>pH</mat-label>
-              <input
-                matInput
-                autocomplete="off"
-              />
-              <mat-error>
-                Por favor introduzca la información del bioproducto
-              </mat-error>
-            </mat-form-field>
-          </mat-grid-tile>
-
-
-
-
-
-
-
-
-          <mat-grid-tile colspan="2" style="text-align: center; color: #0000008A;">
-            <h2>Campos adicionales</h2>
-          </mat-grid-tile>
-
-
-          <mat-grid-tile rowspan="{{ extras.controls.length + 1}}" colspan="2">
-            <div style="display: flex; justify-content: center;">
-              <form style="width: 96%">
-                <div class="add-lessons-form" [formGroup]="form">
-                  <ng-container formArrayName="lessons">
-                    <ng-container *ngFor="let extrasForm of extras.controls; let i = index">
-                      <div class="lesson-form-row" [formGroupName]="i">
-                        <mat-form-field appearance="fill">
-                          <input matInput formControlName="nameC" placeholder="Nombre del campo">
-                        </mat-form-field>
-                        <mat-form-field appearance="fill">
-                          <input matInput formControlName="nameC" placeholder="Descripción del campo">
-                        </mat-form-field>
-                        <mat-icon class="delete-btn" (click)="deleteExtras(i)">delete_forever</mat-icon>
-                      </div>
-                    </ng-container>
-                  </ng-container>
-                  <button mat-mini-fab (click)="addExtras()" class="custom-button">
-                    <mat-icon class="add-course-btn">add</mat-icon>
-                  </button>
-                </div>
-              </form>
+                <mat-icon class="add-course-btn" (click)="addPair()"
+                  >add</mat-icon
+                >
+              </div>
             </div>
           </mat-grid-tile>
-
-
 
           <mat-grid-tile colspan="2">
             <button
@@ -285,3 +207,61 @@
     </mat-card>
   </div>
 </div>
+<!-- <div
+  style="display: flex; align-items: center; justify-content: space-between"
+  *ngFor="let key of objectKeys(summary)"
+>
+  <span>{{ key }}: {{ summary[key] }}</span>
+  <mat-icon class="delete-btn" (click)="deletePair(key)"
+    >delete_forever</mat-icon
+  >
+</div>
+
+<mat-icon mat-mini-fab class="custom-button" (click)="toggleForm()"
+  >add</mat-icon
+> -->
+
+<!-- <div
+  *ngIf="showForm"
+  style="display: flex; align-items: center; justify-content: space-between"
+>
+  <mat-form-field class="mat-form-field" appearance="outline">
+    <mat-label>LLave</mat-label>
+    <input matInput type="text" [(ngModel)]="newKey" placeholder="Llave" />
+    <mat-error> Por favor introduzca la llave </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="mat-form-field" appearance="outline">
+    <mat-label>Valor</mat-label>
+    <input matInput type="text" [(ngModel)]="newValue" placeholder="Valor" />
+    <mat-error> Por favor introduzca el valor </mat-error>
+  </mat-form-field>
+
+  <mat-icon class="add-course-btn" (click)="addPair()">add</mat-icon>
+</div> -->
+
+<!-- <div *ngFor="let key of objectKeys(summary)">
+  {{ key }}: {{ summary[key] }}
+  <button (click)="deletePair(key)">Borrar</button>
+</div>
+
+<button (click)="toggleForm()">+</button>
+
+<div *ngIf="showForm">
+  <mat-form-field class="mat-form-field" appearance="outline">
+    <mat-label>LLave</mat-label>
+    <input matInput type="text" [(ngModel)]="newKey" placeholder="Llave" />
+    <mat-error>
+      Por favor introduzca la información del bioproducto
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="mat-form-field" appearance="outline">
+    <mat-label>LLave</mat-label>
+    <input matInput type="text" [(ngModel)]="newValue" placeholder="Valor" />
+    <mat-error>
+      Por favor introduzca la información del bioproducto
+    </mat-error>
+  </mat-form-field>
+  
+  <button (click)="addPair()">Agregar</button>
+</div> -->

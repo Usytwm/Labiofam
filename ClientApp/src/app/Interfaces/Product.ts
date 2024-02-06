@@ -9,13 +9,6 @@ export interface Product {
   type_of_Product?: string;
   advantages?: string;
   summary?: Record<string, string>;
-
   diseases?: string;
-
-
-
-
-
-  type?: string;
   specifications?: string;
 }

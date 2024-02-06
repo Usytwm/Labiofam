@@ -1,19 +1,8 @@
-import {
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-  inject,
-} from '@angular/core';
-import { Form, FormBuilder, FormGroup } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormControl, Validators } from '@angular/forms';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Observable, map, startWith } from 'rxjs';
-import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatChipInputEvent } from '@angular/material/chips';
+import { Validators } from '@angular/forms';
 import { FormArray } from '@angular/forms';
 //Interfaces
 
@@ -69,13 +58,13 @@ export class AddEditBioproductComponent {
   id: string;
   operacion = 'Agregar';
   product?: Product;
-  extrasForm?: FormGroup;
+
   form = this.fb.group({
     name: ['', Validators.required],
-    type: ['', Validators.required],
-    summary: ['', Validators.required],
-    specifications: ['', Validators.required],
-    extras: this.fb.array([]),
+    description: ['', Validators.required],
+    type_of_Product: ['', Validators.required],
+    advantages: [''],
+    diseases: [''],
   });
 
   constructor(
@@ -95,18 +84,29 @@ export class AddEditBioproductComponent {
     }
   }
 
-  get extras() {
-    return this.form.controls['extras'] as FormArray;
+  summary: Record<string, string> = {};
+  showForm = false;
+  newKey = '';
+  newValue = '';
+
+  addPair() {
+    if (this.newKey && this.newValue) {
+      console.log(this.newKey);
+
+      this.summary[this.newKey] = this.newValue;
+      this.newKey = '';
+      this.newValue = '';
+      this.showForm = false;
+    }
+    console.log(this.summary);
   }
-  addExtras() {
-    this.extrasForm = this.fb.group({
-      nameC: ['', Validators.required],
-      InfoC: ['', Validators.required],
-    });
-    this.extras.push(this.extrasForm);
+
+  deletePair(key: string) {
+    delete this.summary[key];
   }
-  deleteExtras(extraIndex: number) {
-    this.extras.removeAt(extraIndex);
+
+  toggleForm() {
+    this.showForm = !this.showForm;
   }
 
   getProduct(id: string) {
@@ -116,27 +116,20 @@ export class AddEditBioproductComponent {
       console.log(data);
       this.form.patchValue({
         name: data.name,
-        // summary: data.summary,
-        type: data.type,
-        specifications: data.specifications,
+        description: data.description,
+        advantages: data.advantages,
+        type_of_Product: data.type_of_Product,
+        diseases: data.diseases,
       });
       if (data.image) {
         this.getPhoto(data.image);
       }
+      if (data.summary) {
+        this.summary = data.summary;
+      }
       this.loading = false;
     });
   }
-  /*
-  addProduct() {
-    this._productservice.add(this.newProduct()).subscribe((data) => {
-      this.snackBar.open('Agregado con éxito', 'cerrar', {
-        duration: 3000,
-        horizontalPosition: 'right',
-      });
-      //console.log(this.newUser());
-      this.router.navigate(['/dashboard/bioproducts-admin']);
-    });
-  }*/
   addProduct() {
     this._productservice.add(this.newProduct()).subscribe(
       (data) => {
@@ -166,6 +159,7 @@ export class AddEditBioproductComponent {
       }
     );
   }
+  
   editProduct() {
     this.loading = true;
     this._productservice.edit(this.id, this.newProduct()).subscribe(() => {
@@ -178,14 +172,20 @@ export class AddEditBioproductComponent {
       this.router.navigate(['/dashboard/bioproducts-admin']);
     });
   }
+
   newProduct(): Product {
     const imagePath = this.imagePreview!;
     return {
       name: this.form.value.name!,
-      type: this.form.value.type!,
-      // summary: this.form.value.summary!,
-      specifications: this.form.value.specifications!,
+      type_of_Product: this.form.value.type_of_Product!,
+      summary: this.summary,
+      diseases: this.form.value.diseases!,
       image: imagePath,
+      description: this.form.value.description!,
+      advantages: this.form.value.advantages!,
     };
+  }
+  objectKeys(summary: Record<string, string>) {
+    return Object.keys(summary);
   }
 }
