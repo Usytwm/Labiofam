@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -17,11 +16,7 @@ var config = new ConfigurationBuilder()
     .Build();
 
 // Agregar servicios al contenedor.
-builder.Services.AddControllers(options =>
-    {
-        options.Filters.Add(new ProducesAttribute("application/json"));
-        options.Filters.Add(new ConsumesAttribute("application/json"));
-    });
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
     {
@@ -140,6 +135,9 @@ builder.Services.AddScoped<IEntityNoDTOService<Service>, ServiceService>();
 builder.Services.AddScoped<IEntityService<Type_Price>, TypePriceService>();
 builder.Services.AddScoped<IEntityNoDTOService<Type_Price>, TypePriceService>();
 
+builder.Services.AddScoped<IEntityService<Testimonie>, TestimonieService>();
+builder.Services.AddScoped<IEntityNoDTOService<Testimonie>, TestimonieService>();
+
 // Servicios de relaciones
 builder.Services.AddScoped<IRelationService<User_Role>, UserRoleService>();
 
@@ -164,7 +162,7 @@ builder.Services.AddScoped<IMailService, MailService>();
 builder.Services.AddScoped<IImageService, ImageService>();
 
 // Servicio de autenticacion
-builder.Services.AddSingleton<IJWTService, JWTService>(); /////////////////////////////////////////
+builder.Services.AddSingleton<IJWTService, JWTService>();
 
 // Servicio de json
 builder.Services.AddScoped<IJsonService, JsonService>();
