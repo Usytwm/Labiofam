@@ -1,4 +1,4 @@
-<div data-aos="fade-left">
+<div class="dta" data-aos="fade-left">
   <div class="mat-primary titulo">{{ operacion }} Servicios</div>
 
   <div
@@ -8,91 +8,81 @@
     fxLayoutAlign="center center"
     fxLayoutGap="10px"
   >
-  <mat-card class="card" fxFlex="80%" fxFlex.lt-md="100%">
-    <mat-card-subtitle style="text-align: center">
-      <h2>Datos</h2>
-    </mat-card-subtitle>
-    <form
-      [formGroup]="form"
-      style="margin-top: 10px"
-      (ngSubmit)="operacion === 'Agregar' ? addService() : editService()"
-    >
-
-      <mat-grid-list cols="2" rowHeight="80px">
-        <mat-grid-tile colspan="2" rowspan="3">
-          <div class="row">
-            <div class="card-top">
-              <img
-                class="card-img-top"
-                [src]="image ? image : 'assets/no-image.jpg'"
-                alt="Preview"
-              />
-            </div>
-            <div class="button-container">
-              <button
-                type="button"
-                color="primary"
-                class="btn btn-primary custom-button"
-              >
-                <input
-                  (change)="onFileChange($event)"
-                  type="file"
-                  id="fileInput"
-                  class="file-input"
+    <mat-card class="card" fxFlex="80%" fxFlex.lt-md="100%">
+      <mat-card-subtitle style="text-align: center">
+        <h2>Datos</h2>
+      </mat-card-subtitle>
+      <form
+        [formGroup]="form"
+        style="margin-top: 10px"
+        (ngSubmit)="operacion === 'Agregar' ? addService() : editService()"
+      >
+        <mat-grid-list cols="2" rowHeight="80px">
+          <mat-grid-tile colspan="2" rowspan="3">
+            <div class="row">
+              <div class="card-top">
+                <img
+                  class="card-img-top"
+                  [src]="image ? image : 'assets/no-image.jpg'"
+                  alt="Preview"
                 />
-                Agregar Foto
-              </button>
+              </div>
+              <div class="button-container">
+                <button
+                  type="button"
+                  color="primary"
+                  class="btn btn-primary custom-button"
+                >
+                  <input
+                    (change)="onFileChange($event)"
+                    type="file"
+                    id="fileInput"
+                    class="file-input"
+                  />
+                  Agregar Foto
+                </button>
+              </div>
             </div>
-          </div>
-        </mat-grid-tile>
-        <mat-grid-tile>
-          <mat-form-field class="mat-form-field" appearance="outline">
-            <mat-label>Nombre</mat-label>
-            <input formControlName="name" matInput autocomplete="off" />
-            <mat-error
-              *ngIf="form.controls.name.invalid && form.controls.name.touched"
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field class="mat-form-field" appearance="outline">
+              <mat-label>Nombre</mat-label>
+              <input formControlName="name" matInput autocomplete="off" />
+              <mat-error
+                *ngIf="form.controls.name.invalid && form.controls.name.touched"
+              >
+                nombre inválido
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-form-field class="mat-form-field" appearance="outline">
+              <mat-label>Descripción</mat-label>
+              <!-- Cambia el input por un textarea -->
+              <textarea
+                formControlName="info"
+                matInput
+                autocomplete="off"
+                [attr.rows]="2"
+              ></textarea>
+              <mat-error> Introduzca la descripción del servicio </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile colspan="2">
+            <form style="position: absolute; width: 96%"></form>
+          </mat-grid-tile>
+
+          <mat-grid-tile colspan="2">
+            <button
+              [disabled]="form.invalid"
+              y
+              type="submit"
+              class="btnacept"
+              mat-raised-button
+              color="primary"
             >
-              nombre inválido
-            </mat-error>
-          </mat-form-field>
-        </mat-grid-tile>
-
-
-        <mat-grid-tile>
-          <mat-form-field class="mat-form-field" appearance="outline">
-            <mat-label>Descripción</mat-label>
-            <!-- Cambia el input por un textarea -->
-            <textarea
-              formControlName="info"
-              matInput
-              autocomplete="off"
-              [attr.rows]="2"
-            ></textarea>
-            <mat-error
-            >
-              Introduzca la descripción del servicio
-            </mat-error>
-          </mat-form-field>
-        </mat-grid-tile>
-
-
-        <mat-grid-tile colspan="2">
-          <form style="position: absolute; width: 96%">
-
-          </form>
-        </mat-grid-tile>
-
-        <mat-grid-tile colspan="2">
-          <button
-            [disabled]="form.invalid"
-            y
-            type="submit"
-            class="btnacept"
-            mat-raised-button
-            color="primary"
-          >
-            Aceptar
-
+              Aceptar
             </button>
             <button
               type="button"
