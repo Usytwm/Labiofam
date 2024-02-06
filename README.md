@@ -135,6 +135,13 @@ se guarda la configuración del servicio de correos. Se usó el dominio @outlook
 
 Se pusieron por defecto los decoradores:
 
-- **[Authorize(Roles = "superadmin")]** en los métodos CUD (_Create_, _Update_ y _Delete_) de los CRUD de la aplicación para que el único rol capaz de utilizarlos fuese el hipotético ´superadmin´. En caso de agregar otros roles a los usuarios del sitio que puedan tener acceso a ciertos métodos dentro de los anteriormente expuestos, debe agregar la etiqueta **[Authorize(Roles = "superadmin, new_role, new_role, ...", Name )]** los nuevos roles en la forma estipulada, donde aparecen los _new_role_.
+- **[Authorize(Roles = "superadmin")]** en los métodos CUD (_Create_, _Update_ y _Delete_) de los CRUD de la aplicación para que el único rol capaz de utilizarlos fuese el hipotético ´superadmin´. En caso de agregar otros roles a los usuarios del sitio que puedan tener acceso a ciertos métodos dentro de los anteriormente expuestos, debe agregar la etiqueta **[Authorize(Roles = "superadmin,new_role,new_role,...")]** con los nuevos roles en la forma estipulada (donde aparecen los _new_role_).
 
 - **[AllowAnonymus]** en los métodos R (_Read_) de los CRUD de la aplicación para que puedan ser utilizados por cualquier usuario o visitante del sitio.
+
+Además se incluyen por defecto los siguientes roles:
+
+- **bioproductos:** Este rol tiene acceso a los métodos _Create_, _Update_ y _Delete_ de las tablas `Productos` y `TiposPrecios`.
+- **establecimientos:** Este rol tiene acceso a los métodos _Create_, _Update_ y _Delete_ de la tabla `PuntosDeVenta`.
+- **ventas:** Este rol tiene acceso a los métodos _Create_, _Update_ y _Delete_ de la tabla `Productos_PuntosDeVenta`.
+- **testimonios:** Este rol tiene acceso a los métodos _Create_, _Update_ y _Delete_ de la tabla `Testimonios`.
