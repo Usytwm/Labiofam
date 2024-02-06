@@ -40,10 +40,13 @@ export class AuthService {
       );
   }
 
-  logout() {
+  clearStorage() {
     localStorage.removeItem(environment.token_name);
     localStorage.removeItem(environment.refresh_token_name);
-    //this._coockieservice.delete(environment.token_name);
+  }
+
+  logout() {
+    this.clearStorage();
     this.loggedIn.next(false);
     return this.http.post(`${this.appUrl}${this.apiUrl}/logout`, null);
   }
