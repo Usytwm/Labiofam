@@ -10,7 +10,7 @@ namespace Labiofam.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "superadmin")]
+    [Authorize(Roles = "superadmin,establecimientos")]
     public class PointOfSalesController : EntityNoDTOController<Point_of_Sales>
     {
         /// <summary>

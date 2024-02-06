@@ -10,7 +10,7 @@ namespace Labiofam.Controllers
     /// </summary>
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Roles = "superadmin")]
+    [Authorize(Roles = "superadmin,ventas")]
     public class ProductPOSController : RelationController<Product_POS>
     {
         private readonly IProductPOSService _productPOSService;
