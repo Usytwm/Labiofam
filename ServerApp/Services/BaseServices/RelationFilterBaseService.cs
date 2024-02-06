@@ -3,6 +3,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Labiofam.Services
 {
+    /// <summary>
+    /// Servicio de filtrado de relaciones.
+    /// </summary>
+    /// <typeparam name="T">Relación utilizada.</typeparam>
+    /// <typeparam name="T1">Primera entidad de la relación.</typeparam>
+    /// <typeparam name="T2">Segunda entidad de la relación.</typeparam>
     public abstract class RelationFilterService<T, T1, T2> : IRelationFilter<T, T1, T2>
         where T : class, IRelationDTO, new()
         where T1 : class, IEntityDTO
@@ -13,6 +19,13 @@ namespace Labiofam.Services
         private readonly IEntityService<T1> _entityService1;
         private readonly IEntityService<T2> _entityService2;
 
+        /// <summary>
+        /// Constructor del servicio.
+        /// </summary>
+        /// <param name="webDbContext">Contexto de la base de datos.</param>
+        /// <param name="relationService">Servicio de relaciones.</param>
+        /// <param name="entityService1">Servicio de la primera entidad de la relación.</param>
+        /// <param name="entityService2">Servicio de la segunda entidad de la relación.</param>
         public RelationFilterService(
             WebDbContext webDbContext, IRelationService<T> relationService,
             IEntityService<T1> entityService1, IEntityService<T2> entityService2)
@@ -70,19 +83,19 @@ namespace Labiofam.Services
         public async Task<ICollection<T2>> GetType2ByType1SubstringAsync(string substring)
         {
             var entities = await _entityService1.GetBySubstringAsync(substring);
-            
+
             var result = new List<T2>();
-            foreach(var entity in entities)
+            foreach (var entity in entities)
             {
                 var relation = await _webDbContext.Set<T>()
                     .Where(x => x.Id1 == entity.Id)
                     .ToListAsync();
-                
+
                 foreach (var item in relation)
                 {
                     if (result.Any(x => x.Id == item.Id2))
                         continue;
-                    
+
                     result.Add(await _webDbContext.FindAsync<T2>(item.Id2)
                         ?? throw new NullReferenceException("Entity not found"));
                 }
@@ -99,19 +112,19 @@ namespace Labiofam.Services
         public async Task<ICollection<T1>> GetType1ByType2SubstringAsync(string substring)
         {
             var entities = await _entityService2.GetBySubstringAsync(substring);
-            
+
             var result = new List<T1>();
-            foreach(var entity in entities)
+            foreach (var entity in entities)
             {
                 var relation = await _webDbContext.Set<T>()
                     .Where(x => x.Id2 == entity.Id)
                     .ToListAsync();
-                
+
                 foreach (var item in relation)
                 {
                     if (result.Any(x => x.Id == item.Id1))
                         continue;
-                    
+
                     result.Add(await _webDbContext.FindAsync<T1>(item.Id1)
                         ?? throw new NullReferenceException("Entity not found"));
                 }

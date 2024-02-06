@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Labiofam.Controllers
 {
+    /// <summary>
+    /// Controlador de productos/puntos de venta.
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     [Authorize(Roles = "superadmin")]
@@ -12,6 +15,11 @@ namespace Labiofam.Controllers
     {
         private readonly IProductPOSService _productPOSService;
 
+        /// <summary>
+        /// Constructor del controlador.
+        /// </summary>
+        /// <param name="relationService">Servicio de productos/puntos de venta.</param>
+        /// <param name="productPOSService">Extensor del servicio de productos/puntos de venta.</param>
         public ProductPOSController(IRelationService<Product_POS> relationService,
             IProductPOSService productPOSService) : base(relationService)
         {

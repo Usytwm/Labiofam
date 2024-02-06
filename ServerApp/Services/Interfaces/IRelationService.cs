@@ -1,5 +1,9 @@
 namespace Labiofam.Services;
 
+/// <summary>
+/// Interfaz del servicio de relaciones.
+/// </summary>
+/// <typeparam name="Relation">Nombre de la relación.</typeparam>
 public interface IRelationService<Relation>
 {
     /// <summary>
@@ -27,8 +31,8 @@ public interface IRelationService<Relation>
     /// <summary>
     /// Elimina una relación de forma asincrónica por los IDs de las entidades relacionadas.
     /// </summary>
-    /// <param name="model1">ID del lado izquierdo de la relación</param>
-    /// <param name="model2">ID del lado derecho de la relación</param>
+    /// <param name="model1_id">ID del lado izquierdo de la relación</param>
+    /// <param name="model2_id">ID del lado derecho de la relación</param>
     Task RemoveAsync(Guid model1_id, Guid model2_id);
 
     /// <summary>
@@ -43,6 +47,9 @@ public interface IRelationService<Relation>
     Task RemoveAllAsync();
 }
 
+/// <summary>
+/// Interfaz extensora del servicio de relaciones para Productos/Puntos de venta.
+/// </summary>
 public interface IProductPOSService
 {
     /// <summary>

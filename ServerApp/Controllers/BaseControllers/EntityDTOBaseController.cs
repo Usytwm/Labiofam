@@ -3,10 +3,20 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Labiofam.Controllers
 {
+    /// <summary>
+    /// Controlador de entidades que utilizan DTO.
+    /// </summary>
+    /// <typeparam name="T">Nombre de la entidad.</typeparam>
+    /// <typeparam name="DTO">DTO de la entidad.</typeparam>
     public abstract class EntityDTOController<T, DTO> : EntityController<T>
     {
         private readonly IEntityDTOService<T, DTO> _entityDTOService;
 
+        /// <summary>
+        /// Constructor del controlador.
+        /// </summary>
+        /// <param name="entityService">Servicio de la entidad.</param>
+        /// <param name="entityDTOService">Servicio DTO de la entidad.</param>
         protected EntityDTOController(
             IEntityService<T> entityService,
             IEntityDTOService<T, DTO> entityDTOService

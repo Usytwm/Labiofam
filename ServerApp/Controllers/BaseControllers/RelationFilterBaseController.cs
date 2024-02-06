@@ -4,10 +4,20 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Labiofam.Controllers
 {
+    /// <summary>
+    /// Controlador de los filtros de las relaciones.
+    /// </summary>
+    /// <typeparam name="T">Nombre de la relación.</typeparam>
+    /// <typeparam name="T1">Nombre de la primera entidad de la relación.</typeparam>
+    /// <typeparam name="T2">Nombre de la segunda entidad de la relación.</typeparam>
     public abstract class RelationFilterController<T, T1, T2> : ControllerBase
     {
         private readonly IRelationFilter<T, T1, T2> _relationFilter;
 
+        /// <summary>
+        /// Constructor del controlador.
+        /// </summary>
+        /// <param name="relationFilter">Servicio de filtrado.</param>
         public RelationFilterController(IRelationFilter<T, T1, T2> relationFilter)
         {
             _relationFilter = relationFilter;

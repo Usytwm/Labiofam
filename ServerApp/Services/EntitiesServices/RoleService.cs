@@ -3,11 +3,19 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Labiofam.Services
 {
+    /// <summary>
+    /// Servicio de Roles.
+    /// </summary>
     public class RoleService : EntityDTOService<Role, RoleDTO>,
         IEntityService<Role>, IEntityDTOService<Role, RoleDTO>
     {
         private readonly RoleManager<Role> _roleManager;
 
+        /// <summary>
+        /// Constructor del servicio.
+        /// </summary>
+        /// <param name="webDbContext">Contexto de la base de datos.</param>
+        /// <param name="roleManager">Servicio de Identity para manejar los roles.</param>
         public RoleService(WebDbContext webDbContext, RoleManager<Role> roleManager)
             : base(webDbContext)
         {

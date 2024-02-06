@@ -7,15 +7,28 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Labiofam.Services
 {
+    /// <summary>
+    /// Servicio de autenticación con JWT.
+    /// </summary>
     public class JWTService : IJWTService
     {
         private readonly IConfiguration _configuration;
 
+        /// <summary>
+        /// Constructor del servicio.
+        /// </summary>
+        /// <param name="configuration">Acceso al archivo de configuración.</param>
         public JWTService(IConfiguration configuration)
         {
             _configuration = configuration;
         }
 
+        /// <summary>
+        /// Crea un token de inicio de sesión que contiene los datos del usuario y sus roles.
+        /// </summary>
+        /// <param name="user">Usuario a autenticar.</param>
+        /// <param name="roles">Roles del usuario.</param>
+        /// <returns>Esquema de autenticación con el JWT dentro.</returns>
         public AuthenticationDTO CreateJsonWebToken(User user, ICollection<Role> roles)
         {
             var expiration = DateTime.UtcNow.AddMinutes(
@@ -71,6 +84,11 @@ namespace Labiofam.Services
             return Convert.ToBase64String(bytes);
         }
 
+        /// <summary>
+        /// Valida el token de determinado usuario.
+        /// </summary>
+        /// <param name="token">Token del usuario.</param>
+        /// <returns>Objeto ClaimsPrincipal que representa el usuario al que autentica el token dado.</returns>
         public ClaimsPrincipal? GetPrincipalFromJWT(string token)
         {
             var validation = new TokenValidationParameters()
