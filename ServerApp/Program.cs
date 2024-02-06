@@ -17,11 +17,7 @@ var config = new ConfigurationBuilder()
     .Build();
 
 // Agregar servicios al contenedor.
-builder.Services.AddControllers(options =>
-    {
-        options.Filters.Add(new ProducesAttribute("application/json"));
-        options.Filters.Add(new ConsumesAttribute("application/json"));
-    });
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
     {
