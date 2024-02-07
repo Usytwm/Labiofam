@@ -1,4 +1,4 @@
-import { Component , ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
@@ -6,18 +6,15 @@ import { MatSort } from '@angular/material/sort';
 //Interfaces
 import { Testimonio } from 'src/app/Interfaces/Testimonios';
 
-
 //Servicios
 import { TestimoniosService } from 'src/app/Services/EntitiesServices/testimonios.service';
 
 @Component({
   selector: 'app-testimonios-admin',
   templateUrl: './testimonios-admin.component.html',
-  styleUrls: ['./testimonios-admin.component.css']
+  styleUrls: ['./testimonios-admin.component.css'],
 })
-
-export class TestimoniosAdminComponent implements OnInit{
-
+export class TestimoniosAdminComponent implements OnInit {
   _data: Testimonio[] = [];
   _dataColumns: Record<string, string> = {};
   loading: Boolean = false;
@@ -27,8 +24,7 @@ export class TestimoniosAdminComponent implements OnInit{
 
   constructor(
     private _snackBar: MatSnackBar,
-    private _testimoniosService: TestimoniosService,
-
+    private _testimoniosService: TestimoniosService
   ) {}
   ngOnInit() {
     this.getAll();
@@ -38,9 +34,8 @@ export class TestimoniosAdminComponent implements OnInit{
     this._testimoniosService.getAll().subscribe((data) => {
       this._dataColumns = {
         id: 'id',
-        enlace: 'enlace',
-        titulo: 'titulo'
-
+        nombre: 'name',
+        enlace: 'video_Url',
       };
       this._data = data;
       this.loading = false;

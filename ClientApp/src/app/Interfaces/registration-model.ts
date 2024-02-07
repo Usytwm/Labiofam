@@ -6,5 +6,5 @@ export interface RegistrationModel extends LoginModel {
   email?: string;
   email_Token?: string;
   phone?: string;
-  Image?: string;
+  image?: string;
 }

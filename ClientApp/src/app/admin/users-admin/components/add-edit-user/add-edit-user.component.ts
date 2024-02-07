@@ -19,6 +19,7 @@ import { RegistrationRequestModel } from 'src/app/Interfaces/Registration-Reques
 import { RoleModel } from 'src/app/Interfaces/Role-Model';
 import { UserRoleFilterService } from 'src/app/Services/FilterServices/user-roles-filter.service';
 import { UserRoleService } from 'src/app/Services/RelationsServices/user-role.service';
+import { FileService } from 'src/app/Services/FilesService/File.service';
 
 @Component({
   selector: 'app-add-edit-user',
@@ -27,7 +28,8 @@ import { UserRoleService } from 'src/app/Services/RelationsServices/user-role.se
 })
 export class AddEditUserComponent implements OnInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
-
+  image?: string;
+  imagePreview?: string;
   roleCtrl = new FormControl('', Validators.required);
   filtered_roles_name!: Observable<string[]>;
 
@@ -71,7 +73,8 @@ export class AddEditUserComponent implements OnInit {
     private route: ActivatedRoute,
     private filter: UserRoleFilterService,
     private registrationservice: AuthService,
-    private _userroleservice: UserRoleService
+    private _userroleservice: UserRoleService,
+    private _fotoservice: FileService
   ) {
     this.id = String(this.route.snapshot.paramMap.get('id'));
     //obtengo la lista de todos los roles
@@ -79,6 +82,38 @@ export class AddEditUserComponent implements OnInit {
       this._roles = data;
       this.filtered_roles_name = this._observer();
       this._all_roles_name = this._roles!.map((role) => role.name!);
+    });
+  }
+  onFileSelected(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length) {
+      const file = target.files[0];
+      const imagename = file.name;
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.imagePreview = reader.result as string;
+      };
+    }
+  }
+  onFileChange(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length) {
+      const file = target.files[0];
+      this._fotoservice.uploadPhoto(file).subscribe((response) => {
+        // Maneja la respuesta del servidor aquí
+        this.imagePreview = response;
+        this.getPhoto(this.imagePreview);
+      });
+    }
+  }
+
+  getPhoto(photoName: string) {
+    this._fotoservice.getPhoto(photoName).subscribe((photo) => {
+      // console.log(photo);
+      photo.text().then((text) => {
+        this.image = 'data:image/jpeg;base64,' + JSON.parse(text).fileContents;
+      });
     });
   }
 
@@ -167,8 +202,13 @@ export class AddEditUserComponent implements OnInit {
     this.loading = true;
     this.userservice.get(id).subscribe((data) => {
       this.user = data;
+      console.log(data);
       this.form.patchValue({ Username: data.userName });
       this.form.patchValue({ Email: data.email });
+      if (data.image) {
+        this.getPhoto(data.image);
+        this.imagePreview = data.image;
+      }
       this.loading = false;
     });
     this.filter.getType1byType2(id).subscribe((data) => {
@@ -309,6 +349,7 @@ export class AddEditUserComponent implements OnInit {
   }
 
   private newUser(): RegistrationModel {
+    const imagePath = this.imagePreview!;
     return {
       name: this.form.value.Username!,
       password:
@@ -321,6 +362,7 @@ export class AddEditUserComponent implements OnInit {
           : this.form.value.Oldpassword!,
       email: this.form.value.Email!,
       email_Token: '',
+      image: imagePath,
     };
   }
 

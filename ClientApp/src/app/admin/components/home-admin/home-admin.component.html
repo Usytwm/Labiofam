@@ -1,14 +1,16 @@
- <section class="background-image">
+<section class="background-image">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-4 mt-4">
         <div class="card profile-card-5">
           <div class="card-img-block">
-            <img
-              class="card-img-top"
-              src="https://picsum.photos/1000/1000"
-              alt="Foto de contacto"
-            />
+            <div class="card-top">
+              <img
+                class="card-img-top"
+                [src]="image ? image : 'assets/no-image.jpg'"
+                alt="Preview"
+              />
+            </div>
           </div>
           <div class="card-body pt-0">
             <h2 class="card-title">{{ datos!.user.name }}</h2>

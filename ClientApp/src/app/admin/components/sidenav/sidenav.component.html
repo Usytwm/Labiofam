@@ -13,7 +13,8 @@
       <img
         class="rounded-circle"
         [ngClass]="collapsed ? 'rounded-circle-collapsed' : ''"
-        src="https://picsum.photos/1000/1000"
+        [src]="image ? image : 'assets/no-image.jpg'"
+        alt="Preview"
         width="32"
         height="32"
       />

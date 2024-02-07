@@ -9,11 +9,9 @@ import { SharedModule } from '../../Shared/shared.module';
 //componentes
 import { TestimoniosAdminComponent } from './components/testimonios-admin/testimonios-admin.component';
 import { AddEditTestimoniosComponent } from './components/add-edit-testimonios/testimonios-edit.component';
-import { InfoTestimoniosComponent } from './components/info-testimonios/info-testimonios.components';
 
 @NgModule({
-  declarations: [TestimoniosAdminComponent, AddEditTestimoniosComponent,InfoTestimoniosComponent],
+  declarations: [TestimoniosAdminComponent, AddEditTestimoniosComponent],
   imports: [CommonModule, CrudsModule, SharedModule, RouterModule],
 })
 export class TestimoniosAdminModule {}
-
