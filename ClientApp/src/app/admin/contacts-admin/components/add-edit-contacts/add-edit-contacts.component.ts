@@ -3,11 +3,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 
-
 import { Contact } from '../../../../Interfaces/Contact';
 import { ContactService } from '../../../../Services/EntitiesServices/contact.service';
 import { FileService } from 'src/app/Services/FilesService/File.service';
-
 
 @Component({
   selector: 'app-add-edit-contacts',
@@ -46,11 +44,10 @@ export class AddEditContactsComponent {
 
   getPhoto(photoName: string) {
     this._fotoservice.getPhoto(photoName).subscribe((photo) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.image = reader.result as string;
-      };
-      reader.readAsDataURL(photo);
+      // console.log(photo);
+      photo.text().then((text) => {
+        this.image = 'data:image/jpeg;base64,' + JSON.parse(text).fileContents;
+      });
     });
   }
 
@@ -60,8 +57,7 @@ export class AddEditContactsComponent {
   form = this.fb.group({
     name: ['', Validators.required],
     occupation: ['', Validators.required],
-    info: ['', Validators.required],
-
+    info: [''],
   });
 
   constructor(
@@ -126,7 +122,6 @@ export class AddEditContactsComponent {
     });
   }
 
-
   newContact(): Contact {
     const imagePath = this.imagePreview!;
     return {
@@ -136,8 +131,4 @@ export class AddEditContactsComponent {
       image: imagePath,
     };
   }
-
-
-
-
 }

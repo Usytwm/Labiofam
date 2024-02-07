@@ -2,27 +2,28 @@
   <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
     <h1 class="display-4 fst-italic titulo">Nuestros Directivos</h1>
     <p class="lead my-3 container">
-      Labiofam, la elección segura, económica y efectiva. Nuestros productos ofrecen soluciones para una amplia variedad de problemas agroindustriales.
+      Labiofam, la elección segura, económica y efectiva. Nuestros productos
+      ofrecen soluciones para una amplia variedad de problemas agroindustriales.
     </p>
   </div>
 </div>
 
-
-
-    <div class="team-boxed">
-        <div class="container">
-          <div class="row people">
-                <div class="col-md-6 col-lg-4 item" *ngFor="let contacto of contactos">
-
-                    <div class="box"><img  class="rounded-circle" [src]="imageUrls[contacto?.id!] || 'assets/1.jpg'" alt="foto del  {{ contacto?.name }} ">
-                        <h3 class="name">{{contacto.name}}</h3>
-                        <p class="title">{{contacto.occupation}}</p>
-                        <p class="description"> </p>
-                        <a href="{{contacto.contact_Info}}">{{contacto.contact_Info}}</a>
-                    </div>
-                </div>
-            </div>
+<div class="team-boxed">
+  <div class="container">
+    <div class="row people">
+      <div class="col-md-6 col-lg-4 item" *ngFor="let contacto of contactos">
+        <div class="box">
+          <img
+            class="rounded-circle"
+            [src]="imageUrls[contacto?.id!] || 'assets/no-image-contact.png'"
+            alt="foto del  {{ contacto?.name }} "
+          />
+          <h3 class="name">{{ contacto.name }}</h3>
+          <p class="title">{{ contacto.occupation }}</p>
+          <p class="description"></p>
+          <a href="{{ contacto.contact_Info }}">{{ contacto.contact_Info }}</a>
         </div>
+      </div>
     </div>
-
-
+  </div>
+</div>

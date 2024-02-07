@@ -29,17 +29,29 @@
               </mat-error>
             </mat-form-field>
           </mat-grid-tile>
-
-          <mat-grid-tile colspan="1" rowspan="4">
+          <mat-grid-tile rowspan="4">
             <div class="row">
-              <div class="col">
-                <div class="card" style="height: 20rem">
-                  <img
-                    class="card-img-top"
-                    [src]="image ? image : 'assets/no-image-contact.png'"
-                    alt="Preview"
+              <div class="card-top">
+                <img
+                  class="card-img-top"
+                  [src]="image ? image : 'assets/no-image-contact.png'"
+                  alt="Preview"
+                />
+              </div>
+              <div class="button-container">
+                <button
+                  type="button"
+                  color="primary"
+                  class="btn btn-primary custom-button"
+                >
+                  <input
+                    (change)="onFileChange($event)"
+                    type="file"
+                    id="fileInput"
+                    class="file-input"
                   />
-                </div>
+                  Agregar Foto
+                </button>
               </div>
             </div>
           </mat-grid-tile>
@@ -61,7 +73,7 @@
               cols="1"
               style="position: absolute; width: 96%"
             >
-              <mat-label>Correo</mat-label>
+              <mat-label>Informacion adicional</mat-label>
               <input formControlName="info" matInput autocomplete="off" />
               <mat-error>
                 Por favor introduzca el correo del contacto
@@ -69,35 +81,6 @@
             </mat-form-field>
           </mat-grid-tile>
 
-          <mat-grid-tile>
-            <mat-form-field class="mat-form-field" appearance="outline">
-              <mat-label>Teléfono</mat-label>
-              <input matInput autocomplete="off" />
-              <mat-error>
-                Por favor introduzca el número de teléfono
-              </mat-error>
-            </mat-form-field>
-          </mat-grid-tile>
-
-          <mat-grid-tile> </mat-grid-tile>
-
-          <mat-grid-tile>
-            <div class="button-container">
-              <button
-                type="button"
-                color="primary"
-                class="btn btn-primary custom-button"
-              >
-                <input
-                  (change)="onFileChange($event)"
-                  type="file"
-                  id="fileInput"
-                  class="file-input"
-                />
-                Agregar Foto
-              </button>
-            </div>
-          </mat-grid-tile>
           <mat-grid-tile colspan="2">
             <form style="position: absolute; width: 96%"></form>
           </mat-grid-tile>
