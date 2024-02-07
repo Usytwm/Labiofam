@@ -47,7 +47,7 @@ namespace Labiofam.Controllers
         /// </summary>
         /// <param name="fileName">Nombre de la imagen en el repositorio de imágenes</param>
         /// <returns>La lectura en bytes de la imagen solicitada.</returns>
-        [HttpGet("{photoUrl}")]
+        [HttpGet("{fileName}")]
         [AllowAnonymous]
         public async Task<IActionResult> GetPhoto(string fileName)
         {

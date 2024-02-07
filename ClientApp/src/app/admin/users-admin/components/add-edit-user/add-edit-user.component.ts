@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { forkJoin, switchMap } from 'rxjs';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { User } from 'src/app/Interfaces/User';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -17,6 +18,7 @@ import { AuthService } from '../../../../Services/RegistrationsService/auth.serv
 import { RegistrationRequestModel } from 'src/app/Interfaces/Registration-Request';
 import { RoleModel } from 'src/app/Interfaces/Role-Model';
 import { UserRoleFilterService } from 'src/app/Services/FilterServices/user-roles-filter.service';
+import { UserRoleService } from 'src/app/Services/RelationsServices/user-role.service';
 
 @Component({
   selector: 'app-add-edit-user',
@@ -68,7 +70,8 @@ export class AddEditUserComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private filter: UserRoleFilterService,
-    private registrationservice: AuthService
+    private registrationservice: AuthService,
+    private _userroleservice: UserRoleService
   ) {
     this.id = String(this.route.snapshot.paramMap.get('id'));
     //obtengo la lista de todos los roles
@@ -177,33 +180,118 @@ export class AddEditUserComponent implements OnInit {
     });
   }
 
+  // editUser() {
+  //   this.loading = true;
+  //   this.filter.getType1byType2(this.id).subscribe((data) => {
+  //     data.forEach((role) => {
+  //       this._userroleservice.removeUR(this.id, role.id!).subscribe((data) => {
+  //         // console.log(data);
+  //       });
+  //     });
+  //   });
+  //   this.userService.edit(this.id, this.newUser()).subscribe(() => {
+  //     this.snackBar.open('Editado con éxito', 'cerrar', {
+  //       duration: 3000,
+  //       horizontalPosition: 'right',
+  //     });
+  //     this.loading = false;
+  //     this.router.navigate(['/dashboard/users-admin']);
+  //   });
+  //   const roles: RoleModel[] = [];
+  //   console.log(this._roles_name);
+  //   console.log(this._all_roles_name);
+
+  //   this._roles_name.forEach((role) => {
+  //     this.roles.getByName(role).subscribe((data) => {
+  //       const roleModel: RoleModel = {
+  //         id: data.id!,
+  //         name: data.name!,
+  //         description: data.description!,
+  //       };
+  //       roles.push(roleModel);
+  //       this.filter.addType2ByType1(this.id, [roleModel]).subscribe((data) => {
+  //         console.log(data);
+  //       });
+  //     });
+  //   });
+  // }
+
   editUser() {
     this.loading = true;
-    this.userService
-      .edit(this.id, this.newUser())
-      .pipe()
-      .subscribe(() => {
+
+    this.filter.getType1byType2(this.id).subscribe(
+      (data) => {
+        if (data.length === 0) {
+          // No hay roles para eliminar, continuar directamente con la adición
+          this.addRoles();
+        } else {
+          const deleteObservables = data.map((role) =>
+            this._userroleservice.removeUR(this.id, role.id!)
+          );
+          forkJoin(deleteObservables).subscribe(
+            () => {
+              this.addRoles();
+            },
+            (error) => {
+              console.error('Error al eliminar roles', error);
+              this.loading = false;
+            }
+          );
+        }
+      },
+      (error) => {
+        console.error('Error al obtener roles', error);
+        this.loading = false;
+      }
+    );
+  }
+
+  addRoles() {
+    const addRoleObservables = this._roles_name.map((role) =>
+      this.roles.getByName(role).pipe(
+        switchMap((data) =>
+          this.filter.addType2ByType1(this.id, [
+            {
+              id: data.id!,
+              name: data.name!,
+              description: data.description!,
+            },
+          ])
+        )
+      )
+    );
+
+    if (addRoleObservables.length === 0) {
+      // No hay nuevos roles para agregar, continuar con la edición del usuario
+      this.finishEditing();
+    } else {
+      forkJoin(addRoleObservables).subscribe(
+        () => {
+          this.finishEditing();
+        },
+        (error) => {
+          console.error('Error al agregar roles', error);
+          this.loading = false;
+        }
+      );
+    }
+  }
+
+  finishEditing() {
+    this.userService.edit(this.id, this.newUser()).subscribe(
+      () => {
         this.snackBar.open('Editado con éxito', 'cerrar', {
           duration: 3000,
           horizontalPosition: 'right',
         });
         this.loading = false;
         this.router.navigate(['/dashboard/users-admin']);
-      });
-    const roles: RoleModel[] = [];
-    this._roles_name.forEach((role) => {
-      this.roles.getByName(role).subscribe((data) => {
-        const roleModel: RoleModel = {
-          name: data.name!,
-          description: data.description!,
-        };
-        roles.push(roleModel);
-        this.filter.addType2ByType1(this.id, [roleModel]).subscribe((data) => {
-          console.log(data);
-        });
-        console.log(roleModel);
-      });
-    });
+      },
+      (error) => {
+        console.error('Error al editar usuario', error);
+        this.loading = false;
+      }
+    );
   }
 
   addUser() {

@@ -18,6 +18,8 @@ export class HomeAdminComponent implements OnInit {
   superadmin?: boolean;
   superadminandpos?: boolean;
   superadminandServices?: boolean;
+  superadminandBioproductos?: boolean;
+  superadminandTestimonios?: boolean;
 
   ngOnInit() {
     const token = this.authService.getToken();
@@ -41,6 +43,13 @@ export class HomeAdminComponent implements OnInit {
           (role) => role.name === 'Coordinador de Servicios'
         );
         console.log(this.superadminandServices);
+        this.superadminandBioproductos = this.datos!.roles!.some(
+          (role) => role.name === 'Coordinador de Bioproductos'
+        );
+
+        this.superadminandTestimonios = this.datos!.roles!.some(
+          (role) => role.name === 'Coordinador de Testimonios'
+        );
       });
   }
 }
