@@ -3,6 +3,7 @@ import { AuthService } from './../../../Services/RegistrationsService/auth.servi
 import { RegistrationRequestModel } from 'src/app/Interfaces/Registration-Request';
 import { Role } from 'src/app/Interfaces/Role';
 import { RegistrationModel } from '../../../Interfaces/registration-model';
+import { FileService } from 'src/app/Services/FilesService/File.service';
 
 @Component({
   selector: 'app-home-admin',
@@ -10,7 +11,12 @@ import { RegistrationModel } from '../../../Interfaces/registration-model';
   styleUrls: ['./home-admin.component.css'],
 })
 export class HomeAdminComponent implements OnInit {
-  constructor(private authService: AuthService) {}
+  image?: string;
+  imagePreview?: string;
+  constructor(
+    private authService: AuthService,
+    private _fotoservice: FileService
+  ) {}
   datos?: RegistrationRequestModel;
   role?: Role[];
   user?: RegistrationModel;
@@ -18,6 +24,16 @@ export class HomeAdminComponent implements OnInit {
   superadmin?: boolean;
   superadminandpos?: boolean;
   superadminandServices?: boolean;
+  superadminandBioproductos?: boolean;
+  superadminandTestimonios?: boolean;
+  getPhoto(photoName: string) {
+    this._fotoservice.getPhoto(photoName).subscribe((photo) => {
+      // console.log(photo);
+      photo.text().then((text) => {
+        this.image = 'data:image/jpeg;base64,' + JSON.parse(text).fileContents;
+      });
+    });
+  }
 
   ngOnInit() {
     const token = this.authService.getToken();
@@ -26,6 +42,10 @@ export class HomeAdminComponent implements OnInit {
         this.datos = data;
         this.role = this.datos?.roles;
         this.user = this.datos?.user;
+        if (this.datos.user.image) {
+          this.getPhoto(this.datos.user.image);
+          this.imagePreview = this.datos.user.image;
+        }
         this.rol = this.datos!.roles!.map((role) => role!.name).join(', ');
         this.superadmin = this.datos!.roles!.some(
           (role) => role.name === 'superadmin'
@@ -41,6 +61,13 @@ export class HomeAdminComponent implements OnInit {
           (role) => role.name === 'Coordinador de Servicios'
         );
         console.log(this.superadminandServices);
+        this.superadminandBioproductos = this.datos!.roles!.some(
+          (role) => role.name === 'Coordinador de Bioproductos'
+        );
+
+        this.superadminandTestimonios = this.datos!.roles!.some(
+          (role) => role.name === 'Coordinador de Testimonios'
+        );
       });
   }
 }

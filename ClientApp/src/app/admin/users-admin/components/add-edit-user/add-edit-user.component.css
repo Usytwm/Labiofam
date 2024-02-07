@@ -35,3 +35,99 @@
   background-color: var(--color-blue) !important;
   color: var(--color-yellow) !important;
 }
+
+
+.card {
+  margin-top: 10px;
+}
+
+.container1 {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+.mat-form-field {
+  width: 100%;
+  margin: 10px;
+}
+.btnacept {
+  margin-right: 5px;
+}
+
+  .card {
+  max-width: 65%;
+  margin-right: auto;
+  margin-left: auto;
+  justify-content: center;
+  height: 100%;
+  overflow: auto; /* Asegura que el contenido pueda desplazarse si excede la altura máxima */
+}
+/* CSS */
+.button-container {
+  position: relative;
+}
+
+.custom-button {
+  width: 15vw; /* Cambia esto al ancho que desees */
+  position: absolute;
+  bottom: 0; /* Esto posiciona el botón en la parte inferior del div */
+  left: 50%; /* Esto posiciona el botón en el centro horizontalmente */
+  transform: translateX(
+    -50%
+  ); /* Esto corrige la posición para que el centro del botón esté alineado con el centro del div */
+  margin-bottom: 3%;
+}
+
+.file-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.row {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card-top {
+  width: 100%;
+  height: 95%;
+
+}
+
+.card-img-top {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 7px;
+}
+.titulo {
+  text-align: center;
+  font-size: 2em;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+.container {
+  width: 100%; /* Establece un ancho predeterminado */
+  height: 250px; /* Establece una altura predeterminada */
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.my-grid-tile {
+  width: 100% !important;
+  height: 250px !important;
+}
+input[type="file"] {
+  width: 100%; /* ajusta esto al ancho que desees */
+  height: 100%; /* ajusta esto a la altura que desees */
+  background-size: contain;
+}

@@ -33,6 +33,33 @@
             </mat-form-field>
           </mat-grid-tile>
 
+          <mat-grid-tile rowspan="3">
+            <div class="row">
+              <div class="card-top">
+                <img
+                  class="card-img-top"
+                  [src]="image ? image : 'assets/no-image.jpg'"
+                  alt="Preview"
+                />
+              </div>
+              <div class="button-container">
+                <button
+                  type="button"
+                  color="primary"
+                  class="btn btn-primary custom-button"
+                >
+                  <input
+                    (change)="onFileChange($event)"
+                    type="file"
+                    id="fileInput"
+                    class="file-input"
+                  />
+                  Agregar Foto
+                </button>
+              </div>
+            </div>
+          </mat-grid-tile>
+
           <mat-grid-tile>
             <mat-form-field class="mat-form-field" appearance="outline">
               <mat-label>Email</mat-label>

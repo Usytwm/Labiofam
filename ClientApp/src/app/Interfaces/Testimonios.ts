@@ -1,5 +1,6 @@
 export interface Testimonio {
   id?: string;
-  enlace?: string;
-  titulo?: string;
+  name?: string;
+  image?: string;
+  video_Url?: string;
 }

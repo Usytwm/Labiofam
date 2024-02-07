@@ -25,6 +25,6 @@ public class Testimonie : IEntityDTO
     /// <summary>
     /// Video del testimonio.
     /// </summary>
-    [StringLength(32)]
+    [StringLength(128)]
     public string? Video_Url { get; set; }
 }

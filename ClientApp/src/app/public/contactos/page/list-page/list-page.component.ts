@@ -26,11 +26,15 @@ export class ListPageComponent {
     this.loading = true;
     this._contactsservices.getAll().subscribe((data) => {
       this.contactos = data;
+
       this.contactos.forEach((contacto) => {
         if (contacto.image) {
-          this.imageUrls[contacto.id!] = this._photoservice.getPhotoUrl(
-            contacto.image
-          );
+          this._photoservice.getPhoto(contacto.image).subscribe((photo) => {
+            photo.text().then((text) => {
+              this.imageUrls[contacto.id!] =
+                'data:image/jpeg;base64,' + JSON.parse(text).fileContents;
+            });
+          });
         }
       });
       console.log(data);

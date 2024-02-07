@@ -8,4 +8,5 @@ export interface User {
   email: string;
   roles: User_Role[];
   products: User_Product[];
+  image?: string;
 }

@@ -21,6 +21,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { FileService } from 'src/app/Services/FilesService/File.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -42,9 +43,12 @@ import {
   ],
 })
 export class SidenavComponent implements OnInit {
+  image?: string;
+  imagePreview?: string;
   constructor(
     private authService: AuthService,
-    private navbarService: NavbarService
+    private navbarService: NavbarService,
+    private _fotoservice: FileService
   ) {}
   showFiller = false;
   barra = faBars;
@@ -56,6 +60,14 @@ export class SidenavComponent implements OnInit {
   datos?: RegistrationRequestModel;
   role!: Role[];
   user?: RegistrationModel;
+  getPhoto(photoName: string) {
+    this._fotoservice.getPhoto(photoName).subscribe((photo) => {
+      // console.log(photo);
+      photo.text().then((text) => {
+        this.image = 'data:image/jpeg;base64,' + JSON.parse(text).fileContents;
+      });
+    });
+  }
 
   ngOnInit() {
     this.navbarService.setShowNavbar(false);
@@ -66,6 +78,10 @@ export class SidenavComponent implements OnInit {
         this.datos = data;
         this.role = this.datos?.roles;
         this.user = this.datos?.user;
+        if (this.datos.user.image) {
+          this.getPhoto(this.datos.user.image);
+          this.imagePreview = this.datos.user.image;
+        }
         this.navData.forEach((data) => {
           data.pas = this.role.some((r) => data.permisos.includes(r.name!));
         });

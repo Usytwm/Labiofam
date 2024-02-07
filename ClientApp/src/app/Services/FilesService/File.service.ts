@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -24,8 +24,19 @@ export class FileService {
   }
 
   getPhoto(fileName: string): Observable<Blob> {
-    return this._http.get(`${this.getPhotoUrl(fileName)}`, {
-      responseType: 'blob',
-    });
+    return this._http
+      .get<Blob>(`${this.getPhotoUrl(fileName)}`, {
+        responseType: 'blob' as 'json',
+      })
+      .pipe(
+        catchError((error) => {
+          const reader = new FileReader();
+          reader.onload = (e: any) => {
+            console.log(JSON.parse(e.target.result));
+          };
+          reader.readAsText(error.error);
+          return throwError(error);
+        })
+      );
   }
 }
