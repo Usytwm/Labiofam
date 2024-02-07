@@ -48,11 +48,20 @@ export class ListPageComponent {
   }
 
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
+    const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
+
     this.filteredProducts = this.bioproductos.filter((product: Product) => {
       return (
-        product.name?.toLowerCase().includes(filterValue.toLowerCase()) ||
-        product.specifications?.toLowerCase().includes(filterValue.toLowerCase())
+        product.name?.toLowerCase().includes(filterValue) ||
+        product.description?.toLowerCase().includes(filterValue) ||
+        product.type_of_Product?.toLowerCase().includes(filterValue) ||
+        product.advantages?.toLowerCase().includes(filterValue) ||
+        (product.summary &&
+          Object.values(product.summary).some((value) =>
+            value.toLowerCase().includes(filterValue)
+          )) ||
+        product.diseases?.toLowerCase().includes(filterValue) ||
+        product.specifications?.toLowerCase().includes(filterValue)
       );
     });
 
