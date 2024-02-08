@@ -1,7 +1,7 @@
 export const navbarData = [
   {
     ruta: 'home',
-    nombre: 'Dashboard',
+    nombre: 'Panel de control',
     icon: 'fas fa-tachometer-alt',
     permisos: [
       'superadmin',

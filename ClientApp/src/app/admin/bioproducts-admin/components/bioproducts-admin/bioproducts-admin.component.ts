@@ -40,8 +40,8 @@ export class BioproductsAdminComponent implements OnInit{
     this._bioproductservice.getAll().subscribe((data) => {
       this._dataColumns = {
         id: 'id',
-        nombre: 'name',
-        tipo: 'type'
+        Nombre: 'name',
+        Tipo: 'type'
 
       };
       this._data = data;
