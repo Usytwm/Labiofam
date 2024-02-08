@@ -53,20 +53,20 @@ export class HomeAdminComponent implements OnInit {
         console.log(this.superadmin);
 
         this.superadminandpos = this.datos!.roles!.some(
-          (role) => role.name === 'Gestor de Puntos de Venta'
+          (role) => role.name === 'establecimientos'
         );
         console.log(this.superadminandpos);
 
         this.superadminandServices = this.datos!.roles!.some(
-          (role) => role.name === 'Coordinador de Servicios'
+          (role) => role.name === 'servicios'
         );
         console.log(this.superadminandServices);
         this.superadminandBioproductos = this.datos!.roles!.some(
-          (role) => role.name === 'Coordinador de Bioproductos'
+          (role) => role.name === 'bioproductos'
         );
 
         this.superadminandTestimonios = this.datos!.roles!.some(
-          (role) => role.name === 'Coordinador de Testimonios'
+          (role) => role.name === 'testimonios'
         );
       });
   }
