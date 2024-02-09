@@ -30,84 +30,18 @@
 <section>
   <div class="container">
     <div class="row">
-      <div
-        class="col-md-4"
-        *ngIf="this.superadmin || this.superadminandServices"
-      >
-        <div class="card">
-          <div class="fcard">
-            <div class="border-warning text-center">
-              <div class="card-body">
-                <h2 class="card-title">Servicios</h2>
-                <a
-                  class="btn btn-primary"
-                  [routerLink]="['/dashboard/services-admin']"
-                  >Administrar</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="col-md-4" *ngIf="this.superadmin">
         <div class="card">
           <div class="fcard">
             <div class="border-warning text-center">
               <div class="card-body">
                 <h2 class="card-title">Usuario</h2>
-                <a
-                  class="btn btn-primary"
+                <button
+                  class="btn btn-primary btn-block mb-4"
                   [routerLink]="['/dashboard/users-admin']"
-                  >Administrar</a
                 >
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4" *ngIf="this.superadmin">
-        <div class="card">
-          <div class="fcard">
-            <div class="border-warning text-center">
-              <div class="card-body">
-                <h2 class="card-title">Testimonios</h2>
-                <a
-                  class="btn btn-primary"
-                  [routerLink]="['/dashboard/testimonios-admin']"
-                  >Administrar</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4" *ngIf="this.superadmin">
-        <div class="card">
-          <div class="fcard">
-            <div class="border-warning text-center">
-              <div class="card-body">
-                <h2 class="card-title">BioProductos</h2>
-                <a
-                  class="btn btn-primary"
-                  [routerLink]="['/dashboard/bioproducts-admin']"
-                  >Administrar</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4" *ngIf="this.superadmin">
-        <div class="card">
-          <div class="fcard">
-            <div class="border-warning text-center">
-              <div class="card-body">
-                <h2 class="card-title">Contactos</h2>
-                <a
-                  class="btn btn-primary"
-                  [routerLink]="['/dashboard/contacts-admin']"
-                  >Administrar</a
-                >
+                  Administrar
+                </button>
               </div>
             </div>
           </div>
@@ -119,11 +53,85 @@
             <div class="border-warning text-center">
               <div class="card-body">
                 <h2 class="card-title">Puntos de Venta</h2>
-                <a
-                  class="btn btn-primary"
+                <button
+                  class="btn btn-primary btn-block mb-4"
                   [routerLink]="['/dashboard/points-of-sales-admin']"
-                  >Administrar</a
                 >
+                  Administrar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="col-md-4"
+        *ngIf="this.superadmin || this.superadminandServices"
+      >
+        <div class="card">
+          <div class="fcard">
+            <div class="border-warning text-center">
+              <div class="card-body">
+                <h2 class="card-title">Servicios</h2>
+                <button
+                  class="btn btn-primary btn-block mb-4"
+                  [routerLink]="['/dashboard/services-admin']"
+                >
+                  Administrar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4" *ngIf="this.superadmin">
+        <div class="card">
+          <div class="fcard">
+            <div class="border-warning text-center">
+              <div class="card-body">
+                <h2 class="card-title">Testimonios</h2>
+                <button
+                  class="btn btn-primary btn-block mb-4"
+                  [routerLink]="['/dashboard/testimonios-admin']"
+                >
+                  Administrar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4" *ngIf="this.superadmin">
+        <div class="card">
+          <div class="fcard">
+            <div class="border-warning text-center">
+              <div class="card-body">
+                <h2 class="card-title">BioProductos</h2>
+                <button
+                  class="btn btn-primary btn-block mb-4"
+                  [routerLink]="['/dashboard/bioproducts-admin']"
+                >
+                  Administrar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4" *ngIf="this.superadmin">
+        <div class="card">
+          <div class="fcard">
+            <div class="border-warning text-center">
+              <div class="card-body">
+                <h2 class="card-title">Contactos</h2>
+                <button
+                  class="btn btn-primary btn-block mb-4"
+                  [routerLink]="['/dashboard/contacts-admin']"
+                >
+                  Administrar
+                </button>
               </div>
             </div>
           </div>

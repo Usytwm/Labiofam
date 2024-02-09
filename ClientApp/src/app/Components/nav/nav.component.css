@@ -19,7 +19,7 @@
 /* Primero, define la fuente y el color de tus enlaces */
 .nav-link {
   font-family: "Roboto", sans-serif; /* Reemplaza 'Tu Fuente Bonita' con el nombre de la fuente que quieras usar */
-  color: #ffffff; /* Este es el color inicial de tus enlaces, puedes cambiarlo por el que prefieras */
+  color: #ffffff !important; /* Este es el color inicial de tus enlaces, puedes cambiarlo por el que prefieras */
   text-decoration: none; /* Esto quita el subrayado inicial de los enlaces */
   position: relative; /* Esto es necesario para posicionar correctamente la línea debajo del enlace */
   font-size: 17px; /* Este es el tamaño de la fuente, puedes cambiarlo por el que prefieras */

@@ -44,7 +44,7 @@
               </div>
             </div>
           </mat-grid-tile>
-          <mat-grid-tile>
+          <mat-grid-tile colspan="2">
             <mat-form-field class="mat-form-field" appearance="outline">
               <mat-label>Nombre</mat-label>
               <input formControlName="name" matInput autocomplete="off" />
@@ -55,7 +55,7 @@
               </mat-error>
             </mat-form-field>
           </mat-grid-tile>
-          <mat-grid-tile>
+          <mat-grid-tile colspan="2" rowspan="3">
             <mat-form-field class="mat-form-field" appearance="outline">
               <mat-label>Descripción</mat-label>
               <!-- Cambia el input por un textarea -->
@@ -63,7 +63,7 @@
                 formControlName="info"
                 matInput
                 autocomplete="off"
-                [attr.rows]="2"
+                [attr.rows]="7"
               ></textarea>
               <mat-error> Introduzca la descripción del servicio </mat-error>
             </mat-form-field>

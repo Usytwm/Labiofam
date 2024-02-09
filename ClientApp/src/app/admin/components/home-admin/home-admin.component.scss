@@ -25,7 +25,13 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 7px;
+  border-radius: 10px;
+}
+.card-img-block {
+  /* Establece el tamaño deseado para el contenedor de la imagen */
+  width: 200px; /* Ejemplo de ancho */
+  height: 200px; /* Ejemplo de alto */
+  overflow: hidden; /* Para manejar imágenes más grandes que el contenedor */
 }
 
 .profile-card-5 .card-img-block {

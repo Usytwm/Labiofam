@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Product } from 'src/app/Interfaces/Product';
+import { TypePrice } from 'src/app/Interfaces/TypePrice';
 import { FileService } from 'src/app/Services/FilesService/File.service';
 
 @Component({
@@ -21,9 +22,6 @@ export class BioproductCardComponent implements OnInit {
             'data:image/jpeg;base64,' + JSON.parse(text).fileContents;
         });
       });
-      // this.imageUrls[this.product.id!] = this._photoservice.getPhotoUrl(
-      //   this.product.image
-      // );
     }
   }
 }

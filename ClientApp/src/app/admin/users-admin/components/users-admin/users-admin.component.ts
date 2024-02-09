@@ -59,8 +59,9 @@ export class UsersAdminComponent implements OnInit {
       forkJoin(observables).subscribe((data) => {
         this._dataColumns = {
           id: 'id',
-          nombre: 'userName',
-          roles: 'roles',
+          Nombre: 'userName',
+          Roles: 'roles',
+          Correo: 'email',
         };
         this._data = data; // Ahora data contiene los usuarios con sus roles
         this.loading = false;
@@ -84,7 +85,7 @@ export class UsersAdminComponent implements OnInit {
       });
     } else {
       console.log(id);
-      
+
       this._registrationervice.remove(id).subscribe(() => {
         this._snackBar.open('Eliminado con éxito', 'cerrar', {
           duration: 3000,

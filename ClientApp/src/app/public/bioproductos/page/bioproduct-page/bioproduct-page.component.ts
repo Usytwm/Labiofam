@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/Interfaces/Product';
+import { TypePrice } from 'src/app/Interfaces/TypePrice';
 import { ProductService } from 'src/app/Services/EntitiesServices/product.service';
 import { FileService } from 'src/app/Services/FilesService/File.service';
+import { ProductTypePriceFilterService } from 'src/app/Services/FilterServices/TypePrice-Product-filter.service';
 
 @Component({
   selector: 'app-bioproduct-page',
@@ -14,11 +16,13 @@ export class BioproductPageComponent {
   id: string;
   bioproducto?: Product;
   imageUrls: { [key: string]: string } = {};
+  types: TypePrice[] = [];
   constructor(
     private _bioproductsservices: ProductService,
     private router: Router,
     private route: ActivatedRoute,
-    private _photoservice: FileService
+    private _photoservice: FileService,
+    private _filter: ProductTypePriceFilterService
   ) {
     this.id = String(this.route.snapshot.paramMap.get('id'));
   }
@@ -43,10 +47,10 @@ export class BioproductPageComponent {
                 'data:image/jpeg;base64,' + JSON.parse(text).fileContents;
             });
           });
-      // this.imageUrls[this.bioproducto.id!] = this._photoservice.getPhotoUrl(
-      //   this.bioproducto.image
-      // );
       this.loading = false;
+    });
+    this._filter.getType2byType1(id).subscribe((type) => {
+      this.types = type;
     });
   }
   goBack(): void {
