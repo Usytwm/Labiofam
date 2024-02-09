@@ -38,8 +38,8 @@ export class ServicesAdminComponent implements OnInit{
     this._serviceService.getAll().subscribe((data) => {
       this._dataColumns = {
         id: 'id',
-        name: 'name',
-        info: 'info'
+        Nombre: 'name',
+        Información: 'info'
 
       };
       this._data = data;
