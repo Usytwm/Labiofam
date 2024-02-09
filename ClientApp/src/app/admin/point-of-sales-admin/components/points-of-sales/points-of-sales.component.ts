@@ -27,10 +27,10 @@ export class PointsOfSalesComponent implements OnInit {
     this._service.getAll().subscribe((data) => {
       this._dataColumns = {
         id: 'id',
-        nombre: 'name',
-        direccion: 'address',
-        municipio: 'municipality',
-        provincia: 'province',
+        Nombre: 'name',
+        Dirección: 'address',
+        Municipio: 'municipality',
+        Provincia: 'province',
       };
       this._data = data;
       this.loading = false;

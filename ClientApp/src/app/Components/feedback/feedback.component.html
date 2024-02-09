@@ -8,11 +8,7 @@
       <div class="col-md-7">
         <h1 class="featurette-heading fw-normal lh-1">Hazte oír!</h1>
         <p class="lead">
-          Nos encantaría conocer tu opinión. Tu feedback es muy importante para
-          nosotros, ya que nos ayuda a mejorar y a ofrecerte un mejor servicio.
-          Por favor, introduce tu correo electrónico y comparte tus comentarios,
-          sugerencias o cualquier aspecto que creas que podríamos mejorar.
-          Agradecemos tu tiempo y tu contribución.
+          Nos encantaría conocer su opinión. Su retroalimentación es muy importante para nosotros, ya que nos ayuda a mejorar y a ofrecerle un mejor servicio. Por favor, introduzca los datos pertinentes y comparte sus comentarios, sugerencias o cualquier otro aspecto que considera que podríamos mejorar. Agradecemos su tiempo y contribución.
         </p>
         <br />
         <div class="container">
@@ -21,7 +17,7 @@
               <mat-label>Nombre</mat-label>
               <input
                 matInput
-                placeholder="Sahsa"
+                placeholder="Ejemplo: Manuel Pérez Córdova"
                 formControlName="sendername"
                 required
               />
@@ -44,7 +40,7 @@
               <input
                 type="email"
                 matInput
-                placeholder="Ej. ejemplo@dominio.com"
+                placeholder="Ejemplo:  ejemplo@dominio.com"
                 formControlName="email"
                 required
               />
@@ -54,11 +50,11 @@
                   !formfedback.get('email')!.hasError('required')
                 "
               >
-                Por favor introduzca un email válido
+                Por favor introduzca un correo electrónico válido
               </mat-error>
 
               <mat-error *ngIf="formfedback.get('email')!.hasError('required')">
-                Email <strong>requerido</strong>
+                Correo electrónico <strong>requerido</strong>
               </mat-error>
             </mat-form-field>
 
@@ -66,7 +62,7 @@
               <mat-label>Asunto</mat-label>
               <input
                 matInput
-                placeholder="Hola"
+                placeholder="Ejemplo: Información sobre el bioproducto Biorat"
                 formControlName="subject"
                 required
               />
@@ -88,7 +84,7 @@
               <mat-label>Comentarios</mat-label>
               <textarea
                 matInput
-                placeholder="Ej. Esto me hace sentir..."
+                placeholder="Ejemplo: Me gustaría más información sobre ..."
                 formControlName="comments"
                 required
               ></textarea>

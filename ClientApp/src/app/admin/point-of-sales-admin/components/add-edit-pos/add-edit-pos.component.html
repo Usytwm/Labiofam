@@ -52,7 +52,7 @@
               <mat-error
                 *ngIf="form.controls.name.invalid && form.controls.name.touched"
               >
-                nombre inválido
+                Nombre inválido
               </mat-error>
             </mat-form-field>
           </mat-grid-tile>
@@ -95,14 +95,14 @@
 
           <mat-grid-tile>
             <mat-form-field class="mat-form-field" appearance="outline">
-              <mat-label>Direccion</mat-label>
+              <mat-label>Dirección</mat-label>
               <input formControlName="address" matInput autocomplete="off" />
               <mat-error
                 *ngIf="
                   form.controls.address.invalid && form.controls.address.touched
                 "
               >
-                Introduzca una direccion
+                Introduzca una dirección
               </mat-error>
             </mat-form-field>
           </mat-grid-tile>

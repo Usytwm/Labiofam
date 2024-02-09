@@ -34,8 +34,8 @@ export class TestimoniosAdminComponent implements OnInit {
     this._testimoniosService.getAll().subscribe((data) => {
       this._dataColumns = {
         id: 'id',
-        nombre: 'name',
-        enlace: 'video_Url',
+        Nombre: 'name',
+        Enlace: 'video_Url',
       };
       this._data = data;
       this.loading = false;
