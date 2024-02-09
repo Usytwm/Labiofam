@@ -156,3 +156,22 @@ form {
 .mat-form-field {
   width: 200px; /* Ajusta según tu diseño */
 }
+
+.btn-add-price {
+  background-color: green;
+  color: white;
+  cursor: pointer;
+}
+
+.btn-delete-price {
+  background-color: red;
+  color: white;
+  cursor: pointer;
+}
+
+.type-price-divider:not(:last-child) {
+  border-bottom: 1px solid #ccc; /* Color de la línea */
+  padding-bottom: 10px; /* Espaciado en la parte inferior */
+  margin-bottom: 10px; /* Espaciado después de la línea */
+}
+/* Ajusta los estilos según tus necesidades */

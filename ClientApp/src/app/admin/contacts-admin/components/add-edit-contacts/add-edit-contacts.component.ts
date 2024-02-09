@@ -57,7 +57,8 @@ export class AddEditContactsComponent {
   form = this.fb.group({
     name: ['', Validators.required],
     occupation: ['', Validators.required],
-    info: [''],
+    email: [''],
+    phone: [''],
   });
 
   constructor(
@@ -86,11 +87,12 @@ export class AddEditContactsComponent {
       this.form.patchValue({
         name: data.name,
         occupation: data.occupation,
-        info: data.contact_Info,
-        //image: data.image,
+        email: data.email,
+        phone: data.phone,
       });
       if (data.image) {
         this.getPhoto(data.image);
+        this.imagePreview = data.image;
       }
       this.loading = false;
     });
@@ -104,30 +106,29 @@ export class AddEditContactsComponent {
         horizontalPosition: 'right',
       });
       this.loading = false;
-      console.log(this.newContact());
       this.router.navigate(['/dashboard/contacts-admin']);
     });
   }
 
   addContact() {
-    console.log(this.newContact());
-
     this.contactService.add(this.newContact()).subscribe((data) => {
       this.snackBar.open('Agregado con éxito', 'cerrar', {
         duration: 3000,
         horizontalPosition: 'right',
       });
-
       this.router.navigate(['/dashboard/contacts-admin']);
     });
   }
 
   newContact(): Contact {
     const imagePath = this.imagePreview!;
+    console.log(imagePath);
+    
     return {
       name: this.form.value.name!,
       occupation: this.form.value.occupation!,
-      contact_Info: this.form.value.info!,
+      email: this.form.value.email ? this.form.value.email : '',
+      phone: this.form.value.phone ? this.form.value.phone : '',
       image: imagePath,
     };
   }

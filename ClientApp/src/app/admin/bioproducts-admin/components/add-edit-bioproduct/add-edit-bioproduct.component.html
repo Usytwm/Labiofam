@@ -110,12 +110,108 @@
           </mat-grid-tile>
 
           <mat-grid-tile
-            [rowspan]="objectKeys(summary).length + 1"
+            [rowspan]="objectKeysTypes(dictionary).length + 4"
+            colspan="2"
+            style="display: flex; flex-direction: column; overflow-y: auto"
+            class="type-price-divider"
+          >
+            <div style="display: flex; flex-direction: column">
+              <div *ngFor="let key of objectKeysTypes(dictionary)">
+                <mat-form-field class="mat-form-field" appearance="outline">
+                  <mat-label>Tipo</mat-label>
+                  <input
+                    matInput
+                    value="{{ dictionary[key.toString()].type }}"
+                    autocomplete="off"
+                  />
+                </mat-form-field>
+
+                <mat-form-field class="mat-form-field" appearance="outline">
+                  <mat-label>Capacidad</mat-label>
+                  <input
+                    matInput
+                    value="{{ dictionary[key.toString()].capacity }}"
+                    autocomplete="off"
+                  />
+                </mat-form-field>
+
+                <mat-form-field class="mat-form-field" appearance="outline">
+                  <mat-label>Precio</mat-label>
+                  <input
+                    matInput
+                    value="{{ dictionary[key.toString()].price }}"
+                    autocomplete="off"
+                  />
+                </mat-form-field>
+
+                <mat-icon class="delete-btn" (click)="deleteTypePrice(key)"
+                  >delete_forever</mat-icon
+                >
+              </div>
+
+              <mat-icon
+                mat-mini-fab
+                class="btn-add-price"
+                (click)="toggleFormTypes()"
+                >add</mat-icon
+              >
+
+              <div
+                *ngIf="showFormTypes"
+                style="display: flex; display: flex; flex-direction: column"
+              >
+                <mat-form-field class="mat-form-field" appearance="outline">
+                  <mat-label>Tipo</mat-label>
+                  <input
+                    matInput
+                    [(ngModel)]="newtype"
+                    placeholder="Tipo"
+                    [ngModelOptions]="{ standalone: true }"
+                    type="text"
+                    autocomplete="off"
+                  />
+                  <mat-error>Por favor introduzca el Tipo</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="mat-form-field" appearance="outline">
+                  <mat-label>Capacidad</mat-label>
+                  <input
+                    matInput
+                    type="text"
+                    [(ngModel)]="newcapacity"
+                    placeholder="Capacidad"
+                    [ngModelOptions]="{ standalone: true }"
+                    autocomplete="off"
+                  />
+                  <mat-error>Por favor introduzca La Capacidad</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="mat-form-field" appearance="outline">
+                  <mat-label>Precio</mat-label>
+                  <input
+                    matInput
+                    type="number"
+                    [(ngModel)]="newprice"
+                    placeholder="Precio"
+                    [ngModelOptions]="{ standalone: true }"
+                    autocomplete="off"
+                  />
+                  <mat-error>Por favor introduzcael Precio</mat-error>
+                </mat-form-field>
+
+                <mat-icon class="add-course-btn" (click)="addTypePrice()"
+                  >add</mat-icon
+                >
+              </div>
+            </div>
+          </mat-grid-tile>
+
+          <mat-grid-tile
+            [rowspan]="objectKeys(summary).length + 2"
             colspan="2"
             style="display: flex; flex-direction: column; overflow-y: auto"
           >
             <div style="display: flex; flex-direction: column">
-              <!-- Iterar sobre los pares clave-valor existentes -->
               <div
                 *ngFor="let key of objectKeys(summary)"
                 style="margin-bottom: 10px"
@@ -132,15 +228,14 @@
                 >
               </div>
 
-              <!-- Botón para mostrar el formulario de agregar -->
               <mat-icon
                 mat-mini-fab
+                style="cursor: pointer"
                 class="custom-button"
                 (click)="toggleForm()"
                 >add</mat-icon
               >
 
-              <!-- Formulario para agregar nuevo par clave-valor -->
               <div
                 *ngIf="showForm"
                 style="
@@ -207,61 +302,3 @@
     </mat-card>
   </div>
 </div>
-<!-- <div
-  style="display: flex; align-items: center; justify-content: space-between"
-  *ngFor="let key of objectKeys(summary)"
->
-  <span>{{ key }}: {{ summary[key] }}</span>
-  <mat-icon class="delete-btn" (click)="deletePair(key)"
-    >delete_forever</mat-icon
-  >
-</div>
-
-<mat-icon mat-mini-fab class="custom-button" (click)="toggleForm()"
-  >add</mat-icon
-> -->
-
-<!-- <div
-  *ngIf="showForm"
-  style="display: flex; align-items: center; justify-content: space-between"
->
-  <mat-form-field class="mat-form-field" appearance="outline">
-    <mat-label>LLave</mat-label>
-    <input matInput type="text" [(ngModel)]="newKey" placeholder="Llave" />
-    <mat-error> Por favor introduzca la llave </mat-error>
-  </mat-form-field>
-
-  <mat-form-field class="mat-form-field" appearance="outline">
-    <mat-label>Valor</mat-label>
-    <input matInput type="text" [(ngModel)]="newValue" placeholder="Valor" />
-    <mat-error> Por favor introduzca el valor </mat-error>
-  </mat-form-field>
-
-  <mat-icon class="add-course-btn" (click)="addPair()">add</mat-icon>
-</div> -->
-
-<!-- <div *ngFor="let key of objectKeys(summary)">
-  {{ key }}: {{ summary[key] }}
-  <button (click)="deletePair(key)">Borrar</button>
-</div>
-
-<button (click)="toggleForm()">+</button>
-
-<div *ngIf="showForm">
-  <mat-form-field class="mat-form-field" appearance="outline">
-    <mat-label>LLave</mat-label>
-    <input matInput type="text" [(ngModel)]="newKey" placeholder="Llave" />
-    <mat-error>
-      Por favor introduzca la información del bioproducto
-    </mat-error>
-  </mat-form-field>
-  <mat-form-field class="mat-form-field" appearance="outline">
-    <mat-label>LLave</mat-label>
-    <input matInput type="text" [(ngModel)]="newValue" placeholder="Valor" />
-    <mat-error>
-      Por favor introduzca la información del bioproducto
-    </mat-error>
-  </mat-form-field>
-  
-  <button (click)="addPair()">Agregar</button>
-</div> -->

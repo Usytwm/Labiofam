@@ -10,15 +10,12 @@ import { Product } from 'src/app/Interfaces/Product';
 import { ProductPosFilterService } from 'src/app/Services/FilterServices/product-pos-filter.service';
 import { ProductService } from '../../../../Services/EntitiesServices/product.service';
 
-
 @Component({
   selector: 'app-bioproducts-admin',
   templateUrl: './bioproducts-admin.component.html',
   styleUrls: ['./bioproducts-admin.component.css'],
 })
-
-
-export class BioproductsAdminComponent implements OnInit{
+export class BioproductsAdminComponent implements OnInit {
   _data: Product[] = [];
   _dataColumns: Record<string, string> = {};
   loading: Boolean = false;
@@ -29,8 +26,7 @@ export class BioproductsAdminComponent implements OnInit{
   constructor(
     private _snackBar: MatSnackBar,
 
-    private _bioproductservice: ProductService,
-
+    private _bioproductservice: ProductService
   ) {}
   ngOnInit() {
     this.getAll();
@@ -40,9 +36,8 @@ export class BioproductsAdminComponent implements OnInit{
     this._bioproductservice.getAll().subscribe((data) => {
       this._dataColumns = {
         id: 'id',
-        nombre: 'name',
-        tipo: 'type'
-
+        Nombre: 'name',
+        Tipo: 'type_of_Product',
       };
       this._data = data;
       this.loading = false;

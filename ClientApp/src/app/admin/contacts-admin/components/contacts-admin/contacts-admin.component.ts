@@ -8,7 +8,7 @@ import { ContactService } from 'src/app/Services/EntitiesServices/contact.servic
 @Component({
   selector: 'app-contacts-admin',
   templateUrl: './contacts-admin.component.html',
-  styleUrls: ['./contacts-admin.component.css']
+  styleUrls: ['./contacts-admin.component.css'],
 })
 export class ContactsAdminComponent {
   _data: Contact[] = [];
@@ -31,15 +31,16 @@ export class ContactsAdminComponent {
     this.loading = true;
     this._contactservice.getAll().subscribe((data) => {
       this._dataColumns = {
-        id : 'id',
-        nombre: 'name',
-        ocupación: 'occupation',
+        id: 'id',
+        Nombre: 'name',
+        Ocupación: 'occupation',
+        Correo: 'email',
+        Teléfono: 'phone',
       };
       this._data = data;
       this.loading = false;
     });
   }
-
 
   Delete(id: string) {
     this.loading = true;

@@ -73,10 +73,25 @@
               cols="1"
               style="position: absolute; width: 96%"
             >
-              <mat-label>Informacion adicional</mat-label>
-              <input formControlName="info" matInput autocomplete="off" />
+              <mat-label>Correo</mat-label>
+              <input formControlName="email" matInput autocomplete="off" />
               <mat-error>
                 Por favor introduzca el correo del contacto
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile colspan="1">
+            <mat-form-field
+              class="mat-form-field"
+              appearance="outline"
+              cols="1"
+              style="position: absolute; width: 96%"
+            >
+              <mat-label>Telefono</mat-label>
+              <input formControlName="phone" matInput autocomplete="off" />
+              <mat-error>
+                Por favor introduzca el Telefono del contacto
               </mat-error>
             </mat-form-field>
           </mat-grid-tile>

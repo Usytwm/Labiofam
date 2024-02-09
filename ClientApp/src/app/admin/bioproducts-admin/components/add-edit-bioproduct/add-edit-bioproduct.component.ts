@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Type } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,6 +12,10 @@ import { Product } from 'src/app/Interfaces/Product';
 
 import { ProductService } from 'src/app/Services/EntitiesServices/product.service';
 import { FileService } from 'src/app/Services/FilesService/File.service';
+import { ProductTypePriceFilterService } from 'src/app/Services/FilterServices/TypePrice-Product-filter.service';
+import { TypePrice } from 'src/app/Interfaces/TypePrice';
+import { ProductData } from 'src/app/Interfaces/ProductData';
+import { ProductDataService } from 'src/app/Services/EntitiesServices/ProductData.service';
 
 @Component({
   selector: 'app-add-edit-bioproduct',
@@ -58,6 +62,7 @@ export class AddEditBioproductComponent {
   id: string;
   operacion = 'Agregar';
   product?: Product;
+  typesPrice?: TypePrice[];
 
   form = this.fb.group({
     name: ['', Validators.required],
@@ -65,17 +70,48 @@ export class AddEditBioproductComponent {
     type_of_Product: ['', Validators.required],
     advantages: [''],
     diseases: [''],
+    prices: this.fb.array([]),
   });
 
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
+    private _productDataservice: ProductDataService,
     private _productservice: ProductService,
     private router: Router,
     private route: ActivatedRoute,
-    private _fotoservice: FileService
+    private _fotoservice: FileService,
+    private _filterService: ProductTypePriceFilterService
   ) {
     this.id = String(this.route.snapshot.paramMap.get('id'));
+  }
+
+  idprice = 0;
+  newtype = '';
+  newcapacity = '';
+  newprice = 0;
+  showFormTypes: boolean = false;
+  dictionary: Record<string, TypePrice> = {};
+
+  addTypePrice() {
+    if (this.newtype && this.newcapacity && this.newprice)
+      this.dictionary[this.idprice.toString()] = {
+        type: this.newtype,
+        capacity: this.newcapacity,
+        price: this.newprice,
+      };
+    this.idprice++;
+    this.newtype = '';
+    this.newcapacity = '';
+    this.newprice = 0;
+    this.showFormTypes = false;
+  }
+  toggleFormTypes() {
+    this.showFormTypes = !this.showFormTypes;
+  }
+
+  deleteTypePrice(id: number) {
+    delete this.dictionary[id.toString()];
   }
   ngOnInit(): void {
     if (this.id !== 'null') {
@@ -98,7 +134,6 @@ export class AddEditBioproductComponent {
       this.newValue = '';
       this.showForm = false;
     }
-    console.log(this.summary);
   }
 
   deletePair(key: string) {
@@ -113,7 +148,6 @@ export class AddEditBioproductComponent {
     this.loading = true;
     this._productservice.get(id).subscribe((data) => {
       this.product = data;
-      console.log(data);
       this.form.patchValue({
         name: data.name,
         description: data.description,
@@ -129,9 +163,16 @@ export class AddEditBioproductComponent {
       }
       this.loading = false;
     });
+    this._filterService.getType2byType1(id).subscribe((data) => {
+      this.typesPrice = data;
+      this.typesPrice.forEach((element) => {
+        this.dictionary[this.idprice.toString()] = element;
+        this.idprice++;
+      });
+    });
   }
   addProduct() {
-    this._productservice.add(this.newProduct()).subscribe(
+    this._productDataservice.add(this.returnProduct()).subscribe(
       (data) => {
         this.snackBar.open('Agregado con éxito', 'cerrar', {
           duration: 3000,
@@ -159,18 +200,27 @@ export class AddEditBioproductComponent {
       }
     );
   }
-  
+
   editProduct() {
     this.loading = true;
-    this._productservice.edit(this.id, this.newProduct()).subscribe(() => {
-      this.snackBar.open('Editado con éxito', 'cerrar', {
-        duration: 3000,
-        horizontalPosition: 'right',
+    this._productDataservice
+      .edit(this.id, this.returnProduct())
+      .subscribe(() => {
+        this.snackBar.open('Editado con éxito', 'cerrar', {
+          duration: 3000,
+          horizontalPosition: 'right',
+        });
+        this.loading = false;
+        console.log(this.newProduct());
+        this.router.navigate(['/dashboard/bioproducts-admin']);
       });
-      this.loading = false;
-      console.log(this.newProduct());
-      this.router.navigate(['/dashboard/bioproducts-admin']);
-    });
+  }
+
+  returnProduct(): ProductData {
+    return {
+      product: this.newProduct(),
+      types: this.newTypePrice(),
+    };
   }
 
   newProduct(): Product {
@@ -185,7 +235,17 @@ export class AddEditBioproductComponent {
       advantages: this.form.value.advantages!,
     };
   }
-  objectKeys(summary: Record<string, string>) {
+  newTypePrice(): TypePrice[] {
+    const array: TypePrice[] = [];
+    for (const key in this.dictionary) {
+      array.push(this.dictionary[key]);
+    }
+    return array;
+  }
+  objectKeys(summary: Record<string, string>): string[] {
     return Object.keys(summary);
+  }
+  objectKeysTypes(obj: Record<string, TypePrice>): number[] {
+    return Object.keys(obj).map((key) => parseInt(key));
   }
 }

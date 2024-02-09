@@ -16,6 +16,10 @@ export abstract class RelationFilterService<T1, T2> {
   constructor(private _http: HttpClient) {}
 
   getType1byType2(id_Type_1: string): Observable<T2[]> {
+    console.log(
+      `${this.baseUrl}${this.apiUrl}gettype2bytype1?type1_id=${id_Type_1}`
+    );
+
     return this._http.get<T2[]>(
       `${this.baseUrl}${this.apiUrl}gettype2bytype1?type1_id=${id_Type_1}`
     );
