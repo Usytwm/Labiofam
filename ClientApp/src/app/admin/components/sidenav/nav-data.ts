@@ -56,6 +56,13 @@ export const navbarData = [
     pas: false,
   },
   {
+    ruta: 'sale-admin',
+    nombre: 'Venta',
+    icon: 'fas fa-warehouse',
+    permisos: ['superadmin', 'ventas'],
+    pas: false,
+  },
+  {
     ruta: '/home',
     nombre: 'Salir de la administración',
     icon: 'fas fa-sign-out-alt',

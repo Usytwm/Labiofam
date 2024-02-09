@@ -26,7 +26,7 @@ export class HomeAdminComponent implements OnInit {
   superadminandServices?: boolean;
   superadminandBioproductos?: boolean;
   superadminandTestimonios?: boolean;
-  superadminandVentas?:boolean;
+  superadminandVentas?: boolean;
   getPhoto(photoName: string) {
     this._fotoservice.getPhoto(photoName).subscribe((photo) => {
       // console.log(photo);
@@ -75,6 +75,7 @@ export class HomeAdminComponent implements OnInit {
         this.superadminandVentas = this.datos!.roles!.some(
           (role) => role.name === 'ventas'
         );
+
       });
   }
 }
