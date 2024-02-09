@@ -57,7 +57,7 @@ export const navbarData = [
   },
   {
     ruta: '/home',
-    nombre: 'Salir',
+    nombre: 'Salir de la administración',
     icon: 'fas fa-sign-out-alt',
     permisos: [
       'superadmin',
