@@ -59,11 +59,6 @@ export class HomeAdminComponent implements OnInit {
         );
         // console.log(this.superadminandpos);
 
-        this.superadminandServices = this.datos!.roles!.some(
-          (role) => role.name === 'servicios'
-        );
-        // console.log(this.superadminandServices);
-
         this.superadminandBioproductos = this.datos!.roles!.some(
           (role) => role.name === 'bioproductos'
         );
