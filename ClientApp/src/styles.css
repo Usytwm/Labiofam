@@ -4,6 +4,7 @@
 @import "primeng/resources/primeng.css";
 @import "primeng/resources/themes/saga-blue/theme.css";
 @import "primeng/resources/primeng.min.css";
+@import '~bootstrap/dist/css/bootstrap.min.css';
 :root {
   --color-blue: #203468;
   --color-yellow: #ffdd21;

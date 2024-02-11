@@ -39,7 +39,6 @@ export class PointsOfSalesComponent implements OnInit {
 
   Delete(id: string) {
     this.loading = true;
-    // console.log(id);
     this._service.remove(id).subscribe(() => {
       this._snackBar.open('Eliminado con éxito', 'cerrar', {
         duration: 3000,

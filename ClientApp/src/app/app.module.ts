@@ -21,7 +21,6 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginInterceptor } from './Interceptors/login.interceptor';
 
 import { CookieService } from 'ngx-cookie-service';
-import { loginGuard } from './Guards/dashboard.guard';
 
 @NgModule({
   declarations: [AppComponent, FeedbackComponent, NavComponent],

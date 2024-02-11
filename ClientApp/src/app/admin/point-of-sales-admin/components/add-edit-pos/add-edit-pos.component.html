@@ -118,6 +118,81 @@
               </div>
             </div>
           </mat-grid-tile>
+          <mat-grid-tile></mat-grid-tile>
+
+          <mat-grid-tile [colspan]="2" [rowspan]="productsRowSpan">
+            <div class="row">
+              <div
+                *ngFor="let product of selectedProducts"
+                class="col-sm-6 col-md-4 col-lg-5 mb-4"
+              >
+                <div class="card selected" style="height: 100%">
+                  <div class="card-body">
+                    <h3 class="card-title">{{ product.name }}</h3>
+                    <button
+                      type="button"
+                      class="btn btn-primary"
+                      (click)="removeSelectedProduct(product)"
+                    >
+                      Quitar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="open(content)"
+            >
+              Agregar Productos
+            </button>
+          </mat-grid-tile>
+
+          <ng-template #content let-c="close" let-d="dismiss">
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title">
+                Agregar Productos
+              </h4>
+              <button
+                type="button"
+                class="btn-close"
+                aria-label="Close"
+                (click)="d('Cross click')"
+              ></button>
+            </div>
+            <div class="modal-body modal-fullscreen">
+              <div class="row">
+                <div
+                  *ngFor="let product of products"
+                  class="col-sm-6 col-md-4 col-lg-5 mb-4"
+                >
+                  <div
+                  style="cursor: pointer;"
+                    class="card h-100"
+                    (click)="selectProduct(product)"
+                    [ngClass]="{ selected: isSelected(product) }"
+                  >
+                    <div class="card-body">
+                      <h3 class="card-title">{{ product.name }}</h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-primary"
+                (click)="saveSelection(c)"
+              >
+                Guardar
+              </button>
+            </div>
+          </ng-template>
 
           <mat-grid-tile colspan="2">
             <button
