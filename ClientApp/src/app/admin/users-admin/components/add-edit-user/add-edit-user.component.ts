@@ -220,41 +220,6 @@ export class AddEditUserComponent implements OnInit {
     });
   }
 
-  // editUser() {
-  //   this.loading = true;
-  //   this.filter.getType1byType2(this.id).subscribe((data) => {
-  //     data.forEach((role) => {
-  //       this._userroleservice.removeUR(this.id, role.id!).subscribe((data) => {
-  //         // console.log(data);
-  //       });
-  //     });
-  //   });
-  //   this.userService.edit(this.id, this.newUser()).subscribe(() => {
-  //     this.snackBar.open('Editado con éxito', 'cerrar', {
-  //       duration: 3000,
-  //       horizontalPosition: 'right',
-  //     });
-  //     this.loading = false;
-  //     this.router.navigate(['/dashboard/users-admin']);
-  //   });
-  //   const roles: RoleModel[] = [];
-  //   console.log(this._roles_name);
-  //   console.log(this._all_roles_name);
-
-  //   this._roles_name.forEach((role) => {
-  //     this.roles.getByName(role).subscribe((data) => {
-  //       const roleModel: RoleModel = {
-  //         id: data.id!,
-  //         name: data.name!,
-  //         description: data.description!,
-  //       };
-  //       roles.push(roleModel);
-  //       this.filter.addType2ByType1(this.id, [roleModel]).subscribe((data) => {
-  //         console.log(data);
-  //       });
-  //     });
-  //   });
-  // }
 
   editUser() {
     this.loading = true;

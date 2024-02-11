@@ -22,14 +22,24 @@ import { Point_of_Sales } from 'src/app/Interfaces/Point_of_sales';
 import { environment } from 'src/environments/environment';
 import { FileService } from 'src/app/Services/FilesService/File.service';
 import { JsonService } from 'src/app/Services/FilesService/Json.service';
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { Product } from 'src/app/Interfaces/Product';
+import { ProductPosFilterService } from 'src/app/Services/FilterServices/product-pos-filter.service';
+import { ProductService } from 'src/app/Services/EntitiesServices/product.service';
+import { EMPTY, catchError, forkJoin, of, switchMap } from 'rxjs';
+import { ProductPosService } from 'src/app/Services/RelationsServices/product-pos.service';
 @Component({
   selector: 'app-add-edit-pos',
   templateUrl: './add-edit-pos.component.html',
   styleUrls: ['./add-edit-pos.component.css'],
+  providers: [NgbModalConfig, NgbModal],
 })
 export class AddEditPosComponent implements OnInit, AfterViewInit {
   provinces: any;
   municipiosDisponibles: string[] = [];
+  availableProducts: Product[] = [];
+  selectedforRemove?: Product[];
+  selectedforadd?: Product[];
   onFileSelected(event: Event) {
     const target = event.target as HTMLInputElement;
     if (target.files && target.files.length) {
@@ -56,11 +66,46 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
 
   getPhoto(photoName: string) {
     this._fotoservice.getPhoto(photoName).subscribe((photo) => {
-      // console.log(photo);
       photo.text().then((text) => {
         this.image = 'data:image/jpeg;base64,' + JSON.parse(text).fileContents;
       });
     });
+  }
+
+  products: Product[] = [];
+  selectedProducts: Product[] = [];
+  productsRowSpan?: number;
+
+  selectProduct(product: Product) {
+    if (this.isSelected(product)) {
+      this.selectedProducts = this.selectedProducts.filter(
+        (p) => p !== product
+      );
+    } else {
+      this.selectedProducts.push(product);
+    }
+  }
+
+  isSelected(product: Product) {
+    return this.selectedProducts.some(
+      (selectedProduct) => selectedProduct.id === product.id
+    );
+  }
+
+  saveSelection(closeModal: () => void) {
+    this.calculateRowSpan();
+    // Esta función se llama cuando se presiona 'Save' en el modal.
+    // Aquí puedes implementar la lógica para cerrar el modal si es necesario
+    // y actualizar cualquier estado relacionado.
+    closeModal();
+    console.log(this.selectedProducts);
+  }
+
+  removeSelectedProduct(product: Product) {
+    // Lógica para quitar un producto de la lista de seleccionados
+    this.selectedProducts = this.selectedProducts.filter((p) => p !== product);
+    this.calculateRowSpan();
+    console.log(this.selectedProducts);
   }
 
   image?: string;
@@ -113,18 +158,48 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
     private router: Router,
     private route: ActivatedRoute,
     private _fotoservice: FileService,
-    private _jsonservice: JsonService
+    private _jsonservice: JsonService,
+    private _filterService: ProductPosFilterService,
+    private _productService: ProductService,
+    config: NgbModalConfig,
+    private modalService: NgbModal,
+    private _productposService: ProductPosService
   ) {
+    config.backdrop = 'static';
+    config.keyboard = false;
     this.id = String(this.route.snapshot.paramMap.get('id'));
   }
 
+  open(content: any) {
+    this.modalService.open(content, { scrollable: true });
+    this.availableProducts = this.products.filter(
+      (p) =>
+        !this.selectedProducts.some(
+          (selectedProduct) => selectedProduct.id === p.id
+        )
+    );
+  }
+  calculateRowSpan() {
+    // Calcula el rowspan. Asumimos que cada fila tiene 3 productos.
+    const length = this.selectedProducts.length;
+
+    // Comprueba si la longitud es divisible por 2
+    if (length % 2 === 0) {
+      // Si es divisible por 2, se mantiene el valor
+      this.productsRowSpan = length;
+    } else {
+      // Si no es divisible por 2, se suma 1
+      this.productsRowSpan = length + 1;
+    }
+  }
+
   ngOnInit(): void {
+    this.getProducts();
     if (this.id !== 'null') {
       this.operacion = 'Editar';
       this.getPoint(this.id);
     }
     this.get_Json_Provinces();
-
     this.MunicipioControl.valueChanges.subscribe((municipio) => {
       for (let provincia in this.provincias) {
         if (this.provincias[provincia].includes(municipio!)) {
@@ -142,6 +217,13 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
         this.MunicipioControl.setValue(null);
       }
     });
+    this.calculateRowSpan();
+  }
+
+  getProducts() {
+    this._productService.getAll().subscribe((data) => {
+      this.products = data;
+    });
   }
 
   get_Json_Provinces(): void {
@@ -150,9 +232,6 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
         this.provincias[provincia.nombre] = provincia.municipios;
       });
       this.municipiosDisponibles = Object.values(this.provincias).flat();
-      console.log(this.provincias);
-
-      // this.provinces = data;
     });
   }
 
@@ -200,8 +279,6 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
       this.form.patchValue({
         name: data.name,
         address: data.address,
-        // municipality: data.municipality,
-        // province: data.province,
         latitude: data.latitude,
         longitude: data.longitude,
       });
@@ -223,39 +300,122 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
         });
         this.markerLngLat = this.marker!.getLngLat();
       });
+      this._filterService.getType2byType1(id).subscribe((data) => {
+        this.selectedProducts = data;
+        this.selectedforRemove = [...this.selectedProducts];
+        this.selectedforadd = [...this.selectedProducts];
+        this.calculateRowSpan();
+      });
       this.loading = false;
     });
   }
 
   editPoint() {
     this.loading = true;
-    console.log(this.newPoint());
+
+    // Eliminar productos existentes
+    this.updateAssociatedProducts();
+  }
+
+  updateAssociatedProducts() {
+    this.selectedforRemove = this.selectedforRemove!.filter(
+      (product) => !this.selectedProducts.includes(product)
+    );
+
+    if (this.selectedforRemove.length > 0) {
+      const deleteObservables = this.selectedforRemove.map((product) =>
+        this._productposService.removePP(product.id!, this.id)
+      );
+
+      forkJoin(deleteObservables).subscribe(
+        () => {
+          this.addProducts();
+        },
+        (error) => {
+          console.error('Error al eliminar productos', error);
+          this.loading = false;
+        }
+      );
+    } else {
+      this.addProducts();
+    }
+  }
+
+  addProducts() {
+    const newProducts = this.selectedProducts.filter(
+      (product) => !this.selectedforadd!.includes(product)
+    );
+
+    if (newProducts.length > 0) {
+      const addProductObservables = newProducts.map((newProduct) =>
+        this._productposService.addPP(this.id, newProduct.id!)
+      );
+
+      forkJoin(addProductObservables).subscribe(
+        () => {
+          this.finishEditingPoint();
+        },
+        (error) => {
+          console.error('Error al agregar productos', error);
+          this.loading = false;
+        }
+      );
+    } else {
+      this.finishEditingPoint();
+    }
+  }
+
+  finishEditingPoint() {
+    // Acciones finales después de editar el punto de venta y actualizar productos
+    // Punto de venta editado con éxito
+    this.snackBar.open('Editado con éxito', 'cerrar', {
+      duration: 3000,
+      horizontalPosition: 'right',
+    });
+    this.loading = false;
+    this.router.navigate(['/dashboard/points-of-sales-admin']);
+  }
+
+  addPoint() {
     this._point_of_sales_service
-      .edit(this.id, this.newPoint())
-      .subscribe(() => {
-        this.snackBar.open('Editado con éxito', 'cerrar', {
+      .add(this.newPoint())
+      .pipe(
+        switchMap((data) => {
+          return this._point_of_sales_service.getByName(this.newPoint().name!);
+        }),
+        catchError((error) => {
+          console.error('Ocurrió un error:', error);
+          this.snackBar.open('Error al agregar punto de venta', 'cerrar', {
+            duration: 3000,
+            horizontalPosition: 'right',
+          });
+          return EMPTY;
+        })
+      )
+      .subscribe((data) => {
+        if (data && data.id) {
+          const addProductsObservables = this.selectedProducts.map((product) =>
+            this._filterService.addType1ByType2(data.id!, [product])
+          );
+          forkJoin(addProductsObservables).subscribe(() => {
+            // this.snackBar.open('Agregado con éxito', 'cerrar', {
+            //   duration: 3000,
+            //   horizontalPosition: 'right',
+            // });
+            console.log('Todos los productos han sido agregados');
+            // this.router.navigate(['/dashboard/points-of-sales-admin']);
+          });
+        }
+        this.snackBar.open('Agregado con éxito', 'cerrar', {
           duration: 3000,
           horizontalPosition: 'right',
         });
-        this.loading = false;
         this.router.navigate(['/dashboard/points-of-sales-admin']);
       });
   }
 
-  addPoint() {
-    this._point_of_sales_service.add(this.newPoint()).subscribe((data) => {
-      this.snackBar.open('Agregado con éxito', 'cerrar', {
-        duration: 3000,
-        horizontalPosition: 'right',
-      });
-      this.router.navigate(['/dashboard/points-of-sales-admin']);
-    });
-  }
-
   newPoint(): Point_of_Sales {
     const imagePath = this.imagePreview!;
-    console.log(imagePath);
-
     return {
       name: this.form.value.name!,
       address: this.form.value.address!,

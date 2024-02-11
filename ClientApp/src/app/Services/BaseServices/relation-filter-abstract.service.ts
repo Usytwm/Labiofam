@@ -16,10 +16,6 @@ export abstract class RelationFilterService<T1, T2> {
   constructor(private _http: HttpClient) {}
 
   getType1byType2(id_Type_1: string): Observable<T2[]> {
-    console.log(
-      `${this.baseUrl}${this.apiUrl}gettype2bytype1?type1_id=${id_Type_1}`
-    );
-
     return this._http.get<T2[]>(
       `${this.baseUrl}${this.apiUrl}gettype2bytype1?type1_id=${id_Type_1}`
     );
@@ -54,10 +50,12 @@ export abstract class RelationFilterService<T1, T2> {
   }
 
   addType1ByType2(type2_id: string, collection: T1[]): Observable<void> {
+    let params = new HttpParams().set('type1_id', type2_id);
     return this._http.post<void>(
-      `${this.baseUrl}${this.apiUrl}addtype1bytype2/${type2_id}`,
+      `${this.baseUrl}${this.apiUrl}addtype1bytype2`,
       collection,
       {
+        params: params,
         responseType: 'text' as 'json',
       }
     );
