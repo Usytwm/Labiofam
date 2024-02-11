@@ -6,7 +6,6 @@ export const navbarData = [
     permisos: [
       'superadmin',
       'establecimientos',
-      'servicios',
       'ventas',
       'testimonios',
       'bioproductos'
@@ -31,7 +30,7 @@ export const navbarData = [
     ruta: 'services-admin',
     nombre: 'Servicios',
     icon: 'fas fa-concierge-bell',
-    permisos: ['superadmin', 'servicios'],
+    permisos: ['superadmin'],
     pas: false,
   },
   {
@@ -56,13 +55,19 @@ export const navbarData = [
     pas: false,
   },
   {
+    ruta: 'sale-admin',
+    nombre: 'Venta',
+    icon: 'fas fa-warehouse',
+    permisos: ['superadmin', 'ventas'],
+    pas: false,
+  },
+  {
     ruta: '/home',
-    nombre: 'Salir',
+    nombre: 'Salir de la administración',
     icon: 'fas fa-sign-out-alt',
     permisos: [
       'superadmin',
       'establecimientos',
-      'servicios',
       'ventas',
       'testimonios',
       'bioproductos'

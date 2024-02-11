@@ -26,6 +26,7 @@ export class HomeAdminComponent implements OnInit {
   superadminandServices?: boolean;
   superadminandBioproductos?: boolean;
   superadminandTestimonios?: boolean;
+  superadminandVentas?: boolean;
   getPhoto(photoName: string) {
     this._fotoservice.getPhoto(photoName).subscribe((photo) => {
       // console.log(photo);
@@ -47,20 +48,17 @@ export class HomeAdminComponent implements OnInit {
           this.imagePreview = this.datos.user.image;
         }
         this.rol = this.datos!.roles!.map((role) => role!.name).join(', ');
+        
         this.superadmin = this.datos!.roles!.some(
           (role) => role.name === 'superadmin'
         );
-        console.log(this.superadmin);
+        // console.log(this.superadmin);
 
         this.superadminandpos = this.datos!.roles!.some(
           (role) => role.name === 'establecimientos'
         );
-        console.log(this.superadminandpos);
+        // console.log(this.superadminandpos);
 
-        this.superadminandServices = this.datos!.roles!.some(
-          (role) => role.name === 'servicios'
-        );
-        console.log(this.superadminandServices);
         this.superadminandBioproductos = this.datos!.roles!.some(
           (role) => role.name === 'bioproductos'
         );
@@ -68,6 +66,11 @@ export class HomeAdminComponent implements OnInit {
         this.superadminandTestimonios = this.datos!.roles!.some(
           (role) => role.name === 'testimonios'
         );
+
+        this.superadminandVentas = this.datos!.roles!.some(
+          (role) => role.name === 'ventas'
+        );
+
       });
   }
 }

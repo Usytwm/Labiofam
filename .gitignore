@@ -241,3 +241,6 @@ ServerApp/ImagesRepository/*
 !ServerApp/Migrations/.gitkeep
 !ServerApp/ImagesRepository/.gitkeep
 !ServerApp/ImagesRepository/photo*
+
+# Fichero temporal generado por la sincronizacion con el repositorio
+.DS_Store

@@ -29,7 +29,7 @@
 </section>
 <section>
   <div class="container">
-    <div class="row">
+    <div class="row d-flex justify-content-around">
       <div class="col-md-4" *ngIf="this.superadmin">
         <div class="card">
           <div class="fcard">
@@ -103,12 +103,12 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4" *ngIf="this.superadmin">
+      <div class="col-md-4" *ngIf="this.superadmin || this.superadminandBioproductos">
         <div class="card">
           <div class="fcard">
             <div class="border-warning text-center">
               <div class="card-body">
-                <h2 class="card-title">BioProductos</h2>
+                <h2 class="card-title">Bioproductos</h2>
                 <button
                   class="btn btn-primary btn-block mb-4"
                   [routerLink]="['/dashboard/bioproducts-admin']"
@@ -137,6 +137,25 @@
           </div>
         </div>
       </div>
+
+      <div class="col-md-4" *ngIf="this.superadmin || this.superadminandVentas">
+        <div class="card">
+          <div class="fcard">
+            <div class="border-warning text-center">
+              <div class="card-body">
+                <h2 class="card-title">Venta</h2>
+                <button
+                  class="btn btn-primary btn-block mb-4"
+                  [routerLink]="['/dashboard/sale-admin']"
+                >
+                  Administrar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
