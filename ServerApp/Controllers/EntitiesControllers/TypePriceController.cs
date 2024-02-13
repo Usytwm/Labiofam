@@ -10,7 +10,7 @@ namespace Labiofam.Controllers
     /// </summary>
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Roles = "superadmin")]
+    [Authorize(Roles = "superadmin,bioproductos")]
     public class TypePriceController : EntityNoDTOController<Type_Price>
     {
         /// <summary>

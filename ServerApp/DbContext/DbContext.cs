@@ -9,20 +9,11 @@ namespace Labiofam.Models
     /// </summary>
     public class WebDbContext : IdentityDbContext<User, Role, Guid>
     {
-        private readonly IWebHostEnvironment _enviroment;
-
         /// <summary>
         /// Constructor del contexto.
         /// </summary>
         /// <param name="options">Opciones del contexto.</param>
-        /// <param name="environment">Entorno de desarrollo actual.</param>
-        public WebDbContext(
-            DbContextOptions options,
-            IWebHostEnvironment environment
-            ) : base(options)
-        {
-            _enviroment = environment;
-        }
+        public WebDbContext(DbContextOptions options) : base(options) { }
 
         /// <summary>
         /// Tabla de Contactos.
@@ -147,94 +138,6 @@ namespace Labiofam.Models
             modelBuilder.Entity<User_Role>().ToTable("Usuario_Rol");
             modelBuilder.Entity<Type_Product>().ToTable("Tipo_Producto");
             modelBuilder.Entity<Testimonie>().ToTable("Testimonios");
-
-            var filePath = Path.Combine(_enviroment.ContentRootPath, "Properties/data.json");
-            string json = File.ReadAllText(filePath);
-            dynamic data = Newtonsoft.Json.JsonConvert.DeserializeObject(json)!;
-
-            var products = new List<Product>();
-
-            foreach (var item in data.productos)
-            {
-                var product = new Product
-                {
-                    Id = (Guid)item["Id"],
-                    Name = item["Nombre"] ?? default,
-                    Type_of_Product = item["Tipo"] ?? default,
-                    Image = item["Imagen"] ?? default,
-                    Description = item["Descripción"] ?? default,
-                    Diseases = item["Enfermedades que controla"] ?? default,
-                    Advantages = item["Ventajas"] ?? default,
-                    DatosJson = Newtonsoft.Json.JsonConvert.SerializeObject(item["Otros"]) ?? default
-                };
-                products.Add(product);
-
-                modelBuilder.Entity<Product>().HasData(product);
-            }
-            foreach (var item in data.precios)
-            {
-                foreach (var relation in item.relacion)
-                {
-                    var type_price = new Type_Price
-                    {
-                        Id = Guid.NewGuid(),
-                        Type = item["tipo"] ?? default,
-                        Capacity = relation["capacidad"] ?? default,
-                        Price = relation["costo"] ?? default
-                    };
-
-                    modelBuilder.Entity<Type_Price>().HasData(type_price);
-
-                    if (item["Id_producto"] is not null)
-                    {
-                        string aux = item["Id_producto"];
-                        var product = products.Find(x => x.Id.ToString().Equals(aux));
-                        modelBuilder.Entity<Type_Product>().HasData(new Type_Product
-                        {
-                            Id1 = type_price.Id,
-                            Id2 = product!.Id
-                        });
-                    }
-                }
-            }
-
-            var roles = new List<Role>(){
-                new()
-                {
-                    Name = "superadmin",
-                    Description = "Puede hacer todas las operaciones CRUD."
-                },
-                new()
-                {
-                    Name = "bioproductos",
-                    Description = "Puede hacer las operaciones CUD (create, update, delete)"
-                        + "sobre las tablas Productos y TiposPrecios."
-                },
-                new()
-                {
-                    Name = "establecimientos",
-                    Description = "Puede hacer las operaciones CUD (create, update, delete)"
-                        + "sobre la tabla PuntosDeVenta."
-                },
-                new()
-                {
-                    Name = "ventas",
-                    Description = "Puede hacer las operaciones CUD (create, update, delete)"
-                        + "sobre la tabla Productos_PuntosDeVenta."
-                },
-                new()
-                {
-                    Name = "testimonios",
-                    Description = "Puede hacer las operaciones CUD (create, update, delete)"
-                        + "sobre la tabla Testimonios."
-                }
-            };
-
-            foreach (var role in roles)
-            {
-                role.Id = Guid.NewGuid();
-                modelBuilder.Entity<Role>().HasData(role);
-            }
         }
     }
 }

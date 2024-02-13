@@ -38,5 +38,4 @@ public class User : IdentityUser<Guid>, IEntityDTO
     /// </summary>
     [JsonIgnore]
     public virtual ICollection<User_Product>? Products { get; set; }
-
 }
