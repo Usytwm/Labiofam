@@ -10,7 +10,7 @@
 	<div class="container py-2">
 		<article class="postcard light blue" *ngFor="let servicio of servicios">
 			<a class="postcard__img_link" >
-				<img class="postcard__img" src="https://picsum.photos/1000/1000" alt="Image Title" />
+				<img class="postcard__img" src={{servicio.image}} alt="Image Title" />
 			</a>
 			<div class="postcard__text t-dark">
 				<h1 class="postcard__title blue">{{ servicio.name }}</h1>

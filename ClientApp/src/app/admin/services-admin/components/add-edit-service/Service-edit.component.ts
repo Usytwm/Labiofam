@@ -22,6 +22,7 @@ import { Service } from 'src/app/Interfaces/Service';
 //Servicios
 
 import { ServicesService } from 'src/app/Services/EntitiesServices/services.service';
+import { FileService } from 'src/app/Services/FilesService/File.service';
 
 
 @Component({
@@ -34,18 +35,51 @@ export class AddEditServiceComponent {
   id: string;
   operacion = 'Agregar';
   service?: Service;
+  image?: string;
+  imagePreview?: string;
 
   form = this.fb.group({
     name: ['', Validators.required],
     info: ['', Validators.required],
   });
 
-
+  onFileSelected(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length) {
+      const file = target.files[0];
+      const imagename = file.name;
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.imagePreview = reader.result as string;
+      };
+    }
+  }
+  onFileChange(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length) {
+      const file = target.files[0];
+      this._fotoservice.uploadPhoto(file).subscribe((response) => {
+        // Maneja la respuesta del servidor aquí
+        this.imagePreview = response;
+        this.getPhoto(this.imagePreview);
+      });
+    }
+  }
+  getPhoto(photoName: string) {
+    this._fotoservice.getPhoto(photoName).subscribe((photo) => {
+      // console.log(photo);
+      photo.text().then((text) => {
+        this.image = 'data:image/jpeg;base64,' + JSON.parse(text).fileContents;
+      });
+    });
+  }
   constructor(
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
     private _serviceservice: ServicesService,
     private router: Router,
+    private _fotoservice: FileService,
     private route: ActivatedRoute
   ) {
     this.id = String(this.route.snapshot.paramMap.get('id'));
@@ -64,7 +98,12 @@ export class AddEditServiceComponent {
       this.form.patchValue({
         name: data.name,
         info: data.info,
+
       });
+      if (data.image) {
+        this.getPhoto(data.image);
+        this.imagePreview = data.image;
+      }
       this.loading = false;
     });
   }
@@ -90,9 +129,13 @@ export class AddEditServiceComponent {
     });
   }
   newService(): Service {
+    console.log(this.imagePreview);
     return {
       name: this.form.value.name!,
       info: this.form.value.info!,
+      image:this.imagePreview!,
+
+
     }
   }
 }
