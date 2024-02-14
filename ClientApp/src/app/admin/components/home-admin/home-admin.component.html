@@ -103,7 +103,10 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4" *ngIf="this.superadmin || this.superadminandBioproductos">
+      <div
+        class="col-md-4"
+        *ngIf="this.superadmin || this.superadminandBioproductos"
+      >
         <div class="card">
           <div class="fcard">
             <div class="border-warning text-center">
@@ -137,25 +140,6 @@
           </div>
         </div>
       </div>
-
-      <div class="col-md-4" *ngIf="this.superadmin || this.superadminandVentas">
-        <div class="card">
-          <div class="fcard">
-            <div class="border-warning text-center">
-              <div class="card-body">
-                <h2 class="card-title">Venta</h2>
-                <button
-                  class="btn btn-primary btn-block mb-4"
-                  [routerLink]="['/dashboard/sale-admin']"
-                >
-                  Administrar
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
   </div>
 </section>

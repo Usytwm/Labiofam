@@ -21,6 +21,7 @@ export class ServicesComponent implements OnInit {
     private _fotoservice: FileService,
     private _servicesservices: ServicesService) { }
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     this.obtenerServicios();
   }
   getPhoto(data: Service) {

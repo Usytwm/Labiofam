@@ -2,9 +2,13 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Labiofam.Models;
 
+#pragma warning disable CS1591 // Falta el comentario XML para el tipo o miembro visible públicamente
 public class DataSeed
+#pragma warning restore CS1591 // Falta el comentario XML para el tipo o miembro visible públicamente
 {
+#pragma warning disable CS1591 // Falta el comentario XML para el tipo o miembro visible públicamente
     public static async void Initialize(IServiceScopeFactory serviceScopeFactory)
+#pragma warning restore CS1591 // Falta el comentario XML para el tipo o miembro visible públicamente
     {
         using var scope = serviceScopeFactory.CreateScope();
         var context = scope.ServiceProvider.GetService<WebDbContext>();

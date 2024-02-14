@@ -12,6 +12,7 @@ export class HomeComponent {
   products: Product[] = [];
   constructor(private _productService: ProductService) {}
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     this.loading = true;
     this._productService.take(3).subscribe((data) => {
       this.products = data;
