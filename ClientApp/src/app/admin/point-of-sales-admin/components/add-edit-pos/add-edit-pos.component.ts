@@ -366,14 +366,24 @@ export class AddEditPosComponent implements OnInit, AfterViewInit {
   }
 
   finishEditingPoint() {
+    this._point_of_sales_service
+      .edit(this.id, this.newPoint())
+      .subscribe(() => {
+        this.snackBar.open('Editado con éxito', 'cerrar', {
+          duration: 3000,
+          horizontalPosition: 'right',
+        });
+        this.loading = false;
+        this.router.navigate(['/dashboard/points-of-sales-admin']);
+      });
     // Acciones finales después de editar el punto de venta y actualizar productos
     // Punto de venta editado con éxito
-    this.snackBar.open('Editado con éxito', 'cerrar', {
-      duration: 3000,
-      horizontalPosition: 'right',
-    });
-    this.loading = false;
-    this.router.navigate(['/dashboard/points-of-sales-admin']);
+    // this.snackBar.open('Editado con éxito', 'cerrar', {
+    //   duration: 3000,
+    //   horizontalPosition: 'right',
+    // });
+    // this.loading = false;
+    // this.router.navigate(['/dashboard/points-of-sales-admin']);
   }
 
   addPoint() {

@@ -50,7 +50,6 @@ export class MapaComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    window.scrollTo(0, 0);
     this._puntos_de_ventaService.getAll().subscribe((data) => {
       this.puntosDeVenta = data;
       this.puntosDeVenta.forEach((punto) => {
@@ -63,6 +62,7 @@ export class MapaComponent implements AfterViewInit, OnDestroy {
           this.productos_disponibles.push({ id: punto.id!, name: name });
         });
       });
+      window.scrollTo(0, 0);
     });
   }
 
