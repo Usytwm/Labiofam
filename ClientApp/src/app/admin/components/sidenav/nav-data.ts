@@ -8,7 +8,7 @@ export const navbarData = [
       'establecimientos',
       // 'ventas',
       'testimonios',
-      'bioproductos'
+      'bioproductos',
     ],
     pas: false,
   },
@@ -54,13 +54,6 @@ export const navbarData = [
     permisos: ['superadmin'],
     pas: false,
   },
-  // {
-  //   ruta: 'sale-admin',
-  //   nombre: 'Venta',
-  //   icon: 'fas fa-warehouse',
-  //   permisos: ['superadmin', 'ventas'],
-  //   pas: false,
-  // },
   {
     ruta: '/home',
     nombre: 'Salir de la administración',
@@ -70,7 +63,7 @@ export const navbarData = [
       'establecimientos',
       // 'ventas',
       'testimonios',
-      'bioproductos'
+      'bioproductos',
     ],
     pas: false,
   },

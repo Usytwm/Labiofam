@@ -82,10 +82,10 @@ export class AuthService {
 
   getData(token: string): Observable<RegistrationRequestModel> {
     return this.http.get<RegistrationRequestModel>(
-      `${this.appUrl}${this.apiUrl}/token/${token}`,
-      {
-        withCredentials: true,
-      }
+      `${this.appUrl}${this.apiUrl}/token/${token}`
+      // {
+      //   withCredentials: true,
+      // }
     );
   }
 

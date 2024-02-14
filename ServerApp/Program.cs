@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -53,7 +52,7 @@ builder.Services.AddDbContext<WebDbContext>(options =>
     {
         options.UseMySql(config.GetConnectionString("DefaultConnection"),
             ServerVersion.AutoDetect(config.GetConnectionString("DefaultConnection")));
-    });
+    }, ServiceLifetime.Scoped);
 
 // Agregar las clases User y Role usando el paquete Identity de .Net Core
 builder.Services.AddIdentity<User, Role>(options =>
@@ -101,18 +100,12 @@ builder.Services.ConfigureApplicationCookie(options =>
     });
 
 // Cors
-builder.Services.AddCors(options => options.AddPolicy("AllowWebApp", builder => builder
-    .WithOrigins(new[]
-    {
-        "http://localhost:4200",
-        "http://localhost:5263",
-        "https://localhost:7136",
-        "http://localhost:46423"
-    })
-    .AllowAnyHeader()
-    .AllowAnyMethod()
-    .AllowCredentials()
-    ));
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAnyOrigin",
+        build => build.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+});
+
 
 // Servicios de entidades
 builder.Services.AddScoped<IEntityService<User>, UserService>();
@@ -170,6 +163,13 @@ builder.Services.AddScoped<IJsonService, JsonService>();
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var serviceScopeFactory = scope.ServiceProvider
+        .GetRequiredService<IServiceScopeFactory>();
+    DataSeed.Initialize(serviceScopeFactory);
+}
+
 //app.UseHsts();
 //app.UseHttpsRedirection();
 
@@ -183,8 +183,9 @@ if (app.Environment.IsDevelopment())
     });
 }
 app.UseRouting();
-app.UseCors("AllowWebApp");
+app.UseCors("AllowAnyOrigin");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+
 app.Run();

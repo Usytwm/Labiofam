@@ -17,6 +17,7 @@ export class TestimoniosComponent implements OnInit {
     private sanitizer: DomSanitizer
   ) {}
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     this.obtenerTestimonios();
   }
 
@@ -36,7 +37,6 @@ export class TestimoniosComponent implements OnInit {
     // Luego, divide la parte de la ID por '?' para separar la ID de otros parámetros
     let videoId = videoIdPart.split('?')[0];
     console.log(videoId);
-    
 
     return `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
   }

@@ -48,7 +48,7 @@ export class HomeAdminComponent implements OnInit {
           this.imagePreview = this.datos.user.image;
         }
         this.rol = this.datos!.roles!.map((role) => role!.name).join(', ');
-        
+
         this.superadmin = this.datos!.roles!.some(
           (role) => role.name === 'superadmin'
         );
@@ -66,11 +66,6 @@ export class HomeAdminComponent implements OnInit {
         this.superadminandTestimonios = this.datos!.roles!.some(
           (role) => role.name === 'testimonios'
         );
-
-        // this.superadminandVentas = this.datos!.roles!.some(
-        //   (role) => role.name === 'ventas'
-        // );
-
       });
   }
 }

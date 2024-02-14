@@ -31,6 +31,7 @@ export class ListPageComponent {
   constructor(private _bioproductsservices: ProductService) {}
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     this.obtenerBioproductos();
   }
 

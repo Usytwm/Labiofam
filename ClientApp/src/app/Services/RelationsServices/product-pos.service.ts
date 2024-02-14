@@ -28,7 +28,7 @@ export class ProductPosService extends RelationService<Product_POS> {
 
   addPP(idUser: string, idRole: string): Observable<Product_POS> {
     return this._http.post<Product_POS>(
-      `${this.appUrl}${this.apiUrl}${idUser}/${idRole}`,
+      `${this.appUrl}${this.apiUrl}${idRole}/${idUser}`,
       null,
       {
         responseType: 'text' as 'json',

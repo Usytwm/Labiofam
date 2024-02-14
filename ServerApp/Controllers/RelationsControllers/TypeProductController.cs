@@ -10,7 +10,7 @@ namespace Labiofam.Controllers
     /// </summary>
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Roles = "superadmin")]
+    [Authorize(Roles = "superadmin,bioproductos")]
     public class TypeProductController : RelationController<Type_Product>
     {
         /// <summary>
