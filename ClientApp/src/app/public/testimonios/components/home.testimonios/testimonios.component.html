@@ -52,7 +52,12 @@
               >
                 <img
                   class="rounded-lg-2 mb-6 pointer-event d-block img"
-                  [src]="getYoutubeThumbnail(testimonio.video_Url!)"
+                  [src]="
+                    getYoutubeThumbnail(
+                      testimonio.video_Url!,
+                      testimonio.image!
+                    )
+                  "
                   alt="{{ testimonio.name }}"
                   style="object-fit: cover; width: 100%"
                 />
