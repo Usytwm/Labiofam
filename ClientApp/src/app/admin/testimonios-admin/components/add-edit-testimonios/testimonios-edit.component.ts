@@ -31,7 +31,7 @@ export class AddEditTestimoniosComponent {
   testimonio?: Testimonio;
 
   form = this.fb.group({
-    enlace: ['', Validators.required],
+    enlace: [''],
     name: ['', Validators.required],
   });
   image?: string;

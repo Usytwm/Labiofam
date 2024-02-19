@@ -36,31 +36,21 @@ export class TestimoniosComponent implements OnInit {
     this._testimonioService.getAll().subscribe((data) => {
       this.Testimonios = data;
       this.Testimonios.forEach((testimonio) => {
-        this.getPhoto(testimonio);
+        if (testimonio.image != null) this.getPhoto(testimonio);
       });
       this.loading = false;
     });
   }
   getYoutubeThumbnail(url: string, defaultImageUrl: string): string {
     if (url.includes('youtube.com') || url.includes('youtu.be')) {
-      console.log(url);
-
       // Tu lógica existente para obtener la miniatura de YouTube
       let parts = url.split('/');
       let videoIdPart = parts.pop() || '';
       let videoId = videoIdPart.split('?')[0];
       return `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
     } else {
-      console.log(defaultImageUrl);
-
       // Retorna la URL de la imagen por defecto si no es un enlace de YouTube
       return defaultImageUrl;
     }
-    // // Primero, divide la URL por '/' para obtener la parte de la ID del video
-    // let parts = url.split('/');
-    // let videoIdPart = parts.pop() || ''; // Obtiene la última parte, que debería ser 'ID?otros_parametros'
-    // // Luego, divide la parte de la ID por '?' para separar la ID de otros parámetros
-    // let videoId = videoIdPart.split('?')[0];
-    // return `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
   }
 }
