@@ -7,7 +7,7 @@
 >
   <div class="carousel-indicators">
     <button
-      *ngFor="let image of images; let i = index"
+      *ngFor="let testimonio of Testimonios; let i = index"
       type="button"
       data-bs-target="#myCarousel"
       [attr.data-bs-slide-to]="i"
@@ -17,21 +17,20 @@
   </div>
   <div class="carousel-inner">
     <div
-      *ngFor="let image of images; let isFirst = first"
+      *ngFor="let testimonio of Testimonios; let isFirst = first"
       class="carousel-item"
       [class.active]="isFirst"
     >
       <div style="width: 100%; height: 500px; overflow: hidden">
         <img
-          [src]="image.src"
+          [src]="testimonio.image"
           class="d-block img"
           style="width: 100%; height: 100%; object-fit: cover"
-          [alt]="image.alt"
+          [alt]="testimonio.name"
         />
-        <div class="carousel-caption d-block" style="text-align: left">
-          <h1>{{ image.label }}</h1>
-          <p>{{ image.content }}</p>
-        </div>
+      </div>
+      <div class="carousel-caption d-block" style="text-align: left">
+        <h1>{{ testimonio.name }}</h1>
       </div>
     </div>
   </div>

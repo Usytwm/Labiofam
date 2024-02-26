@@ -22,17 +22,12 @@
         <mat-grid-list cols="2" rowHeight="80px">
           <mat-grid-tile>
             <mat-form-field class="mat-form-field" appearance="outline">
-              <mat-label>Enlace</mat-label>
-              <input formControlName="enlace" matInput autocomplete="off" />
-              <mat-error
-                *ngIf="
-                  form.controls.enlace.invalid && form.controls.enlace.touched
-                "
-              >
-                Enlace inválido
-              </mat-error>
+              <mat-label>Título</mat-label>
+              <input formControlName="name" matInput autocomplete="off" />
+              <mat-error> Introduzca el título del testimonio </mat-error>
             </mat-form-field>
           </mat-grid-tile>
+
           <mat-grid-tile rowspan="3">
             <div class="row">
               <div class="card-top">
@@ -47,6 +42,7 @@
                   type="button"
                   color="primary"
                   class="btn btn-primary custom-button"
+                  [disabled]="enlacePresente"
                 >
                   <input
                     (change)="onFileChange($event)"
@@ -61,13 +57,27 @@
           </mat-grid-tile>
 
           <mat-grid-tile>
-            <mat-form-field class="mat-form-field" appearance="outline">
-              <mat-label>Título</mat-label>
-              <input formControlName="name" matInput autocomplete="off" />
-              <mat-error> Introduzca el título del testimonio </mat-error>
+            <mat-form-field
+              class="mat-form-field"
+              appearance="outline"
+              disabled="imagenPresente"
+            >
+              <mat-label>Enlace</mat-label>
+              <input
+                formControlName="enlace"
+                matInput
+                autocomplete="off"
+                (change)="onEnlaceChange($event)"
+              />
+              <mat-error
+                *ngIf="
+                  form.controls.enlace.invalid && form.controls.enlace.touched
+                "
+              >
+                Enlace inválido
+              </mat-error>
             </mat-form-field>
           </mat-grid-tile>
-
           <mat-grid-tile colspan="2">
             <form style="position: absolute; width: 96%"></form>
           </mat-grid-tile>

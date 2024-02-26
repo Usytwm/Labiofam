@@ -48,6 +48,15 @@ export class AddEditTestimoniosComponent {
     this.id = String(this.route.snapshot.paramMap.get('id'));
   }
 
+  enlacePresente: boolean = false;
+  imagenPresente: boolean = false;
+
+  // Suponiendo que ya tienes una forma de manejar cambios en los campos de enlace y archivo
+  onEnlaceChange(event: any): void {
+    this.enlacePresente = !!event.target.value;
+    this.imagenPresente = false; // Resetear el estado de la imagen si se cambia el enlace
+  }
+
   onFileSelected(event: Event) {
     const target = event.target as HTMLInputElement;
     if (target.files && target.files.length) {
@@ -69,11 +78,15 @@ export class AddEditTestimoniosComponent {
         this.imagePreview = response;
         this.getPhoto(this.imagePreview);
       });
+      this.imagenPresente = true;
+      this.enlacePresente = false;
+      this.form.get('enlace')!.disable();
+    } else {
+      this.form.get('enlace')!.enable();
     }
   }
   getPhoto(photoName: string) {
     this._fotoservice.getPhoto(photoName).subscribe((photo) => {
-      // console.log(photo);
       photo.text().then((text) => {
         this.image = 'data:image/jpeg;base64,' + JSON.parse(text).fileContents;
       });
@@ -97,6 +110,11 @@ export class AddEditTestimoniosComponent {
       if (data.image) {
         this.getPhoto(data.image);
         this.imagePreview = data.image;
+        this.form.get('enlace')!.disable();
+      } else this.form.get('enlace')!.enable();
+      if (data.video_Url) {
+        this.enlacePresente = true;
+        this.imagenPresente = false;
       }
       this.loading = false;
     });
