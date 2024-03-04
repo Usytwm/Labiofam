@@ -22,6 +22,10 @@
           <p class="title">{{ contacto.occupation }}</p>
           <p class="description"></p>
           <a href="mailto:{{ contacto.email }}">{{ contacto.email }}</a>
+          <!-- <p class="phone">{{ contacto.phone }}</p> -->
+          <a class="phone" href="https://api.whatsapp.com/send?phone={{ contacto.phone }}" target="_blank">
+            <p class="phone">{{ contacto.phone }}</p>
+        </a>
         </div>
       </div>
     </div>

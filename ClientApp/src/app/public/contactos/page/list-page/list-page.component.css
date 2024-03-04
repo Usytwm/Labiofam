@@ -152,6 +152,11 @@ body {
   opacity:1;
 }
 
+.phone {
+  font-weight: bold;
+  color: #333;
+  /* Otros estilos */
+}
 
 
 
